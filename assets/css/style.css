@@ -514,23 +514,24 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 
 /* ---------- Social Reach ---------- */
 .social-reach-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
   margin-bottom: 1.5rem;
-  justify-items: center;
 }
 .social-card {
   background: var(--color-card-bg);
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius);
-  padding: 1.5rem;
+  padding: 1.5rem 2.5rem;
   text-align: center;
   transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  min-width: 180px;
 }
 .social-card svg {
   margin-bottom: 0.25rem;
@@ -543,10 +544,10 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 .social-card .platform-name {
   font-weight: 700;
   font-size: 1.1rem;
-  margin-bottom: 0.25rem;
+  color: var(--color-white);
 }
 .social-card .stat {
-  color: var(--color-accent);
+  color: var(--color-white);
   font-weight: 600;
   font-size: 0.95rem;
 }
