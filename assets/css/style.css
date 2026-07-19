@@ -79,9 +79,11 @@ h1 { font-size: 2rem; }
 h2 { font-size: 1.6rem; }
 h3 { font-size: 1.25rem; }
 
-p { margin-bottom: 1em; text-transform: capitalize; }
+p { margin-bottom: 1em; }
 .card-desc { text-transform: capitalize; }
 .merch-name { text-transform: capitalize; }
+.section-title { text-transform: capitalize; }
+.cmd-category-title { text-transform: capitalize; }
 ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 
 /* Selection color */
