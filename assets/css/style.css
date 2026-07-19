@@ -271,6 +271,15 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 2rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main-content .section {
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ---------- Section Styles ---------- */
@@ -287,6 +296,8 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   letter-spacing: 1px;
   position: relative;
   display: inline-block;
+  text-align: center;
+  width: 100%;
 }
 .section-title::after {
   content: '';
@@ -302,6 +313,7 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   font-size: 1.1rem;
   color: var(--color-gray-300);
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 /* ---------- Twitch Embed ---------- */
@@ -431,6 +443,8 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   border-radius: var(--radius);
   padding: 1.5rem;
   max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
 }
 .donate-form label {
   display: block;
@@ -533,7 +547,7 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 /* ---------- Discord Widget ---------- */
 .discord-widget-wrapper {
   max-width: 400px;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem auto;
 }
 .discord-widget-wrapper iframe {
   border: none;
@@ -1086,6 +1100,22 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 @media (min-width: 600px) {
   h1 { font-size: 2.5rem; }
   .main-content { padding: 2.5rem 2rem; }
+}
+
+/* Mobile-specific overrides */
+@media (max-width: 599px) {
+  .main-content { padding: 1.25rem 1rem; }
+  .section-title { font-size: 1.4rem; }
+  .section { margin-bottom: 2.5rem; }
+  .card-grid { grid-template-columns: 1fr; }
+  .social-reach-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1rem; }
+  .tiers-list li { font-size: 0.88rem; flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+  .tier-amount { font-size: 0.85rem; }
+  .btn { padding: 0.75rem 1.5rem; font-size: 0.9rem; }
+  .spotlight-arrow { width: 36px; height: 36px; font-size: 1.5rem; }
+  .twitch-embed-wrapper { padding-bottom: 56.25%; }
+  .donate-form { padding: 1rem; }
 }
 @media (min-width: 900px) {
   .site-header { padding: 0 2rem; }
