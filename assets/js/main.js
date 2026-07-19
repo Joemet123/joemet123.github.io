@@ -70,14 +70,21 @@
     var videos = [];
     var current = 0;
 
+    function extractVid(url) {
+      var m = url.match(/(?:watch\?v=|shorts\/|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+      return m ? m[1] : '';
+    }
+
     function setCard(el, v) {
+      var vid = extractVid(v.link || v.guid || '');
       el.href = v.link;
       var img = el.querySelector('img');
-      var vid = v.link.split('v=')[1] || '';
-      img.src = 'https://i.ytimg.com/vi/' + vid + '/hqdefault.jpg';
+      if (vid) {
+        img.src = 'https://i.ytimg.com/vi/' + vid + '/hqdefault.jpg';
+        img.onerror = function() { this.src = 'https://i.ytimg.com/vi/' + vid + '/mqdefault.jpg'; this.onerror = null; };
+      }
       img.alt = v.title;
       img.removeAttribute('loading');
-      img.onerror = function() { this.src = 'https://i.ytimg.com/vi/' + vid + '/mqdefault.jpg'; this.onerror = null; };
       el.querySelector('.spotlight-card-title').textContent = v.title;
     }
 
