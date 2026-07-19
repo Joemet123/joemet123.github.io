@@ -291,22 +291,19 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   font-size: 1.85rem;
   font-weight: 800;
   margin-bottom: 1rem;
-  color: var(--color-accent);
+  color: #4a9eff;
   text-transform: uppercase;
   letter-spacing: 1px;
   position: relative;
   display: inline-block;
   text-align: center;
   width: 100%;
+  background: rgba(180, 30, 30, 0.85);
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
 }
 .section-title::after {
-  content: '';
-  display: block;
-  width: 50px;
-  height: 3px;
-  background: var(--color-accent);
-  border-radius: 2px;
-  margin-top: 0.4rem;
+  display: none;
 }
 
 .section-subtitle {
@@ -1105,7 +1102,7 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 /* Mobile-specific overrides */
 @media (max-width: 599px) {
   .main-content { padding: 1.25rem 1rem; }
-  .section-title { font-size: 1.4rem; }
+  .section-title { font-size: 1.2rem; padding: 0.4rem 1rem; }
   .section { margin-bottom: 2.5rem; }
   .card-grid { grid-template-columns: 1fr; }
   .social-reach-grid { grid-template-columns: 1fr; }
