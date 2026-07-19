@@ -79,7 +79,9 @@ h1 { font-size: 2rem; }
 h2 { font-size: 1.6rem; }
 h3 { font-size: 1.25rem; }
 
-p { margin-bottom: 1em; }
+p { margin-bottom: 1em; text-transform: capitalize; }
+.card-desc { text-transform: capitalize; }
+.merch-name { text-transform: capitalize; }
 ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 
 /* Selection color */
@@ -134,9 +136,10 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 }
 
 .site-title {
+  font-family: 'Orbitron', sans-serif;
   font-size: 1.35rem;
-  font-weight: 800;
-  letter-spacing: 2px;
+  font-weight: 900;
+  letter-spacing: 3px;
   color: var(--color-white);
   text-transform: uppercase;
 }
