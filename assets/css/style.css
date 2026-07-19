@@ -293,14 +293,14 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   font-size: 1.85rem;
   font-weight: 800;
   margin-bottom: 1rem;
-  color: #4a9eff;
+  color: var(--color-white);
   text-transform: uppercase;
   letter-spacing: 1px;
   position: relative;
   display: inline-block;
   text-align: center;
   width: 100%;
-  background: rgba(180, 30, 30, 0.85);
+  background: rgba(100, 30, 140, 0.8);
   padding: 0.5rem 1.5rem;
   border-radius: 50px;
 }
