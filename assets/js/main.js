@@ -65,14 +65,14 @@
 
   if (spotCenter && spotLeft && spotRight && ytCarousel) {
     var videos = [
-      { id: 'j8njoJ1XS5c', title: 'Can I BEAT Kowakujo With My *FAVORITE* Weapon Of-All-Time? (BO7 ZOMBIES)' },
+      { id: 'j8njoJ1XS5c', title: 'Can I BEAT Kowakujo With My FAVORITE Weapon? (BO7 ZOMBIES)' },
       { id: 'd0hNZkM_IbQ', title: 'KOWAKUJO: FULL MAIN EASTER EGG GUIDE IN UNDER 10 MINUTES!' },
       { id: 'umwH5fbrNxg', title: 'YOU\'RE DOING KOWAKUJO\'S PORTRAITS EE STEP WRONG' },
-      { id: 'WmGH3Jp1Csk', title: 'BO7 ZOMBIES: KOWAKUJO MASTERCLASS GUIDE' },
-      { id: 'YPx0cSqVFGw', title: 'THE BEST ZOMBIES WEAPON IS BACK IN BO7!' },
-      { id: 'mGK1Uy1gKEI', title: '*HOLY* BO7 ASHES OF THE DAMNED ZOMBIES TRAILER REACTION!' },
-      { id: 'WbO9wsiq9ok', title: 'BO7 ZOMBIES LEAKED WITH OG CREW!' },
-      { id: 'Uo6Dn0p88kE', title: 'THE BIGGEST BO7 ZOMBIES UPDATE IS HERE!' }
+      { id: 'oeIsoQ8__hg', title: 'Kowakujo is GREAT & The Zombies Community Drama MUST End!' },
+      { id: 'MuQUaMfm2eM', title: 'KOWAKUJO: FREE RANDOM PERK POWER-UP EASTER EGG' },
+      { id: 'Cm5g9-g4lCU', title: 'KOWAKUJO: 9 FREE POWER-UPs ALL LOCATIONS' },
+      { id: 'aQ7qM12x5xs', title: 'KOWAKUJO: OP NEKOMANCER WONDER WEAPON EXPLAINED' },
+      { id: 'Vs21H2U4H4M', title: 'KOWAKUJO: ALL 3 MUSIC EE HEADPHONE LOCATIONS' }
     ];
     var current = 0;
 
