@@ -518,6 +518,7 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
   margin-bottom: 1.5rem;
+  justify-items: center;
 }
 .social-card {
   background: var(--color-card-bg);
@@ -991,8 +992,9 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 .spotlight-card img {
   width: 100%;
   display: block;
-  aspect-ratio: 16/9;
-  object-fit: cover;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+  background: var(--color-gray-900);
 }
 .spotlight-card-title {
   padding: 0.75rem 1rem;
