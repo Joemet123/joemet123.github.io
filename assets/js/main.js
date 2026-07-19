@@ -64,18 +64,17 @@
   var ytCarousel = document.getElementById('yt-carousel');
 
   if (spotCenter && spotLeft && spotRight && ytCarousel) {
-    var channelId = 'UCu0kb0PuVHuq2H2ZPYwCJ2w';
-    var rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
-    var videos = [];
-    var current = 0;
-
-    // Hardcoded fallback in case RSS proxy fails
-    var fallbackVideos = [
+    var videos = [
       { id: 'j8njoJ1XS5c', title: 'Can I BEAT Kowakujo With My *FAVORITE* Weapon Of-All-Time? (BO7 ZOMBIES)' },
-      { id: 'd0hNZkM_IbQ', title: 'KOWAKUJO: FULL MAIN EASTER EGG GUIDE IN UNDER 10 MINUTES! (BO7 ZOMBIES)' },
+      { id: 'd0hNZkM_IbQ', title: 'KOWAKUJO: FULL MAIN EASTER EGG GUIDE IN UNDER 10 MINUTES!' },
       { id: 'umwH5fbrNxg', title: 'YOU\'RE DOING KOWAKUJO\'S PORTRAITS EE STEP WRONG' },
-      { id: 'placeholder1', title: 'Loading More Videos...' }
+      { id: 'WmGH3Jp1Csk', title: 'BO7 ZOMBIES: KOWAKUJO MASTERCLASS GUIDE' },
+      { id: 'YPx0cSqVFGw', title: 'THE BEST ZOMBIES WEAPON IS BACK IN BO7!' },
+      { id: 'mGK1Uy1gKEI', title: '*HOLY* BO7 ASHES OF THE DAMNED ZOMBIES TRAILER REACTION!' },
+      { id: 'WbO9wsiq9ok', title: 'BO7 ZOMBIES LEAKED WITH OG CREW!' },
+      { id: 'Uo6Dn0p88kE', title: 'THE BIGGEST BO7 ZOMBIES UPDATE IS HERE!' }
     ];
+    var current = 0;
 
     function setCard(el, v) {
       el.href = 'https://www.youtube.com/watch?v=' + v.id;
@@ -111,52 +110,8 @@
     ytCarousel.addEventListener('mouseenter', function () { clearInterval(autoTimer); });
     ytCarousel.addEventListener('mouseleave', function () { resetAuto(); });
 
-    // Build dots helper
-    function buildDots(list, dotContainer, goToFn, resetFn) {
-      dotContainer.innerHTML = '';
-      list.forEach(function (_, i) {
-        var dot = document.createElement('button');
-        dot.className = 'spotlight-dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', 'Item ' + (i + 1));
-        dot.addEventListener('click', function () { goToFn(i); resetFn(); });
-        dotContainer.appendChild(dot);
-      });
-    }
+    loadVideos(videos);
 
-    function loadVideos(list) {
-      videos = list;
-      if (videos.length === 0) return;
-      buildDots(videos, spotDots, function(i) { current = i; updateSpotlight(current); }, resetAuto);
-      updateSpotlight(0);
-    }
-
-    // Try multiple CORS proxies
-    var proxies = [
-      'https://api.allorigins.win/raw?url=' + encodeURIComponent(rssUrl),
-      'https://corsproxy.io/?' + encodeURIComponent(rssUrl),
-      'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(rssUrl)
-    ];
-
-    function tryProxy(idx) {
-      if (idx >= proxies.length) { loadVideos(fallbackVideos); return; }
-      fetch(proxies[idx])
-        .then(function (res) { if (!res.ok) throw new Error(); return res.text(); })
-        .then(function (xml) {
-          var parser = new DOMParser();
-          var doc = parser.parseFromString(xml, 'text/xml');
-          var entries = doc.querySelectorAll('entry');
-          var parsed = [];
-          entries.forEach(function (entry, i) {
-            if (i >= 10) return;
-            var vid = entry.querySelector('videoId');
-            var title = entry.querySelector('title');
-            if (vid && title) parsed.push({ id: vid.textContent, title: title.textContent });
-          });
-          loadVideos(parsed.length > 0 ? parsed : fallbackVideos);
-        })
-        .catch(function () { tryProxy(idx + 1); });
-    }
-    tryProxy(0);
   }
 
   /* ---------- Merch Spotlight Carousel ---------- */
