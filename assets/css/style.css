@@ -408,14 +408,14 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   text-align: center;
 }
 .btn-accent {
-  background: var(--color-accent);
-  color: var(--color-bg-dark);
+  background: #cc2222;
+  color: var(--color-white);
 }
 .btn-accent:hover {
-  background: #e55f00;
-  color: var(--color-bg-dark);
+  background: #aa1a1a;
+  color: var(--color-white);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255,107,0,0.3);
+  box-shadow: 0 6px 20px rgba(200,30,30,0.3);
 }
 .btn-outline {
   background: transparent;
