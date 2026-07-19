@@ -116,7 +116,7 @@
       .then(function (res) { return res.json(); })
       .then(function (data) {
         if (data.status === 'ok' && data.items && data.items.length > 0) {
-          videos = data.items.filter(function(v) { return v.link && v.link.indexOf('/shorts/') === -1; }).slice(0, 10);
+          videos = data.items.filter(function(v) { return v.link && v.link.indexOf('/shorts/') === -1; }).slice(0, 8);
         }
         if (videos.length === 0) return;
         // Build dots
