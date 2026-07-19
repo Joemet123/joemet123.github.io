@@ -64,25 +64,20 @@
   var ytCarousel = document.getElementById('yt-carousel');
 
   if (spotCenter && spotLeft && spotRight && ytCarousel) {
-    var videos = [
-      { id: 'j8njoJ1XS5c', title: 'Can I BEAT Kowakujo With My FAVORITE Weapon? (BO7 ZOMBIES)' },
-      { id: 'd0hNZkM_IbQ', title: 'KOWAKUJO: FULL MAIN EASTER EGG GUIDE IN UNDER 10 MINUTES!' },
-      { id: 'umwH5fbrNxg', title: 'YOU\'RE DOING KOWAKUJO\'S PORTRAITS EE STEP WRONG' },
-      { id: 'oeIsoQ8__hg', title: 'Kowakujo is GREAT & The Zombies Community Drama MUST End!' },
-      { id: 'MuQUaMfm2eM', title: 'KOWAKUJO: FREE RANDOM PERK POWER-UP EASTER EGG' },
-      { id: 'Cm5g9-g4lCU', title: 'KOWAKUJO: 9 FREE POWER-UPs ALL LOCATIONS' },
-      { id: 'aQ7qM12x5xs', title: 'KOWAKUJO: OP NEKOMANCER WONDER WEAPON EXPLAINED' },
-      { id: 'Vs21H2U4H4M', title: 'KOWAKUJO: ALL 3 MUSIC EE HEADPHONE LOCATIONS' }
-    ];
+    var channelId = 'UCu0kb0PuVHuq2H2ZPYwCJ2w';
+    var rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
+    var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+    var videos = [];
     var current = 0;
 
     function setCard(el, v) {
-      el.href = 'https://www.youtube.com/watch?v=' + v.id;
+      el.href = v.link;
       var img = el.querySelector('img');
-      img.src = 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg';
+      var vid = v.link.split('v=')[1] || '';
+      img.src = 'https://i.ytimg.com/vi/' + vid + '/hqdefault.jpg';
       img.alt = v.title;
       img.removeAttribute('loading');
-      img.onerror = function() { this.src = 'https://i.ytimg.com/vi/' + v.id + '/mqdefault.jpg'; this.onerror = null; };
+      img.onerror = function() { this.src = 'https://i.ytimg.com/vi/' + vid + '/mqdefault.jpg'; this.onerror = null; };
       el.querySelector('.spotlight-card-title').textContent = v.title;
     }
 
@@ -94,7 +89,6 @@
       setCard(spotCenter, videos[idx]);
       setCard(spotLeft, videos[leftIdx]);
       setCard(spotRight, videos[rightIdx]);
-      // Update dots
       var dots = spotDots.querySelectorAll('.spotlight-dot');
       dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
     }
@@ -113,8 +107,24 @@
     ytCarousel.addEventListener('mouseenter', function () { clearInterval(autoTimer); });
     ytCarousel.addEventListener('mouseleave', function () { resetAuto(); });
 
-    loadVideos(videos);
-
+    fetch(apiUrl)
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (data.status === 'ok' && data.items && data.items.length > 0) {
+          videos = data.items.slice(0, 10);
+        }
+        if (videos.length === 0) return;
+        // Build dots
+        videos.forEach(function (_, i) {
+          var dot = document.createElement('button');
+          dot.className = 'spotlight-dot' + (i === 0 ? ' active' : '');
+          dot.setAttribute('aria-label', 'Video ' + (i + 1));
+          dot.addEventListener('click', function () { current = i; updateSpotlight(current); resetAuto(); });
+          spotDots.appendChild(dot);
+        });
+        updateSpotlight(0);
+      })
+      .catch(function () {});
   }
 
   /* ---------- Merch Spotlight Carousel ---------- */
