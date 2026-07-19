@@ -78,8 +78,11 @@
 
     function setCard(el, v) {
       el.href = 'https://www.youtube.com/watch?v=' + v.id;
-      el.querySelector('img').src = 'https://i3.ytimg.com/vi/' + v.id + '/hqdefault.jpg';
-      el.querySelector('img').alt = v.title;
+      var img = el.querySelector('img');
+      img.src = 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg';
+      img.alt = v.title;
+      img.removeAttribute('loading');
+      img.onerror = function() { this.src = 'https://i.ytimg.com/vi/' + v.id + '/mqdefault.jpg'; this.onerror = null; };
       el.querySelector('.spotlight-card-title').textContent = v.title;
     }
 
