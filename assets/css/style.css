@@ -503,20 +503,20 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 }
 .tiers-list li:last-child { border-bottom: none; }
 .tier-amount {
-  color: var(--color-white);
+  color: var(--color-white) !important;
   font-weight: 700;
   background: rgba(200,30,30,0.35);
   padding: 0.2rem 0.6rem;
   border-radius: var(--radius-sm);
   font-size: 0.95rem;
   white-space: nowrap;
-  text-transform: none;
+  text-transform: none !important;
 }
 .tier-msg {
-  color: var(--color-white);
+  color: var(--color-white) !important;
   font-weight: 700;
   font-size: 1rem;
-  text-transform: none;
+  text-transform: none !important;
 }
 
 /* ---------- Social Reach ---------- */
