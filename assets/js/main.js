@@ -130,6 +130,73 @@
       .catch(function () {});
   }
 
+  /* ---------- Merch Spotlight Carousel ---------- */
+  var merchCenter = document.getElementById('merch-center');
+  var merchLeft = document.getElementById('merch-left');
+  var merchRight = document.getElementById('merch-right');
+  var merchDots = document.getElementById('merch-dots');
+  var merchCarousel = document.getElementById('merch-carousel');
+
+  if (merchCenter && merchLeft && merchRight && merchCarousel) {
+    var merchItems = [
+      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-173619042711050-0.png', name: 'CAWFEE CUP - MEATBAWL ARMY', price: '$11.00' },
+      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-17521829249324-2.png', name: 'CAWFEE CUP - HOW AW YAW', price: '$13.40' },
+      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-175218469611051-0.png', name: 'CAWFEE CUP - ARMY v2', price: '$11.00' },
+      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-175218273119514-0.png', name: 'TRAVEL MUG - JOEMET123', price: '$23.40' },
+      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-175218496719514-0.png', name: 'TRAVEL MUG - MEATBAWL ARMY', price: '$23.40' },
+      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-170805891716706-0.png', name: 'STICKER - FRANKIE BEANS', price: '$6.00' },
+      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-172490548212917-0.png', name: 'STICKER PACK (11 MINI)', price: '$6.50' },
+      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-17361166689527-0.png', name: 'T-SHIRT - HOW AW YA', price: '$16.30' },
+      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-17361170454046-0.png', name: 'T-SHIRT - MEATBAWL ARMY', price: '$16.30' },
+      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-170805856010841-1.png', name: 'HOODIE - FRANKIE BEANS', price: '$28.30' },
+      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-17080584925554-1.png', name: 'HOODIE - MEATBAWL ARMY', price: '$28.30' },
+      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-170803703217496-0.png', name: 'BEANIE - FRANKIE BEANS', price: '$15.60' }
+    ];
+    var mIdx = 0;
+
+    function setMerchCard(el, item) {
+      el.querySelector('img').src = item.img;
+      el.querySelector('img').alt = item.name;
+      el.querySelector('.spotlight-card-title').textContent = item.name + ' — ' + item.price;
+    }
+
+    function updateMerch(idx) {
+      var len = merchItems.length;
+      setMerchCard(merchCenter, merchItems[idx]);
+      setMerchCard(merchLeft, merchItems[(idx - 1 + len) % len]);
+      setMerchCard(merchRight, merchItems[(idx + 1) % len]);
+      var dots = merchDots.querySelectorAll('.spotlight-dot');
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+    }
+
+    function nextMerch() { mIdx = (mIdx + 1) % merchItems.length; updateMerch(mIdx); }
+    function prevMerch() { mIdx = (mIdx - 1 + merchItems.length) % merchItems.length; updateMerch(mIdx); }
+
+    var mPrev = merchCarousel.querySelector('.spotlight-prev');
+    var mNext = merchCarousel.querySelector('.spotlight-next');
+    if (mPrev) mPrev.addEventListener('click', function () { prevMerch(); resetMerchAuto(); });
+    if (mNext) mNext.addEventListener('click', function () { nextMerch(); resetMerchAuto(); });
+
+    var merchAuto = setInterval(nextMerch, 5000);
+    function resetMerchAuto() { clearInterval(merchAuto); merchAuto = setInterval(nextMerch, 5000); }
+    merchCarousel.addEventListener('mouseenter', function () { clearInterval(merchAuto); });
+    merchCarousel.addEventListener('mouseleave', function () { resetMerchAuto(); });
+
+    // Build dots
+    merchItems.forEach(function (_, i) {
+      var dot = document.createElement('button');
+      dot.className = 'spotlight-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Merch ' + (i + 1));
+      dot.addEventListener('click', function () { mIdx = i; updateMerch(mIdx); resetMerchAuto(); });
+      merchDots.appendChild(dot);
+    });
+    updateMerch(0);
+  }
+
+  /* ---------- Live Follower Counts ---------- */
+  // YouTube (via noembed fallback — shows static count, API needs key)
+  // Twitch follower count requires API auth — show static for now
+
   /* ---------- Donate Form ---------- */
   var donateBtn = document.getElementById('donate-btn');
   if (donateBtn) {

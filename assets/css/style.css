@@ -523,9 +523,16 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   background: var(--color-card-bg);
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius);
-  padding: 1.25rem;
+  padding: 1.5rem;
   text-align: center;
   transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.social-card svg {
+  margin-bottom: 0.25rem;
 }
 .social-card:hover {
   border-color: var(--color-accent);
