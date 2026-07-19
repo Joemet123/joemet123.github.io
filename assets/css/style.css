@@ -99,10 +99,10 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(25, 5, 5, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255,60,60,0.2);
+  background: rgba(25, 5, 5, 0.50);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,60,60,0.12);
   height: var(--nav-height);
   display: flex;
   align-items: center;
@@ -932,6 +932,154 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   color: var(--color-gray-500);
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+/* ---------- Spotlight Video Carousel ---------- */
+.spotlight-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+.spotlight-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex: 1;
+  min-width: 0;
+}
+.spotlight-card {
+  display: block;
+  text-decoration: none;
+  color: var(--color-white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-card-border);
+  transition: transform 0.45s ease, opacity 0.45s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+}
+.spotlight-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 30px rgba(255,107,0,0.2);
+}
+.spotlight-card img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+.spotlight-card-title {
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+/* Center card — big */
+.spotlight-center {
+  width: 55%;
+  max-width: 640px;
+  transform: scale(1);
+  opacity: 1;
+  z-index: 2;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  border-color: rgba(255,107,0,0.25);
+}
+.spotlight-center .spotlight-card-title {
+  font-size: 1rem;
+  padding: 1rem 1.25rem;
+}
+/* Side cards — smaller + dimmed */
+.spotlight-left,
+.spotlight-right {
+  width: 22%;
+  max-width: 280px;
+  transform: scale(0.88);
+  opacity: 0.55;
+  z-index: 1;
+  filter: brightness(0.7);
+}
+.spotlight-left:hover,
+.spotlight-right:hover {
+  transform: scale(0.92);
+  opacity: 0.8;
+  filter: brightness(0.85);
+}
+/* Arrow buttons */
+.spotlight-arrow {
+  background: rgba(255,107,0,0.15);
+  border: 1px solid rgba(255,107,0,0.3);
+  color: var(--color-accent);
+  font-size: 2.2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  flex-shrink: 0;
+  z-index: 10;
+  line-height: 1;
+  padding: 0;
+}
+.spotlight-arrow:hover {
+  background: var(--color-accent);
+  color: var(--color-bg-dark);
+  border-color: var(--color-accent);
+  transform: scale(1.12);
+}
+/* Dots */
+.spotlight-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.spotlight-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-gray-700);
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+  padding: 0;
+}
+.spotlight-dot.active {
+  background: var(--color-accent);
+  transform: scale(1.25);
+}
+.spotlight-dot:hover {
+  background: var(--color-accent);
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .spotlight-left,
+  .spotlight-right {
+    display: none;
+  }
+  .spotlight-center {
+    width: 100%;
+    max-width: 100%;
+  }
+  .spotlight-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.8rem;
+  }
 }
 
 /* ---------- Responsive Tweaks ---------- */

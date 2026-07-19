@@ -135,15 +135,25 @@
     <!-- YouTube Video Carousel -->
     <section class="section" aria-label="Recent YouTube videos">
       <h2 class="section-title">🎬 Latest Videos</h2>
-      <div class="carousel-container" id="yt-carousel">
-        <div class="carousel-track" id="yt-track">
-          <!-- Videos loaded dynamically from RSS feed -->
+      <div class="spotlight-carousel" id="yt-carousel">
+        <button class="spotlight-arrow spotlight-prev" aria-label="Previous video">‹</button>
+        <div class="spotlight-stage">
+          <a class="spotlight-card spotlight-left" id="spot-left" href="#" target="_blank" rel="noopener">
+            <img src="" alt="" loading="lazy">
+            <div class="spotlight-card-title"></div>
+          </a>
+          <a class="spotlight-card spotlight-center" id="spot-center" href="#" target="_blank" rel="noopener">
+            <img src="" alt="" loading="lazy">
+            <div class="spotlight-card-title"></div>
+          </a>
+          <a class="spotlight-card spotlight-right" id="spot-right" href="#" target="_blank" rel="noopener">
+            <img src="" alt="" loading="lazy">
+            <div class="spotlight-card-title"></div>
+          </a>
         </div>
-        <div class="carousel-controls">
-          <button class="carousel-btn carousel-prev" aria-label="Previous videos">← Prev</button>
-          <button class="carousel-btn carousel-next" aria-label="Next videos">Next →</button>
-        </div>
+        <button class="spotlight-arrow spotlight-next" aria-label="Next video">›</button>
       </div>
+      <div class="spotlight-dots" id="spot-dots"></div>
     </section>
 
   </main>
