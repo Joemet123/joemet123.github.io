@@ -199,28 +199,6 @@
   // YouTube (via noembed fallback — shows static count, API needs key)
   // Twitch follower count requires API auth — show static for now
 
-  /* ---------- Donate Form ---------- */
-  var donateBtn = document.getElementById('donate-btn');
-  if (donateBtn) {
-    donateBtn.addEventListener('click', function () {
-      var username = document.getElementById('donate-username');
-      var amount = document.getElementById('donate-amount');
-      var message = document.getElementById('donate-message');
-
-      var user = username ? username.value.trim() : '';
-      var amt = amount ? amount.value.trim() : '';
-      var msg = message ? message.value.trim() : '';
-
-      if (!amt || isNaN(parseFloat(amt)) || parseFloat(amt) <= 0) {
-        alert('Please enter a valid donation amount.');
-        return;
-      }
-
-      var url = 'https://streamlabs.com/joemet123/tip';
-      window.open(url, '_blank');
-    });
-  }
-
   /* ---------- Donate Popup Window ---------- */
   // "Support via Streamlabs" — opens a dedicated 500x750 mini-window
   // when the browser allows popups. Falls back to a regular new tab

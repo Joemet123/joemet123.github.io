@@ -68,36 +68,6 @@
     <section class="section" aria-label="Donate">
       <h2 class="section-title">☕ Tip / Donate</h2>
       <p style="color:var(--color-gray-300); margin-bottom:1rem;">Drop A Tip And It'Ll Pop Up On Stream. All Donations Are Final — No Takebacks!</p>
-      <div class="donate-form">
-        <label for="donate-username">Your Name</label>
-        <input type="text" id="donate-username" placeholder="What should we call you?" autocomplete="off">
-
-        <label for="donate-amount">Amount (USD)</label>
-        <input type="number" id="donate-amount" min="0.50" step="0.01" placeholder="5.00">
-
-        <label for="donate-message">Message (Optional)</label>
-        <textarea id="donate-message" rows="3" placeholder="Say something wild on stream..."></textarea>
-
-        <button type="button" id="donate-btn" class="btn btn-accent">Send It 🎉</button>
-      </div>
-
-      <!-- Popup donation window (opens Streamlabs in a 500x750 mini window).
-           Uses an <a target="..."> so browsers respect window-targeting natively
-           AND fall back to a new tab if the popup is blocked (e.g. Telegram
-           in-app browser, mobile Safari, etc.). JS attempts the sized popup
-           and only intercepts the click if window.open() succeeds. -->
-      <a href="https://streamlabs.com/joemet123/tip"
-         target="StreamlabsTipping"
-         rel="noopener noreferrer"
-         class="donate-popup-btn"
-         aria-label="Open Streamlabs donation window">
-        Support via Streamlabs
-      </a>
-    </section>
-
-    <!-- Donation Tiers -->
-    <section class="section" aria-label="Donation tiers">
-      <h2 class="section-title">🔊 Donation Alerts</h2>
       <p style="font-weight:700; margin-bottom:1rem; color:var(--color-accent);">Every Donation Plays A Sound On Stream — Here'S What You Get:</p>
       <ul class="tiers-list">
         <li><span class="tier-amount">$0.50 / 50+ Bits</span> — <span class="tier-msg">"THE BIG ONES CAN MOVE!"</span></li>
@@ -109,6 +79,13 @@
         <li><span class="tier-amount">$50 / 5000+ Bits</span> — <span class="tier-msg">"OOOHHHH!" 🤯</span></li>
       </ul>
       <p class="text-red" style="font-weight:700; margin-top:1rem;">⚠️ ALL DONATIONS ARE FINAL — NO REFUNDS, NO EXCEPTIONS.</p>
+      <a href="https://streamlabs.com/joemet123/tip"
+         target="StreamlabsTipping"
+         rel="noopener noreferrer"
+         class="donate-popup-btn"
+         aria-label="Open Streamlabs donation window">
+        Support via Streamlabs
+      </a>
     </section>
 
     <!-- Merch Showcase -->

@@ -440,65 +440,25 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   color: var(--color-white);
 }
 
-/* ---------- Donate Form ---------- */
-.donate-form {
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-card-border);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  max-width: 500px;
-  width: 100%;
-  margin: 0 auto;
-}
-.donate-form label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.3rem;
-  font-size: 0.9rem;
-  color: var(--color-gray-300);
-}
-.donate-form input,
-.donate-form textarea {
-  width: 100%;
-  padding: 0.6rem 0.75rem;
-  background: var(--color-gray-900);
-  border: 1px solid var(--color-gray-700);
-  border-radius: var(--radius-sm);
-  color: var(--color-white);
-  font-size: 0.95rem;
-  font-family: var(--font-stack);
-  margin-bottom: 1rem;
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-.donate-form input:focus,
-.donate-form textarea:focus {
-  outline: none;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(255,107,0,0.15);
-}
-.donate-form textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
 /* ---------- Donate Popup Button ---------- */
 .donate-popup-btn {
   display: block;
-  margin: 1.5rem auto 0;
-  padding: 0.85rem 2rem;
+  width: fit-content;
+  margin: 1rem auto 0;
+  padding: 0.55rem 1.4rem;
   background: var(--color-accent-red);
   color: var(--color-white);
   border: 2px solid var(--color-accent);
   border-radius: var(--radius);
   font-family: var(--font-stack);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(255, 45, 45, 0.25);
+  box-shadow: 0 3px 10px rgba(255, 45, 45, 0.2);
   transition: background var(--transition), border-color var(--transition),
     transform var(--transition), box-shadow var(--transition);
 }
@@ -506,7 +466,7 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   background: var(--color-accent);
   border-color: var(--color-accent-red);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 107, 0, 0.35);
+  box-shadow: 0 5px 16px rgba(255, 107, 0, 0.3);
 }
 .donate-popup-btn:active {
   transform: translateY(0);
@@ -1173,7 +1133,6 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   .btn { padding: 0.75rem 1.5rem; font-size: 0.9rem; }
   .spotlight-arrow { width: 36px; height: 36px; font-size: 1.5rem; }
   .twitch-embed-wrapper { padding-bottom: 56.25%; }
-  .donate-form { padding: 1rem; }
 }
 @media (min-width: 900px) {
   .site-header { padding: 0 2rem; }
