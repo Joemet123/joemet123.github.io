@@ -81,10 +81,18 @@
         <button type="button" id="donate-btn" class="btn btn-accent">Send It 🎉</button>
       </div>
 
-      <!-- Popup donation window (opens Streamlabs in a 500x750 mini window) -->
-      <button type="button" id="donate-popup-btn" class="donate-popup-btn" aria-label="Open Streamlabs donation window">
+      <!-- Popup donation window (opens Streamlabs in a 500x750 mini window).
+           Uses an <a target="..."> so browsers respect window-targeting natively
+           AND fall back to a new tab if the popup is blocked (e.g. Telegram
+           in-app browser, mobile Safari, etc.). JS attempts the sized popup
+           and only intercepts the click if window.open() succeeds. -->
+      <a href="https://streamlabs.com/joemet123/tip"
+         target="StreamlabsTipping"
+         rel="noopener noreferrer"
+         class="donate-popup-btn"
+         aria-label="Open Streamlabs donation window">
         Support via Streamlabs
-      </button>
+      </a>
     </section>
 
     <!-- Donation Tiers -->

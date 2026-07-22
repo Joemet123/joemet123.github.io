@@ -223,16 +223,22 @@
 
   /* ---------- Donate Popup Window ---------- */
   // "Support via Streamlabs" — opens a dedicated 500x750 mini-window
-  // instead of a new tab. Same StreamlabsTipping target name keeps the
-  // window reusable across clicks.
-  var donatePopupBtn = document.getElementById('donate-popup-btn');
-  if (donatePopupBtn) {
-    donatePopupBtn.addEventListener('click', function () {
-      window.open(
-        'https://streamlabs.com/joemet123/tip',
-        'StreamlabsTipping',
+  // when the browser allows popups. Falls back to a regular new tab
+  // (via the <a target="..."> native behavior) when popups are blocked,
+  // so the button always works regardless of browser policy.
+  var donatePopupLink = document.querySelector('.donate-popup-btn');
+  if (donatePopupLink) {
+    donatePopupLink.addEventListener('click', function (e) {
+      var win = window.open(
+        this.href,
+        this.target || 'StreamlabsTipping',
         'width=500,height=750,scrollbars=yes,resizable=yes'
       );
+      if (win) {
+        e.preventDefault();
+        win.focus();
+      }
+      // win === null when the popup was blocked -> let the <a> handle it.
     });
   }
 })();
