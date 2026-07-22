@@ -458,8 +458,22 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   gap: 0.4rem;
 }
 .paypal-logo {
-  height: 28px;
+  height: clamp(36px, 9vw, 56px);
   width: auto;
+}
+/* PayPal SDK renders the donate button into #donate-button as a
+   <form> with <input type="image">. The hosted GIF (~147px wide
+   natively) looks tiny next to the Streamlabs button on mobile,
+   so scale it up proportionally. */
+#donate-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#donate-button img,
+#donate-button input[type="image"] {
+  width: clamp(150px, 50vw, 200px);
+  height: auto;
 }
 
 /* ---------- Donate Popup Button ---------- */
