@@ -220,4 +220,19 @@
       window.open(url, '_blank');
     });
   }
+
+  /* ---------- Donate Popup Window ---------- */
+  // "Support via Streamlabs" — opens a dedicated 500x750 mini-window
+  // instead of a new tab. Same StreamlabsTipping target name keeps the
+  // window reusable across clicks.
+  var donatePopupBtn = document.getElementById('donate-popup-btn');
+  if (donatePopupBtn) {
+    donatePopupBtn.addEventListener('click', function () {
+      window.open(
+        'https://streamlabs.com/joemet123/tip',
+        'StreamlabsTipping',
+        'width=500,height=750,scrollbars=yes,resizable=yes'
+      );
+    });
+  }
 })();
