@@ -440,6 +440,16 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   color: var(--color-white);
 }
 
+/* ---------- Donate Buttons Row (Streamlabs + PayPal side-by-side) ---------- */
+.donate-buttons-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem auto 0;
+}
+
 /* ---------- Donate Popup Button ---------- */
 .donate-popup-btn {
   display: block;

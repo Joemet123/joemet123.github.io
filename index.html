@@ -78,14 +78,32 @@
         <li><span class="tier-amount">$25 / 2500+ Bits</span> — <span class="tier-msg">"DO YOU HAVE CHAWCLIT!"</span></li>
         <li><span class="tier-amount">$50 / 5000+ Bits</span> — <span class="tier-msg">"OOOHHHH!" 🤯</span></li>
       </ul>
-      <p class="text-red" style="font-weight:700; margin-top:1rem;">⚠️ ALL DONATIONS ARE FINAL — NO REFUNDS, NO EXCEPTIONS.</p>
-      <a href="https://streamlabs.com/joemet123/tip"
-         target="StreamlabsTipping"
-         rel="noopener noreferrer"
-         class="donate-popup-btn"
-         aria-label="Open Streamlabs donation window">
-        Support via Streamlabs
-      </a>
+      <p class="text-red" style="font-weight:700; margin-top:1rem;">⚠️ ALL DONATIONS ARE FINAL — NO REFUNDS, NO EXCEPTIONS. In order for donations to play on stream, they must be done through streamlabs.</p>
+
+      <!-- Donation buttons: Streamlabs (popup) on the left, PayPal on the right.
+           PayPal button is rendered client-side by their donate SDK into #paypal-donate-button. -->
+      <div class="donate-buttons-row">
+        <a href="https://streamlabs.com/joemet123/tip"
+           target="StreamlabsTipping"
+           rel="noopener noreferrer"
+           class="donate-popup-btn"
+           aria-label="Open Streamlabs donation window">
+          Support via Streamlabs
+        </a>
+        <div id="paypal-donate-button" aria-label="PayPal donate button"></div>
+      </div>
+      <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+      <script>
+        PayPal.Donation.Button({
+          env: 'production',
+          hosted_button_id: 'ENZ7DEFBNXKM8',
+          image: {
+            src: 'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
+            alt: 'Donate with PayPal button',
+            title: 'PayPal - The safer, easier way to pay online!'
+          }
+        }).render('#paypal-donate-button');
+      </script>
     </section>
 
     <!-- Merch Showcase -->
