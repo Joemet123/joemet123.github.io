@@ -293,7 +293,7 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 .hero-split {
   display: flex;
   gap: 1.5rem;
-  align-items: flex-start;
+  align-items: center;
   max-width: 1100px !important;
 }
 .hero-split-left {
@@ -316,6 +316,7 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 .hero-split-left .twitch-embed-wrapper {
   width: 100%;
   margin: 0;
+  margin-bottom: 0;
 }
 @media (max-width: 768px) {
   .hero-split {
@@ -364,7 +365,7 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   position: relative;
   width: 100%;
   padding-bottom: 56.25%;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
   border-radius: var(--radius);
   overflow: hidden;
   border: 2px solid rgba(255,107,0,0.2);
@@ -585,9 +586,9 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   padding: 0;
 }
 .tiers-list li {
-  padding: 0.75rem 1rem;
+  padding: 0.45rem 0.75rem;
   border-bottom: 1px solid var(--color-card-border);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--color-gray-300);
   display: flex;
   align-items: center;
@@ -604,16 +605,16 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   color: var(--color-white) !important;
   font-weight: 700;
   background: rgba(200,30,30,0.35);
-  padding: 0.2rem 0.6rem;
+  padding: 0.15rem 0.5rem;
   border-radius: var(--radius-sm);
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   white-space: nowrap;
   text-transform: none !important;
 }
 .tier-msg {
   color: var(--color-white) !important;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-transform: none !important;
 }
 
