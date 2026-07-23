@@ -444,27 +444,50 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 .donate-buttons-row {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 4rem;
+  align-items: stretch;
+  gap: 1.2rem;
   flex-wrap: wrap;
-  margin: 1rem auto 0;
+  margin: 1.5rem auto 0;
+  max-width: 520px;
 }
 
-/* PayPal logo + donate button stacked vertically, centered as a group */
+/* Both buttons get matching card treatment */
+.donate-popup-btn,
 .paypal-group {
+  flex: 1 1 200px;
+  max-width: 240px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.4rem;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 1.2rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 107, 0, 0.06);
 }
-.paypal-logo {
-  height: clamp(36px, 9vw, 56px);
+.donate-popup-btn:hover,
+.paypal-group:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 107, 0, 0.12);
+}
+.donate-popup-btn {
+  margin: 0;
   width: auto;
 }
+
+/* PayPal logo + donate button stacked vertically */
+.paypal-logo {
+  height: clamp(28px, 7vw, 40px);
+  width: auto;
+  opacity: 0.9;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+}
 /* PayPal SDK renders the donate button into #donate-button as a
-   <form> with <input type="image">. The hosted GIF (~147px wide
-   natively) looks tiny next to the Streamlabs button on mobile,
-   so scale it up proportionally. */
+   <form> with <input type="image">. Style it to match Streamlabs. */
 #donate-button {
   display: flex;
   justify-content: center;
@@ -472,16 +495,21 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 }
 #donate-button img,
 #donate-button input[type="image"] {
-  width: clamp(150px, 50vw, 200px);
+  width: clamp(120px, 40vw, 160px);
   height: auto;
+  border-radius: 4px;
+  transition: transform var(--transition), box-shadow var(--transition);
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.4));
+}
+#donate-button img:hover,
+#donate-button input[type="image"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 0, 0.25);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
 }
 
-/* ---------- Donate Popup Button ---------- */
+/* ---------- Donate Popup Button (inherits flex from row) ---------- */
 .donate-popup-btn {
-  display: block;
-  width: fit-content;
-  margin: 1rem auto 0;
-  padding: 0.55rem 1.4rem;
   background: var(--color-accent-red);
   color: var(--color-white);
   border: 2px solid var(--color-accent);
@@ -1023,10 +1051,11 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   border: 1px solid var(--color-card-border);
   transition: transform 0.45s ease, opacity 0.45s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   flex-shrink: 0;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.45), 0 0 12px rgba(255,107,0,0.06);
 }
 .spotlight-card:hover {
   border-color: var(--color-accent);
-  box-shadow: 0 8px 30px rgba(255,107,0,0.2);
+  box-shadow: 0 10px 36px rgba(0,0,0,0.55), 0 0 20px rgba(255,107,0,0.15);
 }
 .spotlight-card img {
   width: 100%;
@@ -1034,6 +1063,7 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   aspect-ratio: 1/1;
   object-fit: contain;
   background: var(--color-gray-900);
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
 }
 .spotlight-card-title {
   padding: 0.75rem 1rem;
@@ -1054,7 +1084,7 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   transform: scale(1);
   opacity: 1;
   z-index: 2;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 25px rgba(255,107,0,0.12);
   border-color: rgba(255,107,0,0.25);
 }
 .spotlight-center .spotlight-card-title {
@@ -1169,6 +1199,10 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   .btn { padding: 0.75rem 1.5rem; font-size: 0.9rem; }
   .spotlight-arrow { width: 36px; height: 36px; font-size: 1.5rem; }
   .twitch-embed-wrapper { padding-bottom: 56.25%; }
+  .donate-buttons-row { flex-direction: column; align-items: center; gap: 0.8rem; }
+  .donate-popup-btn, .paypal-group { max-width: 100%; width: 100%; }
+  .discord-widget-wrapper iframe { height: 300px; }
+  .social-card { padding: 1.25rem 1.5rem; min-width: 0; }
 }
 @media (min-width: 900px) {
   .site-header { padding: 0 2rem; }
