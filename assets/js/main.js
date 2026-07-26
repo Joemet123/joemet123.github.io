@@ -112,6 +112,17 @@
     ytCarousel.addEventListener('mouseenter', function () { clearInterval(autoTimer); });
     ytCarousel.addEventListener('mouseleave', function () { resetAuto(); });
 
+    // Pause auto-rotate while off-screen (mobile scroll) to avoid jumpy updates
+    if ('IntersectionObserver' in window) {
+      var ytObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) resetAuto();
+          else clearInterval(autoTimer);
+        });
+      }, { threshold: 0.3 });
+      ytObserver.observe(ytCarousel);
+    }
+
     fetch(apiUrl)
       .then(function (res) { return res.json(); })
       .then(function (data) {
@@ -141,18 +152,18 @@
 
   if (merchCenter && merchLeft && merchRight && merchCarousel) {
     var merchItems = [
-      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-173619042711050-0.png', name: 'CAWFEE CUP - MEATBAWL ARMY', price: '$11.00' },
-      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-17521829249324-2.png', name: 'CAWFEE CUP - HOW AW YAW', price: '$13.40' },
-      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-175218469611051-0.png', name: 'CAWFEE CUP - ARMY v2', price: '$11.00' },
-      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-175218273119514-0.png', name: 'TRAVEL MUG - JOEMET123', price: '$23.40' },
-      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-175218496719514-0.png', name: 'TRAVEL MUG - MEATBAWL ARMY', price: '$23.40' },
-      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-170805891716706-0.png', name: 'STICKER - FRANKIE BEANS', price: '$6.00' },
-      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-172490548212917-0.png', name: 'STICKER PACK (11 MINI)', price: '$6.50' },
-      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-17361166689527-0.png', name: 'T-SHIRT - HOW AW YA', price: '$16.30' },
-      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-17361170454046-0.png', name: 'T-SHIRT - MEATBAWL ARMY', price: '$16.30' },
-      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-170805856010841-1.png', name: 'HOODIE - FRANKIE BEANS', price: '$28.30' },
-      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-17080584925554-1.png', name: 'HOODIE - MEATBAWL ARMY', price: '$28.30' },
-      { img: 'https://uploads.twitchalerts.com/000/143/932/780/2253608-mockup-170803703217496-0.png', name: 'BEANIE - FRANKIE BEANS', price: '$15.60' }
+      { img: 'assets/images/merch/cafwfee-cup-army.png', name: 'CAWFEE CUP - MEATBAWL ARMY', price: '$11.00' },
+      { img: 'assets/images/merch/cafwfee-cup-haw-yaw.png', name: 'CAWFEE CUP - HOW AW YAW', price: '$13.40' },
+      { img: 'assets/images/merch/cafwfee-cup-army-v2.png', name: 'CAWFEE CUP - ARMY v2', price: '$11.00' },
+      { img: 'assets/images/merch/cafwfee-mug-joemet.png', name: 'TRAVEL MUG - JOEMET123', price: '$23.40' },
+      { img: 'assets/images/merch/cafwfee-mug-army.png', name: 'TRAVEL MUG - MEATBAWL ARMY', price: '$23.40' },
+      { img: 'assets/images/merch/sticker-frankie.png', name: 'STICKER - FRANKIE BEANS', price: '$6.00' },
+      { img: 'assets/images/merch/stickers-pack.png', name: 'STICKER PACK (11 MINI)', price: '$6.50' },
+      { img: 'assets/images/merch/tshirt-haw-yaw.png', name: 'T-SHIRT - HOW AW YA', price: '$16.30' },
+      { img: 'assets/images/merch/tshirt-army.png', name: 'T-SHIRT - MEATBAWL ARMY', price: '$16.30' },
+      { img: 'assets/images/merch/hoodie-frankie.png', name: 'HOODIE - FRANKIE BEANS', price: '$28.30' },
+      { img: 'assets/images/merch/hoodie-army.png', name: 'HOODIE - MEATBAWL ARMY', price: '$28.30' },
+      { img: 'assets/images/merch/beanie-frankie.png', name: 'BEANIE - FRANKIE BEANS', price: '$15.60' }
     ];
     var mIdx = 0;
 
@@ -184,6 +195,17 @@
     merchCarousel.addEventListener('mouseenter', function () { clearInterval(merchAuto); });
     merchCarousel.addEventListener('mouseleave', function () { resetMerchAuto(); });
 
+    // Pause auto-rotate while off-screen (mobile scroll) to avoid jumpy updates
+    if ('IntersectionObserver' in window) {
+      var merchObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) resetMerchAuto();
+          else clearInterval(merchAuto);
+        });
+      }, { threshold: 0.3 });
+      merchObserver.observe(merchCarousel);
+    }
+
     // Build dots
     merchItems.forEach(function (_, i) {
       var dot = document.createElement('button');
@@ -207,10 +229,14 @@
   var donatePopupLink = document.querySelector('.donate-popup-btn');
   if (donatePopupLink) {
     donatePopupLink.addEventListener('click', function (e) {
+      // Clamp popup size to the available screen so it never exceeds
+      // the viewport on small phones.
+      var w = Math.min(500, window.screen.availWidth - 20);
+      var h = Math.min(750, window.screen.availHeight - 40);
       var win = window.open(
         this.href,
         this.target || 'StreamlabsTipping',
-        'width=500,height=750,scrollbars=yes,resizable=yes'
+        'width=' + w + ',height=' + h + ',scrollbars=yes,resizable=yes'
       );
       if (win) {
         e.preventDefault();
