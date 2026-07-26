@@ -104,8 +104,8 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   top: 0;
   z-index: 10000;
   background: rgba(15, 10, 5, 0.50);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(255,107,0,0.12);
   height: var(--nav-height);
   display: flex;
@@ -193,8 +193,8 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   left: 0;
   right: 0;
   background: rgba(10, 10, 10, 0.97);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(11px);
+  -webkit-backdrop-filter: blur(11px);
   border-bottom: 1px solid rgba(255,107,0,0.15);
   padding: 0;
   max-height: 0;
