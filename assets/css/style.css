@@ -62,7 +62,7 @@ a {
   transition: color var(--transition);
 }
 a:hover {
-  color: var(--color-accent-red);
+  color: #ff8c3d;
 }
 
 img {
@@ -395,14 +395,14 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   text-align: center;
 }
 .btn-accent {
-  background: #cc2222;
+  background: var(--color-accent);
   color: var(--color-white);
 }
 .btn-accent:hover {
-  background: #aa1a1a;
+  background: #e05e00;
   color: var(--color-white);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(200,30,30,0.3);
+  box-shadow: 0 6px 20px rgba(255,107,0,0.3);
 }
 .btn-outline {
   background: transparent;
@@ -414,11 +414,11 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   color: var(--color-bg-dark);
 }
 .btn-red {
-  background: var(--color-accent-red);
+  background: var(--color-accent);
   color: var(--color-white);
 }
 .btn-red:hover {
-  background: #cc2424;
+  background: #e05e00;
   color: var(--color-white);
 }
 
@@ -492,7 +492,7 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 
 /* ---------- Donate Popup Button (inherits flex from row) ---------- */
 .donate-popup-btn {
-  background: var(--color-accent-red);
+  background: var(--color-accent);
   color: var(--color-white);
   border: 2px solid var(--color-accent);
   border-radius: var(--radius);
@@ -504,13 +504,13 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  box-shadow: 0 3px 10px rgba(255, 45, 45, 0.2);
+  box-shadow: 0 3px 10px rgba(255, 107, 0, 0.25);
   transition: background var(--transition), border-color var(--transition),
     transform var(--transition), box-shadow var(--transition);
 }
 .donate-popup-btn:hover {
-  background: var(--color-accent);
-  border-color: var(--color-accent-red);
+  background: #e05e00;
+  border-color: #e05e00;
   transform: translateY(-2px);
   box-shadow: 0 5px 16px rgba(255, 107, 0, 0.3);
 }
@@ -546,7 +546,7 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 .tier-amount {
   color: var(--color-white) !important;
   font-weight: 700;
-  background: rgba(200,30,30,0.35);
+  background: rgba(255,107,0,0.30);
   padding: 0.15rem 0.5rem;
   border-radius: var(--radius-sm);
   font-size: 0.88rem;
