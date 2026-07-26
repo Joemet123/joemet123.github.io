@@ -1074,10 +1074,16 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   color: var(--color-gray-100);
 }
 .spotlight-card-price {
-  color: var(--color-accent);
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.95em;
   font-weight: 800;
-  font-size: 1.05em;
-  letter-spacing: 0.5px;
+  color: var(--color-white);
+  background: rgba(255,107,0,0.18);
+  border: 1px solid rgba(255,107,0,0.35);
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.3px;
 }
 /* Center card — big */
 .spotlight-center {
