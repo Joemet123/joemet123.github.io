@@ -170,7 +170,8 @@
     function setMerchCard(el, item) {
       el.querySelector('img').src = item.img;
       el.querySelector('img').alt = item.name;
-      el.querySelector('.spotlight-card-title').textContent = item.name + ' — ' + item.price;
+      el.querySelector('.spotlight-card-name').textContent = item.name;
+      el.querySelector('.spotlight-card-price').textContent = item.price;
     }
 
     function updateMerch(idx) {
