@@ -819,26 +819,36 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
   text-align: center;
 }
 
-/* ---------- Perks List (Paid Meatbawl) ---------- */
-.perks-list {
-  list-style: none;
-  padding: 0;
+/* ---------- Perk Cards (Paid Meatbawl) ---------- */
+.perk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
-.perks-list li {
-  padding: 0.6rem 0;
-  font-size: 1.1rem;
-  color: var(--color-gray-300);
+.perk-card {
   display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.85rem;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-card-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  color: var(--color-gray-100);
+  font-weight: 600;
+  font-size: 0.98rem;
+  transition: border-color var(--transition), transform var(--transition), background var(--transition), box-shadow var(--transition);
 }
-.perks-list li::before {
-  content: '⬊';
-  color: var(--color-accent);
-  font-weight: 700;
+.perk-card:hover {
+  border-color: var(--color-accent);
+  background: rgba(255,107,0,0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(255,107,0,0.15);
+}
+.perk-card-icon {
+  font-size: 1.4rem;
   flex-shrink: 0;
-  margin-top: 0.1rem;
 }
 
 .link-list {
@@ -873,14 +883,31 @@ ul, ol { margin-bottom: 1em; padding-left: 1.5em; }
 .join-card-icon {
   font-size: 1.5rem;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.join-card-icon svg {
+  display: block;
 }
 .join-card:hover {
-  border-color: var(--color-accent);
-  background: rgba(255,107,0,0.06);
   transform: translateY(-3px);
-  box-shadow: 0 8px 22px rgba(255,107,0,0.15);
   color: var(--color-white);
 }
+
+.join-card--discord { border-color: rgba(79,195,247,0.45); }
+.join-card--discord .join-card-icon { color: #4FC3F7; }
+.join-card--discord:hover { border-color: #4FC3F7; background: rgba(79,195,247,0.08); box-shadow: 0 8px 22px rgba(79,195,247,0.18); }
+
+.join-card--twitch { border-color: rgba(145,70,255,0.45); }
+.join-card--twitch .join-card-icon { color: #9146FF; }
+.join-card--twitch:hover { border-color: #9146FF; background: rgba(145,70,255,0.08); box-shadow: 0 8px 22px rgba(145,70,255,0.18); }
+
+.join-card--prime { border-color: rgba(255,79,163,0.45); }
+.join-card--prime:hover { border-color: #FF4FA3; background: rgba(255,79,163,0.08); box-shadow: 0 8px 22px rgba(255,79,163,0.18); }
+
+.join-card--youtube { border-color: rgba(255,45,45,0.45); }
+.join-card--youtube .join-card-icon { color: var(--color-accent-red); }
+.join-card--youtube:hover { border-color: var(--color-accent-red); background: rgba(255,45,45,0.08); box-shadow: 0 8px 22px rgba(255,45,45,0.18); }
 
 /* ---------- Chat Rules ---------- */
 .rule-heading {
