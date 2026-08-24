@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/images/JOEMET123_LOGO.png">
+<link rel="shortcut icon" href="favicon.ico">
+<title>Contact — JOEMET123</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  .contact-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.25rem;
+  }
+  .contact-card {
+    width: 100%;
+    max-width: 480px;
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+  }
+  .contact-card h1 { font-size: 1.6rem; margin-bottom: 0.25rem; }
+  .contact-card .sub { color: var(--color-gray-300); font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .form-field { margin-bottom: 1.1rem; }
+  .form-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--color-gray-300);
+    margin-bottom: 0.4rem;
+  }
+  .form-field input,
+  .form-field textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--color-card-border);
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 0.85rem;
+    color: var(--color-white);
+    font-family: var(--font-stack);
+    font-size: 0.95rem;
+    transition: border-color var(--transition);
+  }
+  .form-field textarea { resize: vertical; min-height: 110px; }
+  .form-field input:focus,
+  .form-field textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+  .contact-submit {
+    width: 100%;
+    background: var(--color-accent);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.8rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background var(--transition);
+  }
+  .contact-submit:hover { background: #ff8c3d; }
+  .back-home {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-size: 0.85rem;
+    color: var(--color-gray-500);
+  }
+  .back-home:hover { color: var(--color-accent); }
+</style>
+</head>
+<body>
+
+  <div class="contact-wrap">
+    <div class="contact-card">
+      <h1>Contact Joemet123</h1>
+      <p class="sub">Got a question, business inquiry, or something else? Send it over.</p>
+
+      <form action="https://formsubmit.co/joemaglione123@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New Contact Form Submission — Joemet123.com">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none">
+
+        <div class="form-field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="Name" required>
+        </div>
+
+        <div class="form-field">
+          <label for="need">What Do You Need?</label>
+          <textarea id="need" name="What They Need" required></textarea>
+        </div>
+
+        <div class="form-field">
+          <label for="email">Best Contact Email</label>
+          <input type="email" id="email" name="Email" required>
+        </div>
+
+        <button type="submit" class="contact-submit">Send</button>
+      </form>
+
+      <a href="index.html" class="back-home">&larr; Back To Home</a>
+    </div>
+  </div>
+
+</body>
+</html>
