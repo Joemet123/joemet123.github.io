@@ -2646,3 +2646,95 @@ a:hover { color: var(--color-white); }
 }
 
 ::selection { background: rgba(59, 140, 255, 0.35); }
+
+
+/* ============================================================
+   RESTRAINT PASS
+   Real channel art carries the identity. Decoration steps back:
+   no scanlines, no flicker, no glowing corner brackets.
+   Hierarchy comes from spacing and scale, not from glow.
+   ============================================================ */
+
+/* ---------- Channel banner: the real artwork ---------- */
+.channel-banner {
+  display: block;
+  position: relative;
+  margin: 0 0 2.75rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #04060d;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+  transition: transform var(--dur-mid) var(--ease-out-expo),
+              box-shadow var(--dur-mid) var(--ease-out-expo);
+}
+.channel-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: scale(1.005);
+  transition: transform var(--dur-slow) var(--ease-out-expo);
+}
+.channel-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+              inset 0 -40px 60px -30px rgba(4, 6, 13, 0.9);
+}
+.channel-banner:hover img { transform: scale(1.022); }
+.channel-banner:hover { box-shadow: 0 22px 60px rgba(0, 0, 0, 0.65); }
+.channel-banner:active { transform: scale(0.995); }
+
+@media (max-width: 640px) {
+  .channel-banner { margin-bottom: 1.75rem; border-radius: var(--radius-sm); }
+}
+
+/* ---------- Drop the scanline film ---------- */
+body::after {
+  background:
+    radial-gradient(120% 90% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%) !important;
+}
+
+/* ---------- No flicker, no pulsing ring on the mark ---------- */
+.logo-placeholder,
+.site-title {
+  animation: none !important;
+}
+.logo-placeholder {
+  border: 2px solid rgba(59, 140, 255, 0.35);
+  box-shadow: none;
+}
+.site-title { text-shadow: none; }
+
+/* ---------- Section titles: one clean rule, no HUD brackets ---------- */
+.section-title::before,
+.section-title::after {
+  content: none !important;
+}
+.section-title {
+  position: relative;
+  background: none;
+  border: none;
+  border-left: 3px solid var(--c-blue);
+  border-radius: 0;
+  padding: 0.1rem 0 0.1rem 0.9rem;
+  margin-bottom: 1.5rem;
+  box-shadow: none;
+  text-shadow: none;
+  letter-spacing: 2px;
+}
+
+/* ---------- Calm the ambient glow down ---------- */
+.about-section,
+.merch-card,
+.social-card,
+.affiliate-card,
+.cmd-category,
+.perk-card,
+.join-card,
+.rule-heading {
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.40);
+}
+.round-divider { opacity: 0.5; }
