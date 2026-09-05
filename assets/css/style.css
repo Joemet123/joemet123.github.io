@@ -2885,3 +2885,65 @@ body::after {
 
 .header-socials a:hover { color: var(--c-red); }
 .main-nav a.active { color: var(--c-blue-bright); }
+
+
+/* ============================================================
+   FIX PASS 2 — attach the title rule, kill dead-centre symmetry
+   Centred-everything is one of the loudest "generated" tells.
+   Titles now sit left with the accent bar bound to the text.
+   ============================================================ */
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  text-align: left;
+  border-left: 0;
+  border-image: none;
+  padding: 0 0 0.55rem 0;
+  font-size: 1.15rem;
+  letter-spacing: 2.5px;
+}
+
+/* The rule now belongs to the text, not to the far edge */
+.section-title::before {
+  content: '' !important;
+  display: block;
+  flex: 0 0 auto;
+  width: 4px;
+  height: 1.15em;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--c-blue), var(--c-purple) 55%, var(--c-red));
+}
+
+/* Hairline that runs out to the right of the label */
+.section-title::after {
+  content: '' !important;
+  display: block;
+  flex: 1 1 auto;
+  height: 1px;
+  min-width: 1.5rem;
+  background: linear-gradient(90deg, rgba(47,134,255,0.45), rgba(47,134,255,0));
+}
+
+.section-subtitle { text-align: left; margin-left: 0; }
+
+/* Donate column header lines up with its list */
+.hero-split-right .section-title { margin-bottom: 1rem; }
+
+@media (max-width: 640px) {
+  .section-title { font-size: 0.95rem; letter-spacing: 1.5px; gap: 0.6rem; }
+}
+
+/* ---------- A little more life, no glow spam ---------- */
+.tiers-list li {
+  transition: transform var(--dur-fast) var(--ease-out-expo),
+              border-color var(--dur-fast) var(--ease-out-expo);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tiers-list li:hover {
+    transform: translateX(3px);
+    border-color: rgba(47, 134, 255, 0.45);
+  }
+}
