@@ -246,4 +246,92 @@
       // win === null when the popup was blocked -> let the <a> handle it.
     });
   }
+
+  /* ============================================================
+     MOTION SYSTEM
+     Transform/opacity only. IntersectionObserver over scroll
+     listeners. Everything here is additive: if it never runs,
+     the page still renders fully.
+     ============================================================ */
+
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
+
+  /* ---------- Header condenses once you leave the top ---------- */
+  (function headerScrollState() {
+    if (!hasIO) return;
+    var sentinel = document.createElement('div');
+    sentinel.setAttribute('aria-hidden', 'true');
+    sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none;';
+    document.body.insertBefore(sentinel, document.body.firstChild);
+
+    new IntersectionObserver(function (entries) {
+      document.body.classList.toggle('is-scrolled', !entries[0].isIntersecting);
+    }, { threshold: 0 }).observe(sentinel);
+  })();
+
+  /* ---------- Scroll reveals, staggered per entering batch ---------- */
+  (function scrollReveals() {
+    if (prefersReduced || !hasIO) return;
+
+    var targets = document.querySelectorAll(
+      '.main-content > .section, .main-content > .about-section, .main-content > .cmd-category'
+    );
+    if (!targets.length) return;
+
+    targets.forEach(function (el) { el.classList.add('reveal'); });
+
+    var io = new IntersectionObserver(function (entries) {
+      // Offset only the items arriving together, 55ms apart, capped so it never drags.
+      var arriving = entries.filter(function (e) { return e.isIntersecting; });
+      arriving.forEach(function (entry, i) {
+        entry.target.style.transitionDelay = Math.min(i, 5) * 55 + 'ms';
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+    targets.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* ---------- Cursor-tracking spotlight on cards (fine pointers only) ---------- */
+  (function cardSpotlight() {
+    if (prefersReduced) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    var selector = '.merch-card, .social-card, .affiliate-card, .cmd-category, .about-section';
+    var queued = false;
+    var lastX = 0;
+    var lastY = 0;
+    var lastTarget = null;
+
+    document.addEventListener('pointermove', function (e) {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      lastTarget = e.target;
+      if (queued) return;
+      queued = true;
+
+      requestAnimationFrame(function () {
+        queued = false;
+        var card = lastTarget && lastTarget.closest ? lastTarget.closest(selector) : null;
+        if (!card) return;
+        var r = card.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        card.style.setProperty('--mx', ((lastX - r.left) / r.width * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', ((lastY - r.top) / r.height * 100).toFixed(1) + '%');
+      });
+    }, { passive: true });
+  })();
+
+  /* ---------- Keep aria-expanded honest on the hamburger ---------- */
+  if (hamburger && mainNav) {
+    var syncExpanded = function () {
+      hamburger.setAttribute('aria-expanded', mainNav.classList.contains('open') ? 'true' : 'false');
+    };
+    hamburger.addEventListener('click', syncExpanded);
+    mainNav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', syncExpanded);
+    });
+  }
 })();
