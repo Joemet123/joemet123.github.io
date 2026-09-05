@@ -2738,3 +2738,150 @@ body::after {
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.40);
 }
 .round-divider { opacity: 0.5; }
+
+
+/* ============================================================
+   FIX PASS
+   1. Kill the full-card gradient overlay bug on cards.
+   2. Channel band: real art seated on a blurred fill of itself.
+   3. One content width so desktop edges actually line up.
+   4. Colour back up — saturation from the real banner, not glow.
+   ============================================================ */
+
+:root {
+  --content-w: 1120px;
+  /* Pulled off the channel art itself */
+  --c-blue:        #2F86FF;
+  --c-blue-bright: #7CC4FF;
+  --c-red:         #FF2E4C;
+  --c-purple:      #A445FF;
+  --glow-blue:   rgba(47, 134, 255, 0.55);
+  --glow-red:    rgba(255, 46, 76, 0.50);
+  --glow-purple: rgba(164, 69, 255, 0.50);
+}
+
+/* ---------- 1. THE BUG ----------
+   A previous rule turned this 2px top rule into a full-bleed
+   element (inset:0) and then painted an opaque brand gradient
+   into it on hover, covering the product photo. Never fill it. */
+.about-section::after,
+.merch-card::after,
+.social-card::after,
+.affiliate-card::after,
+.cmd-category::after {
+  inset: 0;
+  height: auto;
+  border-radius: inherit;
+  opacity: 0;
+  z-index: 1;
+  background:
+    radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(47, 134, 255, 0.16), transparent 68%),
+    var(--grad-rule) top left / 100% 2px no-repeat;
+  transition: opacity var(--dur-mid) var(--ease-out-expo);
+}
+
+/* Hover only lifts the spotlight — the artwork stays visible.
+   Guarded so a tap on mobile can't leave the state stuck on. */
+@media (hover: hover) and (pointer: fine) {
+  .about-section:hover::after,
+  .merch-card:hover::after,
+  .social-card:hover::after,
+  .affiliate-card:hover::after,
+  .cmd-category:hover::after {
+    background:
+      radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(47, 134, 255, 0.16), transparent 68%),
+      var(--grad-rule) top left / 100% 2px no-repeat;
+    opacity: 1;
+  }
+}
+@media (hover: none), (pointer: coarse) {
+  .about-section::after,
+  .merch-card::after,
+  .social-card::after,
+  .affiliate-card::after,
+  .cmd-category::after { opacity: 0 !important; }
+  .merch-card::before { display: none; }
+}
+
+/* Product art always sits above any overlay */
+.merch-image-wrap { position: relative; z-index: 2; }
+
+/* ---------- 2. Channel band ---------- */
+.brand-band {
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: 0 0 2.5rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(6, 9, 20, 0.55), rgba(6, 9, 20, 0.80)),
+    url('../images/channel-banner-blur.jpg') center / cover no-repeat;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  transition: box-shadow var(--dur-mid) var(--ease-out-expo),
+              transform var(--dur-mid) var(--ease-out-expo);
+}
+.brand-band-art {
+  display: block;
+  width: 100%;
+  max-width: 980px;
+  height: auto;
+  margin: 0 auto;
+  padding: 1.4rem 1.25rem;
+  transition: transform var(--dur-slow) var(--ease-out-expo);
+}
+.brand-band::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+              inset 0 -50px 70px -40px rgba(4, 6, 13, 0.85);
+}
+@media (hover: hover) and (pointer: fine) {
+  .brand-band:hover { box-shadow: 0 26px 70px rgba(0, 0, 0, 0.65); }
+  .brand-band:hover .brand-band-art { transform: scale(1.015); }
+}
+.brand-band:active { transform: scale(0.996); }
+
+@media (max-width: 640px) {
+  .brand-band { margin-bottom: 1.75rem; border-radius: var(--radius-sm); }
+  .brand-band-art { padding: 0.75rem 0.7rem; }
+}
+
+/* ---------- 3. One content width ---------- */
+.main-content { max-width: var(--content-w); }
+.main-content .section,
+.main-content > .about-section,
+.hero-split { max-width: var(--content-w) !important; }
+
+/* Prose stays readable inside the wider column */
+.section-subtitle,
+.about-section > p,
+.about-section > h3 { max-width: 68ch; margin-left: auto; margin-right: auto; }
+
+/* Columns align at the top instead of floating centred */
+.hero-split { align-items: stretch; gap: 1.75rem; }
+.hero-split-left,
+.hero-split-right { align-items: stretch; justify-content: flex-start; }
+.hero-split-right { gap: 0.5rem; }
+
+/* ---------- 4. Colour back up ---------- */
+.section-title {
+  border-left-width: 4px;
+  border-image: linear-gradient(180deg, var(--c-blue), var(--c-purple) 55%, var(--c-red)) 1;
+  color: #fff;
+}
+.round-divider,
+.main-content > .section + .section::before { opacity: 0.85; }
+
+.stream-chip {
+  background: rgba(255, 46, 76, 0.12);
+  border-color: rgba(255, 46, 76, 0.45);
+}
+
+.header-socials a:hover { color: var(--c-red); }
+.main-nav a.active { color: var(--c-blue-bright); }
