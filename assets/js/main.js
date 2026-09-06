@@ -582,4 +582,19 @@
       link.addEventListener('click', syncExpanded);
     });
   }
+
+
+  /* ---------- Live Discord presence count ---------- */
+  (function discordCount() {
+    var el = document.getElementById('dc-count');
+    if (!el) return;
+    fetch('https://discord.com/api/guilds/472588259717939211/widget.json')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (d && typeof d.presence_count === 'number') {
+          el.textContent = d.presence_count.toLocaleString() + ' Online';
+        }
+      })
+      .catch(function () {});
+  })();
 })();

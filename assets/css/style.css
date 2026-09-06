@@ -1062,8 +1062,8 @@ body.lightbox-open { overflow: hidden; }
   position: relative;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.15rem;
+  gap: 0.8rem;
+  padding: 0.72rem 1rem;
   background: var(--surface);
   border: 1px solid var(--line);
   border-left: 3px solid var(--sc, var(--blue));
@@ -1085,8 +1085,8 @@ body.lightbox-open { overflow: hidden; }
 .social-card > * { position: relative; }
 .social-card svg {
   flex-shrink: 0;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   transition: transform var(--mid) var(--spring);
 }
 .social-card--youtube { --sc: #FF3B3B; }
@@ -1095,7 +1095,7 @@ body.lightbox-open { overflow: hidden; }
 .social-card--tiktok  { --sc: #4DE8E0; }
 .social-card--x       { --sc: #9AA6B8; }
 .social-card .platform-name {
-  font-size: 1rem;
+  font-size: 0.93rem;
   font-weight: 700;
   letter-spacing: -0.01em;
 }
@@ -1577,9 +1577,11 @@ body.lightbox-open { overflow: hidden; }
    of stacking two identical full-width slabs. */
 @media (min-width: 900px) {
   .about-section:nth-of-type(2) {
-    margin-left: 3.5rem;
-    margin-top: 2rem;
-  }
+  margin-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 54rem;
+}
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -1996,4 +1998,47 @@ body.lightbox-open { overflow: hidden; }
   .live-layout { grid-template-columns: 1fr; }
   .live-chat { height: 460px; }
   .live-chat iframe { height: 460px; }
+}
+
+
+/* ---------- Discord pane (right of the socials column) ---------- */
+.discord-pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.discord-pane-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.55rem;
+}
+.discord-pane-name {
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.discord-pane-count {
+  font-size: var(--t-small);
+  font-weight: 700;
+  color: #5865F2;
+}
+.discord-pane .discord-widget-wrapper { flex: 1; }
+
+/* ---------- Rules + Commands side by side ----------
+   Commands must be visible without scrolling, so on wide screens
+   the two halves sit next to each other rather than stacked. */
+@media (min-width: 1040px) {
+  .rc-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2.25rem;
+    align-items: start;
+  }
+  .rc-grid > .section { margin-bottom: 0; }
+  /* narrower half, so commands stack one per row inside it */
+  .rc-grid .cmd-grid { grid-template-columns: 1fr; }
 }
