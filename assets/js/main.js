@@ -56,6 +56,109 @@
     });
   });
 
+  /* ============================================================
+     VIDEO LIGHTBOX
+     Vanilla, no libraries. The iframe is created on open and
+     destroyed on close, which is what actually stops the audio —
+     hiding the modal would leave the player running.
+     ============================================================ */
+  var lbEl     = document.getElementById('yt-lightbox');
+  var lbPanel  = lbEl ? lbEl.querySelector('.yt-lightbox-panel') : null;
+  var lbFrame  = lbEl ? lbEl.querySelector('.yt-lightbox-frame') : null;
+  var lbTitle  = lbEl ? lbEl.querySelector('.yt-lightbox-title') : null;
+  var lbClose  = lbEl ? lbEl.querySelector('.yt-lightbox-close') : null;
+  var lbReturn = null;   // element that had focus before opening
+  var lbOnClose = null;  // caller callback (e.g. restart the carousel)
+
+  function lbIsOpen() {
+    return !!lbEl && lbEl.classList.contains('is-open');
+  }
+
+  function lbFocusables() {
+    return lbPanel ? lbPanel.querySelectorAll('button, iframe, a[href]') : [];
+  }
+
+  function lbKeydown(e) {
+    if (!lbIsOpen()) return;
+
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      e.preventDefault();
+      e.stopPropagation();   // don't also fire the mobile-nav Escape handler
+      closeLightbox();
+      return;
+    }
+    if (e.key !== 'Tab') return;
+
+    // Focus trap: cycle inside the panel only.
+    var f = lbFocusables();
+    if (!f.length) return;
+    var first = f[0];
+    var last = f[f.length - 1];
+
+    if (!lbPanel.contains(document.activeElement)) {
+      e.preventDefault();
+      first.focus();
+    } else if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
+  function openLightbox(video, onClose) {
+    if (!lbEl || !video || !video.videoId || lbIsOpen()) return;
+
+    lbReturn = document.activeElement;
+    lbOnClose = typeof onClose === 'function' ? onClose : null;
+
+    lbTitle.textContent = video.title || '';
+    lbEl.classList.toggle('yt-lightbox--short', !!video.isShort);
+
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube.com/embed/' + video.videoId + '?autoplay=1&rel=0';
+    iframe.title = video.title || 'YouTube Video Player';
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+    lbFrame.appendChild(iframe);
+
+    lbEl.classList.add('is-open');
+    document.body.classList.add('lightbox-open');   // scroll lock
+    if (lbClose) lbClose.focus();
+
+    document.addEventListener('keydown', lbKeydown, true);
+  }
+
+  function closeLightbox() {
+    if (!lbIsOpen()) return;
+
+    lbEl.classList.remove('is-open', 'yt-lightbox--short');
+    document.body.classList.remove('lightbox-open');
+
+    // Tear the player down completely so playback and audio stop.
+    while (lbFrame.firstChild) lbFrame.removeChild(lbFrame.firstChild);
+
+    document.removeEventListener('keydown', lbKeydown, true);
+
+    if (lbReturn && typeof lbReturn.focus === 'function') lbReturn.focus();
+    lbReturn = null;
+
+    if (lbOnClose) { var cb = lbOnClose; lbOnClose = null; cb(); }
+  }
+
+  if (lbEl) {
+    // Backdrop and the X both carry data-lb-close.
+    lbEl.addEventListener('click', function (e) {
+      var node = e.target;
+      while (node && node !== lbEl) {
+        if (node.hasAttribute && node.hasAttribute('data-lb-close')) { closeLightbox(); return; }
+        node = node.parentNode;
+      }
+    });
+  }
+
   /* ---------- Spotlight Video Carousel (auto-fetched from RSS) ---------- */
   var spotCenter = document.getElementById('spot-center');
   var spotLeft = document.getElementById('spot-left');
@@ -70,14 +173,29 @@
     var videos = [];
     var current = 0;
 
+    function videoIdOf(link) {
+      var m = (link || '').match(/(?:watch\?v=|shorts\/|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{6,})/);
+      return m ? m[1] : '';
+    }
+
+    // rss2json hands titles back HTML-escaped (&quot;, &amp;, &#39;). Written
+    // straight into textContent they show up as literal entity text on the
+    // card, so decode once here. A textarea cannot execute anything.
+    function decodeEntities(s) {
+      if (!s) return '';
+      var ta = document.createElement('textarea');
+      ta.innerHTML = s;
+      return ta.value;
+    }
+
     function setCard(el, v) {
       el.href = v.link;
+      el._video = v;
+      el.classList.toggle('is-short', !!v.isShort);
       var img = el.querySelector('img');
-      var m = (v.link || '').match(/(?:watch\?v=|shorts\/|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-      var vid = m ? m[1] : '';
-      if (vid) {
-        img.src = 'https://i.ytimg.com/vi/' + vid + '/hqdefault.jpg';
-        img.onerror = function() { this.src = 'https://i.ytimg.com/vi/' + vid + '/mqdefault.jpg'; this.onerror = null; };
+      if (v.videoId) {
+        img.src = 'https://i.ytimg.com/vi/' + v.videoId + '/hqdefault.jpg';
+        img.onerror = function () { this.src = 'https://i.ytimg.com/vi/' + v.videoId + '/mqdefault.jpg'; this.onerror = null; };
       } else if (v.thumbnail) {
         img.src = v.thumbnail;
       }
@@ -85,6 +203,16 @@
       img.removeAttribute('loading');
       el.querySelector('.spotlight-card-title').textContent = v.title;
     }
+
+    // Any card opens the player in place instead of leaving the site.
+    [spotLeft, spotCenter, spotRight].forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        if (!card._video || !card._video.videoId) return;   // fall through to the href
+        e.preventDefault();
+        clearInterval(autoTimer);
+        openLightbox(card._video, resetAuto);
+      });
+    });
 
     function updateSpotlight(idx) {
       if (videos.length === 0) return;
@@ -127,7 +255,22 @@
       .then(function (res) { return res.json(); })
       .then(function (data) {
         if (data.status === 'ok' && data.items && data.items.length > 0) {
-          videos = data.items.filter(function(v) { return v.link && v.link.indexOf('/shorts/') === -1; }).slice(0, 7);
+          // Shorts are included on purpose: the channel feed only carries
+          // ~15 recent uploads and most of them are Shorts, so filtering
+          // them out left two cards. Take the seven most recent overall
+          // and label the Shorts instead of hiding them.
+          videos = data.items
+            .filter(function (v) { return v.link && videoIdOf(v.link); })
+            .slice(0, 7)
+            .map(function (v) {
+              return {
+                title: decodeEntities(v.title),
+                link: v.link,
+                thumbnail: v.thumbnail,
+                videoId: videoIdOf(v.link),
+                isShort: v.link.indexOf('/shorts/') !== -1
+              };
+            });
         }
         if (videos.length === 0) return;
         // Build dots
@@ -294,6 +437,119 @@
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
 
     targets.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* ---------- Measure the sticky chrome ----------
+     The band is one row on mobile (nav is an overlay) and two rows on
+     desktop, so its height cannot be a constant. Anything that has to
+     sit or scroll below it reads these two custom properties. */
+  (function stickyOffsets() {
+    var band = document.querySelector('.site-band');
+    if (!band) return;
+    var jump = document.querySelector('.page-jump');
+
+    function measure() {
+      var b = Math.round(band.getBoundingClientRect().height);
+      var j = jump ? Math.round(jump.getBoundingClientRect().height) : 0;
+      var root = document.documentElement.style;
+      root.setProperty('--band-total', b + 'px');
+      root.setProperty('--anchor-offset', (b + j + 22) + 'px');
+    }
+
+    measure();
+    window.addEventListener('resize', measure, { passive: true });
+    if ('ResizeObserver' in window) {
+      var ro = new ResizeObserver(measure);
+      ro.observe(band);
+      if (jump) ro.observe(jump);
+    }
+  })();
+
+  /* ---------- Scroll progress rail ---------- */
+  (function scrollProgress() {
+    if (!document.body) return;
+    var bar = document.createElement('div');
+    bar.className = 'scroll-progress';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+
+    var queued = false;
+    function update() {
+      queued = false;
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - doc.clientHeight;
+      var p = max > 0 ? Math.min(Math.max(doc.scrollTop / max, 0), 1) : 0;
+      bar.style.transform = 'scaleX(' + p + ')';
+    }
+    function schedule() {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(update);
+    }
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    update();
+  })();
+
+  /* ---------- Stats count up the first time they are seen ---------- */
+  (function statCountUp() {
+    if (prefersReduced || !hasIO) return;
+    var nums = document.querySelectorAll('.stat-num[data-count-to]');
+    if (!nums.length) return;
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        io.unobserve(entry.target);
+
+        var el = entry.target;
+        var to = parseFloat(el.getAttribute('data-count-to'));
+        var dp = parseInt(el.getAttribute('data-decimals') || '0', 10);
+        if (isNaN(to)) return;
+
+        var started = null;
+        var dur = 900;
+
+        function frame(ts) {
+          if (started === null) started = ts;
+          var p = Math.min((ts - started) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);          // ease-out
+          el.textContent = (to * eased).toFixed(dp);
+          if (p < 1) window.requestAnimationFrame(frame);
+          else el.textContent = to.toFixed(dp);
+        }
+        window.requestAnimationFrame(frame);
+      });
+    }, { threshold: 0.6 });
+
+    nums.forEach(function (n) { io.observe(n); });
+  })();
+
+  /* ---------- In-page jump nav: mark the section you are in ---------- */
+  (function jumpNavSpy() {
+    var nav = document.querySelector('.page-jump');
+    if (!nav || !hasIO) return;
+
+    var links = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+    var map = {};
+    links.forEach(function (a) {
+      var target = document.getElementById(a.getAttribute('href').slice(1));
+      if (target) map[target.id] = a;
+    });
+    var ids = Object.keys(map);
+    if (!ids.length) return;
+
+    map[ids[0]].classList.add('is-current');
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        links.forEach(function (a) { a.classList.remove('is-current'); });
+        map[entry.target.id].classList.add('is-current');
+      });
+    }, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
+
+    ids.forEach(function (id) { io.observe(document.getElementById(id)); });
   })();
 
   /* ---------- Close the mobile nav on Escape or outside tap ---------- */
