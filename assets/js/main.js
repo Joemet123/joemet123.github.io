@@ -152,18 +152,18 @@
 
   if (merchCenter && merchLeft && merchRight && merchCarousel) {
     var merchItems = [
-      { img: 'assets/images/merch/cafwfee-cup-army.png', name: 'CAWFEE CUP - MEATBAWL ARMY', price: '$11.00' },
-      { img: 'assets/images/merch/cafwfee-cup-haw-yaw.png', name: 'CAWFEE CUP - HOW AW YAW', price: '$13.40' },
-      { img: 'assets/images/merch/cafwfee-cup-army-v2.png', name: 'CAWFEE CUP - ARMY v2', price: '$11.00' },
-      { img: 'assets/images/merch/cafwfee-mug-joemet.png', name: 'TRAVEL MUG - JOEMET123', price: '$23.40' },
-      { img: 'assets/images/merch/cafwfee-mug-army.png', name: 'TRAVEL MUG - MEATBAWL ARMY', price: '$23.40' },
-      { img: 'assets/images/merch/sticker-frankie.png', name: 'STICKER - FRANKIE BEANS', price: '$6.00' },
-      { img: 'assets/images/merch/stickers-pack.png', name: 'STICKER PACK (11 MINI)', price: '$6.50' },
-      { img: 'assets/images/merch/tshirt-haw-yaw.png', name: 'T-SHIRT - HOW AW YA', price: '$16.30' },
-      { img: 'assets/images/merch/tshirt-army.png', name: 'T-SHIRT - MEATBAWL ARMY', price: '$16.30' },
-      { img: 'assets/images/merch/hoodie-frankie.png', name: 'HOODIE - FRANKIE BEANS', price: '$28.30' },
-      { img: 'assets/images/merch/hoodie-army.png', name: 'HOODIE - MEATBAWL ARMY', price: '$28.30' },
-      { img: 'assets/images/merch/beanie-frankie.png', name: 'BEANIE - FRANKIE BEANS', price: '$15.60' }
+      { img: 'assets/images/merch/cafwfee-cup-army.png', name: 'Cawfee Cup — Meatbawl Army', price: '$11.00' },
+      { img: 'assets/images/merch/cafwfee-cup-haw-yaw.png', name: 'Cawfee Cup — How Aw Yaw', price: '$13.40' },
+      { img: 'assets/images/merch/cafwfee-cup-army-v2.png', name: 'Cawfee Cup — Meatbawl Army V2', price: '$11.00' },
+      { img: 'assets/images/merch/cafwfee-mug-joemet.png', name: 'Cawfee Mug — JOEMET123 Travel Mug', price: '$23.40' },
+      { img: 'assets/images/merch/cafwfee-mug-army.png', name: 'Cawfee Mug — Meatbawl Army Travel Mug', price: '$23.40' },
+      { img: 'assets/images/merch/sticker-frankie.png', name: 'Holographic Sticker — Frankie Beans', price: '$6.00' },
+      { img: 'assets/images/merch/stickers-pack.png', name: '11 Mini Stickers — Sticker Pack', price: '$6.50' },
+      { img: 'assets/images/merch/tshirt-haw-yaw.png', name: 'T-Shirt — How Aw Ya', price: '$16.30' },
+      { img: 'assets/images/merch/tshirt-army.png', name: 'T-Shirt — Meatbawl Army', price: '$16.30' },
+      { img: 'assets/images/merch/hoodie-frankie.png', name: 'Hoodie — Frankie Beans', price: '$28.30' },
+      { img: 'assets/images/merch/hoodie-army.png', name: 'Hoodie — Meatbawl Army', price: '$28.30' },
+      { img: 'assets/images/merch/beanie-frankie.png', name: 'Beanie — Frankie Beans', price: '$15.60' }
     ];
     var mIdx = 0;
 
@@ -274,8 +274,10 @@
   (function scrollReveals() {
     if (prefersReduced || !hasIO) return;
 
+    // The hero is deliberately excluded: it is above the fold and
+    // should paint immediately rather than fade in behind the player.
     var targets = document.querySelectorAll(
-      '.main-content > .section, .main-content > .about-section, .main-content > .cmd-category'
+      '.main-content > .section, .main-content > .about-section, .main-content > .cmd-grid'
     );
     if (!targets.length) return;
 
@@ -294,35 +296,25 @@
     targets.forEach(function (el) { io.observe(el); });
   })();
 
-  /* ---------- Cursor-tracking spotlight on cards (fine pointers only) ---------- */
-  (function cardSpotlight() {
-    if (prefersReduced) return;
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  /* ---------- Close the mobile nav on Escape or outside tap ---------- */
+  if (hamburger && mainNav) {
+    var closeNav = function () {
+      if (!mainNav.classList.contains('open')) return;
+      hamburger.classList.remove('active');
+      mainNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    };
 
-    var selector = '.merch-card, .social-card, .affiliate-card, .cmd-category, .about-section';
-    var queued = false;
-    var lastX = 0;
-    var lastY = 0;
-    var lastTarget = null;
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeNav();
+    });
 
-    document.addEventListener('pointermove', function (e) {
-      lastX = e.clientX;
-      lastY = e.clientY;
-      lastTarget = e.target;
-      if (queued) return;
-      queued = true;
-
-      requestAnimationFrame(function () {
-        queued = false;
-        var card = lastTarget && lastTarget.closest ? lastTarget.closest(selector) : null;
-        if (!card) return;
-        var r = card.getBoundingClientRect();
-        if (!r.width || !r.height) return;
-        card.style.setProperty('--mx', ((lastX - r.left) / r.width * 100).toFixed(1) + '%');
-        card.style.setProperty('--my', ((lastY - r.top) / r.height * 100).toFixed(1) + '%');
-      });
-    }, { passive: true });
-  })();
+    document.addEventListener('click', function (e) {
+      if (!mainNav.classList.contains('open')) return;
+      if (mainNav.contains(e.target) || hamburger.contains(e.target)) return;
+      closeNav();
+    });
+  }
 
   /* ---------- Keep aria-expanded honest on the hamburger ---------- */
   if (hamburger && mainNav) {
