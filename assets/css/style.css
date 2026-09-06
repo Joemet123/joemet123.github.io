@@ -811,16 +811,22 @@ ul, ol { padding-left: 1.4em; }
   align-items: start;
 }
 @media (min-width: 900px) {
-  .community-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 400px); gap: 2rem; }
+  .community-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+    gap: 2rem;
+    align-items: stretch;
+  }
+  /* Five rows divide the row height evenly, so the socials column
+     ends flush with the Discord widget instead of leaving a gap. */
+  .community-grid .social-reach-grid { grid-auto-rows: 1fr; }
 }
 
 .social-reach-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 0.7rem;
-  align-content: start;
+  align-content: stretch;
 }
-.social-reach-grid > :nth-child(5) { grid-column: 1 / -1; }
 /* Rows, not another identical centred card grid. */
 .social-card {
   display: flex;
