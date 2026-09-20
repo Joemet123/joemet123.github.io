@@ -1708,3 +1708,34 @@
     teleporter: TELEPORTER_ITEMS
   };
 })();
+
+
+/* ---------- Highlight the tool you are looking at in the sticky row ---------- */
+(function toolnavSpy() {
+  'use strict';
+  var navs = [].slice.call(document.querySelectorAll('.solver-toolnav'));
+  if (!navs.length || !('IntersectionObserver' in window)) return;
+
+  navs.forEach(function (nav) {
+    var links = [].slice.call(nav.querySelectorAll('a[href^="#"]:not(.solver-toolnav-up)'));
+    var map = {};
+    var targets = [];
+    links.forEach(function (a) {
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) { map[id] = a; targets.push(el); }
+    });
+    if (!targets.length) return;
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (l) { l.classList.remove('is-current'); });
+        var a = map[e.target.id];
+        if (a) a.classList.add('is-current');
+      });
+    }, { rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+
+    targets.forEach(function (t) { io.observe(t); });
+  });
+})();

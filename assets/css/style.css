@@ -3079,3 +3079,50 @@ code.solver-code--lg {
 @media (max-width: 640px) {
   .solver-toolnav a { font-size: 0.74rem; padding: 0.3rem 0.62rem; }
 }
+
+/* ---------- Solver navigation behaviour ----------
+   The map row sits once at the top of the page and stays there.
+   The tool row for the map you are in follows you down the screen,
+   so you can switch tools without scrolling back up. Because each
+   tool row lives inside its own map section, it releases naturally
+   when you reach the next map. */
+.solver-index {
+  position: static;
+  top: auto;
+}
+.solver-toolnav {
+  position: sticky;
+  top: var(--band-total, var(--band-h));
+  z-index: 18;
+  margin: 0 0 1.4rem;
+  padding: 0.55rem 0 0.5rem;
+  background: linear-gradient(180deg, var(--bg) 78%, transparent 100%);
+}
+/* Keep the sticky row clear of the page edge on wide screens */
+.solver-toolnav::before {
+  content: '';
+  position: absolute;
+  inset: 0 -100vw;
+  z-index: -1;
+  background: linear-gradient(180deg, var(--bg) 78%, transparent 100%);
+  pointer-events: none;
+}
+.solver-toolnav-up {
+  margin-left: auto;
+  border-style: dashed !important;
+  color: var(--ink-dim) !important;
+}
+.solver-toolnav-up::before {
+  background: var(--orange) !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  .solver-toolnav-up:hover {
+    color: var(--ink) !important;
+    border-color: var(--orange) !important;
+    border-style: solid !important;
+  }
+}
+@media (max-width: 720px) {
+  .solver-toolnav { padding: 0.45rem 0 0.4rem; }
+  .solver-toolnav-up { margin-left: 0; }
+}
