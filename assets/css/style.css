@@ -2226,3 +2226,20 @@ body.lightbox-open { overflow: hidden; }
   border-radius: 999px;
   background: var(--surface-2);
 }
+
+.soon-note {
+  max-width: 44ch;
+  margin: 1.35rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--ink-mid);
+}
+.soon-note a {
+  color: var(--blue);
+  font-weight: 700;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--fast) var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .soon-note a:hover { border-bottom-color: var(--blue); }
+}
