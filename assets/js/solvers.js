@@ -1,21 +1,24 @@
 /* ============================================================
    JOEMET123 — Call Of Duty Zombies Solvers
-   Ported 1:1 from the three Discord bots:
+   Logic ported 1:1 from the three Discord bots:
      OFFICIAL_BO3_ZOMBIES_SOLVER.py
      OFFICIAL_BO6_ZOMBIES_SOLVER.py
      OFFICIAL_BO7_ZOMBIES_SOLVER.py
    Every code, mapping, sequence and algorithm below is copied
    from that source. Nothing here is invented.
 
+   The INTERFACE is deliberately not the bot's. Discord forces
+   one message, five action rows and a back button; a browser
+   has none of those limits, so every tool is laid out flat with
+   its controls and its answer side by side and always visible.
+
    Pure client-side. No network, no storage, no tracking.
-   Widgets mount into [data-solver] placeholders, so the static
-   prose around them stays in the HTML and stays indexable.
    ============================================================ */
 (function () {
   'use strict';
 
   /* ==========================================================
-     0. TINY DOM HELPERS
+     0. DOM HELPERS
      ========================================================== */
 
   function el(tag, cls, text) {
@@ -24,32 +27,58 @@
     if (text !== undefined && text !== null) n.textContent = text;
     return n;
   }
-
   function frag() { return document.createDocumentFragment(); }
-
   function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
 
-  /* Build a labelled <select>. opts = [{v: value, t: text}] */
-  function selectField(labelText, opts, placeholder) {
-    var wrap = el('label', 'solver-field solver-field--tight');
-    wrap.appendChild(el('span', null, labelText));
-    var sel = el('select');
-    if (placeholder) {
-      var o0 = el('option', null, placeholder);
-      o0.value = '';
-      sel.appendChild(o0);
+  /* Controls on the left, answer on the right (stacked on mobile).
+     The answer panel is always present so nothing jumps when it fills. */
+  function makeIO(root) {
+    var io = el('div', 'solver-io');
+    var controls = el('div', 'solver-io-controls');
+    var outWrap = el('div', 'solver-io-out');
+    var res = el('div', 'solver-result');
+    outWrap.appendChild(res);
+    io.appendChild(controls);
+    io.appendChild(outWrap);
+    root.appendChild(io);
+    return { controls: controls, out: res };
+  }
+
+  /* A labelled group of choice buttons — replaces the bot's dropdowns. */
+  function optGroup(labelText, hint) {
+    var wrap = el('div', 'solver-opt');
+    if (labelText) {
+      var lab = el('span', 'solver-opt-label', labelText);
+      wrap.appendChild(lab);
     }
-    opts.forEach(function (o) {
-      var op = el('option', null, o.t);
-      op.value = String(o.v);
-      sel.appendChild(op);
-    });
-    wrap.appendChild(sel);
-    return { wrap: wrap, input: sel };
+    if (hint) wrap.appendChild(el('span', 'solver-opt-hint', hint));
+    var btns = el('div', 'solver-opt-btns');
+    wrap.appendChild(btns);
+    return { wrap: wrap, btns: btns };
+  }
+
+  function chip(label, cls) {
+    var b = el('button', 'solver-chip' + (cls ? ' ' + cls : ''), label);
+    b.type = 'button';
+    return b;
+  }
+
+  /* A choice button that shows the actual in-game symbol. */
+  function imgChip(game, file, label, alt) {
+    var b = el('button', 'solver-imgchip');
+    b.type = 'button';
+    var im = el('img');
+    im.src = imgPath(game, file);
+    im.alt = alt || label;
+    im.loading = 'lazy';
+    im.decoding = 'async';
+    b.appendChild(im);
+    b.appendChild(el('span', 'solver-imgchip-label', label));
+    return b;
   }
 
   function numberField(labelText, ph) {
-    var wrap = el('label', 'solver-field solver-field--tight');
+    var wrap = el('label', 'solver-field');
     wrap.appendChild(el('span', null, labelText));
     var inp = el('input');
     inp.type = 'text';
@@ -61,7 +90,7 @@
   }
 
   function textField(labelText, ph, maxLen) {
-    var wrap = el('label', 'solver-field solver-field--tight');
+    var wrap = el('label', 'solver-field');
     wrap.appendChild(el('span', null, labelText));
     var inp = el('input');
     inp.type = 'text';
@@ -72,75 +101,96 @@
     return { wrap: wrap, input: inp };
   }
 
+  function actions() { return el('div', 'solver-actions'); }
   function button(label, cls) {
-    var b = el('button', cls || 'solver-chip', label);
+    var b = el('button', cls || 'btn btn-outline', label);
     b.type = 'button';
     return b;
   }
 
-  function actions() { return el('div', 'solver-actions'); }
-
-  function chipRow(labelText) {
-    var row = el('div', 'solver-chiprow');
-    if (labelText) row.appendChild(el('span', 'solver-chiprow-label', labelText));
-    return row;
+  /* ---- answer panel rendering ---- */
+  function idle(out, message) {
+    clear(out);
+    out.className = 'solver-result solver-result--idle';
+    out.appendChild(el('p', 'solver-idle', message));
+  }
+  function begin(out, title) {
+    clear(out);
+    out.className = 'solver-result is-answered';
+    if (title) out.appendChild(el('p', 'solver-result-title', title));
+  }
+  function beginWarn(out, title) {
+    clear(out);
+    out.className = 'solver-result is-warning';
+    if (title) out.appendChild(el('p', 'solver-result-title', title));
+  }
+  function progress(out, title) {
+    clear(out);
+    out.className = 'solver-result is-progress';
+    if (title) out.appendChild(el('p', 'solver-result-title', title));
   }
 
-  /* Result panel — created hidden, shown once it has content. */
-  function resultBox() {
-    var box = el('div', 'solver-result');
-    return box;
-  }
-
-  function showResult(box) { box.classList.add('is-open'); }
-
-  function resultTitle(text) { return el('p', 'solver-result-title', text); }
-
-  function resultList(items) {
+  function answerList(items) {
     var ul = el('ul', 'solver-answer-list');
     items.forEach(function (t) {
       var li = el('li');
-      if (typeof t === 'string') { li.textContent = t; } else { li.appendChild(t); }
+      if (typeof t === 'string') li.textContent = t; else li.appendChild(t);
       ul.appendChild(li);
     });
     return ul;
   }
-
-  function strongLine(label, value) {
+  function stepList(items) {
+    var ol = el('ol', 'solver-answer-steps');
+    items.forEach(function (t) {
+      var li = el('li');
+      if (typeof t === 'string') li.textContent = t; else li.appendChild(t);
+      ol.appendChild(li);
+    });
+    return ol;
+  }
+  function kv(label, value) {
     var p = el('p', 'solver-line');
     p.appendChild(el('span', 'solver-line-k', label));
     p.appendChild(el('strong', 'solver-line-v', value));
     return p;
   }
-
+  function bigCode(text) {
+    var p = el('p', 'solver-big');
+    p.appendChild(el('code', 'solver-code solver-code--lg', text));
+    return p;
+  }
+  function subhead(text) { return el('p', 'solver-subhead', text); }
   function note(text, kind) {
     return el('p', 'solver-note' + (kind ? ' solver-note--' + kind : ''), text);
   }
+  function codeNode(k, v, sep) {
+    var f = frag();
+    f.appendChild(el('strong', null, k));
+    f.appendChild(document.createTextNode(sep || ' \u2014 '));
+    f.appendChild(el('code', 'solver-code', v));
+    return f;
+  }
 
   /* ==========================================================
-     1. IMAGE HANDLING + LIGHTBOX
+     1. IMAGES + LIGHTBOX (zoomable, pinch friendly)
      ========================================================== */
 
   var IMG_BASE = 'assets/images/solvers/';
-
   function imgPath(game, file) { return IMG_BASE + game + '/' + file; }
 
-  /* A clickable image plate with a full-size fallback link. */
   function imagePlate(game, file, alt, caption) {
     var src = imgPath(game, file);
     var fig = el('figure', 'solver-figure');
-
     var btn = el('button', 'solver-img-btn');
     btn.type = 'button';
     btn.setAttribute('aria-label', 'Open Full Size: ' + alt);
-
     var im = el('img');
     im.src = src;
     im.alt = alt;
     im.loading = 'lazy';
     im.decoding = 'async';
     btn.appendChild(im);
-    btn.addEventListener('click', function () { openImageLightbox(src, alt); });
+    btn.addEventListener('click', function () { openLightbox(src, alt); });
     fig.appendChild(btn);
 
     var cap = el('figcaption', 'solver-figcaption');
@@ -155,8 +205,7 @@
     return fig;
   }
 
-  /* --- lightbox --- */
-  var lb = null, lbImg = null, lbCap = null, lbReturn = null;
+  var lb = null, lbImg = null, lbCap = null, lbZoom = null, lbReturn = null, lbStage = null;
 
   function buildLightbox() {
     if (lb) return;
@@ -166,37 +215,52 @@
     lb.hidden = true;
 
     var backdrop = el('div', 'solver-lightbox-backdrop');
-    backdrop.addEventListener('click', closeImageLightbox);
+    backdrop.addEventListener('click', closeLightbox);
     lb.appendChild(backdrop);
 
     var panel = el('div', 'solver-lightbox-panel');
     var bar = el('div', 'solver-lightbox-bar');
     lbCap = el('p', 'solver-lightbox-title', '');
     bar.appendChild(lbCap);
+
+    lbZoom = el('button', 'solver-lightbox-zoom', 'Actual Size');
+    lbZoom.type = 'button';
+    lbZoom.addEventListener('click', toggleZoom);
+    bar.appendChild(lbZoom);
+
     var close = el('button', 'solver-lightbox-close', '\u00d7');
     close.type = 'button';
     close.setAttribute('aria-label', 'Close');
-    close.addEventListener('click', closeImageLightbox);
+    close.addEventListener('click', closeLightbox);
     bar.appendChild(close);
     panel.appendChild(bar);
 
-    var stage = el('div', 'solver-lightbox-stage');
+    lbStage = el('div', 'solver-lightbox-stage');
     lbImg = el('img');
     lbImg.alt = '';
-    stage.appendChild(lbImg);
-    panel.appendChild(stage);
+    lbImg.addEventListener('click', toggleZoom);
+    lbStage.appendChild(lbImg);
+    panel.appendChild(lbStage);
 
     lb.appendChild(panel);
     document.body.appendChild(lb);
 
     document.addEventListener('keydown', function (e) {
-      if (!lb.hidden && (e.key === 'Escape' || e.key === 'Esc')) closeImageLightbox();
+      if (!lb.hidden && (e.key === 'Escape' || e.key === 'Esc')) closeLightbox();
     });
   }
 
-  function openImageLightbox(src, alt) {
+  function toggleZoom() {
+    if (!lbStage) return;
+    var zoomed = lbStage.classList.toggle('is-zoomed');
+    lbZoom.textContent = zoomed ? 'Fit To Screen' : 'Actual Size';
+  }
+
+  function openLightbox(src, alt) {
     buildLightbox();
     lbReturn = document.activeElement;
+    lbStage.classList.remove('is-zoomed');
+    lbZoom.textContent = 'Actual Size';
     lbImg.src = src;
     lbImg.alt = alt || '';
     lbCap.textContent = alt || '';
@@ -206,7 +270,7 @@
     if (c) c.focus();
   }
 
-  function closeImageLightbox() {
+  function closeLightbox() {
     if (!lb || lb.hidden) return;
     lb.hidden = true;
     lbImg.removeAttribute('src');
@@ -225,7 +289,6 @@
     'Infirmary', 'Dragon Command', 'Department Store'
   ];
 
-  /* "green|pink" -> [[room, setting], ...]  (all 30 combinations) */
   var VALVE_COMBINATIONS = {
     'Armory|Tank Factory': [['Armory', 3], ['Department Store', 2], ['Infirmary', 3], ['Dragon Command', 1], ['Supply Depot', 3]],
     'Armory|Department Store': [['Armory', 1], ['Supply Depot', 3], ['Tank Factory', 1], ['Infirmary', 1], ['Dragon Command', 2]],
@@ -264,8 +327,7 @@
   }
 
   /* ==========================================================
-     3. BO6 DATA
-     Source: OFFICIAL_BO6_ZOMBIES_SOLVER.py section 5
+     3. BO6 DATA — OFFICIAL_BO6_ZOMBIES_SOLVER.py section 5
      ========================================================== */
 
   var BEAMSMASHER_LIMIT = 99;
@@ -332,7 +394,6 @@
     return { primary: primary, alternate: alternate };
   }
 
-  /* Insertion order below IS the button order in the bot. */
   var TELEPORTER_ITEMS = [
     { digit: 6, label: 'BND Badge',      precedence: 1 },
     { digit: 1, label: "Notso's Collar", precedence: 2 },
@@ -344,8 +405,7 @@
   var TELEPORTER_TARGET = 4;
 
   /* ==========================================================
-     4. BO7 DATA
-     Source: OFFICIAL_BO7_ZOMBIES_SOLVER.py section 5
+     4. BO7 DATA — OFFICIAL_BO7_ZOMBIES_SOLVER.py section 5
      ========================================================== */
 
   var SYMBOL_BUTTONS = {
@@ -426,7 +486,6 @@
     s.books.forEach(function (b) { BOOK_TO_STATUE[b.id] = s.key; });
   });
 
-  /* --- Kowakujo scrolls: 3x3 lights-out with a plus-shaped toggle --- */
   var KOWAKUJO_CELLS = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3'];
   var KOWAKUJO_CELL_IDX = {};
   KOWAKUJO_CELLS.forEach(function (c, i) { KOWAKUJO_CELL_IDX[c] = i; });
@@ -448,7 +507,7 @@
     A3: 'Left Bottom', B3: 'Middle Bottom', C3: 'Right Bottom'
   };
 
-  /* Gaussian elimination over GF(2), minimum-weight solution.
+  /* GF(2) Gaussian elimination, minimum-weight solution.
      Direct port of kowakujo_solve_matrix(). */
   function kowakujoSolveMatrix(bState) {
     var size = KOWAKUJO_CELLS.length, i, r, k, col;
@@ -506,7 +565,6 @@
     return best;
   }
 
-  /* --- Kowakujo mystery --- */
   var MYSTERY_OPTIONS = {
     accomplice: [['merchant', 'Merchant'], ['courtier', 'Courtier'], ['gardener', 'Gardener']],
     symptom: [['emesis', 'Noxious Food + Emesis'], ['plant', 'Contaminated / Noxious Plant'],
@@ -553,7 +611,6 @@
     return '[No Match - Check Clues]';
   }
 
-  /* --- Rex Infernus: Nexus pillar handle alignment --- */
   var REX_CRANK_RING = ['House', 'Nyxara', 'Veytharion', 'Empty', 'Dravakar', 'Caltheris'];
   var REX_CRANK_TEMPLES = ['Veytharion', 'Caltheris', 'Dravakar', 'Nyxara'];
   var REX_CRANK_NAMES = ['Inner', 'Middle', 'Outer'];
@@ -572,7 +629,6 @@
   };
 
   function crankLabel(ringName) { return REX_CRANK_DISPLAY[ringName] || ringName; }
-
   function mod6(n) { return ((n % 6) + 6) % 6; }
 
   /* Direct port of rex_crank_solve(): breadth-first, identical visit order. */
@@ -581,9 +637,8 @@
     if (start[0] === targetPos && start[1] === targetPos && start[2] === targetPos) {
       return [0, 0, 0];
     }
-    var startKey = start.join(',');
     var visited = {};
-    visited[startKey] = null;
+    visited[start.join(',')] = null;
     var queue = [start];
     var head = 0;
     while (head < queue.length) {
@@ -620,7 +675,6 @@
         costs.push({ total: counts[0] + counts[1] + counts[2], temple: temple, counts: counts });
       }
     });
-    /* Python sorts tuples (total, temple, counts) — total then temple name. */
     costs.sort(function (a, b) {
       if (a.total !== b.total) return a.total - b.total;
       return a.temple < b.temple ? -1 : (a.temple > b.temple ? 1 : 0);
@@ -629,414 +683,60 @@
   }
 
   /* ==========================================================
-     5. WIDGETS
+     5. SHARED WIDGET BEHAVIOURS
      ========================================================== */
 
-  var WIDGETS = {};
-
-  /* ---------- BO3: Gorod Krovi Valve Step ---------- */
-  WIDGETS.valve = function (root) {
-    var locOpts = VALVE_LOCATIONS.map(function (n) { return { v: n, t: n }; });
-    var inputs = el('div', 'solver-inputs');
-    var green = selectField('Green Light Is In', locOpts, 'Choose A Room\u2026');
-    var pink = selectField('Pink Cylinder Is In', locOpts, 'Choose A Room\u2026');
-    inputs.appendChild(green.wrap);
-    inputs.appendChild(pink.wrap);
-    root.appendChild(inputs);
-
-    var act = actions();
-    var reset = button('Start Over', 'btn btn-outline');
-    act.appendChild(reset);
-    root.appendChild(act);
-
-    var out = resultBox();
-    root.appendChild(out);
-
-    function refreshPink() {
-      /* The bot never offers the green room as the pink room. */
-      var g = green.input.value;
-      Array.prototype.forEach.call(pink.input.options, function (o) {
-        o.hidden = (o.value !== '' && o.value === g);
-      });
-      if (pink.input.value && pink.input.value === g) pink.input.value = '';
-    }
-
-    function run() {
-      var g = green.input.value, p = pink.input.value;
-      clear(out);
-      if (!g || !p) {
-        out.classList.remove('is-open');
-        return;
-      }
-      var answer = solveValves(g, p);
-      showResult(out);
-      if (!answer) {
-        out.appendChild(resultTitle('No Match'));
-        out.appendChild(note('There Is No Route Stored For Green ' + g + ' To Pink ' + p +
-          '. Double-Check The Two Rooms And Try Again.', 'warn'));
-        return;
-      }
-      out.appendChild(resultTitle('Your Valve Settings'));
-      out.appendChild(strongLine('Green Light At ', g));
-      out.appendChild(strongLine('Pink Cylinder At ', p));
-      out.appendChild(el('p', 'solver-subhead', 'Go Around The Map And Set:'));
-      out.appendChild(resultList(answer.map(function (row) {
-        var li = frag();
-        li.appendChild(el('strong', null, row[0]));
-        li.appendChild(document.createTextNode(' \u2014 Set To '));
-        li.appendChild(el('code', 'solver-code', String(row[1])));
-        return li;
-      })));
-      out.appendChild(note('Then Grab Your Pink Cylinder At ' + p + ' \u2014 Your Endpoint.'));
-    }
-
-    green.input.addEventListener('change', function () { refreshPink(); run(); });
-    pink.input.addEventListener('change', run);
-    reset.addEventListener('click', function () {
-      green.input.value = '';
-      pink.input.value = '';
-      refreshPink();
-      clear(out);
-      out.classList.remove('is-open');
-    });
-    refreshPink();
-  };
-
-  /* ---------- BO6: Beamsmasher ---------- */
-  WIDGETS.beamsmasher = function (root) {
-    var inputs = el('div', 'solver-inputs');
-    var fx = numberField('Enter X Value', 'Example: 1');
-    var fy = numberField('Enter Y Value', 'Example: 2');
-    var fz = numberField('Enter Z Value', 'Example: 3');
-    inputs.appendChild(fx.wrap);
-    inputs.appendChild(fy.wrap);
-    inputs.appendChild(fz.wrap);
-    root.appendChild(inputs);
-
-    var act = actions();
-    var go = button('Solve', 'btn btn-accent');
-    var reset = button('Reset', 'btn btn-outline');
-    act.appendChild(go);
-    act.appendChild(reset);
-    root.appendChild(act);
-
-    var out = resultBox();
-    root.appendChild(out);
-
-    function parseVal(raw) {
-      var s = (raw || '').trim();
-      if (s === '') return NaN;
-      if (!/^[+-]?(\d+(\.\d*)?|\.\d+)$/.test(s)) return NaN;
-      var n = parseFloat(s);
-      if (!isFinite(n)) return NaN;
-      /* The bot rejects 2.7 rather than flooring it. "2.0" is fine. */
-      if (Math.floor(n) !== n) return NaN;
-      return n;
-    }
-
-    function run() {
-      var x = parseVal(fx.input.value);
-      var y = parseVal(fy.input.value);
-      var z = parseVal(fz.input.value);
-      clear(out);
-      showResult(out);
-      if (isNaN(x) || isNaN(y) || isNaN(z) ||
-          Math.abs(x) > BEAMSMASHER_LIMIT ||
-          Math.abs(y) > BEAMSMASHER_LIMIT ||
-          Math.abs(z) > BEAMSMASHER_LIMIT) {
-        out.appendChild(resultTitle('Invalid Entry'));
-        out.appendChild(note('Enter Whole Numbers (-99 To 99) Only, Then Try Again.', 'warn'));
-        return;
-      }
-      out.appendChild(resultTitle('Results For X=' + x + ', Y=' + y + ', Z=' + z));
-      out.appendChild(resultList([
-        lineNode('First Number', String(beamFirst(x))),
-        lineNode('Second Number', String(beamSecond(x, y, z))),
-        lineNode('Third Number', String(beamThird(x, y, z)))
-      ]));
-    }
-
-    function lineNode(k, v) {
-      var f = frag();
-      f.appendChild(el('strong', null, k));
-      f.appendChild(document.createTextNode(' \u2014 '));
-      f.appendChild(el('code', 'solver-code', v));
-      return f;
-    }
-
-    go.addEventListener('click', run);
-    [fx, fy, fz].forEach(function (f) {
-      f.input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); run(); } });
-    });
-    reset.addEventListener('click', function () {
-      fx.input.value = ''; fy.input.value = ''; fz.input.value = '';
-      clear(out); out.classList.remove('is-open');
-    });
-  };
-
-  /* ---------- BO6: Projector & Straus Counter ---------- */
-  WIDGETS.projector = function (root) {
-    var row = chipRow('What Colour Is Your Straus Counter?');
-    var out = resultBox();
+  /* Single-choice button group. onPick(value) fires on every change. */
+  function singleChoice(container, labelText, options, onPick, hint) {
+    var g = optGroup(labelText, hint);
     var chips = {};
-    STRAUS_ORDER.forEach(function (key) {
-      var b = button(STRAUS_COLOURS[key].button, 'solver-chip solver-chip--' + key);
+    options.forEach(function (o) {
+      var b = chip(o.label, o.cls);
       b.addEventListener('click', function () {
-        STRAUS_ORDER.forEach(function (k) { chips[k].classList.remove('is-on'); });
-        b.classList.add('is-on');
-        var d = STRAUS_COLOURS[key];
-        clear(out);
-        showResult(out);
-        out.appendChild(resultTitle('Turn Your Projector To ' + d.projector));
-        out.appendChild(note('Since Your Straus Counter Is ' + d.counter +
-          ', Turn Your Projector To ' + d.projector + '.'));
-      });
-      chips[key] = b;
-      row.appendChild(b);
-    });
-    root.appendChild(row);
-    root.appendChild(out);
-  };
-
-  /* ---------- BO6: Raven sword fossils ---------- */
-  WIDGETS.raven = function (root) {
-    var row = chipRow('What Does Your Fossil Look Like?');
-    var out = resultBox();
-    var chips = {};
-    Object.keys(FOSSILS).forEach(function (k) {
-      var b = button(k, 'solver-chip');
-      b.addEventListener('click', function () {
-        Object.keys(chips).forEach(function (j) { chips[j].classList.remove('is-on'); });
-        b.classList.add('is-on');
-        clear(out);
-        showResult(out);
-        out.appendChild(resultTitle('Fossil ' + k + ' \u2014 Your Code Is Below'));
-        out.appendChild(note('Insert Sword In Basement & Enter This Code.'));
-        out.appendChild(imagePlate('bo6', FOSSILS[k].image, 'Fossil ' + k + ' Code',
-          'Fossil ' + k + ' Code'));
-      });
-      chips[k] = b;
-      row.appendChild(b);
-    });
-    root.appendChild(row);
-    root.appendChild(out);
-  };
-
-  /* ---------- BO6: The Tomb rune tracker ---------- */
-  WIDGETS.runes = function (root) {
-    var picked = [];
-    var row = chipRow('Select The Runes In Your Game');
-    var chips = {};
-    for (var n = 1; n <= RUNE_COUNT; n++) {
-      (function (num) {
-        var b = button('Rune ' + num, 'solver-chip');
-        b.addEventListener('click', function () {
-          var i = picked.indexOf(num);
-          if (i !== -1) { picked.splice(i, 1); b.classList.remove('is-on'); }
-          else { picked.push(num); b.classList.add('is-on'); }
-          paint();
+        Object.keys(chips).forEach(function (k) {
+          chips[k].classList.remove('is-on');
+          chips[k].setAttribute('aria-pressed', 'false');
         });
-        chips[num] = b;
-        row.appendChild(b);
-      })(n);
-    }
-    root.appendChild(row);
-
-    var act = actions();
-    var reset = button('Reset', 'btn btn-outline');
-    act.appendChild(reset);
-    root.appendChild(act);
-
-    var out = resultBox();
-    root.appendChild(out);
-
-    function paint() {
-      clear(out);
-      showResult(out);
-      out.appendChild(resultTitle('Selected Runes'));
-      out.appendChild(el('p', 'solver-big', picked.length
-        ? picked.map(function (n) { return 'Rune ' + n; }).join(', ')
-        : 'None'));
-      out.appendChild(note('Click A Rune Again To Un-Pick A Mis-Tap.'));
-    }
-
-    reset.addEventListener('click', function () {
-      picked.length = 0;
-      Object.keys(chips).forEach(function (k) { chips[k].classList.remove('is-on'); });
-      clear(out);
-      out.classList.remove('is-open');
-    });
-  };
-
-  /* ---------- BO6: MKII Chalkboard ---------- */
-  WIDGETS.chalkboard = function (root) {
-    var row = chipRow('What Are The Letters On The Bottom Left Of Your Chalkboard?');
-    var out = resultBox();
-    var chips = {};
-    CHALKBOARD_KEYS.forEach(function (key) {
-      var b = button(key, 'solver-chip');
-      b.addEventListener('click', function () {
-        CHALKBOARD_KEYS.forEach(function (k) { chips[k].classList.remove('is-on'); });
         b.classList.add('is-on');
-        var codes = CHALKBOARDS[key];
-        clear(out);
-        showResult(out);
-        out.appendChild(resultTitle('Chalkboard ' + key + ' Codes'));
-        out.appendChild(resultList(CHALKBOARD_WORDS.map(function (w) {
-          var f = frag();
-          f.appendChild(el('strong', null, w.toUpperCase()));
-          f.appendChild(document.createTextNode(': '));
-          f.appendChild(el('code', 'solver-code', String(codes[w])));
-          return f;
-        })));
-        out.appendChild(note('The Printed Page Names One Of These Four Words. ' +
-          'The Number Beside It Is Your Service Tunnel Code.'));
+        b.setAttribute('aria-pressed', 'true');
+        onPick(o.v);
       });
-      chips[key] = b;
-      row.appendChild(b);
+      b.setAttribute('aria-pressed', 'false');
+      chips[String(o.v)] = b;
+      g.btns.appendChild(b);
     });
-    root.appendChild(row);
-    root.appendChild(out);
-  };
-
-  /* ---------- BO6: Gorgofex periodic code ---------- */
-  WIDGETS.gorgofex = function (root) {
-    var inputs = el('div', 'solver-inputs');
-    var fd = textField('Deadshot Monitor Letter', 'First Letter On Screen', 2);
-    var fr = textField('Periodic Room Monitor Letter', 'First Letter On Screen', 2);
-    inputs.appendChild(fd.wrap);
-    inputs.appendChild(fr.wrap);
-    root.appendChild(inputs);
-
-    var act = actions();
-    var go = button('Find My Code', 'btn btn-accent');
-    var reset = button('Reset', 'btn btn-outline');
-    act.appendChild(go);
-    act.appendChild(reset);
-    root.appendChild(act);
-
-    var out = resultBox();
-    root.appendChild(out);
-
-    function run() {
-      var d = (fd.input.value || '').trim().toUpperCase();
-      var r = (fr.input.value || '').trim().toUpperCase();
-      clear(out);
-      showResult(out);
-      if (!d && !r) {
-        out.appendChild(resultTitle('Error'));
-        out.appendChild(note('You Must Enter At Least One Letter.', 'warn'));
-        return;
+    container.appendChild(g.wrap);
+    return {
+      chips: chips,
+      group: g.wrap,
+      clear: function () {
+        Object.keys(chips).forEach(function (k) {
+          chips[k].classList.remove('is-on');
+          chips[k].setAttribute('aria-pressed', 'false');
+          chips[k].disabled = false;
+        });
+      },
+      setDisabled: function (value, off) {
+        var b = chips[String(value)];
+        if (b) b.disabled = !!off;
+      },
+      select: function (value) {
+        var b = chips[String(value)];
+        if (b) b.click();
       }
-      var res = solveGorgofex(d, r);
-      out.appendChild(resultTitle('You Input Letters'));
-      out.appendChild(strongLine('Deadshot: ', d || 'N/A'));
-      out.appendChild(strongLine('Periodic Room: ', r || 'N/A'));
-      if (res.primary !== null) {
-        var p = el('p', 'solver-big');
-        p.appendChild(document.createTextNode('Unlock The Room With Combination \u2014 '));
-        p.appendChild(el('code', 'solver-code solver-code--lg', pad3(res.primary)));
-        out.appendChild(p);
-      } else {
-        out.appendChild(note('Could Not Find Combination For "' + d + r + '".', 'warn'));
-      }
-      if (res.alternate !== null) {
-        var a = el('p', 'solver-line');
-        a.appendChild(document.createTextNode('* Alternate Possible Combination \u2014 '));
-        a.appendChild(el('code', 'solver-code', pad3(res.alternate)));
-        out.appendChild(a);
-      }
-      out.appendChild(note('* If Neither Code Works, You Entered The Letters Wrong. End The ' +
-        'Round To Refresh Your Monitors & Input Your New Letters Properly.'));
-    }
+    };
+  }
 
-    go.addEventListener('click', run);
-    [fd, fr].forEach(function (f) {
-      f.input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); run(); } });
-    });
-    reset.addEventListener('click', function () {
-      fd.input.value = ''; fr.input.value = '';
-      clear(out); out.classList.remove('is-open');
-    });
-  };
-
-  /* ---------- BO6: Reckoning teleporter code ---------- */
-  WIDGETS.teleporter = function (root) {
-    var picks = [];
-    var row = chipRow('Select The Button Of Your Folder\u2019s Item (Pick ' + TELEPORTER_TARGET + ')');
-    var chips = {};
-    TELEPORTER_ITEMS.forEach(function (item) {
-      var b = button(item.digit + ' - ' + item.label, 'solver-chip');
-      b.addEventListener('click', function () {
-        if (picks.indexOf(item.digit) !== -1) return;
-        if (picks.length >= TELEPORTER_TARGET) return;
-        picks.push(item.digit);
-        paint();
-      });
-      chips[item.digit] = b;
-      row.appendChild(b);
-    });
-    root.appendChild(row);
-
-    var act = actions();
-    var reset = button('Reset', 'btn btn-outline');
-    act.appendChild(reset);
-    root.appendChild(act);
-
-    var out = resultBox();
-    root.appendChild(out);
-
-    function itemOf(digit) {
-      return TELEPORTER_ITEMS.filter(function (i) { return i.digit === digit; })[0];
-    }
-
-    function paint() {
-      var complete = picks.length >= TELEPORTER_TARGET;
-      TELEPORTER_ITEMS.forEach(function (item) {
-        var chosen = picks.indexOf(item.digit) !== -1;
-        chips[item.digit].classList.toggle('is-on', chosen);
-        chips[item.digit].disabled = chosen || complete;
-      });
-      var ordered = picks.slice().sort(function (a, b) {
-        return itemOf(a).precedence - itemOf(b).precedence;
-      });
-      clear(out);
-      showResult(out);
-      if (complete) {
-        var code = ordered.join('-');
-        out.appendChild(resultTitle('Your Teleportation Room Code Is'));
-        var p = el('p', 'solver-big');
-        p.appendChild(el('code', 'solver-code solver-code--lg', code));
-        out.appendChild(p);
-        out.appendChild(resultList(ordered.map(function (d) { return itemOf(d).label; })));
-      } else {
-        out.appendChild(resultTitle('Selected So Far (' + picks.length + '/' + TELEPORTER_TARGET + ')'));
-        out.appendChild(resultList(ordered.length
-          ? ordered.map(function (d) { return itemOf(d).digit + ' - ' + itemOf(d).label; })
-          : ['\u2014']));
-      }
-    }
-
-    reset.addEventListener('click', function () {
-      picks.length = 0;
-      paint();
-      clear(out);
-      out.classList.remove('is-open');
-    });
-  };
-
-  /* ==========================================================
-     6. BO7 WIDGETS
-     ========================================================== */
-
-  /* Generic "pick these in the order they happened" tool.
-     Direct port of SequenceToolView. */
+  /* "Tell me the order these happened" — port of SequenceToolView. */
   function sequenceWidget(root, opts) {
+    var io = makeIO(root);
     var picks = [];
-    var row = chipRow(opts.prompt);
+    var g = optGroup(opts.prompt, opts.hint);
     var chips = {};
     opts.options.forEach(function (o) {
-      var b = button(o.button, 'solver-chip');
+      var b = opts.image
+        ? imgChip(opts.image.game, o.image, o.button, o.alt)
+        : chip(o.button);
       b.addEventListener('click', function () {
         if (picks.indexOf(o.v) !== -1) return;
         if (picks.length >= opts.target) return;
@@ -1044,17 +744,20 @@
         paint();
       });
       chips[o.v] = b;
-      row.appendChild(b);
+      g.btns.appendChild(b);
     });
-    root.appendChild(row);
+    if (opts.image) g.btns.classList.add('solver-opt-btns--img');
+    io.controls.appendChild(g.wrap);
 
     var act = actions();
-    var reset = button('Reset', 'btn btn-outline');
+    var undo = button('Undo Last');
+    var reset = button('Reset');
+    act.appendChild(undo);
     act.appendChild(reset);
-    root.appendChild(act);
+    io.controls.appendChild(act);
 
-    var out = resultBox();
-    root.appendChild(out);
+    undo.addEventListener('click', function () { picks.pop(); paint(); });
+    reset.addEventListener('click', function () { picks.length = 0; paint(); });
 
     function paint() {
       var complete = picks.length >= opts.target;
@@ -1062,19 +765,336 @@
         var chosen = picks.indexOf(o.v) !== -1;
         chips[o.v].classList.toggle('is-on', chosen);
         chips[o.v].disabled = chosen || complete;
+        var order = picks.indexOf(o.v);
+        chips[o.v].setAttribute('data-order', order === -1 ? '' : String(order + 1));
+        chips[o.v].classList.toggle('has-order', order !== -1);
       });
-      clear(out);
-      showResult(out);
-      opts.render(out, picks, complete);
+      undo.disabled = picks.length === 0;
+      reset.disabled = picks.length === 0;
+      if (picks.length === 0) { idle(io.out, opts.idle); return; }
+      opts.render(io.out, picks, complete);
+    }
+    paint();
+    return io;
+  }
+
+  /* ==========================================================
+     6. WIDGETS
+     ========================================================== */
+
+  var WIDGETS = {};
+
+  /* ---------- BO3: Gorod Krovi Valve Step ---------- */
+  WIDGETS.valve = function (root) {
+    var io = makeIO(root);
+    var state = { green: null, pink: null };
+    var opts = VALVE_LOCATIONS.map(function (n) { return { v: n, label: n }; });
+
+    var greenG = singleChoice(io.controls, 'Green Light Is In', opts, function (v) {
+      state.green = v;
+      if (state.pink === v) { state.pink = null; pinkG.clear(); }
+      VALVE_LOCATIONS.forEach(function (n) { pinkG.setDisabled(n, n === v); });
+      run();
+    }, 'The Room With The Green Light Above Its Valve');
+
+    var pinkG = singleChoice(io.controls, 'Pink Cylinder Is In', opts, function (v) {
+      state.pink = v;
+      run();
+    }, 'This Room Is Your Endpoint');
+
+    var act = actions();
+    var reset = button('Start Over');
+    act.appendChild(reset);
+    io.controls.appendChild(act);
+    reset.addEventListener('click', function () {
+      state.green = state.pink = null;
+      greenG.clear();
+      pinkG.clear();
+      run();
+    });
+
+    function run() {
+      if (!state.green || !state.pink) {
+        idle(io.out, 'Pick Your Green Light Room And Your Pink Cylinder Room. ' +
+          'Every Valve Setting Appears Here.');
+        return;
+      }
+      var answer = solveValves(state.green, state.pink);
+      if (!answer) {
+        beginWarn(io.out, 'No Match');
+        io.out.appendChild(note('There Is No Route Stored For Green ' + state.green +
+          ' To Pink ' + state.pink + '. Double-Check The Two Rooms.', 'warn'));
+        return;
+      }
+      begin(io.out, 'Your Valve Settings');
+      io.out.appendChild(kv('Green Light At ', state.green));
+      io.out.appendChild(kv('Pink Cylinder At ', state.pink));
+      io.out.appendChild(subhead('Go Around The Map And Set'));
+      io.out.appendChild(answerList(answer.map(function (row) {
+        return codeNode(row[0], String(row[1]), ' \u2014 Set To ');
+      })));
+      io.out.appendChild(note('Then Grab Your Pink Cylinder At ' + state.pink +
+        ' \u2014 Your Endpoint. The Endpoint Room Never Gets A Setting.'));
+    }
+    run();
+  };
+
+  /* ---------- BO6: Beamsmasher ---------- */
+  WIDGETS.beamsmasher = function (root) {
+    var io = makeIO(root);
+    var grid = el('div', 'solver-fieldrow');
+    var fx = numberField('X Value', 'e.g. 1');
+    var fy = numberField('Y Value', 'e.g. 2');
+    var fz = numberField('Z Value', 'e.g. 3');
+    grid.appendChild(fx.wrap);
+    grid.appendChild(fy.wrap);
+    grid.appendChild(fz.wrap);
+    io.controls.appendChild(grid);
+
+    var act = actions();
+    var go = button('Solve', 'btn btn-accent');
+    var reset = button('Reset');
+    act.appendChild(go);
+    act.appendChild(reset);
+    io.controls.appendChild(act);
+
+    function parseVal(raw) {
+      var s = (raw || '').trim();
+      if (s === '') return NaN;
+      if (!/^[+-]?(\d+(\.\d*)?|\.\d+)$/.test(s)) return NaN;
+      var n = parseFloat(s);
+      if (!isFinite(n)) return NaN;
+      if (Math.floor(n) !== n) return NaN;   /* reject 2.7, never floor it */
+      return n;
     }
 
-    reset.addEventListener('click', function () {
-      picks.length = 0;
-      paint();
-      clear(out);
-      out.classList.remove('is-open');
+    function run() {
+      var x = parseVal(fx.input.value);
+      var y = parseVal(fy.input.value);
+      var z = parseVal(fz.input.value);
+      if (isNaN(x) || isNaN(y) || isNaN(z) ||
+          Math.abs(x) > BEAMSMASHER_LIMIT || Math.abs(y) > BEAMSMASHER_LIMIT ||
+          Math.abs(z) > BEAMSMASHER_LIMIT) {
+        beginWarn(io.out, 'Invalid Entry');
+        io.out.appendChild(note('Enter Whole Numbers From -99 To 99 Only, Then Try Again.', 'warn'));
+        return;
+      }
+      begin(io.out, 'Results For X=' + x + ', Y=' + y + ', Z=' + z);
+      io.out.appendChild(answerList([
+        codeNode('First Number', String(beamFirst(x))),
+        codeNode('Second Number', String(beamSecond(x, y, z))),
+        codeNode('Third Number', String(beamThird(x, y, z)))
+      ]));
+    }
+
+    function resetAll() {
+      fx.input.value = ''; fy.input.value = ''; fz.input.value = '';
+      idle(io.out, 'Enter The Three Numbers Your Game Shows. The Three Numbers ' +
+        'To Enter Back Appear Here.');
+    }
+
+    go.addEventListener('click', run);
+    reset.addEventListener('click', resetAll);
+    [fx, fy, fz].forEach(function (f) {
+      f.input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); run(); }
+      });
     });
-  }
+    resetAll();
+  };
+
+  /* ---------- BO6: Projector & Straus Counter ---------- */
+  WIDGETS.projector = function (root) {
+    var io = makeIO(root);
+    singleChoice(io.controls, 'What Colour Is Your Straus Counter?',
+      STRAUS_ORDER.map(function (k) {
+        return { v: k, label: STRAUS_COLOURS[k].button, cls: 'solver-chip--' + k };
+      }),
+      function (key) {
+        var d = STRAUS_COLOURS[key];
+        begin(io.out, 'Turn Your Projector To ' + d.projector);
+        io.out.appendChild(el('p', 'solver-verdict solver-verdict--' + d.projector.toLowerCase(),
+          d.projector));
+        io.out.appendChild(note('Since Your Straus Counter Is ' + d.counter +
+          ', Turn Your Projector To ' + d.projector + '.'));
+      });
+    idle(io.out, 'Pick Your Straus Counter Colour. The Projector Colour Appears Here.');
+  };
+
+  /* ---------- BO6: Raven sword fossils ---------- */
+  WIDGETS.raven = function (root) {
+    var io = makeIO(root);
+    singleChoice(io.controls, 'Which Fossil Do You Have?',
+      Object.keys(FOSSILS).map(function (k) { return { v: k, label: k }; }),
+      function (k) {
+        begin(io.out, 'Fossil ' + k + ' \u2014 Your Code');
+        io.out.appendChild(note('Insert The Sword In The Basement And Enter This Code.'));
+        io.out.appendChild(imagePlate('bo6', FOSSILS[k].image,
+          'Fossil ' + k + ' Code', 'Fossil ' + k + ' Code'));
+      },
+      'Match It Against The Chart Above \u2014 Both Views Are Shown There');
+    idle(io.out, 'Pick Your Fossil Number. Its Code Image Appears Here.');
+  };
+
+  /* ---------- BO6: The Tomb rune tracker ---------- */
+  WIDGETS.runes = function (root) {
+    var io = makeIO(root);
+    var picked = [];
+    var g = optGroup('Select The Runes In Your Game',
+      'Tap Again To Un-Pick A Mis-Tap');
+    var chips = {};
+    for (var n = 1; n <= RUNE_COUNT; n++) {
+      (function (num) {
+        var b = chip(String(num));
+        b.setAttribute('aria-pressed', 'false');
+        b.addEventListener('click', function () {
+          var i = picked.indexOf(num);
+          if (i !== -1) picked.splice(i, 1); else picked.push(num);
+          paint();
+        });
+        chips[num] = b;
+        g.btns.appendChild(b);
+      })(n);
+    }
+    io.controls.appendChild(g.wrap);
+
+    var act = actions();
+    var reset = button('Reset');
+    act.appendChild(reset);
+    io.controls.appendChild(act);
+    reset.addEventListener('click', function () { picked.length = 0; paint(); });
+
+    function paint() {
+      Object.keys(chips).forEach(function (k) {
+        var on = picked.indexOf(Number(k)) !== -1;
+        chips[k].classList.toggle('is-on', on);
+        chips[k].setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      reset.disabled = picked.length === 0;
+      if (!picked.length) {
+        idle(io.out, 'Tap The Runes You See In Your Game. They Are Listed Back Here So ' +
+          'You Do Not Have To Hold Them In Your Head.');
+        return;
+      }
+      begin(io.out, 'Selected Runes');
+      io.out.appendChild(el('p', 'solver-verdict',
+        picked.map(function (x) { return 'Rune ' + x; }).join(', ')));
+      io.out.appendChild(note('This Tool Records Your Runes \u2014 It Does Not Calculate ' +
+        'Anything, And Neither Does The Discord Bot.'));
+    }
+    paint();
+  };
+
+  /* ---------- BO6: MKII Chalkboard ---------- */
+  WIDGETS.chalkboard = function (root) {
+    var io = makeIO(root);
+    singleChoice(io.controls, 'Letters On The Bottom Left Of Your Chalkboard',
+      CHALKBOARD_KEYS.map(function (k) { return { v: k, label: k }; }),
+      function (key) {
+        var codes = CHALKBOARDS[key];
+        begin(io.out, 'Chalkboard ' + key + ' Codes');
+        io.out.appendChild(note('The Printed Page Names One Of These Four Words. ' +
+          'The Number Beside It Is Your Service Tunnel Code.'));
+        io.out.appendChild(answerList(CHALKBOARD_WORDS.map(function (w) {
+          return codeNode(w.toUpperCase(), String(codes[w]), ': ');
+        })));
+      });
+    idle(io.out, 'Pick Your Chalkboard Letters. All Four Possible Codes Appear Here.');
+  };
+
+  /* ---------- BO6: Gorgofex periodic code ---------- */
+  WIDGETS.gorgofex = function (root) {
+    var io = makeIO(root);
+    var grid = el('div', 'solver-fieldrow');
+    var fd = textField('Deadshot Monitor Letter', 'First Letter', 2);
+    var fr = textField('Periodic Room Letter', 'First Letter', 2);
+    grid.appendChild(fd.wrap);
+    grid.appendChild(fr.wrap);
+    io.controls.appendChild(grid);
+
+    var act = actions();
+    var go = button('Find My Code', 'btn btn-accent');
+    var reset = button('Reset');
+    act.appendChild(go);
+    act.appendChild(reset);
+    io.controls.appendChild(act);
+
+    function run() {
+      var d = (fd.input.value || '').trim().toUpperCase();
+      var r = (fr.input.value || '').trim().toUpperCase();
+      if (!d && !r) {
+        beginWarn(io.out, 'Enter At Least One Letter');
+        io.out.appendChild(note('Sometimes Only One Monitor Shows A Word. That Is Normal ' +
+          '\u2014 Enter The One You Have.', 'warn'));
+        return;
+      }
+      var res = solveGorgofex(d, r);
+      if (res.primary === null) {
+        beginWarn(io.out, 'Could Not Find Combination For "' + d + r + '"');
+        io.out.appendChild(note('That Is Not An Element On The Periodic Table. Check Both ' +
+          'Letters, Or End The Round To Refresh Your Monitors.', 'warn'));
+        return;
+      }
+      begin(io.out, 'Unlock Code');
+      io.out.appendChild(bigCode(pad3(res.primary)));
+      io.out.appendChild(kv('Element: ', d + r));
+      if (res.alternate !== null) {
+        io.out.appendChild(subhead('Alternate Possible Combination'));
+        io.out.appendChild(answerList([codeNode('If ' + r + d + ' Instead',
+          pad3(res.alternate), ' \u2014 ')]));
+      }
+      io.out.appendChild(note('If Neither Code Works You Entered The Letters Wrong. End The ' +
+        'Round To Refresh Your Monitors And Enter The New Letters.'));
+    }
+
+    function resetAll() {
+      fd.input.value = ''; fr.input.value = '';
+      idle(io.out, 'Enter The First Letter From Each Monitor. The Three-Digit Door Code ' +
+        'Appears Here.');
+    }
+    go.addEventListener('click', run);
+    reset.addEventListener('click', resetAll);
+    [fd, fr].forEach(function (f) {
+      f.input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); run(); }
+      });
+    });
+    resetAll();
+  };
+
+  /* ---------- BO6: Reckoning teleporter code ---------- */
+  WIDGETS.teleporter = function (root) {
+    function itemOf(d) {
+      return TELEPORTER_ITEMS.filter(function (i) { return i.digit === d; })[0];
+    }
+    sequenceWidget(root, {
+      prompt: 'Which Four Folder Items Did You Find?',
+      hint: 'Order Does Not Matter \u2014 The Code Is Sorted For You',
+      options: TELEPORTER_ITEMS.map(function (i) {
+        return { v: i.digit, button: i.digit + ' \u00b7 ' + i.label };
+      }),
+      target: TELEPORTER_TARGET,
+      idle: 'Pick The Four Items Pictured On Your Folders. Your Four-Digit Code Appears Here.',
+      render: function (out, picks, complete) {
+        var ordered = picks.slice().sort(function (a, b) {
+          return itemOf(a).precedence - itemOf(b).precedence;
+        });
+        if (!complete) {
+          progress(out, 'Selected ' + picks.length + ' Of ' + TELEPORTER_TARGET);
+          out.appendChild(answerList(ordered.map(function (d) {
+            return itemOf(d).digit + ' \u00b7 ' + itemOf(d).label;
+          })));
+          return;
+        }
+        begin(out, 'Your Teleportation Room Code');
+        out.appendChild(bigCode(ordered.join('-')));
+        out.appendChild(subhead('Read In This Order'));
+        out.appendChild(stepList(ordered.map(function (d) {
+          return codeNode(itemOf(d).label, String(itemOf(d).digit), ' \u2014 ');
+        })));
+      }
+    });
+  };
 
   /* ---------- BO7: Free RG-MK2 jump pads ---------- */
   WIDGETS.mk2 = function (root) {
@@ -1082,17 +1102,18 @@
       return MK2_BUTTONS.filter(function (b) { return b.v === v; })[0].label;
     }
     sequenceWidget(root, {
-      prompt: 'Select The Jump Pads In The Order You Use Them (All ' + MK2_BUTTONS.length + ')',
+      prompt: 'Tap The Jump Pads In The Order You Take Them',
+      hint: 'All ' + MK2_BUTTONS.length + ' Pads',
       options: MK2_BUTTONS,
       target: MK2_BUTTONS.length,
+      idle: 'Tap All Seven Pads In Order. Your Route Appears Here As A Chain Of Hops.',
       render: function (out, picks, complete) {
         if (!complete) {
-          out.appendChild(resultTitle('Selected: ' + picks.length + '/' + MK2_BUTTONS.length));
-          out.appendChild(resultList(picks.length
-            ? picks.map(function (v) { return labelOf(v); }) : ['\u2014']));
+          progress(out, 'Selected ' + picks.length + ' Of ' + MK2_BUTTONS.length);
+          out.appendChild(stepList(picks.map(function (v) { return labelOf(v); })));
           return;
         }
-        out.appendChild(resultTitle('Your Jump Pad Sequence'));
+        begin(out, 'Your Jump Pad Sequence');
         var steps = [];
         for (var i = 0; i < picks.length - 1; i++) {
           var f = frag();
@@ -1101,7 +1122,7 @@
           f.appendChild(el('strong', null, labelOf(picks[i + 1])));
           steps.push(f);
         }
-        out.appendChild(resultList(steps));
+        out.appendChild(stepList(steps));
       }
     });
   };
@@ -1109,16 +1130,15 @@
   /* ---------- BO7: Purple skulls ---------- */
   WIDGETS.skulls = function (root) {
     sequenceWidget(root, {
-      prompt: 'Shoot The Skulls In This Order \u2014 Pick All ' + ASTRA_SKULLS.length,
+      prompt: 'Tap The Skulls In Shooting Order',
+      hint: 'All ' + ASTRA_SKULLS.length,
       options: ASTRA_SKULLS.map(function (n) { return { v: n, button: String(n) }; }),
       target: ASTRA_SKULLS.length,
+      idle: 'Tap The Five Skulls In The Order You Need To Shoot Them.',
       render: function (out, picks, complete) {
-        out.appendChild(resultTitle(complete
-          ? 'Your Skull Sequence'
-          : 'Selected: ' + picks.length + '/' + ASTRA_SKULLS.length));
-        out.appendChild(resultList(picks.length
-          ? picks.map(function (v, i) { return (i + 1) + '. Skull ' + v; })
-          : ['\u2014']));
+        if (!complete) progress(out, 'Selected ' + picks.length + ' Of ' + ASTRA_SKULLS.length);
+        else begin(out, 'Shoot The Skulls In This Order');
+        out.appendChild(stepList(picks.map(function (v) { return 'Skull ' + v; })));
       }
     });
   };
@@ -1126,27 +1146,25 @@
   /* ---------- BO7: Oscar's planet order ---------- */
   WIDGETS.planets = function (root) {
     sequenceWidget(root, {
-      prompt: 'Oscar Will Say "Playback Of Elimination 20\u2026" \u2014 Select Your ' +
-              PLANET_TARGET + ' Planets',
+      prompt: 'Tap The Planets In The Order Oscar Names Them',
+      hint: 'Pick ' + PLANET_TARGET,
       options: PLANET_BUTTONS.map(function (p) { return { v: p.v, button: p.label }; }),
       target: PLANET_TARGET,
+      idle: 'Oscar Says "Playback Of Elimination 20\u2026" Then Names Three Planets. ' +
+            'Tap Them In Order.',
       render: function (out, picks, complete) {
-        var code = picks.length ? picks.join('') : '---';
-        if (complete) {
-          out.appendChild(resultTitle('Insert Your Final Code Into The Machine'));
-          var p = el('p', 'solver-big');
-          p.appendChild(el('code', 'solver-code solver-code--lg', code));
-          out.appendChild(p);
+        var code = picks.join('');
+        if (!complete) {
+          progress(out, 'Selected ' + picks.length + ' Of ' + PLANET_TARGET);
+          out.appendChild(kv('Code So Far: ', code || '---'));
         } else {
-          out.appendChild(resultTitle('Selected: ' + picks.length + '/' + PLANET_TARGET));
-          out.appendChild(strongLine('Code So Far: ', code));
+          begin(out, 'Insert This Code Into The Machine');
+          out.appendChild(bigCode(code));
         }
-        out.appendChild(resultList(picks.length
-          ? picks.map(function (v, i) {
-              var pb = PLANET_BUTTONS.filter(function (x) { return x.v === v; })[0];
-              return (i + 1) + '. ' + pb.label + ' (' + pb.v + ')';
-            })
-          : ['\u2014']));
+        out.appendChild(stepList(picks.map(function (v) {
+          var pb = PLANET_BUTTONS.filter(function (x) { return x.v === v; })[0];
+          return codeNode(pb.label, String(pb.v), ' \u2014 ');
+        })));
       }
     });
   };
@@ -1154,19 +1172,19 @@
   /* ---------- BO7: Pillar piano symbols ---------- */
   WIDGETS.pillars = function (root) {
     sequenceWidget(root, {
-      prompt: 'Select The Numbers 1-5 In The Order They Appear. Select STATIC For The Fixed Symbol.',
+      prompt: 'Tap The Symbols In The Order They Played',
+      hint: 'Use STATIC For The Fixed Symbol',
       options: PILLAR_BUTTONS.map(function (p) { return { v: p.v, button: p.button }; }),
       target: PILLAR_TARGET,
+      idle: 'Tap 1-5 In The Order They Appeared, Using STATIC For The Fixed One. ' +
+            'The Solver Fills In Whichever Number You Never Saw.',
       render: function (out, picks, complete) {
-        var display = picks.length
-          ? picks.map(function (n) { return n === 0 ? 'STATIC' : String(n); }).join(' - ')
-          : '---';
+        var display = picks.map(function (n) { return n === 0 ? 'STATIC' : String(n); }).join(' - ');
         if (!complete) {
-          out.appendChild(resultTitle('Selected: ' + picks.length + '/' + PILLAR_TARGET));
-          out.appendChild(strongLine('Current Order: ', display));
+          progress(out, 'Selected ' + picks.length + ' Of ' + PILLAR_TARGET);
+          out.appendChild(kv('Current Order: ', display || '---'));
           return;
         }
-        /* STATIC stands in for whichever symbol the player never saw. */
         var seen = {};
         picks.forEach(function (n) { if (n !== 0) seen[n] = true; });
         var missing = [1, 2, 3, 4, 5].filter(function (n) { return !seen[n]; });
@@ -1174,469 +1192,430 @@
         var resolved = picks.map(function (n) {
           return n === 0 ? (standIn !== null ? String(standIn) : '?') : String(n);
         });
-        out.appendChild(resultTitle('Final Sequence'));
-        var p = el('p', 'solver-big');
-        p.appendChild(el('code', 'solver-code solver-code--lg', resolved.join(' - ')));
-        out.appendChild(p);
-        out.appendChild(note('This Is The Order In Which You Stated Your Piano Symbols ' +
-          'Appeared. Use The Sheet Below To Now Activate Your Pillars.'));
+        begin(out, 'Final Sequence');
+        out.appendChild(bigCode(resolved.join(' - ')));
+        out.appendChild(kv('You Entered: ', display));
+        if (standIn !== null) {
+          out.appendChild(kv('STATIC Resolved To: ', String(standIn)));
+        }
+        out.appendChild(note('This Is The Order Your Piano Symbols Appeared. ' +
+          'Use The Sheet To Now Activate Your Pillars.'));
       }
     });
   };
 
   /* ---------- BO7: Statues / Book EE ---------- */
   WIDGETS.statues = function (root) {
+    var io = makeIO(root);
     var chosen = [];
     var total = Object.keys(BOOK_TO_STATUE).length;
     var chips = {};
-
-    STATUE_BOOKS.forEach(function (statue) {
-      var row = chipRow(statue.bookshelf);
-      statue.books.forEach(function (book) {
-        var b = button(titleCaseBook(book.label), 'solver-chip');
-        b.addEventListener('click', function () {
-          if (chosen.indexOf(book.id) !== -1) return;
-          chosen.push(book.id);
-          b.classList.add('is-on');
-          b.disabled = true;
-          solveBtn.disabled = false;
-          paintProgress();
-        });
-        chips[book.id] = b;
-        row.appendChild(b);
-      });
-      root.appendChild(row);
-    });
-
-    var act = actions();
-    var solveBtn = button('Solve', 'btn btn-accent');
-    solveBtn.disabled = true;
-    var reset = button('Reset', 'btn btn-outline');
-    act.appendChild(solveBtn);
-    act.appendChild(reset);
-    root.appendChild(act);
-
-    var out = resultBox();
-    root.appendChild(out);
 
     function titleCaseBook(s) {
       return s.toLowerCase().replace(/\b[a-z]/g, function (c) { return c.toUpperCase(); });
     }
 
-    function paintProgress() {
-      clear(out);
-      showResult(out);
-      out.appendChild(resultTitle('Selected Books: ' + chosen.length + '/' + total));
-      out.appendChild(note('Select The Books That Appeared Next To The Statues In Your Game, ' +
-        'Then Hit Solve.'));
-    }
+    STATUE_BOOKS.forEach(function (statue) {
+      var g = optGroup(statue.bookshelf, 'Tap Each Book That Appeared');
+      statue.books.forEach(function (book) {
+        var b = chip(titleCaseBook(book.label));
+        b.setAttribute('aria-pressed', 'false');
+        b.addEventListener('click', function () {
+          var i = chosen.indexOf(book.id);
+          if (i !== -1) chosen.splice(i, 1); else chosen.push(book.id);
+          paint();
+        });
+        chips[book.id] = b;
+        g.btns.appendChild(b);
+      });
+      io.controls.appendChild(g.wrap);
+    });
 
-    solveBtn.addEventListener('click', function () {
+    var act = actions();
+    var reset = button('Reset');
+    act.appendChild(reset);
+    io.controls.appendChild(act);
+    reset.addEventListener('click', function () { chosen.length = 0; paint(); });
+
+    function paint() {
+      Object.keys(chips).forEach(function (id) {
+        var on = chosen.indexOf(id) !== -1;
+        chips[id].classList.toggle('is-on', on);
+        chips[id].setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      reset.disabled = chosen.length === 0;
+      if (!chosen.length) {
+        idle(io.out, 'Tap Every Book That Appeared Next To The Statues In Your Game. ' +
+          'The Turn Counts Update Live.');
+        return;
+      }
       var counts = {};
       STATUE_BOOKS.forEach(function (s) { counts[s.key] = 0; });
       chosen.forEach(function (id) {
         var k = BOOK_TO_STATUE[id];
         if (k) counts[k] += 1;
       });
-      clear(out);
-      showResult(out);
-      out.appendChild(resultTitle('Final Turn Sequence'));
-      out.appendChild(strongLine('Selected Books: ', chosen.length + '/' + total));
-      out.appendChild(resultList(STATUE_BOOKS.map(function (s) {
-        var f = frag();
-        f.appendChild(el('strong', null, s.bookshelf));
-        f.appendChild(document.createTextNode(': '));
-        f.appendChild(el('code', 'solver-code', String(counts[s.key])));
-        return f;
+      begin(io.out, 'Final Turn Sequence');
+      io.out.appendChild(kv('Selected Books: ', chosen.length + ' Of ' + total));
+      io.out.appendChild(answerList(STATUE_BOOKS.map(function (s) {
+        return codeNode(s.bookshelf, String(counts[s.key]), ': ');
       })));
-      /* Lock the board the way the bot does once solved. */
-      Object.keys(chips).forEach(function (id) { chips[id].disabled = true; });
-      solveBtn.disabled = true;
-    });
-
-    reset.addEventListener('click', function () {
-      chosen.length = 0;
-      Object.keys(chips).forEach(function (id) {
-        chips[id].disabled = false;
-        chips[id].classList.remove('is-on');
-      });
-      solveBtn.disabled = true;
-      clear(out);
-      out.classList.remove('is-open');
-    });
+      io.out.appendChild(note('Turn Each Statue That Many Times.'));
+    }
+    paint();
   };
 
   /* ---------- BO7: Kowakujo scrolls ---------- */
   WIDGETS.scrolls = function (root) {
+    var io = makeIO(root);
     var lit = {};
-    var grid = el('div', 'solver-grid3');
     var cells = {};
+    /* An untouched grid is all-IN, which is technically already solved. Showing
+       "nothing to press" before the player has entered anything reads as though
+       the tool answered on its own, so hold the idle prompt until first tap. */
+    var touched = false;
 
+    var lead = el('p', 'solver-opt-label', 'Match The Grid To Your Screen');
+    io.controls.appendChild(lead);
+
+    var grid = el('div', 'solver-grid3');
     KOWAKUJO_LAYOUT.forEach(function (rowCells) {
       rowCells.forEach(function (cell) {
-        var b = button('', 'solver-cell');
-        b.dataset.cell = cell;
+        var b = el('button', 'solver-cell');
+        b.type = 'button';
         paintCell(b, cell);
         b.addEventListener('click', function () {
           lit[cell] = !lit[cell];
+          touched = true;
           paintCell(b, cell);
+          solve();
         });
         cells[cell] = b;
         grid.appendChild(b);
       });
     });
-    root.appendChild(grid);
+    io.controls.appendChild(grid);
 
     function paintCell(b, cell) {
       var on = !!lit[cell];
-      b.textContent = cell.toUpperCase() + ' (' + (on ? 'OUT' : 'IN') + ')';
+      clear(b);
+      b.appendChild(el('span', 'solver-cell-id', cell.toUpperCase()));
+      b.appendChild(el('span', 'solver-cell-state', on ? 'OUT' : 'IN'));
       b.classList.toggle('is-out', on);
       b.classList.toggle('is-in', !on);
       b.setAttribute('aria-pressed', on ? 'true' : 'false');
     }
 
-    var legend = el('p', 'solver-note');
-    legend.appendChild(el('strong', null, 'OUT'));
-    legend.appendChild(document.createTextNode(' = Facing Outwards / Active. '));
-    legend.appendChild(el('strong', null, 'IN'));
-    legend.appendChild(document.createTextNode(' = Facing Inwards / Inactive.'));
-    root.appendChild(legend);
+    var legend = el('p', 'solver-legend');
+    var lo = el('span', 'solver-legend-item solver-legend-item--out');
+    lo.appendChild(el('strong', null, 'OUT'));
+    lo.appendChild(document.createTextNode(' Facing Outwards / Active'));
+    var li2 = el('span', 'solver-legend-item solver-legend-item--in');
+    li2.appendChild(el('strong', null, 'IN'));
+    li2.appendChild(document.createTextNode(' Facing Inwards / Inactive'));
+    legend.appendChild(lo);
+    legend.appendChild(li2);
+    io.controls.appendChild(legend);
 
     var act = actions();
-    var go = button('Solve Puzzle', 'btn btn-accent');
-    var clearAll = button('Clear All', 'btn btn-outline');
-    act.appendChild(go);
+    var clearAll = button('Clear All');
     act.appendChild(clearAll);
-    root.appendChild(act);
+    io.controls.appendChild(act);
+    clearAll.addEventListener('click', function () {
+      lit = {};
+      touched = false;
+      Object.keys(cells).forEach(function (c) { paintCell(cells[c], c); });
+      solve();
+    });
 
-    var out = resultBox();
-    root.appendChild(out);
-
-    go.addEventListener('click', function () {
+    function solve() {
+      if (!touched) {
+        idle(io.out, 'Tap Each Cell So The Grid Matches Your Screen. The Shortest Set Of ' +
+          'Hits Appears Here As You Go.');
+        return;
+      }
       var state = KOWAKUJO_CELLS.map(function (c) { return lit[c] ? 1 : 0; });
       var solution = kowakujoSolveMatrix(state);
-      clear(out);
-      showResult(out);
       if (solution === null) {
-        out.appendChild(resultTitle('No Matrix Solution Detected'));
-        out.appendChild(note('This Pattern Cannot Reach An All-IN Configuration. That ' +
-          'Usually Means One Of The OUT/IN States Was Misread From The Game Screen. ' +
-          'Please Double-Check Your Scrolls And Try Again.', 'warn'));
+        beginWarn(io.out, 'No Solution For That Pattern');
+        io.out.appendChild(note('This Grid Cannot Reach An All-IN Configuration, Which ' +
+          'Usually Means One Of The OUT/IN States Was Misread. Double-Check Your Scrolls.', 'warn'));
         return;
       }
       var presses = [];
       solution.forEach(function (v, i) {
         if (v) presses.push(KOWAKUJO_CELLS[i].toUpperCase());
       });
-      out.appendChild(resultTitle('Your Winning Combination Has Been Calculated'));
-      out.appendChild(note('Complete The Puzzle By Shooting Or Meleeing The Scrolls In ' +
-        'The Following Order:'));
-      if (presses.length) {
-        out.appendChild(resultList(presses.map(function (c, i) {
-          var f = frag();
-          f.appendChild(el('strong', null, (i + 1) + '. ' + c));
-          f.appendChild(document.createTextNode(' (' + (KOWAKUJO_POSITION_NAMES[c] || 'Unknown') + ')'));
-          return f;
-        })));
-      } else {
-        out.appendChild(el('p', 'solver-big', 'Nothing To Press \u2014 Every Scroll Is Already Facing IN.'));
+      if (!presses.length) {
+        begin(io.out, 'Nothing To Press');
+        io.out.appendChild(el('p', 'solver-verdict', 'Every Scroll Is Already Facing IN'));
+        return;
       }
-      out.appendChild(note('If You Mess Up, You Can Undo What You Did And Pick Up Where You ' +
-        'Left Off, Or Re-Solve From The Current Positions Of Your Scrolls.'));
-    });
-
-    clearAll.addEventListener('click', function () {
-      lit = {};
-      Object.keys(cells).forEach(function (c) { paintCell(cells[c], c); });
-      clear(out);
-      out.classList.remove('is-open');
-    });
+      begin(io.out, 'Shoot Or Melee In This Order');
+      io.out.appendChild(stepList(presses.map(function (c) {
+        var f = frag();
+        f.appendChild(el('strong', null, c));
+        f.appendChild(document.createTextNode(' \u2014 ' + (KOWAKUJO_POSITION_NAMES[c] || 'Unknown')));
+        return f;
+      })));
+      io.out.appendChild(note('Fewest Possible Hits. If You Mess Up, Undo What You Did Or ' +
+        'Re-Match The Grid From Your Scrolls\u2019 Current Positions.'));
+    }
+    solve();
   };
 
   /* ---------- BO7: Kowakujo mystery ---------- */
   WIDGETS.mystery = function (root) {
+    var io = makeIO(root);
     var state = { accomplice: null, symptom: null, symbol: null, zodiac: null, onset: null };
-    var order = ['accomplice', 'symptom', 'symbol', 'zodiac', 'onset'];
-    var inputs = el('div', 'solver-inputs');
-    var fields = {};
+    var groups = {};
 
-    order.forEach(function (cat) {
-      var opts = MYSTERY_OPTIONS[cat].map(function (pair) {
-        return { v: pair[0], t: pair[1] };
-      });
-      var f = selectField(MYSTERY_CATEGORY_LABELS[cat], opts, 'Not Set');
-      f.input.addEventListener('change', function () {
-        var raw = f.input.value;
-        if (raw === '') { state[cat] = null; }
-        else if (MYSTERY_NUMERIC[cat]) { state[cat] = parseInt(raw, 10); }
-        else { state[cat] = raw; }
-        paint();
-      });
-      fields[cat] = f;
-      inputs.appendChild(f.wrap);
+    ['accomplice', 'symptom', 'symbol'].forEach(function (cat) {
+      groups[cat] = singleChoice(io.controls, MYSTERY_CATEGORY_LABELS[cat],
+        MYSTERY_OPTIONS[cat].map(function (p) { return { v: p[0], label: p[1] }; }),
+        function (v) { state[cat] = v; paint(); });
     });
-    root.appendChild(inputs);
+    ['zodiac', 'onset'].forEach(function (cat) {
+      groups[cat] = singleChoice(io.controls, MYSTERY_CATEGORY_LABELS[cat],
+        MYSTERY_OPTIONS[cat].map(function (p) { return { v: p[0], label: p[1] }; }),
+        function (v) { state[cat] = MYSTERY_NUMERIC[cat] ? Number(v) : v; paint(); });
+      groups[cat].group.classList.add('solver-opt--compact');
+    });
 
     var act = actions();
-    var reset = button('Reset Clues', 'btn btn-outline');
+    var reset = button('Reset Clues');
     act.appendChild(reset);
-    root.appendChild(act);
+    io.controls.appendChild(act);
+    reset.addEventListener('click', function () {
+      Object.keys(state).forEach(function (k) { state[k] = null; });
+      Object.keys(groups).forEach(function (k) { groups[k].clear(); });
+      paint();
+    });
 
-    var out = resultBox();
-    root.appendChild(out);
-
-    function paint() {
-      var accompliceItem = ACCOMPLICE_ITEMS[state.accomplice] || '[Select Accomplice]';
-      var symbolItem = SYMBOL_ITEMS[state.symbol] || '[Select Location]';
-      var poisonItem = solvePoison(state.accomplice, state.symptom);
-      var dialResult;
-      if (state.zodiac !== null && state.onset !== null) {
-        var dial = (((state.zodiac - state.onset) % 12) + 12) % 12;
-        dialResult = ZODIAC_NAMES[dial];
-      } else {
-        dialResult = '[Select Time Of Death & Toxin Onset]';
-      }
-
-      clear(out);
-      showResult(out);
-      out.appendChild(resultTitle('Painting Sequence Answers'));
-      out.appendChild(resultList([
-        paintingLine('1st Painting (Suspect)', 'Comb (Fixed)'),
-        paintingLine('2nd Painting (Accomplice)', accompliceItem),
-        paintingLine('3rd Painting (Poison)', poisonItem),
-        paintingLine('4th Painting (Location)', symbolItem),
-        paintingLine('5th Painting (Motive)', 'Crest Medallion (Fixed)')
-      ]));
-      out.appendChild(note('The Poison Is Auto-Solved From Accomplice + Cause Of Death \u2014 ' +
-        'It Is Not A Separate Pick.'));
-      out.appendChild(el('p', 'solver-subhead', 'Zodiac Dial'));
-      out.appendChild(strongLine('Turn Dial To: ', dialResult));
-      out.appendChild(note('Time Of Death, Rotated Back By The Toxin Onset Hours, ' +
-        '= The Poisoning Time.'));
-    }
-
-    function paintingLine(k, v) {
+    function paintingLine(k, v, unresolved) {
       var f = frag();
       f.appendChild(el('strong', null, k));
       f.appendChild(document.createTextNode(': '));
-      f.appendChild(el('span', 'solver-line-v', v));
+      f.appendChild(el('span', unresolved ? 'solver-pending' : 'solver-line-v', v));
       return f;
     }
 
-    reset.addEventListener('click', function () {
-      order.forEach(function (cat) { state[cat] = null; fields[cat].input.value = ''; });
-      clear(out);
-      out.classList.remove('is-open');
-    });
+    function paint() {
+      var accompliceItem = ACCOMPLICE_ITEMS[state.accomplice];
+      var symbolItem = SYMBOL_ITEMS[state.symbol];
+      var poisonItem = solvePoison(state.accomplice, state.symptom);
+      var poisonUnresolved = poisonItem.charAt(0) === '[';
+      var dial = null;
+      if (state.zodiac !== null && state.onset !== null) {
+        dial = ZODIAC_NAMES[(((state.zodiac - state.onset) % 12) + 12) % 12];
+      }
 
+      var anySet = Object.keys(state).some(function (k) { return state[k] !== null; });
+      if (!anySet) {
+        idle(io.out, 'Set The Clues Your Game Rolled. All Five Painting Items And The ' +
+          'Zodiac Dial Are Worked Out Live.');
+        return;
+      }
+
+      begin(io.out, 'Painting Sequence');
+      io.out.appendChild(answerList([
+        paintingLine('1st Painting (Suspect)', 'Comb (Fixed)'),
+        paintingLine('2nd Painting (Accomplice)', accompliceItem || 'Select Accomplice', !accompliceItem),
+        paintingLine('3rd Painting (Poison)', poisonUnresolved ? poisonItem.replace(/[\[\]]/g, '') : poisonItem, poisonUnresolved),
+        paintingLine('4th Painting (Location)', symbolItem || 'Select Location', !symbolItem),
+        paintingLine('5th Painting (Motive)', 'Crest Medallion (Fixed)')
+      ]));
+      io.out.appendChild(subhead('Zodiac Dial'));
+      if (dial) {
+        io.out.appendChild(el('p', 'solver-verdict', 'Turn Dial To ' + dial));
+      } else {
+        io.out.appendChild(note('Set Time Of Death And Toxin Onset To Get The Dial.', 'warn'));
+      }
+      io.out.appendChild(note('The Poison Is Auto-Solved From Accomplice + Cause Of Death. ' +
+        'Time Of Death Rotated Back By The Onset Hours Gives The Poisoning Time.'));
+    }
     paint();
   };
 
-  /* ---------- BO7: Necrofluid Gauntlet ---------- */
+  /* ---------- BO7: Necrofluid Gauntlet (image picker) ---------- */
   WIDGETS.gauntlet = function (root) {
-    var chosen = {};   /* group -> symbol key */
+    var io = makeIO(root);
+    var chosen = {};
     var chips = {};
 
     GAUNTLET_GROUPS.forEach(function (group) {
-      var row = chipRow(group + GAUNTLET_GROUP_HINTS[group]);
+      var g = optGroup(group + GAUNTLET_GROUP_HINTS[group], 'Tap Your Symbol');
+      g.btns.classList.add('solver-opt-btns--img');
       Object.keys(SYMBOL_BUTTONS).forEach(function (k) {
         var data = SYMBOL_BUTTONS[k];
         if (data.group !== group) return;
-        var b = button(data.label, 'solver-chip solver-chip--' + group.toLowerCase());
+        var b = imgChip('bo7', data.image, data.label,
+          group + ' Symbol ' + data.label);
         b.addEventListener('click', function () {
-          if (chosen[group] !== undefined) return;
-          chosen[group] = k;
+          chosen[group] = (chosen[group] === k) ? undefined : k;
+          if (chosen[group] === undefined) delete chosen[group];
           paint();
         });
         chips[k] = b;
-        row.appendChild(b);
+        g.btns.appendChild(b);
       });
-      root.appendChild(row);
+      io.controls.appendChild(g.wrap);
     });
 
     var act = actions();
-    var reset = button('Reset', 'btn btn-outline');
+    var reset = button('Reset');
     act.appendChild(reset);
-    root.appendChild(act);
-
-    var out = resultBox();
-    root.appendChild(out);
+    io.controls.appendChild(act);
+    reset.addEventListener('click', function () { chosen = {}; paint(); });
 
     function paint() {
       Object.keys(SYMBOL_BUTTONS).forEach(function (k) {
         var g = SYMBOL_BUTTONS[k].group;
-        var locked = chosen[g] !== undefined;
-        chips[k].disabled = locked;
         chips[k].classList.toggle('is-on', chosen[g] === k);
       });
       var picked = GAUNTLET_GROUPS.filter(function (g) { return chosen[g] !== undefined; });
-      clear(out);
-      showResult(out);
-      if (picked.length < 3) {
-        out.appendChild(resultTitle('Selected: ' + picked.length + '/3'));
-        out.appendChild(note('Pick One Symbol Per Location \u2014 Tower, Barn And House.'));
-      } else {
-        out.appendChild(resultTitle('Sequence Complete'));
-        out.appendChild(note('Insert Each Symbol As Shown Below.'));
+      reset.disabled = picked.length === 0;
+      if (!picked.length) {
+        idle(io.out, 'Tap The Symbol You See At Each Location. Your Three Symbols Are Held ' +
+          'Here So You Do Not Have To Memorise Them Across Half A Map.');
+        return;
       }
+      if (picked.length < 3) progress(io.out, 'Selected ' + picked.length + ' Of 3');
+      else begin(io.out, 'Sequence Complete \u2014 Insert As Shown');
+      var strip = el('div', 'solver-pickstrip');
       picked.forEach(function (g) {
         var k = chosen[g];
-        out.appendChild(imagePlate('bo7', SYMBOL_BUTTONS[k].image,
-          g + ' Symbol' + GAUNTLET_GROUP_HINTS[g] + ' \u2014 Symbol ' + SYMBOL_BUTTONS[k].label,
-          g + ' Symbol ' + SYMBOL_BUTTONS[k].label + GAUNTLET_GROUP_HINTS[g]));
+        var cardEl = el('figure', 'solver-pick');
+        var im = el('img');
+        im.src = imgPath('bo7', SYMBOL_BUTTONS[k].image);
+        im.alt = g + ' Symbol ' + SYMBOL_BUTTONS[k].label;
+        im.loading = 'lazy';
+        cardEl.appendChild(im);
+        cardEl.appendChild(el('figcaption', null,
+          g + GAUNTLET_GROUP_HINTS[g] + ' \u00b7 ' + SYMBOL_BUTTONS[k].label));
+        strip.appendChild(cardEl);
       });
+      io.out.appendChild(strip);
       if (picked.length >= 3) {
-        out.appendChild(imagePlate('bo7', 'ashesGauntlet_insert.jpg',
+        io.out.appendChild(imagePlate('bo7', 'ashesGauntlet_insert.jpg',
           'Insert Each Symbol As Shown', 'Insert Order Reference'));
       }
     }
-
-    reset.addEventListener('click', function () {
-      chosen = {};
-      paint();
-      clear(out);
-      out.classList.remove('is-open');
-    });
+    paint();
   };
 
   /* ---------- BO7: Nexus pillar handle alignment ---------- */
   WIDGETS.crank = function (root) {
+    var io = makeIO(root);
     var state = { lever: 'horizontal', starts: [null, null, null], target: null };
 
-    var inputs = el('div', 'solver-inputs');
+    var leverG = singleChoice(io.controls, 'Lever Below Pack-A-Punch',
+      [
+        { v: 'horizontal', label: 'Horizontal' },
+        { v: 'vertical', label: 'Vertical' }
+      ],
+      function (v) { state.lever = v; paint(); },
+      'Horizontal = Not Pointing At The Stairs & Perk Machine');
+    leverG.chips.horizontal.classList.add('is-on');
+    leverG.chips.horizontal.setAttribute('aria-pressed', 'true');
 
-    var targetField = selectField('Target Shadowsmith Area',
-      REX_CRANK_TEMPLES.map(function (t) { return { v: t, t: t }; }),
-      'The One You Are Cleansing\u2026');
-    targetField.input.addEventListener('change', function () {
-      state.target = targetField.input.value || null;
-      paint();
+    var targetG = singleChoice(io.controls, 'Target Shadowsmith Area',
+      REX_CRANK_TEMPLES.map(function (t) { return { v: t, label: t }; }),
+      function (v) { state.target = v; paint(); },
+      'The One You Are Cleansing');
+
+    var ringOpts = REX_CRANK_PICK_ORDER.map(function (ring) {
+      return { v: REX_CRANK_RING.indexOf(ring), label: crankLabel(ring) };
     });
-    inputs.appendChild(targetField.wrap);
-
-    var handleFields = REX_CRANK_NAMES.map(function (name, idx) {
+    var handleGs = REX_CRANK_NAMES.map(function (name, idx) {
       var where = REX_CRANK_WHERE[name];
-      var label = name + ' Pillar' + (where ? ' (' + where + ')' : '');
-      var f = selectField(label,
-        REX_CRANK_PICK_ORDER.map(function (ring) {
-          return { v: REX_CRANK_RING.indexOf(ring), t: crankLabel(ring) };
-        }),
-        'Pointing At\u2026');
-      f.input.addEventListener('change', function () {
-        var raw = f.input.value;
-        state.starts[idx] = raw === '' ? null : parseInt(raw, 10);
-        paint();
-      });
-      inputs.appendChild(f.wrap);
-      return f;
+      return singleChoice(io.controls,
+        name + ' Pillar' + (where ? ' (' + where + ')' : ''),
+        ringOpts,
+        function (v) { state.starts[idx] = Number(v); paint(); },
+        'Currently Pointing At');
     });
-    root.appendChild(inputs);
 
     var act = actions();
-    var flip = button('Flip Spin Direction', 'btn btn-accent');
-    var done = button('Area Done', 'btn btn-outline');
-    var reset = button('Reset', 'btn btn-outline');
-    act.appendChild(flip);
+    var done = button('Area Done', 'btn btn-accent');
+    var reset = button('Reset');
     act.appendChild(done);
     act.appendChild(reset);
-    root.appendChild(act);
-
-    var out = resultBox();
-    root.appendChild(out);
-
-    flip.addEventListener('click', function () {
-      state.lever = state.lever === 'horizontal' ? 'vertical' : 'horizontal';
-      paint();
-    });
+    io.controls.appendChild(act);
 
     done.addEventListener('click', function () {
       if (!state.target) return;
       var landed = REX_CRANK_RING.indexOf(state.target);
       state.starts = [landed, landed, landed];
       state.target = null;
-      targetField.input.value = '';
-      handleFields.forEach(function (f) { f.input.value = String(landed); });
+      targetG.clear();
+      handleGs.forEach(function (g) {
+        g.clear();
+        var b = g.chips[String(landed)];
+        if (b) { b.classList.add('is-on'); b.setAttribute('aria-pressed', 'true'); }
+      });
       paint();
     });
 
     reset.addEventListener('click', function () {
       state = { lever: 'horizontal', starts: [null, null, null], target: null };
-      targetField.input.value = '';
-      handleFields.forEach(function (f) { f.input.value = ''; });
+      targetG.clear();
+      handleGs.forEach(function (g) { g.clear(); });
+      leverG.clear();
+      leverG.chips.horizontal.classList.add('is-on');
+      leverG.chips.horizontal.setAttribute('aria-pressed', 'true');
       paint();
     });
 
     function paint() {
       var look = REX_LEVER_LOOK[state.lever];
-      var otherKey = state.lever === 'horizontal' ? 'vertical' : 'horizontal';
-      var other = REX_LEVER_LOOK[otherKey];
       var placed = state.starts.every(function (s) { return s !== null; });
-
       done.disabled = !(state.target && placed);
 
-      clear(out);
-      showResult(out);
-
-      out.appendChild(strongLine('Target Shadowsmith Area: ', state.target || 'Not Set'));
-      out.appendChild(strongLine('Spin Direction: ', look.direction));
-      out.appendChild(note('Assuming The Lever Below Pack-A-Punch Is ' + look.short + ' \u2014 ' +
-        look.look + '. If It Is ' + other.short + ' (' + other.look + '), Tap Flip Spin Direction.'));
-
-      out.appendChild(el('p', 'solver-subhead', 'Your Pillars'));
-      out.appendChild(resultList(REX_CRANK_NAMES.map(function (name, i) {
-        var where = REX_CRANK_WHERE[name];
-        var f = frag();
-        f.appendChild(el('strong', null, name.toUpperCase() + ' PILLAR' +
-          (where ? ' (' + where.toUpperCase() + ')' : '')));
-        f.appendChild(document.createTextNode(': Facing '));
-        f.appendChild(el('span', 'solver-line-v',
-          state.starts[i] !== null ? crankLabel(REX_CRANK_RING[state.starts[i]]) : 'Not Set'));
-        return f;
-      })));
-
-      if (placed && state.target) {
-        var counts = rexCrankSolve(state.starts, REX_CRANK_RING.indexOf(state.target), look.spin);
-        if (counts === null) {
-          out.appendChild(note('No Solution \u2014 Double-Check What You Set Above.', 'warn'));
-        } else {
-          out.appendChild(el('p', 'solver-subhead', 'Interact With Handles This Amount'));
-          out.appendChild(resultList(REX_CRANK_NAMES.map(function (name, i) {
-            var f = frag();
-            f.appendChild(el('strong', null, name.toUpperCase() + ' PILLAR: '));
-            f.appendChild(el('code', 'solver-code', counts[i] + 'x'));
-            return f;
-          })));
-          out.appendChild(note('Any Order. 0x Means Leave That One Alone. The Blue Laser ' +
-            'Fires The Moment All 3 Line Up. Once You Turn Them, All 3 Point At ' +
-            state.target + ' \u2014 Press Area Done And The Solver Will Update Them For You.'));
-        }
-      } else {
+      if (!placed || !state.target) {
         var missing = [];
         if (!state.target) missing.push('Target Shadowsmith Area');
         if (!placed) missing.push('All 3 Pillar Positions');
-        out.appendChild(note('Still Need: ' + missing.join(', ') + '.', 'warn'));
+        idle(io.out, 'Still Need: ' + missing.join(' And ') +
+          '. The Handles Are Geared \u2014 Turning One Moves The Other Two By Two, So The ' +
+          'Turn Counts Are Worked Out Properly Here.');
+        return;
       }
 
-      if (placed) {
-        out.appendChild(el('p', 'solver-subhead', 'Turns From Where You Are Now'));
-        out.appendChild(resultList(rexCrankCosts(state.starts, look.spin).map(function (r) {
-          var f = frag();
-          f.appendChild(el('strong', null, r.temple));
-          f.appendChild(document.createTextNode(' \u2014 ' + r.total +
-            ' turn' + (r.total === 1 ? '' : 's')));
-          if (r.total === 0) f.appendChild(document.createTextNode('  (Where You Are Now)'));
-          else if (r.temple === state.target) f.appendChild(document.createTextNode('  (Your Target)'));
-          return f;
-        })));
-        out.appendChild(note('Can Be Done In Any Order \u2014 Above Is The Amount Of Turns ' +
-          'It Takes To Get To Each.'));
+      var counts = rexCrankSolve(state.starts, REX_CRANK_RING.indexOf(state.target), look.spin);
+      if (counts === null) {
+        beginWarn(io.out, 'No Solution');
+        io.out.appendChild(note('Double-Check What You Set Above.', 'warn'));
+        return;
       }
 
-      out.appendChild(note('Before You Move The Handles To Another Area: Make It Rain, And ' +
+      begin(io.out, 'Interact With Handles This Amount');
+      var turns = el('div', 'solver-turns');
+      REX_CRANK_NAMES.forEach(function (name, i) {
+        var t = el('div', 'solver-turn' + (counts[i] === 0 ? ' is-zero' : ''));
+        t.appendChild(el('span', 'solver-turn-n', counts[i] + 'x'));
+        t.appendChild(el('span', 'solver-turn-k', name));
+        turns.appendChild(t);
+      });
+      io.out.appendChild(turns);
+      io.out.appendChild(kv('Spin Direction: ', look.direction));
+      io.out.appendChild(note('Any Order. 0x Means Leave That One Alone. The Blue Laser Fires ' +
+        'The Moment All 3 Line Up. Then Press Area Done And The Solver Updates Them For You.'));
+
+      io.out.appendChild(subhead('Turns From Where You Are Now'));
+      io.out.appendChild(answerList(rexCrankCosts(state.starts, look.spin).map(function (r) {
+        var f = frag();
+        f.appendChild(el('strong', null, r.temple));
+        f.appendChild(document.createTextNode(' \u2014 ' + r.total +
+          ' Turn' + (r.total === 1 ? '' : 's')));
+        if (r.total === 0) f.appendChild(el('span', 'solver-tag', 'Where You Are'));
+        else if (r.temple === state.target) f.appendChild(el('span', 'solver-tag', 'Your Target'));
+        return f;
+      })));
+      io.out.appendChild(note('Before You Move The Handles To Another Area: Make It Rain, And ' +
         'Blast The Purple Spot On The Boss Head\u2019s Forehead \u2014 Otherwise You Have To ' +
-        'Come Back To Do It Later.'));
+        'Come Back To Do It Later.', 'warn'));
     }
-
     paint();
   };
 
@@ -1655,16 +1634,14 @@
         node.classList.add('is-mounted');
       } catch (err) {
         node.classList.add('is-failed');
-        var p = el('p', 'solver-note solver-note--warn',
-          'This Tool Could Not Start In Your Browser. The Reference Data Above Still Applies.');
-        node.appendChild(p);
+        node.appendChild(el('p', 'solver-note solver-note--warn',
+          'This Tool Could Not Start In Your Browser. The Reference Data Above Still Applies.'));
         if (window.console && console.error) console.error('Solver failed: ' + key, err);
       }
     });
   }
 
-  /* Static cheat-sheet images already exist in the HTML as <img>.
-     Wire them to the lightbox without duplicating any markup. */
+  /* Static cheat-sheet images are already in the HTML; wire them to the viewer. */
   function wireStaticImages() {
     var figs = document.querySelectorAll('.solver-figure[data-src]');
     Array.prototype.forEach.call(figs, function (fig) {
@@ -1672,12 +1649,12 @@
       var btn = fig.querySelector('.solver-img-btn');
       if (!im || !btn) return;
       btn.addEventListener('click', function () {
-        openImageLightbox(fig.getAttribute('data-src'), im.alt || '');
+        openLightbox(fig.getAttribute('data-src'), im.alt || '');
       });
     });
   }
 
-  /* Map jump-rail: highlight the section currently on screen. */
+  /* Map rail: mark the section currently on screen. */
   function wireIndexRail() {
     var rail = document.querySelector('.solver-index');
     if (!rail || !('IntersectionObserver' in window)) return;
@@ -1694,7 +1671,7 @@
         var a = links[entry.target.id];
         if (a) a.classList.add('is-current');
       });
-    }, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
     ids.forEach(function (id) {
       var sec = document.getElementById(id);
       if (sec) obs.observe(sec);
@@ -1713,8 +1690,8 @@
     init();
   }
 
-  /* Exposed only so the build-time verification harness can check the
-     ported algorithms against the Python. Harmless in a browser. */
+  /* Exposed so the verification harness can check the ported algorithms
+     against the Python. Harmless in a browser. */
   window.__SOLVER_TEST__ = {
     beam: function (x, y, z) { return [beamFirst(x), beamSecond(x, y, z), beamThird(x, y, z)]; },
     gorgofex: solveGorgofex,

@@ -7,7 +7,7 @@
   <link rel="shortcut icon" href="favicon.ico">
   <title>BO7 Zombies Solver — Rex Infernus, Kowakujo, Astra &amp; Ashes — JOEMET123</title>
   <meta name="description" content="Black Ops 7 Zombies solvers and cheat sheets: Nexus pillar handles, Kowakujo scrolls and mystery, Veytharion block puzzle, Dravakar riddles, Astra planets and statues, and the free RG-MK2 route.">
-  <link rel="stylesheet" href="assets/css/style.css?v=mua56eb1">
+  <link rel="stylesheet" href="assets/css/style.css?v=mua5syup">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
@@ -50,17 +50,24 @@
   </div>
 
   <!-- ===== MAIN ===== -->
-  <main class="main-content">
+  <main class="main-content solvers-page">
 
-    <section class="section page-head">
-      <span class="eyebrow">Black Ops 7</span>
-      <h1 class="page-title">BO7 Zombies Solver</h1>
-      <p class="page-lede">The Biggest Of The Three &mdash; Twenty-Two Tools Across Six Maps. Full Map Cheat Sheets, Live Solvers For The Awkward Steps, And Plain Reference Cards For The Steps That Never Change.</p>
-      <p class="solver-discord-credit">Joemet123 Cheat Sheets And Solvers Are Coming From The Discord (<a href="https://discord.gg/MeatbawlArmy" target="_blank" rel="noopener">discord.gg/MeatbawlArmy</a>) Right To This Website!</p>
+    <section class="section solver-hero">
+      <div class="solver-hero-main">
+        <span class="eyebrow">Black Ops 7</span>
+        <h1 class="page-title">BO7 Zombies Solver</h1>
+        <p class="page-lede">The Biggest Of The Three &mdash; Twenty-Two Tools Across Six Maps. Full Map Cheat Sheets, Live Solvers For The Awkward Steps, And Plain Reference Cards For The Steps That Never Change.</p>
+        <p class="solver-discord-credit">Joemet123 Cheat Sheets And Solvers Are Coming From The Discord (<a href="https://discord.gg/MeatbawlArmy" target="_blank" rel="noopener">discord.gg/MeatbawlArmy</a>) Right To This Website!</p>
+      </div>
+      <ul class="solver-stats">
+        <li><span class="solver-stat-k">6</span><span class="solver-stat-v">Maps</span></li>
+        <li><span class="solver-stat-k">22</span><span class="solver-stat-v">Tools</span></li>
+        <li><span class="solver-stat-k">21</span><span class="solver-stat-v">Live</span></li>
+      </ul>
     </section>
 
-    <nav class="solver-index" aria-label="Jump to map">
-      <span class="solver-index-label">Maps</span>
+    <nav class="page-jump solver-index" aria-label="Jump to map">
+      <span class="page-jump-label">Maps</span>
       <a href="#bo7-rex">Rex Infernus</a>
       <a href="#bo7-kowakujo">Kowakujo</a>
       <a href="#bo7-totenreich">Totenreich</a>
@@ -70,19 +77,36 @@
     </nav>
 
     <section class="solver-map" id="bo7-rex">
-      <h2 class="section-title">Rex Infernus</h2>
-      <p class="solver-map-intro">Four Temples, Three Geared Handles And A Block Puzzle.</p>
-      <article class="solver solver--soon" id="bo7-rex-sheet">
-        <h3 class="solver-name">Full Map &mdash; Complete Single Cheat Sheet</h3>
-        <p class="solver-blurb">The One-Page Overview Of The Whole Map.</p>
-        <p class="solver-soon"><span class="solver-soon-tag">Image Missing</span></p>
-        <p class="solver-note">The Bot Lists This Sheet As <code class="solver-code">rexInfernus_fullCheatSheet.jpg</code>, But That File Is Not In The Bot's Folder &mdash; So There Is Nothing To Show Here Yet. Every Other Rex Infernus Tool On This Page Works. Drop The Image In The Discord And Ping <strong>@JOEMET123</strong> And It Goes Straight Up.</p>
-      </article>
-      <article class="solver" id="bo7-dravakar">
-        <h3 class="solver-name">Dravakar Solver</h3>
-        <p class="solver-blurb">Read The Blue Writing On The Wall, Find Your Quote, Pull Those Levers. There Are Only Four Quotes.</p>
-        <p class="solver-text">The Riddle Is Worded Differently Each Game But The Underlying Answer Is Not Random. Every Symbol Has A Fixed Base Direction, And The Riddle Just Reassigns Them Relative To Each Other. That Means All Four Wordings And Their Lever Counts Can Be Written Out Once.</p>
-        <p class="solver-subhead">Your Quote And Your Lever Pulls</p>
+      <div class="solver-map-head">
+        <h2 class="section-title">Rex Infernus</h2>
+        <p class="solver-map-intro">Four Temples, Three Geared Handles And A Block Puzzle.</p>
+      </div>
+      <div class="solver-stack">
+        <article class="solver solver--solver solver--span12" id="bo7-crank">
+          <header class="solver-head">
+            <h3 class="solver-name">Nexus Pillar Handle Alignment</h3>
+            <span class="solver-kind solver-kind--solver">Solver</span>
+          </header>
+          <p class="solver-blurb">Three Geared Handles That Must All Point At The Same Temple. Turning One Moves The Other Two By Double.</p>
+          <p class="solver-text">This Is The One That Genuinely Needs Solving. <strong>The Handles Are Geared</strong> &mdash; Turning One Moves That Ring By One Position And The Other Two By Two Each, So You Cannot Count Each Ring's Gap On Its Own.</p>
+          <div class="solver-widget" data-solver="crank"></div>
+          <details class="solver-details">
+            <summary>How To Read Your Handles And Lever</summary>
+          <ul class="solver-bullets">
+            <li>Handles Are Named By Distance From Pack-A-Punch. <strong>Inner</strong> Is Closest To PaP, <strong>Outer</strong> Is Furthest.</li>
+            <li>The Ring Has Six Spots: Four Temples Plus <strong>The House</strong> And One Empty Gap. The Gap Is A Real Position &mdash; Pick <strong>None Of The Above</strong> If A Handle Sits On It.</li>
+            <li>Spin Direction Comes From A Lever Under Pack-A-Punch. <strong>Horizontal</strong> (Not Pointing At The Stairs And Perk Machine) Is Counter-Clockwise. <strong>Vertical</strong> (Pointing At Them) Is Clockwise.</li>
+            <li>The Perk Machine There Starts As Deadshot And Later Becomes Wonderfizz, So It Is Named Generically.</li>
+          </ul>
+          </details>
+        </article>
+        <article class="solver solver--reference solver--span12" id="bo7-dravakar">
+          <header class="solver-head">
+            <h3 class="solver-name">Dravakar Solver</h3>
+            <span class="solver-kind solver-kind--reference">Reference</span>
+          </header>
+          <p class="solver-blurb">Read The Blue Writing On The Wall, Find Your Quote, Pull Those Levers. There Are Only Four Quotes.</p>
+          <p class="solver-text">The Riddle Is Worded Differently Each Game But The Answer Is Not Random. Every Symbol Has A Fixed Base Direction, And The Riddle Just Reassigns Them Relative To Each Other &mdash; So All Four Wordings And Their Lever Counts Can Be Written Out Once.</p>
         <div class="solver-tablewrap">
           <table class="solver-table solver-table--quotes">
             <thead><tr><th scope="col">Quote On The Wall</th><th scope="col">Galaxy + Runner</th><th scope="col">Runner + Star</th><th scope="col">Moon + Star</th></tr></thead>
@@ -94,8 +118,10 @@
             </tbody>
           </table>
         </div>
-        <p class="solver-subhead">Which Lever Is Which</p>
-        <p class="solver-note">The Levers Are Named Here By The Two Pillars They Turn, Not By Their Position On The Diagram. Diagram Names Send People Hunting Along The Wrong Wall &mdash; All Three Levers Actually Sit On The North-East To South-East Arc.</p>
+          <p class="solver-note solver-note--warn"><strong>All Four Pillars Must Start Facing The Centre</strong> &mdash; These Counts Assume That. The <strong>Centre Pillar Confirms</strong> Your Answer, So Leave It Alone Until The Other Three Are Set.</p>
+          <details class="solver-details">
+            <summary>Which Lever Is Which, And The Four Symbols</summary>
+          <p class="solver-note">The Levers Are Named Here By The Two Pillars They Turn, Not By Their Position On The Diagram. Diagram Names Send People Hunting Along The Wrong Wall &mdash; All Three Levers Actually Sit On The North-East To South-East Arc. Not Sure? Pull One Once And Watch Which Two Pillars Turn; Nothing Locks In Until You Touch The Centre Pillar.</p>
         <div class="solver-tablewrap">
           <table class="solver-table">
             <thead><tr><th scope="col">Lever</th><th scope="col">Turns</th><th scope="col">Where It Is</th></tr></thead>
@@ -106,10 +132,7 @@
             </tbody>
           </table>
         </div>
-        <p class="solver-note">Not Sure Which Is Which? Pull One Once And Watch Which Two Pillars Turn. Nothing Is Locked In Until You Touch The Centre Pillar.</p>
-        <p class="solver-note solver-note--warn"><strong>All Four Pillars Must Start Facing The Centre</strong> &mdash; These Counts Assume That. The <strong>Centre Pillar Confirms</strong> Your Answer, So Leave It Alone Until The Other Three Are Set.</p>
-        <p class="solver-subhead">The Four Symbols</p>
-        <div class="solver-symbolgrid">
+          <div class="solver-symbolgrid">
         <figure class="solver-figure" data-src="assets/images/solvers/bo7/rexInfernus_dravakarGalaxy.jpg">
           <button type="button" class="solver-img-btn" aria-label="Open Full Size: Dravakar Galaxy Symbol">
             <img src="assets/images/solvers/bo7/rexInfernus_dravakarGalaxy.jpg" alt="Dravakar Galaxy Symbol" width="640" height="372" loading="lazy" decoding="async">
@@ -134,97 +157,102 @@
           </button>
           <figcaption class="solver-figcaption">Star &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/rexInfernus_dravakarStar.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
         </figure>
-        </div>
-      </article>
-      <article class="solver" id="bo7-veytharion">
-        <h3 class="solver-name">Veytharion Block Puzzle</h3>
-        <p class="solver-blurb">A Classic River Crossing. Four Blocks, One Buffer, Seven Trips. The Answer Is The Same Every Game.</p>
-        <p class="solver-text">Four Stone Blocks &mdash; <strong>WATER</strong>, <strong>FIRE</strong>, <strong>PLANT</strong> And <strong>HAND</strong> &mdash; Start In The Left Wall And All Four Have To Reach The Right.</p>
-        <p class="solver-subhead">The Rules</p>
-        <ul class="solver-bullets">
-          <li><strong>FIRE</strong> Can Never Sit With <strong>WATER</strong> Or <strong>PLANT</strong> &mdash; Not On A Side, And Not Next To It In A Wall. <strong>HAND</strong> Cancels That, So HAND Is Your Buffer.</li>
-          <li>Nothing Moves Unless <strong>HAND</strong> Is In The Transporter With It. Put HAND On The Middle Bridge, Then Hit The <strong>Dial</strong> To Send It Across.</li>
-          <li><strong>HAND Leaves Last And Lands First.</strong> Load The Other Block First, Then HAND; On Arrival Drop HAND First, Then The Other Block. That Is What Keeps FIRE Buffered While It Is In Transit.</li>
-        </ul>
-        <p class="solver-subhead">Start &mdash; Slot All Four Into The LEFT Wall</p>
-        <ul class="solver-bullets solver-bullets--mono">
-          <li>WATER &middot; PLANT &middot; HAND &middot; FIRE</li>
-          <li>PLANT &middot; WATER &middot; HAND &middot; FIRE</li>
-          <li>FIRE &middot; HAND &middot; WATER &middot; PLANT</li>
-          <li>FIRE &middot; HAND &middot; PLANT &middot; WATER</li>
-        </ul>
-        <p class="solver-note">Any Of Those Four Works. FIRE Must Sit On An End With HAND Next To It &mdash; The Other Twenty Orders Fail The Step And Cost You A Round.</p>
-        <p class="solver-subhead">Then Do This, Every Time</p>
-        <ol class="solver-steps">
-          <li>Load <strong>FIRE</strong> First, Then <strong>HAND</strong> &rarr; Send <strong>RIGHT</strong> &rarr; Drop <strong>HAND</strong> First, Then <strong>FIRE</strong>.</li>
-          <li>Load <strong>HAND</strong> On Its Own &rarr; Send <strong>LEFT</strong>. Nothing Else Moves.</li>
-          <li>Load <strong>WATER</strong> First, Then <strong>HAND</strong> &rarr; Send <strong>RIGHT</strong> &rarr; Drop <strong>HAND</strong> First, Then <strong>WATER</strong>.</li>
-          <li>Load <strong>FIRE</strong> First, Then <strong>HAND</strong> &rarr; Send <strong>LEFT</strong> &rarr; Drop <strong>HAND</strong> First, Then <strong>FIRE</strong>.</li>
-          <li>Load <strong>PLANT</strong> First, Then <strong>HAND</strong> &rarr; Send <strong>RIGHT</strong> &rarr; Drop <strong>HAND</strong> First, Then <strong>PLANT</strong>.</li>
-          <li>Load <strong>HAND</strong> On Its Own &rarr; Send <strong>LEFT</strong>. Nothing Else Moves.</li>
-          <li>Load <strong>FIRE</strong> First, Then <strong>HAND</strong> &rarr; Send <strong>RIGHT</strong> &rarr; Drop <strong>HAND</strong> First, Then <strong>FIRE</strong>.</li>
-        </ol>
-        <p class="solver-text"><strong>Finished Right Wall:</strong> WATER &middot; PLANT &middot; HAND &middot; FIRE</p>
-        <p class="solver-note">One Correction Worth Knowing: Some Written Guides Say To Bring FIRE And PLANT Back Together On The Middle Trip. That Strands FIRE With PLANT And WATER And Fails The Step. It Has To Be FIRE + HAND, Which Is What Is Written Above.</p>
-      </article>
-      <article class="solver" id="bo7-nyxara">
-        <h3 class="solver-name">Nyxara Crystal Routing</h3>
-        <p class="solver-blurb">The Dial Order Is Fixed, Not Randomised. This Is The Only Part You Need Mid-Round.</p>
-        <p class="solver-subhead">Dial Order</p>
-        <p class="solver-sequence">RIGHT &middot; LEFT &middot; RIGHT &middot; MIDDLE &middot; MIDDLE &middot; MIDDLE &middot; LEFT</p>
-        <p class="solver-text">Turn The Crystals With The <strong>Void Claw</strong> In That Order To Steer The Bouncing Ball Into The Marked Door.</p>
-        <p class="solver-note">Order Matters Elsewhere Too: The Astral Flame Goes Into The Eye <strong>First</strong> To Start The Ball. The Dials Only Steer It. Throw The Flame Last And You Will Be Turning Dials With Nothing Moving.</p>
-      </article>
-      <article class="solver" id="bo7-crank">
-        <h3 class="solver-name">Nexus Pillar Handle Alignment</h3>
-        <p class="solver-blurb">Three Geared Handles That Must All Point At The Same Temple. Turning One Moves The Other Two By Double.</p>
-        <p class="solver-text">This Is The One That Genuinely Needs Solving. <strong>The Handles Are Geared</strong> &mdash; Turning One Moves That Ring By One Position And The Other Two By Two Each, So You Cannot Count Each Ring's Gap On Its Own.</p>
-        <p class="solver-subhead">Before You Start</p>
-        <ul class="solver-bullets">
-          <li>Handles Are Named By Distance From Pack-A-Punch. <strong>Inner</strong> Is Closest To PaP, <strong>Outer</strong> Is Furthest.</li>
-          <li>The Ring Has Six Spots: Four Temples Plus <strong>The House</strong> And One Empty Gap. The Gap Is A Real Position &mdash; Pick <strong>None Of The Above</strong> If A Handle Is Sitting On It.</li>
-          <li>Spin Direction Comes From A Lever Under Pack-A-Punch. <strong>Horizontal</strong> (Not Pointing At The Stairs And Perk Machine) Is Counter-Clockwise. <strong>Vertical</strong> (Pointing At Them) Is Clockwise.</li>
-          <li>The Perk Machine There Starts As Deadshot And Later Becomes Wonderfizz, So It Is Named Generically.</li>
-        </ul>
-        <p class="solver-note">The Solver Assumes The Lever Is Horizontal Because It Is Counter-Clockwise In Most Games. It Always Says What It Assumed &mdash; Tap Flip Spin Direction If Yours Looks Different.</p>
-        <div class="solver-widget" data-solver="crank"></div>
-        <p class="solver-note solver-note--warn">Before You Move The Handles To Another Area: Make It Rain, And Blast The <strong>Purple Spot On The Boss Head's Forehead</strong> &mdash; Otherwise You Have To Come Back And Do It Later.</p>
-      </article>
+          </div>
+          </details>
+        </article>
+        <article class="solver solver--reference solver--span8" id="bo7-veytharion">
+          <header class="solver-head">
+            <h3 class="solver-name">Veytharion Block Puzzle</h3>
+            <span class="solver-kind solver-kind--reference">Reference</span>
+          </header>
+          <p class="solver-blurb">A Classic River Crossing. Four Blocks, One Buffer, Seven Trips. The Answer Is The Same Every Game.</p>
+          <p class="solver-text">Four Stone Blocks &mdash; <strong>WATER</strong>, <strong>FIRE</strong>, <strong>PLANT</strong> And <strong>HAND</strong> &mdash; Start In The Left Wall And All Four Have To Reach The Right.</p>
+          <p class="solver-subhead">Do This, Every Time</p>
+          <ol class="solver-steps">
+            <li>Load <strong>FIRE</strong> First, Then <strong>HAND</strong> &rarr; Send <strong>RIGHT</strong> &rarr; Drop <strong>HAND</strong> First, Then <strong>FIRE</strong>.</li>
+            <li>Load <strong>HAND</strong> On Its Own &rarr; Send <strong>LEFT</strong>. Nothing Else Moves.</li>
+            <li>Load <strong>WATER</strong> First, Then <strong>HAND</strong> &rarr; Send <strong>RIGHT</strong> &rarr; Drop <strong>HAND</strong> First, Then <strong>WATER</strong>.</li>
+            <li>Load <strong>FIRE</strong> First, Then <strong>HAND</strong> &rarr; Send <strong>LEFT</strong> &rarr; Drop <strong>HAND</strong> First, Then <strong>FIRE</strong>.</li>
+            <li>Load <strong>PLANT</strong> First, Then <strong>HAND</strong> &rarr; Send <strong>RIGHT</strong> &rarr; Drop <strong>HAND</strong> First, Then <strong>PLANT</strong>.</li>
+            <li>Load <strong>HAND</strong> On Its Own &rarr; Send <strong>LEFT</strong>. Nothing Else Moves.</li>
+            <li>Load <strong>FIRE</strong> First, Then <strong>HAND</strong> &rarr; Send <strong>RIGHT</strong> &rarr; Drop <strong>HAND</strong> First, Then <strong>FIRE</strong>.</li>
+          </ol>
+          <p class="solver-text"><strong>Finished Right Wall:</strong> WATER &middot; PLANT &middot; HAND &middot; FIRE</p>
+          <details class="solver-details">
+            <summary>The Rules And Your Starting Layout</summary>
+          <ul class="solver-bullets">
+            <li><strong>FIRE</strong> Can Never Sit With <strong>WATER</strong> Or <strong>PLANT</strong> &mdash; Not On A Side, And Not Next To It In A Wall. <strong>HAND</strong> Cancels That, So HAND Is Your Buffer.</li>
+            <li>Nothing Moves Unless <strong>HAND</strong> Is In The Transporter With It. Put HAND On The Middle Bridge, Then Hit The <strong>Dial</strong>.</li>
+            <li><strong>HAND Leaves Last And Lands First.</strong> Load The Other Block First, Then HAND; On Arrival Drop HAND First. That Keeps FIRE Buffered In Transit.</li>
+          </ul>
+          <p class="solver-subhead">Start &mdash; Slot All Four Into The LEFT Wall</p>
+          <ul class="solver-bullets solver-bullets--mono">
+            <li>WATER &middot; PLANT &middot; HAND &middot; FIRE</li>
+            <li>PLANT &middot; WATER &middot; HAND &middot; FIRE</li>
+            <li>FIRE &middot; HAND &middot; WATER &middot; PLANT</li>
+            <li>FIRE &middot; HAND &middot; PLANT &middot; WATER</li>
+          </ul>
+          <p class="solver-note">Any Of Those Four Works. FIRE Must Sit On An End With HAND Next To It &mdash; The Other Twenty Orders Fail The Step And Cost You A Round.</p>
+          <p class="solver-note">One Correction Worth Knowing: Some Written Guides Say To Bring FIRE And PLANT Back Together On The Middle Trip. That Strands FIRE With PLANT And WATER And Fails The Step. It Has To Be FIRE + HAND.</p>
+          </details>
+        </article>
+        <article class="solver solver--reference solver--span4" id="bo7-nyxara">
+          <header class="solver-head">
+            <h3 class="solver-name">Nyxara Crystal Routing</h3>
+            <span class="solver-kind solver-kind--reference">Reference</span>
+          </header>
+          <p class="solver-blurb">The Dial Order Is Fixed, Not Randomised.</p>
+          <p class="solver-sequence">RIGHT &middot; LEFT &middot; RIGHT &middot; MIDDLE &middot; MIDDLE &middot; MIDDLE &middot; LEFT</p>
+          <p class="solver-text">Turn The Crystals With The <strong>Void Claw</strong> In That Order To Steer The Bouncing Ball Into The Marked Door.</p>
+          <p class="solver-note">The Astral Flame Goes Into The Eye <strong>First</strong> To Start The Ball. The Dials Only Steer It.</p>
+        </article>
+        <article class="solver solver--missing solver--span12" id="bo7-rex-sheet">
+          <header class="solver-head">
+            <h3 class="solver-name">Full Map &mdash; Complete Single Cheat Sheet</h3>
+            <span class="solver-kind solver-kind--missing">Image Missing</span>
+          </header>
+          <p class="solver-blurb">The One-Page Overview Of The Whole Map.</p>
+          <p class="solver-note solver-note--warn">The Bot Lists This Sheet As <code class="solver-code">rexInfernus_fullCheatSheet.jpg</code>, But That File Is Not In The Bot's Folder &mdash; So There Is Nothing To Show Here Yet. Every Other Rex Infernus Tool On This Page Works. Drop The Image In The Discord And Ping <strong>@JOEMET123</strong> And It Goes Straight Up.</p>
+        </article>
+      </div>
     </section>
 
     <section class="solver-map" id="bo7-kowakujo">
-      <h2 class="section-title">Kowakujo</h2>
-      <p class="solver-map-intro">A Nine-Scroll Grid And A Murder Mystery.</p>
-      <article class="solver" id="bo7-kowakujo-sheet">
-        <h3 class="solver-name">Full Map &mdash; Complete Single Cheat Sheet</h3>
-        <p class="solver-blurb">The One-Page Overview Of The Whole Map.</p>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo7/kowakujo_fullCheatSheet.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Kowakujo Full Map Cheat Sheet">
-            <img src="assets/images/solvers/bo7/kowakujo_fullCheatSheet.jpg" alt="Kowakujo Full Map Cheat Sheet" width="2000" height="1260" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Kowakujo Full Cheat Sheet &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/kowakujo_fullCheatSheet.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-      </article>
-      <article class="solver" id="bo7-scrolls">
-        <h3 class="solver-name">Scrolls Solver</h3>
-        <p class="solver-blurb">A Three-By-Three Lights-Out Grid Where Hitting One Scroll Flips Its Neighbours Too. Tell It What You See And It Returns The Shortest Set Of Hits.</p>
-        <p class="solver-text">Each Scroll Is Either <strong>OUT</strong> (Facing Outwards, Active) Or <strong>IN</strong> (Facing Inwards, Inactive). You Need Every Scroll Facing IN. Hitting A Scroll Flips It <strong>And</strong> The Scrolls Directly Above, Below, Left And Right Of It, Which Is Why Brute-Forcing It By Hand Rarely Lands.</p>
-        <p class="solver-text">Set Each Cell Below To Match Your Screen, Then Hit Solve. The Answer Is The Minimum Number Of Hits, Worked Out Properly Rather Than Guessed.</p>
-        <div class="solver-widget" data-solver="scrolls"></div>
+      <div class="solver-map-head">
+        <h2 class="section-title">Kowakujo</h2>
+        <p class="solver-map-intro">A Nine-Scroll Grid And A Murder Mystery.</p>
+      </div>
+      <div class="solver-stack">
+        <article class="solver solver--solver solver--span12" id="bo7-scrolls">
+          <header class="solver-head">
+            <h3 class="solver-name">Scrolls Solver</h3>
+            <span class="solver-kind solver-kind--solver">Solver</span>
+          </header>
+          <p class="solver-blurb">A Three-By-Three Grid Where Hitting One Scroll Flips Its Neighbours Too. Match The Grid To Your Screen And It Returns The Shortest Set Of Hits.</p>
+          <p class="solver-text">Each Scroll Is Either <strong>OUT</strong> (Facing Outwards, Active) Or <strong>IN</strong> (Facing Inwards, Inactive). You Need Every Scroll Facing IN. Hitting One Flips It <strong>And</strong> The Scrolls Above, Below, Left And Right Of It, Which Is Why Brute-Forcing It By Hand Rarely Lands. The Answer Updates As You Tap.</p>
+          <div class="solver-widget" data-solver="scrolls"></div>
+          <details class="solver-details">
+            <summary>Scrolls Reference Image</summary>
         <figure class="solver-figure" data-src="assets/images/solvers/bo7/kowakujo_scrolls.jpg">
           <button type="button" class="solver-img-btn" aria-label="Open Full Size: Kowakujo Scrolls Reference">
             <img src="assets/images/solvers/bo7/kowakujo_scrolls.jpg" alt="Kowakujo Scrolls Reference" width="867" height="924" loading="lazy" decoding="async">
           </button>
           <figcaption class="solver-figcaption">Scrolls Reference &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/kowakujo_scrolls.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
         </figure>
-      </article>
-      <article class="solver" id="bo7-mystery">
-        <h3 class="solver-name">Mystery Step Solver</h3>
-        <p class="solver-blurb">Five Paintings, Five Clues. Set What Your Game Rolled And It Works Out Every Painting Item Plus The Zodiac Dial.</p>
-        <p class="solver-text">Two Of The Five Paintings Are Fixed Every Game. Two Come Straight From A Clue. The Third &mdash; The Poison &mdash; Is Never Picked Directly; It Is The Only Option Left Once Your Accomplice And Your Cause Of Death Have Each Ruled One Out.</p>
-        <div class="solver-widget" data-solver="mystery"></div>
-        <p class="solver-subhead">Accomplice &rarr; Evidence Item &rarr; Poison Ruled Out</p>
-        <p class="solver-note">Some Written Guides Call The Courtier The &ldquo;Noble&rdquo;. Same Person &mdash; His Evidence Item Is The Noble's Hat.</p>
+          </details>
+        </article>
+        <article class="solver solver--solver solver--span12" id="bo7-mystery">
+          <header class="solver-head">
+            <h3 class="solver-name">Mystery Step Solver</h3>
+            <span class="solver-kind solver-kind--solver">Solver</span>
+          </header>
+          <p class="solver-blurb">Five Paintings, Five Clues. Set What Your Game Rolled And It Works Out Every Painting Item Plus The Zodiac Dial.</p>
+          <p class="solver-text">Two Of The Five Paintings Are Fixed Every Game. Two Come Straight From A Clue. The Third &mdash; The Poison &mdash; Is Never Picked Directly; It Is The Only Option Left Once Your Accomplice And Your Cause Of Death Have Each Ruled One Out.</p>
+          <div class="solver-widget" data-solver="mystery"></div>
+          <details class="solver-details">
+            <summary>Clue Reference Tables</summary>
+          <p class="solver-subhead">Accomplice &rarr; Evidence Item &rarr; Poison Ruled Out</p>
+          <p class="solver-note">Some Written Guides Call The Courtier The &ldquo;Noble&rdquo;. Same Person &mdash; His Evidence Item Is The Noble's Hat.</p>
         <div class="solver-tablewrap">
           <table class="solver-table">
             <thead><tr><th scope="col">Accomplice</th><th scope="col">Evidence Item</th><th scope="col">Never This Poison</th></tr></thead>
@@ -235,7 +263,7 @@
             </tbody>
           </table>
         </div>
-        <p class="solver-subhead">Cause Of Death &rarr; Possible Poisons</p>
+          <p class="solver-subhead">Cause Of Death &rarr; Possible Poisons</p>
         <div class="solver-tablewrap">
           <table class="solver-table">
             <thead><tr><th scope="col">Cause Of Death</th><th scope="col">Narrows To</th></tr></thead>
@@ -246,7 +274,7 @@
             </tbody>
           </table>
         </div>
-        <p class="solver-subhead">Location &rarr; Painting Item</p>
+          <p class="solver-subhead">Location &rarr; Painting Item</p>
         <div class="solver-tablewrap">
           <table class="solver-table">
             <thead><tr><th scope="col">4th Painting Symbol</th><th scope="col">Item To Place</th></tr></thead>
@@ -257,11 +285,12 @@
             </tbody>
           </table>
         </div>
-        <p class="solver-subhead">The Zodiac Dial</p>
-        <p class="solver-text">Take The <strong>Time Of Death</strong> From The Court Doctor's Record And Rotate It <strong>Back</strong> By The <strong>Toxin Onset Hours</strong> From The Known Toxins Note. That Lands You On The Poisoning Time, Which Is What The Dial Wants.</p>
-        <p class="solver-note">The Onset Time Is A Number Of Hours, Not A Poison. The Two Get Confused Constantly Because Both Get Called &ldquo;The Poison Clue&rdquo; In Chat.</p>
-        <p class="solver-subhead">Clue Reference Images</p>
-        <div class="solver-imggrid">
+          <p class="solver-subhead">The Zodiac Dial</p>
+          <p class="solver-text">Take The <strong>Time Of Death</strong> From The Court Doctor's Record And Rotate It <strong>Back</strong> By The <strong>Toxin Onset Hours</strong> From The Known Toxins Note. The Onset Time Is A Number Of Hours, Not A Poison &mdash; The Two Get Confused Constantly.</p>
+          </details>
+          <details class="solver-details">
+            <summary>Clue Reference Images</summary>
+          <div class="solver-imggrid">
         <figure class="solver-figure" data-src="assets/images/solvers/bo7/kowakujo_mystery_portrait4.jpg">
           <button type="button" class="solver-img-btn" aria-label="Open Full Size: Location Clue: 4th Painting Symbol">
             <img src="assets/images/solvers/bo7/kowakujo_mystery_portrait4.jpg" alt="Location Clue: 4th Painting Symbol" width="1400" height="1884" loading="lazy" decoding="async">
@@ -292,161 +321,199 @@
           </button>
           <figcaption class="solver-figcaption">Zodiac Dial Reference &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/kowakujo_mystery_zodiacAnimals.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
         </figure>
-        </div>
-      </article>
+          </div>
+          </details>
+        </article>
+        <article class="solver solver--sheet solver--span12" id="bo7-kowakujo-sheet">
+          <header class="solver-head">
+            <h3 class="solver-name">Full Map &mdash; Complete Single Cheat Sheet</h3>
+            <span class="solver-kind solver-kind--sheet">Cheat Sheet</span>
+          </header>
+          <p class="solver-blurb">The One-Page Overview Of The Whole Map.</p>
+        <figure class="solver-figure" data-src="assets/images/solvers/bo7/kowakujo_fullCheatSheet.jpg">
+          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Kowakujo Full Map Cheat Sheet">
+            <img src="assets/images/solvers/bo7/kowakujo_fullCheatSheet.jpg" alt="Kowakujo Full Map Cheat Sheet" width="2000" height="1260" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="solver-figcaption">Kowakujo Full Cheat Sheet &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/kowakujo_fullCheatSheet.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+        </figure>
+        </article>
+      </div>
     </section>
 
     <section class="solver-map" id="bo7-totenreich">
-      <h2 class="section-title">Totenreich</h2>
-      <p class="solver-map-intro">Three Reference Sheets.</p>
-      <article class="solver" id="bo7-toten-sheet">
-        <h3 class="solver-name">Full Map &mdash; Complete Single Cheat Sheet</h3>
-        <p class="solver-blurb">The One-Page Overview Of The Whole Map.</p>
+      <div class="solver-map-head">
+        <h2 class="section-title">Totenreich</h2>
+        <p class="solver-map-intro">Three Reference Sheets.</p>
+      </div>
+      <div class="solver-stack">
+        <article class="solver solver--sheet solver--span12" id="bo7-toten-sheet">
+          <header class="solver-head">
+            <h3 class="solver-name">Full Map &mdash; Complete Single Cheat Sheet</h3>
+            <span class="solver-kind solver-kind--sheet">Cheat Sheet</span>
+          </header>
+          <p class="solver-blurb">The One-Page Overview Of The Whole Map.</p>
         <figure class="solver-figure" data-src="assets/images/solvers/bo7/Totenreich_FullCheatSheet.jpg">
           <button type="button" class="solver-img-btn" aria-label="Open Full Size: Totenreich Full Map Cheat Sheet">
             <img src="assets/images/solvers/bo7/Totenreich_FullCheatSheet.jpg" alt="Totenreich Full Map Cheat Sheet" width="2000" height="1126" loading="lazy" decoding="async">
           </button>
           <figcaption class="solver-figcaption">Totenreich Full Cheat Sheet &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/Totenreich_FullCheatSheet.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
         </figure>
-      </article>
-      <article class="solver" id="bo7-toten-crates">
-        <h3 class="solver-name">Crate Paper</h3>
-        <p class="solver-blurb">The Crate And Wunderbarrage Paper.</p>
+        </article>
+        <article class="solver solver--sheet solver--span6" id="bo7-toten-crates">
+          <header class="solver-head">
+            <h3 class="solver-name">Crate Paper</h3>
+            <span class="solver-kind solver-kind--sheet">Cheat Sheet</span>
+          </header>
+          <p class="solver-blurb">The Crate And Wunderbarrage Paper.</p>
         <figure class="solver-figure" data-src="assets/images/solvers/bo7/Totenreich_CratesWunderbarrage.jpg">
           <button type="button" class="solver-img-btn" aria-label="Open Full Size: Totenreich Crate And Wunderbarrage Paper">
             <img src="assets/images/solvers/bo7/Totenreich_CratesWunderbarrage.jpg" alt="Totenreich Crate And Wunderbarrage Paper" width="1400" height="1320" loading="lazy" decoding="async">
           </button>
           <figcaption class="solver-figcaption">Crate Paper &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/Totenreich_CratesWunderbarrage.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
         </figure>
-      </article>
-      <article class="solver" id="bo7-toten-fishing">
-        <h3 class="solver-name">Fishing &amp; Pole Locations: Map Layout</h3>
-        <p class="solver-blurb">Where Every Fishing Spot And Pole Sits On The Map.</p>
+        </article>
+        <article class="solver solver--sheet solver--span6" id="bo7-toten-fishing">
+          <header class="solver-head">
+            <h3 class="solver-name">Fishing &amp; Pole Locations</h3>
+            <span class="solver-kind solver-kind--sheet">Cheat Sheet</span>
+          </header>
+          <p class="solver-blurb">Where Every Fishing Spot And Pole Sits On The Map.</p>
         <figure class="solver-figure" data-src="assets/images/solvers/bo7/Totenriech_FishingLocationsMap.jpg">
           <button type="button" class="solver-img-btn" aria-label="Open Full Size: Totenreich Fishing And Pole Locations Map">
             <img src="assets/images/solvers/bo7/Totenriech_FishingLocationsMap.jpg" alt="Totenreich Fishing And Pole Locations Map" width="1400" height="1408" loading="lazy" decoding="async">
           </button>
           <figcaption class="solver-figcaption">Fishing &amp;amp; Pole Locations &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/Totenriech_FishingLocationsMap.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
         </figure>
-      </article>
+        </article>
+      </div>
     </section>
 
     <section class="solver-map" id="bo7-paradox">
-      <h2 class="section-title">Paradox Junction</h2>
-      <p class="solver-map-intro">No Tools Yet.</p>
-      <article class="solver solver--soon" id="bo7-paradox-none">
-        <h3 class="solver-name">Paradox Junction Tools</h3>
-        <p class="solver-blurb">Nothing Is Built For This Map Yet.</p>
-        <p class="solver-soon"><span class="solver-soon-tag">Coming Soon</span></p>
-        <p class="solver-note">Sorry, There Are Updates Being Made To This Section. It Will Be Updated Following Finishing All The Totenreich Content. I Apologize.</p>
-      </article>
+      <div class="solver-map-head">
+        <h2 class="section-title">Paradox Junction</h2>
+        <p class="solver-map-intro">No Tools Yet.</p>
+      </div>
+      <div class="solver-stack">
+        <article class="solver solver--soon solver--span12" id="bo7-paradox-none">
+          <header class="solver-head">
+            <h3 class="solver-name">Paradox Junction Tools</h3>
+            <span class="solver-kind solver-kind--soon">Not Built Yet</span>
+          </header>
+          <p class="solver-blurb">Nothing Is Built For This Map Yet.</p>
+          <p class="solver-note">Sorry, There Are Updates Being Made To This Section. It Will Be Updated Following Finishing All The Totenreich Content. I Apologize.</p>
+        </article>
+      </div>
     </section>
 
     <section class="solver-map" id="bo7-astra">
-      <h2 class="section-title">Astra Malorum</h2>
-      <p class="solver-map-intro">Planets, Statues, Pillars And Skulls.</p>
-      <article class="solver" id="bo7-astra-sheet">
-        <h3 class="solver-name">Full Map &mdash; Complete Single Cheat Sheet</h3>
-        <p class="solver-blurb">The One-Page Overview Of The Whole Map.</p>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo7/astra_FullCheatSheet.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Astra Malorum Full Map Cheat Sheet">
-            <img src="assets/images/solvers/bo7/astra_FullCheatSheet.jpg" alt="Astra Malorum Full Map Cheat Sheet" width="2000" height="2068" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Astra Malorum Full Cheat Sheet &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/astra_FullCheatSheet.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-      </article>
-      <article class="solver" id="bo7-planets">
-        <h3 class="solver-name">Oscar's Planet Order</h3>
-        <p class="solver-blurb">Oscar Names Three Planets. Pick Them In Order And It Builds Your Three-Digit Code.</p>
-        <p class="solver-text">Oscar Will Say &ldquo;Playback Of Elimination 20&hellip;&rdquo; And Then Name Three Planets. Each Planet Is Just Its Position From The Sun, So Mercury Is 1 And Neptune Is 8. Pick Them In The Order He Says Them.</p>
-        <div class="solver-tablewrap">
-          <table class="solver-table">
-            <thead><tr><th scope="col">Planet</th><th scope="col">Digit</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Mercury</th><td>1</td></tr>
-              <tr><th scope="row">Venus</th><td>2</td></tr>
-              <tr><th scope="row">Earth</th><td>3</td></tr>
-              <tr><th scope="row">Mars</th><td>4</td></tr>
-              <tr><th scope="row">Jupiter</th><td>5</td></tr>
-              <tr><th scope="row">Saturn</th><td>6</td></tr>
-              <tr><th scope="row">Uranus</th><td>7</td></tr>
-              <tr><th scope="row">Neptune</th><td>8</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="solver-widget" data-solver="planets"></div>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo7/astra_planetSorder.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Astra Malorum Planet Order Reference">
-            <img src="assets/images/solvers/bo7/astra_planetSorder.jpg" alt="Astra Malorum Planet Order Reference" width="1400" height="1518" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Planet Order Reference &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/astra_planetSorder.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-      </article>
-      <article class="solver" id="bo7-statues">
-        <h3 class="solver-name">Statues &mdash; Book EE Step</h3>
-        <p class="solver-blurb">Tick The Books That Appeared In Your Game And It Counts How Many Times To Turn Each Statue.</p>
-        <p class="solver-text">Nine Books, Three Statues, Three Books Each. However Many Of A Statue's Books Showed Up In Your Game Is How Many Times You Turn That Statue.</p>
-        <div class="solver-tablewrap">
-          <table class="solver-table">
-            <thead><tr><th scope="col">Statue</th><th scope="col">Its Three Books</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Gramophone Statue</th><td>Witchlight Codex, Pyramids Of Cydonia, Silence At Singularity</td></tr>
-              <tr><th scope="row">Banister Statue</th><td>The Black Veil, The Moon Directive, The Musica Universalis</td></tr>
-              <tr><th scope="row">Painting Statue</th><td>The Unknowable Void, Echoes Of Andromeda, Ash And Bone</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="solver-widget" data-solver="statues"></div>
+      <div class="solver-map-head">
+        <h2 class="section-title">Astra Malorum</h2>
+        <p class="solver-map-intro">Planets, Statues, Pillars And Skulls.</p>
+      </div>
+      <div class="solver-stack">
+        <article class="solver solver--solver solver--span12" id="bo7-statues">
+          <header class="solver-head">
+            <h3 class="solver-name">Statues &mdash; Book EE Step</h3>
+            <span class="solver-kind solver-kind--solver">Solver</span>
+          </header>
+          <p class="solver-blurb">Tap The Books That Appeared In Your Game And It Counts How Many Times To Turn Each Statue.</p>
+          <p class="solver-text">Nine Books, Three Statues, Three Books Each. However Many Of A Statue's Books Showed Up In Your Game Is How Many Times You Turn That Statue. The Counts Update Live.</p>
+          <div class="solver-widget" data-solver="statues"></div>
+          <details class="solver-details">
+            <summary>Statue Bookshelf Locations</summary>
         <figure class="solver-figure" data-src="assets/images/solvers/bo7/astra_statues.jpg">
           <button type="button" class="solver-img-btn" aria-label="Open Full Size: Astra Malorum Statue Bookshelf Locations">
             <img src="assets/images/solvers/bo7/astra_statues.jpg" alt="Astra Malorum Statue Bookshelf Locations" width="1400" height="634" loading="lazy" decoding="async">
           </button>
           <figcaption class="solver-figcaption">Statue Bookshelf Locations &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/astra_statues.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
         </figure>
-      </article>
-      <article class="solver" id="bo7-pillars">
-        <h3 class="solver-name">Pillar Piano Symbols</h3>
-        <p class="solver-blurb">Log The Five Symbols In The Order They Played. STATIC Stands In For The One You Never Saw.</p>
-        <p class="solver-text">Select The Numbers 1 To 5 In The Order They Appear. One Symbol In The Sequence Is Fixed Static Rather Than A Number &mdash; Pick <strong>STATIC</strong> In Its Slot And The Solver Fills In Whichever Number Never Showed Up.</p>
-        <div class="solver-widget" data-solver="pillars"></div>
+          </details>
+        </article>
+        <article class="solver solver--solver solver--span6" id="bo7-planets">
+          <header class="solver-head">
+            <h3 class="solver-name">Oscar's Planet Order</h3>
+            <span class="solver-kind solver-kind--solver">Solver</span>
+          </header>
+          <p class="solver-blurb">Oscar Names Three Planets. Tap Them In Order And It Builds Your Three-Digit Code.</p>
+          <p class="solver-text">Each Planet Is Just Its Position From The Sun, So Mercury Is 1 And Neptune Is 8.</p>
+          <div class="solver-widget" data-solver="planets"></div>
+          <details class="solver-details">
+            <summary>Planet Order Reference</summary>
+        <figure class="solver-figure" data-src="assets/images/solvers/bo7/astra_planetSorder.jpg">
+          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Astra Malorum Planet Order Reference">
+            <img src="assets/images/solvers/bo7/astra_planetSorder.jpg" alt="Astra Malorum Planet Order Reference" width="1400" height="1518" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="solver-figcaption">Planet Order Reference &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/astra_planetSorder.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+        </figure>
+          </details>
+        </article>
+        <article class="solver solver--solver solver--span6" id="bo7-pillars">
+          <header class="solver-head">
+            <h3 class="solver-name">Pillar Piano Symbols</h3>
+            <span class="solver-kind solver-kind--solver">Solver</span>
+          </header>
+          <p class="solver-blurb">Log The Five Symbols In The Order They Played. STATIC Stands In For The One You Never Saw.</p>
+          <div class="solver-widget" data-solver="pillars"></div>
+          <details class="solver-details">
+            <summary>Pillar Symbols Reference</summary>
         <figure class="solver-figure" data-src="assets/images/solvers/bo7/astra_PILLARS.jpg">
           <button type="button" class="solver-img-btn" aria-label="Open Full Size: Astra Malorum Pillar Symbols Reference">
             <img src="assets/images/solvers/bo7/astra_PILLARS.jpg" alt="Astra Malorum Pillar Symbols Reference" width="1400" height="1228" loading="lazy" decoding="async">
           </button>
           <figcaption class="solver-figcaption">Pillar Symbols Reference &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/astra_PILLARS.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
         </figure>
-      </article>
-      <article class="solver" id="bo7-skulls">
-        <h3 class="solver-name">Purple Skulls Free Perks</h3>
-        <p class="solver-blurb">Log The Order The Five Purple Skulls Need Shooting In.</p>
-        <p class="solver-text">Five Purple Skulls Around The Map. Record The Order You Need Them In And Read It Back Without Holding It In Your Head.</p>
-        <div class="solver-widget" data-solver="skulls"></div>
+          </details>
+        </article>
+        <article class="solver solver--solver solver--span6" id="bo7-skulls">
+          <header class="solver-head">
+            <h3 class="solver-name">Purple Skulls Free Perks</h3>
+            <span class="solver-kind solver-kind--solver">Solver</span>
+          </header>
+          <p class="solver-blurb">Log The Order The Five Purple Skulls Need Shooting In.</p>
+          <div class="solver-widget" data-solver="skulls"></div>
+          <details class="solver-details">
+            <summary>Purple Skull Locations</summary>
         <figure class="solver-figure" data-src="assets/images/solvers/bo7/astra_skulls.jpg">
           <button type="button" class="solver-img-btn" aria-label="Open Full Size: Astra Malorum Purple Skull Locations">
             <img src="assets/images/solvers/bo7/astra_skulls.jpg" alt="Astra Malorum Purple Skull Locations" width="1400" height="406" loading="lazy" decoding="async">
           </button>
           <figcaption class="solver-figcaption">Purple Skull Locations &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/astra_skulls.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
         </figure>
-      </article>
+          </details>
+        </article>
+        <article class="solver solver--sheet solver--span6" id="bo7-astra-sheet">
+          <header class="solver-head">
+            <h3 class="solver-name">Full Map &mdash; Complete Single Cheat Sheet</h3>
+            <span class="solver-kind solver-kind--sheet">Cheat Sheet</span>
+          </header>
+          <p class="solver-blurb">The One-Page Overview Of The Whole Map.</p>
+        <figure class="solver-figure" data-src="assets/images/solvers/bo7/astra_FullCheatSheet.jpg">
+          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Astra Malorum Full Map Cheat Sheet">
+            <img src="assets/images/solvers/bo7/astra_FullCheatSheet.jpg" alt="Astra Malorum Full Map Cheat Sheet" width="2000" height="2068" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="solver-figcaption">Astra Malorum Full Cheat Sheet &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/astra_FullCheatSheet.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+        </figure>
+        </article>
+      </div>
     </section>
 
     <section class="solver-map" id="bo7-ashes">
-      <h2 class="section-title">Ashes Of The Damned</h2>
-      <p class="solver-map-intro">The Gauntlet, The Codes And A Free Ray Gun.</p>
-      <article class="solver" id="bo7-ashes-sheet">
-        <h3 class="solver-name">Full Map &mdash; Complete Single Cheat Sheet</h3>
-        <p class="solver-blurb">The One-Page Overview Of The Whole Map.</p>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo7/ashesFullCheatSheet.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Ashes Of The Damned Full Map Cheat Sheet">
-            <img src="assets/images/solvers/bo7/ashesFullCheatSheet.jpg" alt="Ashes Of The Damned Full Map Cheat Sheet" width="2000" height="1126" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Ashes Full Cheat Sheet &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/ashesFullCheatSheet.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-      </article>
-      <article class="solver" id="bo7-gauntlet">
-        <h3 class="solver-name">Necrofluid Gauntlet</h3>
-        <p class="solver-blurb">Three Symbols, One Each From The Tower, The Barn And The House. Pick Yours And It Shows Them Back To You In Insert Order.</p>
-        <p class="solver-text">Twelve Possible Symbols Split Across Three Locations. Your Game Uses One From Each. Pick Them Below And The Solver Holds Them For You So You Are Not Trying To Memorise Three Squiggles Across Half A Map.</p>
+      <div class="solver-map-head">
+        <h2 class="section-title">Ashes Of The Damned</h2>
+        <p class="solver-map-intro">The Gauntlet, The Codes And A Free Ray Gun.</p>
+      </div>
+      <div class="solver-stack">
+        <article class="solver solver--solver solver--span12" id="bo7-gauntlet">
+          <header class="solver-head">
+            <h3 class="solver-name">Necrofluid Gauntlet</h3>
+            <span class="solver-kind solver-kind--solver">Solver</span>
+          </header>
+          <p class="solver-blurb">Three Symbols, One Each From The Tower, The Barn And The House. Tap The Actual Symbol You See.</p>
+          <p class="solver-text">Twelve Possible Symbols Split Across Three Locations. Your Game Uses One From Each. Tap Yours Below &mdash; The Symbols Are Shown As Pictures Rather Than Numbers, So You Are Matching Shapes Instead Of Remembering Digits Across Half A Map.</p>
+          <div class="solver-widget" data-solver="gauntlet"></div>
+          <p class="solver-note">60s Reference Guide If You're Confused &mdash; <a href="https://www.youtube.com/shorts/K4OWRaPG9Qg" target="_blank" rel="noopener">Watch On YouTube</a></p>
+          <details class="solver-details">
+            <summary>Symbol Locations Map</summary>
         <div class="solver-tablewrap">
           <table class="solver-table">
             <thead><tr><th scope="col">Location</th><th scope="col">Its Symbols</th><th scope="col">Where It Goes</th></tr></thead>
@@ -463,43 +530,17 @@
           </button>
           <figcaption class="solver-figcaption">Symbol Locations &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/ashesGauntlet_locations.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
         </figure>
-        <div class="solver-widget" data-solver="gauntlet"></div>
-        <p class="solver-note">60s Reference Guide If You're Confused &mdash; <a href="https://www.youtube.com/shorts/K4OWRaPG9Qg" target="_blank" rel="noopener">Watch On YouTube</a></p>
-      </article>
-      <article class="solver" id="bo7-ashes-blood">
-        <h3 class="solver-name">Blood Ritual Chalkboard Code</h3>
-        <p class="solver-blurb">The Blood Ritual Chalkboard Code Sheet.</p>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo7/ashesBloodRitual.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Ashes Of The Damned Blood Ritual Chalkboard Code">
-            <img src="assets/images/solvers/bo7/ashesBloodRitual.jpg" alt="Ashes Of The Damned Blood Ritual Chalkboard Code" width="1400" height="168" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Blood Ritual Chalkboard Code &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/ashesBloodRitual.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-      </article>
-      <article class="solver" id="bo7-ashes-rocket">
-        <h3 class="solver-name">Rocket Launch Code</h3>
-        <p class="solver-blurb">The Rocket Launch Code Sheet.</p>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo7/ashesRocketCode.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Ashes Of The Damned Rocket Launch Code">
-            <img src="assets/images/solvers/bo7/ashesRocketCode.jpg" alt="Ashes Of The Damned Rocket Launch Code" width="1400" height="764" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Rocket Launch Code &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/ashesRocketCode.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-      </article>
-      <article class="solver" id="bo7-ashes-reels">
-        <h3 class="solver-name">Projector Reels</h3>
-        <p class="solver-blurb">The Projector Reel Reference.</p>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo7/ashesProjectorReels.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Ashes Of The Damned Projector Reels">
-            <img src="assets/images/solvers/bo7/ashesProjectorReels.jpg" alt="Ashes Of The Damned Projector Reels" width="1400" height="306" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Projector Reels &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/ashesProjectorReels.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-      </article>
-      <article class="solver" id="bo7-mk2">
-        <h3 class="solver-name">Free RG-MK2</h3>
-        <p class="solver-blurb">Seven Jump Pads. Log The Order You Take Them And It Writes Out The Route Pad By Pad.</p>
-        <p class="solver-text">Use The Jump Pads In The Order Your Game Wants. Pick All Seven Below And The Solver Prints The Route As A Chain Of Hops Rather Than A Bare List Of Numbers.</p>
+          </details>
+        </article>
+        <article class="solver solver--solver solver--span12" id="bo7-mk2">
+          <header class="solver-head">
+            <h3 class="solver-name">Free RG-MK2</h3>
+            <span class="solver-kind solver-kind--solver">Solver</span>
+          </header>
+          <p class="solver-blurb">Seven Jump Pads. Log The Order You Take Them And It Writes Out The Route Pad By Pad.</p>
+          <div class="solver-widget" data-solver="mk2"></div>
+          <details class="solver-details">
+            <summary>Jump Pad Map</summary>
         <div class="solver-tablewrap">
           <table class="solver-table">
             <thead><tr><th scope="col">Pad</th><th scope="col">Location</th></tr></thead>
@@ -514,14 +555,67 @@
             </tbody>
           </table>
         </div>
-        <div class="solver-widget" data-solver="mk2"></div>
         <figure class="solver-figure" data-src="assets/images/solvers/bo7/ashesPadsRGMK2.jpg">
           <button type="button" class="solver-img-btn" aria-label="Open Full Size: Free Ray Gun MK2 Jump Pad Map">
             <img src="assets/images/solvers/bo7/ashesPadsRGMK2.jpg" alt="Free Ray Gun MK2 Jump Pad Map" width="1400" height="2368" loading="lazy" decoding="async">
           </button>
           <figcaption class="solver-figcaption">Jump Pad Map &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/ashesPadsRGMK2.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
         </figure>
-      </article>
+          </details>
+        </article>
+        <article class="solver solver--sheet solver--span12" id="bo7-ashes-sheet">
+          <header class="solver-head">
+            <h3 class="solver-name">Full Map &mdash; Complete Single Cheat Sheet</h3>
+            <span class="solver-kind solver-kind--sheet">Cheat Sheet</span>
+          </header>
+          <p class="solver-blurb">The One-Page Overview Of The Whole Map.</p>
+        <figure class="solver-figure" data-src="assets/images/solvers/bo7/ashesFullCheatSheet.jpg">
+          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Ashes Of The Damned Full Map Cheat Sheet">
+            <img src="assets/images/solvers/bo7/ashesFullCheatSheet.jpg" alt="Ashes Of The Damned Full Map Cheat Sheet" width="2000" height="1126" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="solver-figcaption">Ashes Full Cheat Sheet &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/ashesFullCheatSheet.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+        </figure>
+        </article>
+        <article class="solver solver--sheet solver--span4" id="bo7-ashes-blood">
+          <header class="solver-head">
+            <h3 class="solver-name">Blood Ritual Chalkboard Code</h3>
+            <span class="solver-kind solver-kind--sheet">Cheat Sheet</span>
+          </header>
+          <p class="solver-blurb">The Blood Ritual Chalkboard Code Sheet.</p>
+        <figure class="solver-figure" data-src="assets/images/solvers/bo7/ashesBloodRitual.jpg">
+          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Ashes Of The Damned Blood Ritual Chalkboard Code">
+            <img src="assets/images/solvers/bo7/ashesBloodRitual.jpg" alt="Ashes Of The Damned Blood Ritual Chalkboard Code" width="1400" height="168" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="solver-figcaption">Blood Ritual Code &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/ashesBloodRitual.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+        </figure>
+        </article>
+        <article class="solver solver--sheet solver--span4" id="bo7-ashes-rocket">
+          <header class="solver-head">
+            <h3 class="solver-name">Rocket Launch Code</h3>
+            <span class="solver-kind solver-kind--sheet">Cheat Sheet</span>
+          </header>
+          <p class="solver-blurb">The Rocket Launch Code Sheet.</p>
+        <figure class="solver-figure" data-src="assets/images/solvers/bo7/ashesRocketCode.jpg">
+          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Ashes Of The Damned Rocket Launch Code">
+            <img src="assets/images/solvers/bo7/ashesRocketCode.jpg" alt="Ashes Of The Damned Rocket Launch Code" width="1400" height="764" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="solver-figcaption">Rocket Launch Code &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/ashesRocketCode.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+        </figure>
+        </article>
+        <article class="solver solver--sheet solver--span4" id="bo7-ashes-reels">
+          <header class="solver-head">
+            <h3 class="solver-name">Projector Reels</h3>
+            <span class="solver-kind solver-kind--sheet">Cheat Sheet</span>
+          </header>
+          <p class="solver-blurb">The Projector Reel Reference.</p>
+        <figure class="solver-figure" data-src="assets/images/solvers/bo7/ashesProjectorReels.jpg">
+          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Ashes Of The Damned Projector Reels">
+            <img src="assets/images/solvers/bo7/ashesProjectorReels.jpg" alt="Ashes Of The Damned Projector Reels" width="1400" height="306" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="solver-figcaption">Projector Reels &middot; <a class="solver-fullsize" href="assets/images/solvers/bo7/ashesProjectorReels.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+        </figure>
+        </article>
+      </div>
     </section>
 
   </main>
@@ -539,7 +633,7 @@
     &copy; 2026 Joemet123 — All Rights Reserved.
   </footer>
 
-  <script src="assets/js/main.js?v=mua56eb1"></script>
-  <script src="assets/js/solvers.js?v=mua56eb1"></script>
+  <script src="assets/js/main.js?v=mua5syup"></script>
+  <script src="assets/js/solvers.js?v=mua5syup"></script>
 </body>
 </html>
