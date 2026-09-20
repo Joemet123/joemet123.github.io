@@ -2178,3 +2178,51 @@ body.lightbox-open { overflow: hidden; }
   .solver-field--tight { flex: 1 1 100%; }
   .solver-out { font-size: 0.8rem; }
 }
+
+
+/* ---------- Coming soon ---------- */
+.soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.35rem;
+  min-height: 48vh;
+  padding: clamp(2rem, 6vw, 4rem) 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.soon .eyebrow { color: var(--blue); margin-bottom: 0.3rem; }
+.soon-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.6rem, 5vw, 2.9rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.soon-sub {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(0.9rem, 2.4vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  margin: 0;
+}
+.soon-tag {
+  margin: 1.4rem 0 0;
+  padding: 0.55rem 1.4rem;
+  font-size: var(--t-small);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--orange);
+  border-radius: 999px;
+  background: var(--surface-2);
+}

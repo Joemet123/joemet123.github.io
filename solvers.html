@@ -6,8 +6,8 @@
   <link rel="icon" type="image/png" href="assets/images/JOEMET123_LOGO.png">
   <link rel="shortcut icon" href="favicon.ico">
   <title>Zombies Solvers &mdash; JOEMET123</title>
-  <meta name="description" content="Free Call of Duty Zombies cipher and code solvers — Caesar brute force, A1Z26, Vigenere, Atbash, morse, binary and letter frequency. Built for Easter egg hunting.">
-  <link rel="stylesheet" href="assets/css/style.css?v=mua0a6mp">
+  <meta name="description" content="Call of Duty Zombies solvers for all games — coming soon to joemet123.com.">
+  <link rel="stylesheet" href="assets/css/style.css?v=mua0f3f9">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
@@ -59,52 +59,11 @@
   
   <main class="main-content">
 
-    <section class="section section--flush">
-      <div class="page-head">
-        <span class="eyebrow">Tools</span>
-        <h1 class="page-title">Zombies Solvers</h1>
-        <p class="page-lede">The Cipher Tools From The Meatbawl Army Discord, Now On The Site. Free, Instant, And Nothing Leaves Your Browser.</p>
-      </div>
-    </section>
-
-    <section class="about-section">
-      <h1>What These Are</h1>
-      <p class="about-pull">Every Zombies Easter egg eventually throws a cipher at you. These are the tools for cracking them.</p>
-      <p>Treyarch has leaned on classical ciphers since the very first Easter eggs, and the pattern has barely changed across a decade of maps. Numbers painted on a wall, letters carved into a workbench, a radio beeping in the corner of a room, a terminal spitting out what looks like nonsense &mdash; nearly all of it resolves to one of a handful of well-known cipher types.</p>
-      <p>The community has been solving these by hand or with scattered general-purpose websites for years. The problem with the generic tools is that they are built for cryptography homework, not for a player who is mid-round and wants an answer in four seconds. These are trimmed down to exactly what Zombies throws at you, and nothing else.</p>
-      <p>Everything here runs entirely inside your browser. Nothing you paste is uploaded, logged, or stored anywhere. You can disconnect from the internet after the page loads and every tool still works.</p>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">Jump To A Solver</h2>
-      <nav class="solver-index" id="solver-index" aria-label="Solvers on this page"></nav>
-    </section>
-
-    <div id="solver-list"></div>
-
-    <section class="about-section">
-      <h1>How To Work Out Which Cipher You Have</h1>
-      <p>If you do not already know what you are looking at, this is the order worth trying.</p>
-      <h3>Start with the shape of it</h3>
-      <p>If you have numbers between 1 and 26, it is almost certainly A1Z26 &mdash; letters written as their position in the alphabet. If you have numbers going higher than 26, look at whether they group into pairs or eights; pairs usually mean hexadecimal and eights usually mean binary. Dots and dashes are morse, obviously, but watch for maps that render morse as light flashes or audio beeps rather than written symbols.</p>
-      <h3>Then try a straight shift</h3>
-      <p>If you have plain letters, run the Caesar brute force first. It takes one click and covers all twenty-five possible shifts at once, so you either get a readable line of English or you rule the whole category out immediately. A surprising amount of Zombies text is a simple shift, and ROT13 specifically shows up again and again.</p>
-      <h3>Check whether it is mirrored</h3>
-      <p>Atbash flips the alphabet end to end, so A becomes Z and B becomes Y. It is not a shift, so brute-forcing Caesar will never find it, and it is easy to miss for that reason. It costs you one click to rule out.</p>
-      <h3>Fall back to frequency</h3>
-      <p>If none of the above produce English, run the letter frequency tool. In ordinary English text, E, T, A, O, I and N carry a large share of the letters. If your ciphertext shows one or two letters dominating in roughly that way, you are probably looking at a substitution cipher and the mapping can be worked out by hand. If the distribution is unusually flat, with every letter appearing about as often as every other, that flatness is itself the clue: it points to a keyword cipher such as Vigenere.</p>
-      <h3>Find the keyword</h3>
-      <p>Vigenere needs a key, and the key is always hidden somewhere in the map. It tends to be a character name, the name of the map itself, a faction, or a word written somewhere you already walked past. Once you have a candidate, testing it here takes seconds.</p>
-    </section>
-
-    <section class="about-section">
-      <h1>Coming Next</h1>
-      <p>This is the first release and it covers the general-purpose ciphers that apply to every map. The map-specific solvers currently living in the Meatbawl Army Discord are being ported across next &mdash; step trackers, sequence and symbol solvers, and the per-map calculators that only make sense on one map.</p>
-      <p>If there is a solver you use constantly that is not here yet, say so in the Discord and it moves up the list.</p>
-      <div class="solver-cta">
-        <a class="btn btn-accent" href="https://discord.com/invite/hHYdtXcH" target="_blank" rel="noopener">Join The Discord</a>
-        <a class="btn btn-outline" href="contact.html">Suggest A Solver</a>
-      </div>
+    <section class="soon">
+      <span class="eyebrow">Tools</span>
+      <h1 class="soon-title">COD Zombies Solvers</h1>
+      <p class="soon-sub">For All Games</p>
+      <p class="soon-tag">Coming Soon</p>
     </section>
 
   </main>
@@ -122,7 +81,6 @@
     &copy; 2026 Joemet123 — All Rights Reserved.
   </footer>
 
-  <script src="assets/js/main.js?v=mua0a6mp"></script>
-  <script src="assets/js/solvers.js?v=mua0a6mp"></script>
+  <script src="assets/js/main.js?v=mua0f3f9"></script>
 </body>
 </html>
