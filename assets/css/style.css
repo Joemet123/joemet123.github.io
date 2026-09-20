@@ -3053,3 +3053,29 @@ code.solver-code--lg {
 @media (hover: hover) and (pointer: fine) {
   .soon-note a:hover { border-bottom-color: var(--blue); }
 }
+
+/* Tool-level jump menu inside each map — lighter than the map nav
+   above it so the hierarchy reads at a glance. */
+.solver-toolnav {
+  position: static;
+  margin: 0 0 1.4rem;
+  padding: 0 0 0.2rem;
+  background: none;
+  gap: 0.4rem;
+}
+.solver-toolnav .page-jump-label { color: var(--ink-dim); }
+.solver-toolnav a {
+  padding: 0.34rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-mid);
+  background: var(--surface-2);
+  border-color: var(--line);
+}
+.solver-toolnav a::before { width: 5px; height: 5px; }
+@media (hover: hover) and (pointer: fine) {
+  .solver-toolnav a:hover { color: var(--ink); border-color: var(--blue); }
+}
+@media (max-width: 640px) {
+  .solver-toolnav a { font-size: 0.74rem; padding: 0.3rem 0.62rem; }
+}
