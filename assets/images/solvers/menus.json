@@ -1,0 +1,296 @@
+{
+ "bo6": {
+  "terminus": {
+   "title": "Terminus",
+   "tools": [
+    {
+     "name": "Beamsmasher",
+     "row": 0,
+     "image": null,
+     "render": "render_beamsmasher",
+     "soon": false
+    }
+   ]
+  },
+  "liberty": {
+   "title": "Liberty Falls",
+   "tools": [
+    {
+     "name": "Projector & Straus Counter",
+     "row": 0,
+     "image": null,
+     "render": "render_projector",
+     "soon": false
+    }
+   ]
+  },
+  "citadelle": {
+   "title": "Citadelle Des Morts",
+   "tools": [
+    {
+     "name": "🟣 BALMUNG-RAVEN-PURPLE",
+     "row": 0,
+     "image": null,
+     "render": "render_raven",
+     "soon": false
+    },
+    {
+     "name": "🟡 SOLAIS-LIGHT-YELLOW",
+     "row": 1,
+     "image": null,
+     "render": "render_light_sword",
+     "soon": false
+    },
+    {
+     "name": "🔵 DURENDAL-STAG-BLUE",
+     "row": 2,
+     "image": null,
+     "render": null,
+     "soon": true
+    },
+    {
+     "name": "🟠 CALIBURN-DRAGON-ORANGE",
+     "row": 3,
+     "image": null,
+     "render": null,
+     "soon": true
+    }
+   ]
+  },
+  "tomb": {
+   "title": "The Tomb",
+   "tools": [
+    {
+     "name": "Roman Numerals",
+     "row": 0,
+     "image": "tomb_numerals.jpg",
+     "render": null,
+     "soon": false
+    },
+    {
+     "name": "Rune Symbols",
+     "row": 1,
+     "image": null,
+     "render": "render_runes",
+     "soon": false
+    }
+   ]
+  },
+  "veil": {
+   "title": "Shattered Veil",
+   "tools": [
+    {
+     "name": "MKII Chalkboard",
+     "row": 0,
+     "image": null,
+     "render": "render_chalkboard",
+     "soon": false
+    }
+   ]
+  },
+  "reckoning": {
+   "title": "The Reckoning",
+   "tools": [
+    {
+     "name": "Gorgofex Solver",
+     "row": 0,
+     "image": null,
+     "render": "render_gorgofex",
+     "soon": false
+    },
+    {
+     "name": "Teleporter Secret Room Code",
+     "row": 1,
+     "image": null,
+     "render": "render_teleporter",
+     "soon": false
+    }
+   ]
+  }
+ },
+ "bo7": {
+  "rex": {
+   "title": "Rex Infernus",
+   "tools": [
+    {
+     "name": "Full Map - Complete Single Cheat Sheet",
+     "row": 0,
+     "image": "rexInfernus_fullCheatSheet.jpg",
+     "render": null,
+     "soon": false
+    },
+    {
+     "name": "Dravakar Solver",
+     "row": 1,
+     "image": null,
+     "render": "render_dravakar",
+     "soon": false
+    },
+    {
+     "name": "Veytharion Block Puzzle",
+     "row": 1,
+     "image": null,
+     "render": "render_veytharion",
+     "soon": false
+    },
+    {
+     "name": "Nyxara Crystal Routing",
+     "row": 2,
+     "image": null,
+     "render": "render_nyxara",
+     "soon": false
+    },
+    {
+     "name": "Nexus Pillar Handle Alignment",
+     "row": 2,
+     "image": null,
+     "render": "render_crank",
+     "soon": false
+    }
+   ]
+  },
+  "kowakujo": {
+   "title": "Kowakujo",
+   "tools": [
+    {
+     "name": "Full Map - Complete Single Cheat Sheet",
+     "row": 0,
+     "image": "kowakujo_fullCheatSheet.jpg",
+     "render": null,
+     "soon": false
+    },
+    {
+     "name": "Scrolls Solver",
+     "row": 1,
+     "image": null,
+     "render": "render_scrolls",
+     "soon": false
+    },
+    {
+     "name": "Mystery Step Solver",
+     "row": 1,
+     "image": null,
+     "render": "render_mystery",
+     "soon": false
+    }
+   ]
+  },
+  "totenreich": {
+   "title": "Totenreich",
+   "tools": [
+    {
+     "name": "Full Map - Complete Single Cheat Sheet",
+     "row": 0,
+     "image": "Totenreich_FullCheatSheet.jpg",
+     "render": null,
+     "soon": false
+    },
+    {
+     "name": "Crate Paper",
+     "row": 1,
+     "image": "Totenreich_CratesWunderbarrage.jpg",
+     "render": null,
+     "soon": false
+    },
+    {
+     "name": "Fishing & Pole Locations: Map Layout",
+     "row": 2,
+     "image": "Totenriech_FishingLocationsMap.jpg",
+     "render": null,
+     "soon": false
+    }
+   ]
+  },
+  "paradox": {
+   "title": "Paradox Junction",
+   "tools": []
+  },
+  "astra": {
+   "title": "Astra Malorum",
+   "tools": [
+    {
+     "name": "Full Map - Complete Single Cheat Sheet",
+     "row": 0,
+     "image": "astra_fullcheatsheet.jpg",
+     "render": null,
+     "soon": false
+    },
+    {
+     "name": "Oscar's Planet Order",
+     "row": 1,
+     "image": null,
+     "render": "render_planets",
+     "soon": false
+    },
+    {
+     "name": "Statues - Book EE Step",
+     "row": 2,
+     "image": null,
+     "render": "render_statues",
+     "soon": false
+    },
+    {
+     "name": "Pillar Piano Symbols",
+     "row": 3,
+     "image": null,
+     "render": "render_pillars",
+     "soon": false
+    },
+    {
+     "name": "Purple Skulls Free Perks",
+     "row": 3,
+     "image": null,
+     "render": "render_skulls",
+     "soon": false
+    }
+   ]
+  },
+  "ashes": {
+   "title": "Ashes Of The Damned",
+   "tools": [
+    {
+     "name": "Full Map - Complete Single Cheat Sheet",
+     "row": 0,
+     "image": "ashesFullCheatSheet.jpg",
+     "render": null,
+     "soon": false
+    },
+    {
+     "name": "Necrofluid Gauntlet",
+     "row": 1,
+     "image": null,
+     "render": "render_gauntlet",
+     "soon": false
+    },
+    {
+     "name": "Blood Ritual Chalkboard Code",
+     "row": 1,
+     "image": "ashesBloodRitual.jpg",
+     "render": null,
+     "soon": false
+    },
+    {
+     "name": "Rocket Launch Code",
+     "row": 2,
+     "image": "ashesRocketCode.jpg",
+     "render": null,
+     "soon": false
+    },
+    {
+     "name": "Projector Reels",
+     "row": 2,
+     "image": "ashesProjectorReels.jpg",
+     "render": null,
+     "soon": false
+    },
+    {
+     "name": "Free RG-MK2",
+     "row": 3,
+     "image": null,
+     "render": "render_mk2",
+     "soon": false
+    }
+   ]
+  }
+ }
+}
