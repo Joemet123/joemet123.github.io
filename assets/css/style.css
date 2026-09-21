@@ -3089,6 +3089,9 @@ code.solver-code--lg {
 .solver-index {
   position: static;
   top: auto;
+  /* Anchor jumps must clear the sticky band, or Change Map drops the
+     picker underneath the header and looks like it did nothing. */
+  scroll-margin-top: calc(var(--band-total, var(--band-h)) + 1.25rem);
 }
 .solver-toolnav {
   position: sticky;
