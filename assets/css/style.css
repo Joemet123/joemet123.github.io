@@ -49,9 +49,9 @@
 
   /* Rhythm */
   --gap-tight: 1.15rem;
-  --gap:       2rem;
-  --gap-loose: 4.25rem;
-  --content-w: 1120px;
+  --gap: clamp(1.4rem, 2.6vw, 2rem);
+  --gap-loose: clamp(2.6rem, 5vw, 3.9rem);
+  --content-w: 1320px;
   --gutter:    clamp(1rem, 4vw, 2rem);
   --band-h:    58px;
 
@@ -3590,3 +3590,74 @@ code.solver-code--lg {
 .solver-blurb { margin-bottom: 0.55rem; line-height: 1.55; }
 .solver-steps { margin: 0.5rem 0; }
 .solver-steps li { margin-bottom: 0.3rem; }
+
+/* ---------- Layout system ----------
+   Shared primitives so every page lays out the same way instead of
+   each one inventing its own grid. */
+
+/* Auto-fitting card grid. Pages set --card-min to taste. */
+.auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--card-min, 260px), 1fr));
+  gap: var(--gap);
+}
+.auto-grid--tight { --card-min: 200px; gap: var(--gap-tight); }
+.auto-grid--wide  { --card-min: 340px; }
+
+/* A section head that carries a title and an action on one line. */
+.sec-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+  margin-bottom: var(--gap-tight);
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--line);
+}
+.sec-head > :first-child { margin: 0; }
+.sec-head-link {
+  font-size: var(--t-small);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--blue-bright);
+  white-space: nowrap;
+}
+@media (hover: hover) and (pointer: fine) {
+  .sec-head-link:hover { color: var(--ink); }
+}
+
+/* Key figures, used for counts and quick stats. */
+.statline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.statline > li { display: flex; flex-direction: column; gap: 0.1rem; }
+.statline-k {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--ink);
+}
+.statline-v {
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+/* Sections stop being tall and empty on wide screens. */
+.section { padding-block: var(--gap-loose); }
+.section + .section { padding-top: 0; }
+
+/* Wide screens get more columns rather than more whitespace. */
+@media (min-width: 1180px) {
+  .auto-grid { --card-min: 290px; }
+  .auto-grid--tight { --card-min: 220px; }
+}
