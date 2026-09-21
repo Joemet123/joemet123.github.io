@@ -2224,7 +2224,7 @@ body.lightbox-open { overflow: hidden; }
 .solver-stack {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 1.1rem;
+  gap: 1.35rem;
 }
 @media (min-width: 900px) {
   .solver-stack { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; }
@@ -2820,27 +2820,42 @@ code.solver-code--lg {
 
 /* --- figures --- */
 .solver-figure { margin: 0 0 1.1rem; }
+/* A lone sheet on a full-width card gets room to breathe */
+.solver--span12 > .solver-figure > .solver-img-btn,
+.solver-result > .solver-figure > .solver-img-btn { aspect-ratio: 16 / 9; }
+.solver-figure:last-child { margin-bottom: 0; }
 .solver-img-btn {
   display: block;
   width: 100%;
+  aspect-ratio: 16 / 10;
   padding: 0;
   background: var(--surface-2);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-sm);
   cursor: zoom-in;
   overflow: hidden;
-  transition: border-color var(--fast) var(--ease);
+  transition: border-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
 }
 .solver-img-btn img {
   display: block;
-  max-width: 100%;
-  max-height: 440px;
-  width: auto;
-  height: auto;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+  object-position: center;
 }
 .solver-img-btn:active { transform: scale(0.995); }
-.solver-figcaption { margin-top: 0.45rem; font-size: var(--t-small); color: var(--ink-dim); }
+.solver-figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--ink-mid);
+}
+.solver-figcaption .solver-fullsize { margin-left: auto; font-size: var(--t-micro); }
 .solver-fullsize {
   color: var(--blue-bright);
   font-weight: 700;
@@ -2852,17 +2867,22 @@ code.solver-code--lg {
   .solver-fullsize:hover { border-bottom-color: var(--blue-bright); }
 }
 
-.solver-symbolgrid, .solver-imggrid {
+.solver-symbolgrid,
+.solver-imggrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 1.1rem;
 }
 @media (min-width: 900px) {
   .solver-symbolgrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .solver-imggrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-.solver-symbolgrid .solver-img-btn img { max-height: 150px; }
-.solver-imggrid .solver-img-btn img { max-height: 210px; }
+.solver-symbolgrid .solver-img-btn {
+  aspect-ratio: 1 / 1;
+}
+.solver-symbolgrid .solver-img-btn img { object-fit: contain; padding: 0.4rem; }
+.solver-imggrid .solver-img-btn { aspect-ratio: 4 / 3; }
 
 /* --- image viewer --- */
 .solver-lightbox {
@@ -3250,4 +3270,32 @@ code.solver-code--lg {
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--ink-mid);
+}
+
+/* ---------- Solver card polish ----------
+   Cards were flat slabs of text. Give the head a rule under it, lift the
+   card off the page, and make image frames respond on hover. */
+.solver-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+.solver-blurb { color: var(--ink-mid); }
+@media (hover: hover) and (pointer: fine) {
+  .solver-img-btn:hover {
+    border-color: var(--blue);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .solver-img-btn { transition: none; }
+}
+@media (max-width: 640px) {
+  .solver-symbolgrid,
+  .solver-imggrid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.6rem; }
 }
