@@ -1040,13 +1040,18 @@ body.lightbox-open { overflow: hidden; }
 }
 @media (min-width: 900px) {
   .community-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
-    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+    gap: 1.6rem;
     align-items: stretch;
+  }
+  /* Two columns of rows instead of one tall stack. */
+  .community-grid .social-reach-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
   }
   /* Five rows divide the row height evenly, so the socials column
      ends flush with the Discord widget instead of leaving a gap. */
-  .community-grid .social-reach-grid { grid-auto-rows: 1fr; }
+  
 }
 
 .social-reach-grid {
@@ -3660,4 +3665,25 @@ code.solver-code--lg {
 @media (min-width: 1180px) {
   .auto-grid { --card-min: 290px; }
   .auto-grid--tight { --card-min: 220px; }
+}
+
+/* ---------- Home density ----------
+   The page was tall and sparse: four sections, 153 words, a lot of
+   vertical air. Tighten the bands and let the wide shell work. */
+.hero { gap: var(--gap); }
+@media (min-width: 1100px) {
+  .hero { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
+}
+.section-note { margin-bottom: var(--gap-tight); max-width: 70ch; }
+.section-title { margin-bottom: 0.35rem; }
+
+/* Three social columns once there is genuinely room for them. */
+@media (min-width: 1500px) {
+  .community-grid .social-reach-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Carousels were leaving dead margin inside a wider shell. */
+.spotlight-stage { gap: 1.15rem; }
+@media (min-width: 1200px) {
+  .spotlight-stage { gap: 1.4rem; }
 }
