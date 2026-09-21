@@ -3687,3 +3687,63 @@ code.solver-code--lg {
 @media (min-width: 1200px) {
   .spotlight-stage { gap: 1.4rem; }
 }
+
+/* ---------- 404 and confirmation pages ---------- */
+.notfound { max-width: 62ch; padding-block: clamp(1.5rem, 5vw, 3.5rem); }
+.notfound-code {
+  margin: 0 0 0.4rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(3rem, 12vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: var(--blue);
+}
+.notfound-code--ok { font-size: clamp(2.2rem, 8vw, 3.6rem); color: var(--blue-bright); }
+.notfound-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: var(--gap-tight);
+}
+
+/* ---------- Cookie notice ----------
+   Sits out of the way at the foot of the screen until dismissed.
+   Transform/opacity only so it cannot shift layout. */
+.cookie-note {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 9000;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem 1.1rem;
+  width: min(100%, 980px);
+  margin: 0;
+  padding: 0.85rem clamp(0.9rem, 3vw, 1.3rem);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-bottom: none;
+  border-radius: var(--radius) var(--radius) 0 0;
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.5);
+  transform: translate(-50%, 0);
+  transition: transform var(--mid) var(--ease), opacity var(--mid) var(--ease);
+}
+.cookie-note[hidden] { display: none; }
+.cookie-note.is-out { transform: translate(-50%, 110%); opacity: 0; }
+.cookie-note-text {
+  flex: 1 1 320px;
+  margin: 0;
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--ink-mid);
+}
+.cookie-note-actions { display: flex; gap: 0.5rem; margin-left: auto; }
+@media (prefers-reduced-motion: reduce) {
+  .cookie-note { transition: none; }
+}
+@media (max-width: 560px) {
+  .cookie-note-actions { margin-left: 0; width: 100%; }
+  .cookie-note-actions .btn { flex: 1 1 auto; text-align: center; }
+}

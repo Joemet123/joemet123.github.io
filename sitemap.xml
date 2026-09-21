@@ -13,4 +13,10 @@
   <url><loc>https://joemet123.com/chat-rules.html</loc><priority>0.4</priority></url>
   <url><loc>https://joemet123.com/contact.html</loc><priority>0.4</priority></url>
   <url><loc>https://joemet123.com/site-privacy.html</loc><priority>0.3</priority></url>
+  <url>
+    <loc>https://joemet123.com/terms.html</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>
