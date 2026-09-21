@@ -3532,3 +3532,61 @@ code.solver-code--lg {
   color: var(--ink-mid);
 }
 
+
+/* ---------- Explanation, out of the way ----------
+   The tool is what you came for. The write-up sits under it, closed,
+   still in the DOM so it is indexable and still one tap away. */
+.solver-more {
+  margin-top: 0.9rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.65rem;
+}
+.solver-more > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: auto;
+  padding: 0.1rem 0;
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  cursor: pointer;
+  list-style: none;
+}
+.solver-more > summary::-webkit-details-marker { display: none; }
+.solver-more > summary::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translate(-1px, -1px);
+  transition: transform var(--fast) var(--ease);
+}
+.solver-more[open] > summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+.solver-more[open] > summary { color: var(--ink-mid); margin-bottom: 0.45rem; }
+.solver-more-body > p { margin: 0 0 0.6rem; }
+.solver-more-body > p:last-child { margin-bottom: 0; }
+@media (hover: hover) and (pointer: fine) {
+  .solver-more > summary:hover { color: var(--ink); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .solver-more > summary::after { transition: none; }
+}
+
+/* ---------- Tighter page head ----------
+   The intro block was taking most of the first screen before you saw
+   a single tool. Pull it in and let the work start higher up. */
+.solver-hero { padding-block: clamp(1.1rem, 2.4vw, 1.7rem); }
+.solver-hero .page-title { margin-bottom: 0.4rem; }
+.solver-hero .page-intro { max-width: 62ch; margin-bottom: 0.7rem; }
+.solver-discord-credit { margin: 0.7rem 0 0; font-size: 0.86rem; }
+.solver-map-head { margin-bottom: 0.55rem; }
+.solver-map-intro { margin-bottom: 0.3rem; }
+
+/* Denser body text inside cards so more fits without shrinking type */
+.solver-blurb { margin-bottom: 0.55rem; line-height: 1.55; }
+.solver-steps { margin: 0.5rem 0; }
+.solver-steps li { margin-bottom: 0.3rem; }
