@@ -3126,3 +3126,125 @@ code.solver-code--lg {
   .solver-toolnav { padding: 0.45rem 0 0.4rem; }
   .solver-toolnav-up { margin-left: 0; }
 }
+
+/* ---------- Solvers dropdown ----------
+   Opens on hover for mouse users and on focus for keyboard users.
+   On the mobile drawer the nav is a vertical list, so the submenu
+   simply sits open underneath instead of floating. */
+.nav-has-sub { position: relative; }
+.nav-has-sub > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.nav-caret {
+  flex: none;
+  opacity: 0.6;
+  transition: transform var(--fast) var(--ease), opacity var(--fast) var(--ease);
+}
+.nav-sub {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 190px;
+  margin: 0;
+  padding: 0.4rem;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity var(--fast) var(--ease), transform var(--fast) var(--ease), visibility var(--fast);
+  z-index: 60;
+}
+.nav-sub::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: 0.5rem;
+}
+.nav-sub li { margin: 0; }
+.nav-sub a {
+  display: block;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-mid);
+  border-radius: 5px;
+  white-space: nowrap;
+}
+.nav-sub a.is-current { color: var(--ink); background: var(--surface-2); }
+.nav-has-sub:hover > .nav-sub,
+.nav-has-sub:focus-within > .nav-sub {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.nav-has-sub:hover > a > .nav-caret,
+.nav-has-sub:focus-within > a > .nav-caret {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav-sub a:hover { color: var(--ink); background: var(--surface-2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-sub, .nav-caret { transition: none; }
+}
+/* Mobile drawer: no floating panel, just an indented list */
+@media (max-width: 900px) {
+  .nav-sub {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    min-width: 0;
+    margin: 0.25rem 0 0.4rem 0.9rem;
+    padding: 0;
+    background: none;
+    border: none;
+    border-left: 1px solid var(--line-strong);
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .nav-sub a { padding: 0.42rem 0.8rem; font-size: 0.8rem; }
+  .nav-caret { display: none; }
+}
+
+/* ---------- Section still in progress ---------- */
+.wip-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.6rem;
+  padding: 0.95rem 1.15rem;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--orange);
+  border-radius: var(--radius-sm);
+}
+.wip-tag {
+  flex: none;
+  padding: 0.3rem 0.7rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--t-micro);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--orange);
+  border-radius: 999px;
+}
+.wip-text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ink-mid);
+}
