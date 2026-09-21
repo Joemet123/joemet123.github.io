@@ -2045,12 +2045,37 @@ body.lightbox-open { overflow: hidden; }
 
 
 /* ---------- Solvers ----------
-   Laid out for a browser, deliberately NOT like the Discord panel:
-   every tool on a map is visible at once, no drill-in/back, and each
-   interactive tool splits into controls | answer side by side. */
+   A two-pane workbench, deliberately NOT the Discord panel and not a
+   single scrolling column of slabs either. The directory of every map
+   stays pinned on the left; the map you picked fills the working
+   column on the right, where tools sit two and three across so a
+   desktop screen shows a whole map at once instead of one card. */
 
 /* The tool pages earn more width than the reading pages do. */
-.solvers-page { --content-w: 1280px; }
+.solvers-page { --content-w: 1360px; }
+
+/* --- workbench shell --- */
+.solver-workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+.solver-column { min-width: 0; }
+@media (min-width: 1080px) {
+  .solver-workbench {
+    grid-template-columns: 234px minmax(0, 1fr);
+    gap: 2.4rem;
+    align-items: start;
+  }
+  .solver-rail {
+    position: sticky;
+    top: calc(var(--band-total, var(--band-h)) + 1.1rem);
+    z-index: 19;
+    max-height: calc(100vh - var(--band-total, var(--band-h)) - 2.4rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
 
 /* --- hero --- */
 .solver-hero {
@@ -2058,6 +2083,7 @@ body.lightbox-open { overflow: hidden; }
   grid-template-columns: minmax(0, 1fr);
   gap: 1.75rem;
   align-items: end;
+  margin-bottom: 2.6rem;
 }
 @media (min-width: 900px) {
   .solver-hero { grid-template-columns: minmax(0, 1fr) auto; gap: 2.5rem; }
@@ -2202,9 +2228,115 @@ body.lightbox-open { overflow: hidden; }
 .solver-kind--soon      { --kc: var(--ink-dim); }
 .solver-kind--missing   { --kc: var(--orange); }
 
-/* --- map jump rail (extends .page-jump, which main.js measures) --- */
+/* --- map jump rail (BO6/BO3 keep .page-jump, which main.js measures) --- */
 .solver-index { gap: 0.45rem; }
 .solver-index a.is-current { color: var(--ink); border-color: var(--blue); }
+
+/* --- BO7 map directory -------------------------------------------
+   Horizontal pills on mobile, a pinned vertical directory on desktop.
+   Deliberately NOT .page-jump: main.js measures the first .page-jump
+   in the document to work out the anchor offset, and that has to stay
+   the horizontal tool row, not this. */
+.solver-rail .solver-index {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 1.1rem;
+  scroll-margin-top: calc(var(--band-total, var(--band-h)) + 1.25rem);
+}
+.solver-rail-label {
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-right: 0.35rem;
+}
+.solver-rail .solver-index a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 0.45rem 0.85rem;
+  font-size: var(--t-small);
+  font-weight: 700;
+  color: var(--ink-mid);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  transition: color var(--fast) var(--ease), border-color var(--fast) var(--ease),
+              background-color var(--fast) var(--ease), transform var(--fast) var(--ease);
+}
+.solver-index-name { min-width: 0; }
+.solver-index-n {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: 700;
+  color: var(--blue-bright);
+  font-variant-numeric: tabular-nums;
+}
+.solver-index-n--none { color: var(--ink-dim); }
+.solver-rail .solver-index a.is-current { color: var(--ink); background: var(--surface-2); border-color: var(--blue); }
+.solver-rail .solver-index a:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .solver-rail .solver-index a:hover { color: var(--ink); border-color: var(--blue); }
+}
+@media (min-width: 1080px) {
+  .solver-rail .solver-index { display: block; margin: 0 0 1.4rem; }
+  .solver-rail-label { display: block; margin: 0 0 0.55rem; }
+  .solver-rail .solver-index a {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.26rem;
+    padding: 0.5rem 0.7rem 0.5rem 0.75rem;
+    font-size: 0.82rem;
+    background: none;
+    border: 0;
+    border-left: 2px solid var(--line-strong);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .solver-rail .solver-index a.is-current { background: var(--surface); border-left-color: var(--blue); }
+  .solver-rail .solver-index a:active { transform: none; }
+}
+@media (min-width: 1080px) and (hover: hover) and (pointer: fine) {
+  .solver-rail .solver-index a:hover { background: var(--surface); border-left-color: var(--blue); }
+}
+
+/* --- what the three kinds of tool mean, kept beside the directory --- */
+.solver-railkey { padding-top: 1.1rem; border-top: 1px solid var(--line); }
+.solver-railkey-row {
+  margin: 0 0 0.6rem;
+  padding-left: 0.65rem;
+  border-left: 2px solid var(--rk, var(--blue));
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-dim);
+}
+.solver-railkey-row:last-child { margin-bottom: 0; }
+.solver-railkey-row strong {
+  display: block;
+  font-size: var(--t-micro);
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--rk, var(--blue));
+}
+.solver-railkey-row--solver    { --rk: var(--blue-bright); }
+.solver-railkey-row--reference { --rk: #B98BFF; }
+.solver-railkey-row--sheet     { --rk: #4DE0EE; }
+@media (max-width: 1079px) {
+  .solver-railkey {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(186px, 1fr));
+    gap: 0.6rem 1.2rem;
+    margin-bottom: 1.9rem;
+  }
+  .solver-railkey .solver-rail-label { grid-column: 1 / -1; margin: 0; }
+  .solver-railkey-row { margin-bottom: 0; }
+}
 
 /* --- map section --- */
 .solver-map {
@@ -2219,6 +2351,48 @@ body.lightbox-open { overflow: hidden; }
   color: var(--ink-dim);
   max-width: 62ch;
 }
+/* BO7 map header is a dashboard strip: name and lede left, counts right. */
+.solver-column .solver-map-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.8rem 1.6rem;
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+.solver-map-headline { flex: 1 1 20rem; min-width: 0; }
+.solver-column .solver-map-intro {
+  margin-top: 0.4rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+.solver-map-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.solver-map-meta li {
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+.solver-map-meta-k {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  color: var(--ink);
+  margin-right: 0.18rem;
+  font-variant-numeric: tabular-nums;
+}
 
 /* --- the tool grid: 12 columns on desktop, varied spans --- */
 .solver-stack {
@@ -2226,6 +2400,7 @@ body.lightbox-open { overflow: hidden; }
   grid-template-columns: minmax(0, 1fr);
   gap: 1.35rem;
 }
+.solver-column .solver-stack { gap: 1.1rem; }
 @media (min-width: 900px) {
   .solver-stack { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; }
   .solver--span12 { grid-column: span 12; }
@@ -2246,18 +2421,25 @@ body.lightbox-open { overflow: hidden; }
   padding: clamp(1.15rem, 2.4vw, 1.7rem);
   scroll-margin-top: var(--anchor-offset, calc(var(--band-h) + 76px));
 }
+/* Denser on BO7: more tools per screen without shrinking the type. */
+.solver-column .solver { padding: clamp(1rem, 1.9vw, 1.4rem); }
 .solver--solver    { --sc: var(--blue); }
 .solver--reference { --sc: var(--purple); }
 .solver--sheet     { --sc: #19C2D6; }
 .solver--soon      { --sc: rgba(255, 255, 255, 0.14); }
 .solver--missing   { --sc: var(--orange); }
 
+/* Head gets a rule under it so a dense grid of cards still reads as
+   a set of discrete tools rather than one wall of type. */
 .solver-head {
   display: flex;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  gap: 0.9rem;
-  margin-bottom: 0.6rem;
+  gap: 0.5rem 0.8rem;
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--line);
 }
 .solver-name {
   font-family: 'Orbitron', sans-serif;
@@ -2275,6 +2457,8 @@ body.lightbox-open { overflow: hidden; }
   max-width: 70ch;
   margin-bottom: 1.1rem;
 }
+.solver-column .solver-name { font-size: 0.98rem; }
+.solver-column .solver-blurb { font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.9rem; }
 
 /* --- controls | answer split --- */
 .solver-io {
@@ -2294,6 +2478,19 @@ body.lightbox-open { overflow: hidden; }
     position: sticky;
     top: var(--anchor-offset, 150px);
   }
+}
+/* BO7 gives up a column to the pinned rail, so a card has to be wider
+   in viewport terms before controls | answer is still two readable
+   columns. A span8 card needs a bigger screen than a span12 one. */
+@media (min-width: 900px) and (max-width: 1079px) {
+  .solver-column .solver--span12 .solver-io,
+  .solver-column .solver--span8 .solver-io { grid-template-columns: minmax(0, 1fr); }
+  .solver-column .solver--span12 .solver-io-out,
+  .solver-column .solver--span8 .solver-io-out { position: static; }
+}
+@media (min-width: 1080px) and (max-width: 1399px) {
+  .solver-column .solver--span8 .solver-io { grid-template-columns: minmax(0, 1fr); }
+  .solver-column .solver--span8 .solver-io-out { position: static; }
 }
 .solver-io-controls { min-width: 0; }
 .solver-io-out { min-width: 0; }
@@ -2819,10 +3016,7 @@ code.solver-code--lg {
 .solver-table--quotes tbody td { white-space: nowrap; color: var(--ink); }
 
 /* --- figures --- */
-.solver-figure { margin: 0 0 1.1rem; }
-/* A lone sheet on a full-width card gets room to breathe */
-.solver--span12 > .solver-figure > .solver-img-btn,
-.solver-result > .solver-figure > .solver-img-btn { aspect-ratio: 16 / 9; }
+.solver-figure { margin: 0 0 1.1rem; min-width: 0; }
 .solver-figure:last-child { margin-bottom: 0; }
 .solver-img-btn {
   display: block;
@@ -2834,7 +3028,7 @@ code.solver-code--lg {
   border-radius: var(--radius-sm);
   cursor: zoom-in;
   overflow: hidden;
-  transition: border-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
+  transition: border-color var(--fast) var(--ease), transform var(--fast) var(--ease);
 }
 .solver-img-btn img {
   display: block;
@@ -2844,18 +3038,40 @@ code.solver-code--lg {
   object-fit: cover;
   object-position: center;
 }
-.solver-img-btn:active { transform: scale(0.995); }
+.solver-img-btn:active { transform: scale(0.99); }
 .solver-figcaption {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  gap: 0.35rem 0.6rem;
+  margin-top: 0.45rem;
   font-size: var(--t-small);
   font-weight: 600;
   color: var(--ink-mid);
 }
 .solver-figcaption .solver-fullsize { margin-left: auto; font-size: var(--t-micro); }
+
+/* --- BO7 figures: thumbnails, not panes ---------------------------
+   An image here is a REFERENCE, never a hero. Every frame is sized to
+   its job: capped in width so it can never own the card, capped in
+   height so a tall cheat sheet cannot become a full-viewport slab,
+   and clipped from the top so what you see is a recognisable preview
+   at its true aspect ratio rather than a 16:9 crop of the middle.
+   The reading happens in the viewer, which every frame opens on
+   click, with a plain full-size link as the no-JS fallback. */
+.solver-column .solver-figure {
+  margin-bottom: 1rem;
+  max-width: var(--thumb-w, 360px);
+}
+.solver-column .solver-img-btn {
+  aspect-ratio: auto;
+  max-height: var(--thumb-h, 250px);
+}
+.solver-column .solver-img-btn img { height: auto; object-fit: fill; }
+/* A cheat-sheet card is the sheet, so its thumbnail earns a little more. */
+.solver-column .solver--sheet > .solver-figure { --thumb-h: 290px; }
+.solver-column .solver-figcaption { margin-left: 0; }
+.solver-column .solver-figcaption .solver-fullsize { margin-left: 0; }
 .solver-fullsize {
   color: var(--blue-bright);
   font-weight: 700;
@@ -2863,26 +3079,55 @@ code.solver-code--lg {
   transition: border-color var(--fast) var(--ease);
 }
 @media (hover: hover) and (pointer: fine) {
-  .solver-img-btn:hover { border-color: var(--blue); }
+  .solver-img-btn:hover { border-color: var(--blue); transform: translateY(-2px); }
   .solver-fullsize:hover { border-bottom-color: var(--blue-bright); }
 }
 
+/* --- multi-image reference rows ------------------------------------
+   Dravakar has four symbols and the Mystery step has five clues. These
+   are tile rows, not stacked panes: fixed small tiles that pack from
+   the left, so four symbols read as one glanceable strip. */
 .solver-symbolgrid,
 .solver-imggrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 146px));
+  justify-content: start;
+  gap: 0.6rem;
   margin-bottom: 1.1rem;
 }
-@media (min-width: 900px) {
-  .solver-symbolgrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .solver-imggrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-.solver-symbolgrid .solver-img-btn {
+.solver-symbolgrid .solver-figure,
+.solver-imggrid .solver-figure,
+.solver-column .solver-symbolgrid .solver-figure,
+.solver-column .solver-imggrid .solver-figure { max-width: none; margin-bottom: 0; }
+.solver-symbolgrid .solver-img-btn,
+.solver-column .solver-symbolgrid .solver-img-btn {
   aspect-ratio: 1 / 1;
+  max-height: none;
 }
-.solver-symbolgrid .solver-img-btn img { object-fit: contain; padding: 0.4rem; }
-.solver-imggrid .solver-img-btn { aspect-ratio: 4 / 3; }
+.solver-imggrid .solver-img-btn,
+.solver-column .solver-imggrid .solver-img-btn {
+  aspect-ratio: 4 / 3;
+  max-height: none;
+}
+.solver-symbolgrid .solver-img-btn img,
+.solver-column .solver-symbolgrid .solver-img-btn img {
+  height: 100%;
+  object-fit: contain;
+  padding: 0.35rem;
+}
+.solver-imggrid .solver-img-btn img,
+.solver-column .solver-imggrid .solver-img-btn img {
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.solver-symbolgrid .solver-figcaption,
+.solver-imggrid .solver-figcaption {
+  gap: 0.1rem 0.45rem;
+  margin-top: 0.35rem;
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
 
 /* --- image viewer --- */
 .solver-lightbox {
@@ -2986,10 +3231,13 @@ code.solver-code--lg {
 }
 @media (max-width: 640px) {
   .solver { padding: 1.05rem; }
+  .solver-column .solver { padding: 1rem; }
   .solver-map { margin-bottom: 2.75rem; }
-  .solver-head { flex-direction: column; gap: 0.5rem; }
+  .solver-column .solver-map-head { align-items: flex-start; }
   .solver-table th, .solver-table td { padding: 0.48rem 0.6rem; }
   .solver-img-btn img { max-height: 300px; }
+  .solver-column .solver-figure { --thumb-h: 210px; }
+  .solver-column .solver--sheet > .solver-figure { --thumb-h: 230px; }
   code.solver-code--lg { font-size: 1.15rem; }
   .solver-imgchip { width: 66px; }
   .solver-imgchip img { height: 44px; }
@@ -2997,14 +3245,16 @@ code.solver-code--lg {
   .solver-turn-n { font-size: 1.1rem; }
   .solver-pick img { height: 58px; }
   .solver-grid3 { max-width: 100%; }
+  .solver-symbolgrid,
+  .solver-imggrid { grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 0.5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .game-card, .solver-chip, .solver-imgchip, .solver-cell,
-  .solver-img-btn, .solver-lightbox-close, .solver-lightbox-zoom,
-  .solver-details > summary { transition: none; }
+  .solver-img-btn, .solver-index a, .solver-lightbox-close,
+  .solver-lightbox-zoom, .solver-details > summary { transition: none; }
   .game-card:active, .solver-chip:active, .solver-imgchip:active,
-  .solver-cell:active, .solver-img-btn:active,
+  .solver-cell:active, .solver-img-btn:active, .solver-index a:active,
   .solver-lightbox-close:active { transform: none; }
 }
 
@@ -3101,11 +3351,10 @@ code.solver-code--lg {
 }
 
 /* ---------- Solver navigation behaviour ----------
-   The map row sits once at the top of the page and stays there.
-   The tool row for the map you are in follows you down the screen,
-   so you can switch tools without scrolling back up. Because each
-   tool row lives inside its own map section, it releases naturally
-   when you reach the next map. */
+   The tool row for the map you are in follows you down the screen, so
+   you can switch tools without scrolling back up. Because each tool
+   row lives inside its own map section, it releases naturally when you
+   reach the next map. */
 .solver-index {
   position: static;
   top: auto;
@@ -3130,6 +3379,16 @@ code.solver-code--lg {
   background: linear-gradient(180deg, var(--bg) 78%, transparent 100%);
   pointer-events: none;
 }
+/* BO7 only: the row sits inside the working column, so it must back
+   itself with a solid block and must NOT bleed left across the pinned
+   rail the way the full-bleed version does. */
+.solver-column .solver-toolnav {
+  margin: 0 -0.75rem 1.25rem;
+  padding: 0.5rem 0.75rem 0.45rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.solver-column .solver-toolnav::before { content: none; }
 .solver-toolnav-up {
   margin-left: auto;
   border-style: dashed !important;
@@ -3147,6 +3406,7 @@ code.solver-code--lg {
 }
 @media (max-width: 720px) {
   .solver-toolnav { padding: 0.45rem 0 0.4rem; }
+  .solver-column .solver-toolnav { padding: 0.45rem 0.75rem 0.4rem; }
   .solver-toolnav-up { margin-left: 0; }
 }
 
@@ -3272,30 +3532,3 @@ code.solver-code--lg {
   color: var(--ink-mid);
 }
 
-/* ---------- Solver card polish ----------
-   Cards were flat slabs of text. Give the head a rule under it, lift the
-   card off the page, and make image frames respond on hover. */
-.solver-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.6rem;
-  margin-bottom: 0.7rem;
-  padding-bottom: 0.6rem;
-  border-bottom: 1px solid var(--line);
-}
-.solver-blurb { color: var(--ink-mid); }
-@media (hover: hover) and (pointer: fine) {
-  .solver-img-btn:hover {
-    border-color: var(--blue);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .solver-img-btn { transition: none; }
-}
-@media (max-width: 640px) {
-  .solver-symbolgrid,
-  .solver-imggrid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.6rem; }
-}
