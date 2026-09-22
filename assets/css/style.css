@@ -548,12 +548,12 @@ ul, ol { padding-left: 1.4em; }
   border-color: var(--line-strong);
   color: var(--ink);
 }
-.btn-red { background: var(--blue); border-color: var(--blue); color: #fff; }
+
 
 @media (hover: hover) and (pointer: fine) {
   .btn-accent:hover { background: #4A97FF; border-color: #4A97FF; color: #fff; }
   .btn-outline:hover { background: var(--blue-lo); border-color: var(--blue); color: #fff; }
-  .btn-red:hover { background: #4A97FF; border-color: #4A97FF; }
+
 }
 
 /* ============================================================
@@ -1855,14 +1855,14 @@ body.lightbox-open { overflow: hidden; }
    ============================================================ */
 .text-accent { color: var(--blue-bright); }
 .text-gray   { color: var(--ink-dim); }
-.text-center { text-align: center; }
-.glow-text   { color: var(--ink); }
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mb-4 { margin-bottom: 2rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
+
+
+
+
+
+
+
+
 
 /* ============================================================
    18. Motion
@@ -2938,14 +2938,7 @@ code.solver-code {
   padding: 0.1em 0.42em;
   overflow-wrap: break-word;
 }
-code.solver-code--lg {
-  display: inline-block;
-  font-size: 1.45rem;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  padding: 0.28em 0.6em;
-  border-left: 3px solid var(--orange);
-}
+
 
 /* --- collapsible reference blocks (stay in the DOM for indexing) --- */
 .solver-details {
@@ -3244,7 +3237,7 @@ code.solver-code--lg {
   .solver-img-btn img { max-height: 300px; }
   .solver-column .solver-figure { --thumb-h: 210px; }
   .solver-column .solver--sheet > .solver-figure { --thumb-h: 230px; }
-  code.solver-code--lg { font-size: 1.15rem; }
+
   .solver-imgchip { width: 66px; }
   .solver-imgchip img { height: 44px; }
   .solver-turns { gap: 0.35rem; }
@@ -3267,67 +3260,16 @@ code.solver-code--lg {
 
 /* ---------- Coming soon ---------- */
 
-.soon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 0.35rem;
-  min-height: 48vh;
-  padding: clamp(2rem, 6vw, 4rem) 1rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-.soon .eyebrow { color: var(--blue); margin-bottom: 0.3rem; }
-.soon-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.6rem, 5vw, 2.9rem);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  text-transform: uppercase;
-  color: var(--ink);
-}
-.soon-sub {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(0.9rem, 2.4vw, 1.25rem);
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink-mid);
-  margin: 0;
-}
-.soon-tag {
-  margin: 1.4rem 0 0;
-  padding: 0.55rem 1.4rem;
-  font-size: var(--t-small);
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink);
-  border: 1px solid var(--line-strong);
-  border-left: 3px solid var(--orange);
-  border-radius: 999px;
-  background: var(--surface-2);
-}
 
-.soon-note {
-  max-width: 44ch;
-  margin: 1.35rem 0 0;
-  font-size: 0.92rem;
-  line-height: 1.65;
-  color: var(--ink-mid);
-}
-.soon-note a {
-  color: var(--blue);
-  font-weight: 700;
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--fast) var(--ease);
-}
+
+
+
+
+
+
+
 @media (hover: hover) and (pointer: fine) {
-  .soon-note a:hover { border-bottom-color: var(--blue); }
+
 }
 
 /* Tool-level jump menu inside each map — lighter than the map nav
@@ -4349,10 +4291,10 @@ code.solver-code--lg {
    AFFILIATE DISCOUNTS  (centred layout is a standing preference)
    ============================================================ */
 
-.center-col { max-width: 74ch; margin-left: auto; margin-right: auto; text-align: center; }
-.center-col p { margin: 0 0 0.85rem; line-height: 1.68; color: var(--ink-mid); }
-.center-col p:last-child { margin-bottom: 0; }
-.center-col strong { color: var(--ink); font-weight: 800; }
+
+
+
+
 .section--center .section-title { text-align: center; }
 .section--center .section-title::after { margin-left: auto; margin-right: auto; }
 .aff-cards { max-width: 900px; margin-left: auto; margin-right: auto; }
@@ -4696,3 +4638,36 @@ code.solver-code--lg {
 }
 .nav-sub li { width: 100%; }
 .nav-sub a { display: block; width: 100%; white-space: nowrap; }
+
+/* ---------- Skip link ----------
+   The Twitch and Discord embeds swallow ~108 tab stops before the
+   footer is reachable. This gives keyboard users a way past them. */
+.skip-link {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10002;
+  padding: 0.6rem 1rem;
+  font-size: var(--t-small);
+  font-weight: 700;
+  color: var(--bg);
+  background: var(--blue-bright);
+  border-radius: 0 0 var(--radius-sm) 0;
+  transform: translateY(-120%);
+  transition: transform var(--fast) var(--ease);
+}
+.skip-link:focus { transform: translateY(0); outline: 2px solid var(--ink); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .skip-link { transition: none; } }
+
+/* ---------- Section offline ---------- */
+.wip-banner--hard { border-left-color: var(--red); }
+.solver-offline {
+  margin: 0.6rem 0 0;
+  padding: 0.7rem 0.9rem;
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--ink-mid);
+  background: var(--surface-2);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+}
