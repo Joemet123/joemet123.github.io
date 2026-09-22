@@ -29,10 +29,11 @@
   /* Ink */
   --ink:     #EEF3FB;
   --ink-mid: #9EACC3;
-  --ink-dim: #66738A;
+  --ink-dim: #7D8BA3;
 
   /* Accent: one dominant, two supporting, one punctuation */
   --blue:        #2F86FF;
+  --blue-cta:    #1F6FE0;   /* darker fill so white CTA text passes 4.5:1 */
   --blue-bright: #6DB4FF;
   --blue-lo:     rgba(47, 134, 255, 0.13);
   --red:         #FF2E4C;
@@ -538,7 +539,7 @@ ul, ol { padding-left: 1.4em; }
 }
 .btn:active { transform: scale(0.97); }
 .btn-accent {
-  background: var(--blue);
+  background: var(--blue-cta);
   border-color: var(--blue);
   color: #fff;
 }
@@ -698,7 +699,7 @@ ul, ol { padding-left: 1.4em; }
   line-height: 1.3;
   text-align: center;
   color: #fff;
-  background: var(--blue);
+  background: var(--blue-cta);
   border: 1px solid var(--blue);
   cursor: pointer;
 }
@@ -1499,14 +1500,14 @@ body.lightbox-open { overflow: hidden; }
 .about-section:nth-of-type(1) { --ab: var(--blue); }
 .about-section:nth-of-type(2) { --ab: var(--orange); }
 .about-section .eyebrow { color: var(--ab, var(--blue)); }
-.about-section h1 {
+.about-section :is(h1, h2) {
   font-size: clamp(1.55rem, 3.6vw, 2.05rem);
   font-weight: 800;
   letter-spacing: -0.028em;
   color: var(--ink);
   margin-bottom: 1rem;
 }
-.about-section h1::after {
+.about-section :is(h1, h2)::after {
   content: '';
   display: block;
   width: 46px;
@@ -2653,7 +2654,7 @@ body.lightbox-open { overflow: hidden; }
 }
 .solver-field input:focus,
 .solver-field select:focus,
-.solver-field textarea:focus { outline: none; border-color: var(--blue); }
+.solver-field textarea:focus { border-color: var(--blue); }
 
 .solver-actions {
   display: flex;
@@ -4670,7 +4671,6 @@ code.solver-code--lg {
    A decorative pseudo-element with a negative inset once made every
    solver page scrollable a full viewport to the right. Nothing
    decorative may widen the document again. */
-html, body { overflow-x: hidden; }
 .solvers-page .solver-map,
 .solvers-page .solver-stack,
 .solvers-page .solver-rail { min-width: 0; }
