@@ -313,10 +313,10 @@ ul, ol { padding-left: 1.4em; }
   border-bottom: 1px solid var(--line);
   max-height: 0;
   overflow: hidden;
-  transition: max-height var(--slow) var(--ease);
+  transition: max-height var(--mid) var(--ease);
 }
 .main-nav.open { max-height: 520px; }
-.main-nav ul {
+.main-nav > ul {
   list-style: none;
   padding: 0.4rem 0;
   margin: 0;
@@ -352,7 +352,7 @@ ul, ol { padding-left: 1.4em; }
     background: none;
     border-bottom: 0;
   }
-  .main-nav ul {
+  .main-nav > ul {
     flex-direction: row;
     align-items: center;
     max-width: var(--content-w);
@@ -3462,16 +3462,27 @@ code.solver-code--lg {
   white-space: nowrap;
 }
 .nav-sub a.is-current { color: var(--ink); background: var(--surface-2); }
-.nav-has-sub:hover > .nav-sub,
 .nav-has-sub:focus-within > .nav-sub {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
-.nav-has-sub:hover > a > .nav-caret,
+@media (hover: hover) and (pointer: fine) {
+  .nav-has-sub:hover > .nav-sub {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+}
 .nav-has-sub:focus-within > a > .nav-caret {
   transform: rotate(180deg);
   opacity: 1;
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav-has-sub:hover > a > .nav-caret {
+  transform: rotate(180deg);
+  opacity: 1;
+}
 }
 @media (hover: hover) and (pointer: fine) {
   .nav-sub a:hover { color: var(--ink); background: var(--surface-2); }
@@ -4674,3 +4685,14 @@ code.solver-code--lg {
 .solvers-page .solver-map,
 .solvers-page .solver-stack,
 .solvers-page .solver-rail { min-width: 0; }
+
+/* ---------- Submenu stays vertical ----------
+   The desktop nav is a row. The dropdown inside it must never inherit
+   that direction — it is always a stacked list. */
+.nav-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.nav-sub li { width: 100%; }
+.nav-sub a { display: block; width: 100%; white-space: nowrap; }
