@@ -7,7 +7,7 @@
   <link rel="shortcut icon" href="favicon.ico">
   <title>JOEMET123 — Home</title>
   <meta name="description" content="Joemet123 — Call of Duty Zombies content creator. Guides, gameplay, news, and community for the Meatbawl Army.">
-  <link rel="stylesheet" href="assets/css/style.css?v=mubucx4u">
+  <link rel="stylesheet" href="assets/css/style.css?v=muc4fwz8">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
@@ -83,10 +83,50 @@
   </div>
 
   <!-- ===== MAIN ===== -->
-  <main class="main-content">
+  <main class="main-content home-page">
+
+    <!-- Who this is, what is here, where to go next -->
+    <section class="section home-intro" aria-label="Introduction">
+      <div class="home-intro-main">
+        <span class="eyebrow">Call Of Duty Zombies</span>
+        <h1 class="page-title">Zombies Guides, Live Streams And Free Solvers</h1>
+        <p class="page-lede">I'm Joe. I Make Call Of Duty Zombies Content — Guides That Actually Help You, Gameplay That's Fun To Watch, And News Breakdowns So You Don't Have To Dig Through Twitter Yourself. Every Cheat Sheet And Puzzle Solver The Meatbawl Army Discord Bots Run Is Free On This Site, With No Account And Nothing To Install.</p>
+        <ul class="statline home-statline">
+          <li><span class="statline-k stat-num" data-count-to="44">44</span><span class="statline-v">Free Solvers</span></li>
+          <li><span class="statline-k stat-num" data-count-to="19">19</span><span class="statline-v">Maps Covered</span></li>
+          <li><span class="statline-k">2+</span><span class="statline-v">Videos Each Week</span></li>
+          <li><span class="statline-k">2+</span><span class="statline-v">Streams Each Week</span></li>
+        </ul>
+        <div class="home-cta-row">
+          <a class="btn btn-accent" href="solvers.html">Open The Free Solvers</a>
+          <a class="btn btn-outline" href="https://discord.com/invite/hHYdtXcH" target="_blank" rel="noopener">Join The Meatbawl Army</a>
+        </div>
+      </div>
+      <div>
+        <span class="home-rail-label">Start Here</span>
+        <ul class="home-rail">
+          <li><a class="home-rail-card home-rail-card--solvers" href="solvers.html">
+            <span class="home-rail-name">Zombies Solvers</span>
+            <span class="home-rail-note">Easter Egg Codes, Puzzle Solvers And Map Cheat Sheets For BO3, BO6 And BO7.</span>
+          </a></li>
+          <li><a class="home-rail-card home-rail-card--live" href="live.html">
+            <span class="home-rail-name">Watch Live</span>
+            <span class="home-rail-note">The Twitch Player And Chat Side By Side, Plus How To Get Notified When I Go Live.</span>
+          </a></li>
+          <li><a class="home-rail-card home-rail-card--merch" href="merch.html">
+            <span class="home-rail-name">Meatbawl Army Merch</span>
+            <span class="home-rail-note">Cawfee Cups, Shirts, Hoodies And Stickers, Handled Through Streamlabs.</span>
+          </a></li>
+          <li><a class="home-rail-card home-rail-card--members" href="paid-meatbawl.html">
+            <span class="home-rail-name">Paid Meatbawl</span>
+            <span class="home-rail-note">Song Requests, The Members Channel, Priority Lobbies — And A Free Sub With Twitch Prime.</span>
+          </a></li>
+        </ul>
+      </div>
+    </section>
 
     <!-- Stream + Donate — asymmetric split, stream leads -->
-    <section class="hero" aria-label="Stream And Donate">
+    <section class="hero section" aria-label="Stream And Donate">
       <div class="stream-panel">
         <a class="stream-chip" href="https://twitch.tv/joemet123" target="_blank" rel="noopener">
           <span class="stream-dot" aria-hidden="true"></span>Twitch Stream
@@ -142,6 +182,53 @@
           }).render('#donate-button');
         </script>
       </div>
+    </section>
+
+    <!-- Solvers — the strongest thing on the site, surfaced properly -->
+    <section class="section" aria-label="Free Zombies Solvers">
+      <div class="sec-head">
+        <h2 class="section-title">Free Zombies Solvers</h2>
+        <a class="sec-head-link" href="solvers.html">All Solvers</a>
+      </div>
+      <p class="section-note">Zombies Easter Eggs Are Full Of Steps That Are Fiddly Rather Than Hard — A Code Split Across Two Monitors, A Grid Where Flipping One Scroll Flips Four More. Tell A Solver What Your Game Rolled And It Hands Back The Answer While You Play. Everything Runs In Your Browser: No Account, No Upload, And Nothing You Type Ever Leaves Your Device.</p>
+      <div class="solver-games">
+        <a class="game-card game-card--bo7" href="solvers-bo7.html">
+          <span class="game-card-tag">Black Ops 7</span>
+          <span class="game-card-title">BO7 Zombies Solver</span>
+          <span class="game-card-meta">6 Maps &middot; 22 Tools</span>
+          <span class="game-card-maps">Rex Infernus, Kowakujo, Totenreich, Paradox Junction, Astra Malorum, Ashes Of The Damned</span>
+          <span class="game-card-go">Open BO7 Tools</span>
+        </a>
+        <a class="game-card game-card--bo6" href="solvers-bo6.html">
+          <span class="game-card-tag">Black Ops 6</span>
+          <span class="game-card-title">BO6 Zombies Solver</span>
+          <span class="game-card-meta">6 Maps &middot; 11 Tools</span>
+          <span class="game-card-maps">Terminus, Liberty Falls, Citadelle Des Morts, The Tomb, Shattered Veil, The Reckoning</span>
+          <span class="game-card-go">Open BO6 Tools</span>
+        </a>
+        <a class="game-card game-card--bo3" href="solvers-bo3.html">
+          <span class="game-card-tag">Black Ops 3</span>
+          <span class="game-card-title">BO3 Zombies Solver</span>
+          <span class="game-card-meta">7 Maps &middot; 1 Tool Live</span>
+          <span class="game-card-maps">Shadows Of Evil, The Giant, Der Eisendrache, Zetsubou No Shima, Gorod Krovi, Revelations, Origins</span>
+          <span class="game-card-go">Open BO3 Tools</span>
+        </a>
+      </div>
+      <div class="solver-kinds">
+        <div class="solver-kindcard solver-kindcard--solver">
+          <span class="solver-kind solver-kind--solver">Solver</span>
+          <p>You Give It Your Inputs, It Calculates Your Answer. The Gorgofex Code, The Nexus Handles, The Kowakujo Scroll Grid.</p>
+        </div>
+        <div class="solver-kindcard solver-kindcard--reference">
+          <span class="solver-kind solver-kind--reference">Reference</span>
+          <p>Steps That Are Identical Every Single Game, Written Out Plainly. The Veytharion Block Puzzle, The Nyxara Dial Order, The Dravakar Riddles.</p>
+        </div>
+        <div class="solver-kindcard solver-kindcard--sheet">
+          <span class="solver-kind solver-kind--sheet">Cheat Sheet</span>
+          <p>Full Map Images. Tap Any Of Them To Open Full Size And Zoom In Mid-Round.</p>
+        </div>
+      </div>
+      <p class="home-solver-note">These Started Life As Discord Bots In The Meatbawl Army Server And Use The Exact Same Data And Maths — <strong>Same Inputs, Same Answers</strong>. If A Tool Is Missing, Wrong, Or You Want A Map Prioritised, Say So In <a href="https://discord.gg/MeatbawlArmy" target="_blank" rel="noopener">The Discord</a> And It Gets Looked At.</p>
     </section>
 
     <!-- Merch Showcase -->
@@ -228,7 +315,10 @@
 
     <!-- YouTube Video Carousel -->
     <section class="section" aria-label="Recent YouTube Videos">
-      <h2 class="section-title">Latest Videos</h2>
+      <div class="sec-head">
+        <h2 class="section-title">Latest Videos</h2>
+        <a class="sec-head-link" href="https://youtube.com/channel/UCu0kb0PuVHuq2H2ZPYwCJ2w" target="_blank" rel="noopener">Visit The Channel</a>
+      </div>
       <p class="section-note">The Seven Most Recent Uploads — Click Any Card To Watch It Right Here.</p>
       <div class="spotlight-carousel" id="yt-carousel">
         <button class="spotlight-arrow spotlight-prev" aria-label="Previous video">‹</button>
@@ -255,6 +345,30 @@
         <button class="spotlight-arrow spotlight-next" aria-label="Next video">›</button>
       </div>
       <div class="spotlight-dots" id="spot-dots"></div>
+    </section>
+
+    <!-- Everything else on the site, in one band -->
+    <section class="section" aria-label="More From The Channel">
+      <h2 class="section-title">More From The Channel</h2>
+      <p class="section-note">The Rest Of The Site, In One Place.</p>
+      <ul class="home-rail auto-grid home-more">
+        <li><a class="home-rail-card home-rail-card--rules" href="chat-rules.html">
+          <span class="home-rail-name">Chat Rules &amp; Commands</span>
+          <span class="home-rail-note">Six Simple Rules, Plus Every Command The Bots Answer To — Watchtime, Followage, Uptime And The Rest.</span>
+        </a></li>
+        <li><a class="home-rail-card home-rail-card--deals" href="affiliate-discounts.html">
+          <span class="home-rail-name">Affiliate Discounts</span>
+          <span class="home-rail-note">GFuel And KontrolFreek — Use Code JOEMET At Checkout.</span>
+        </a></li>
+        <li><a class="home-rail-card home-rail-card--about" href="about.html">
+          <span class="home-rail-name">About The Channel</span>
+          <span class="home-rail-note">Who I Am, What I Post, And What The Meatbawl Army Actually Is.</span>
+        </a></li>
+        <li><a class="home-rail-card home-rail-card--contact" href="contact.html">
+          <span class="home-rail-name">Get In Touch</span>
+          <span class="home-rail-note">Business Enquiries, Solver Suggestions Or Bug Reports On The Tools.</span>
+        </a></li>
+      </ul>
     </section>
 
   </main>
@@ -286,7 +400,7 @@
     &copy; 2026 Joemet123 — All Rights Reserved.
   </footer>
 
-  <script src="assets/js/main.js?v=mubucx4u"></script>
+  <script src="assets/js/main.js?v=muc4fwz8"></script>
   <div class="cookie-note" id="cookie-note" role="region" aria-label="Cookie notice" hidden>
     <p class="cookie-note-text">This Site Uses Cookies For Ads And Basic Analytics. See The <a href="/site-privacy.html">Privacy Policy</a> For Detail.</p>
     <div class="cookie-note-actions">
