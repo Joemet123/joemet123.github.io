@@ -3376,14 +3376,7 @@ code.solver-code--lg {
   background: linear-gradient(180deg, var(--bg) 78%, transparent 100%);
 }
 /* Keep the sticky row clear of the page edge on wide screens */
-.solver-toolnav::before {
-  content: '';
-  position: absolute;
-  inset: 0 -100vw;
-  z-index: -1;
-  background: linear-gradient(180deg, var(--bg) 78%, transparent 100%);
-  pointer-events: none;
-}
+
 /* BO7 only: the row sits inside the working column, so it must back
    itself with a solid block and must NOT bleed left across the pinned
    rail the way the full-bleed version does. */
@@ -3393,7 +3386,7 @@ code.solver-code--lg {
   background: var(--bg);
   border-bottom: 1px solid var(--line);
 }
-.solver-column .solver-toolnav::before { content: none; }
+.solver-column 
 .solver-toolnav-up {
   margin-left: auto;
   border-style: dashed !important;
@@ -4672,3 +4665,12 @@ code.solver-code--lg {
   .solver-band + .solver-band { margin-top: 1.5rem; }
 }
 
+
+/* ---------- Overflow guard ----------
+   A decorative pseudo-element with a negative inset once made every
+   solver page scrollable a full viewport to the right. Nothing
+   decorative may widen the document again. */
+html, body { overflow-x: hidden; }
+.solvers-page .solver-map,
+.solvers-page .solver-stack,
+.solvers-page .solver-rail { min-width: 0; }
