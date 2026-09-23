@@ -4671,3 +4671,468 @@ code.solver-code {
   border: 1px dashed var(--line-strong);
   border-radius: var(--radius-sm);
 }
+
+/* ================= merged from _stage_bo7.css ================= */
+/* ==========================================================================
+   BO7 CONSOLE — POLISH PASS
+   Refines the existing .solvers-page--console workbench. No new class names:
+   every selector targets markup that already ships, so the BO6 rebuild
+   inherits this treatment the moment it adopts .solvers-page--console.
+
+   Deliberately additive. Anything the base sheet already does well — the
+   full-bleed tile figure, the Orbitron card heads, the .solver-kind pill,
+   the tile hover — is left alone rather than restated.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. RAIL — the map switcher reads as the page's primary control
+   -------------------------------------------------------------------------- */
+
+/* The base sheet already makes the rail sticky at 1080px, where the layout
+   actually becomes two-pane. Nothing to add there — only the contents of the
+   rail are refined below. */
+
+/* Name left, count right — a two-column grid rather than inline text, so the
+   counts form a clean right edge the eye scans in one pass. 1080px is where
+   the rail stops being a horizontal strip and becomes the sidebar. */
+@media (min-width: 1080px) {
+  .solvers-page--console .solver-rail-label {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .solvers-page--console .solver-rail .solver-index a {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.62rem 0.75rem 0.62rem 0.85rem;
+    line-height: 1.3;
+  }
+}
+
+.solvers-page--console .solver-index-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Count badge: a real pill, so "5" and "Soon" sit in the same shaped box. */
+.solvers-page--console .solver-index-n {
+  min-width: 1.65rem;
+  padding: 0.14rem 0.42rem;
+  font-size: var(--t-micro);
+  font-weight: 800;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--ink-mid);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+.solvers-page--console .solver-index-n--none {
+  color: var(--ink-dim);
+  background: transparent;
+  letter-spacing: 0.4px;
+}
+
+/* Active map gets three signals — spine, lifted surface, inverted badge —
+   because this is the only "where am I" cue once a map fills the column. */
+.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"],
+.solvers-page--console .solver-rail .solver-index a.is-current {
+  color: var(--ink);
+  font-weight: 700;
+  background: var(--surface-2);
+  border-left-color: var(--blue);
+}
+.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"] .solver-index-n,
+.solvers-page--console .solver-rail .solver-index a.is-current .solver-index-n {
+  color: #fff;
+  background: var(--blue-cta);
+  border-color: var(--blue-cta);
+}
+.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"] .solver-index-n--none,
+.solvers-page--console .solver-rail .solver-index a.is-current .solver-index-n--none {
+  color: var(--ink);
+  background: transparent;
+  border-color: var(--line-strong);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .solvers-page--console .solver-rail .solver-index a:hover {
+    background: var(--surface);
+    border-left-color: var(--line-strong);
+  }
+  .solvers-page--console .solver-rail .solver-index a.is-current:hover,
+  .solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"]:hover {
+    border-left-color: var(--blue);
+  }
+}
+
+/* Tool-type key: label on its own line so the definition reads as a pair. */
+.solvers-page--console .solver-railkey-row strong {
+  display: block;
+  margin-bottom: 0.1rem;
+  font-size: var(--t-micro);
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: var(--rk, var(--blue-bright));
+}
+
+/* --------------------------------------------------------------------------
+   2. BAND LABELS — separate "look it up" from "work it out"
+   -------------------------------------------------------------------------- */
+
+.solvers-page--console .solver-bandlabel-k {
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: var(--ink);
+}
+.solvers-page--console .solver-bandlabel-note {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-dim);
+}
+
+/* --------------------------------------------------------------------------
+   3. TILES — the Quick Reference sheet
+   -------------------------------------------------------------------------- */
+
+/* The base tile is already a full-bleed figure in an overflow-hidden card.
+   All that is added here is a taller preview as the viewport earns it —
+   every frame still sits far under the 250px thumbnail ceiling. */
+@media (min-width: 620px) {
+  .solvers-page--console .solver--tile .solver-img-btn img { height: 168px; }
+}
+@media (min-width: 1000px) {
+  .solvers-page--console .solver--tile .solver-img-btn img { height: 182px; }
+}
+
+/* --------------------------------------------------------------------------
+   4. BENCH CARDS — close the ragged pair gap
+   -------------------------------------------------------------------------- */
+
+/* The bench sets align-items: start, so a short card beside a tall one left
+   a visible hole under it. Stretching the track and making each card a flex
+   column squares the pair off — no masonry, no markup change. */
+.solvers-page--console .solver-bench { align-items: stretch; }
+.solvers-page--console .solver-bench > .solver {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* A trailing fold-out sinks to the card foot, so the "How It Works" rows
+   across a pair line up instead of floating at two different heights. */
+.solvers-page--console .solver-bench > .solver > .solver-more:last-child { margin-top: auto; }
+
+/* --------------------------------------------------------------------------
+   5. ANSWER PANELS — the thing you read mid-game, at a glance
+   -------------------------------------------------------------------------- */
+
+/* With a controller in your hands the panel has to be findable before it is
+   readable: thicker state edge, and a lifted surface once it has answered. */
+.solvers-page--console .solver-result {
+  padding: 1.05rem 1.1rem;
+  border-left-width: 4px;
+}
+.solvers-page--console .solver-result.is-answered,
+.solvers-page--console .solver-result.is-warning {
+  background: var(--surface);
+  border-color: var(--line-strong);
+}
+.solvers-page--console .solver-result.is-answered { border-left-color: #2FBF6B; }
+.solvers-page--console .solver-result.is-warning  { border-left-color: var(--orange); }
+
+/* The title drops to a small state label; the verdict carries the size. */
+.solvers-page--console .solver-result-title {
+  font-size: var(--t-micro);
+  letter-spacing: 1.3px;
+  color: var(--ink-dim);
+  margin-bottom: 0.55rem;
+}
+.solvers-page--console .solver-result.is-answered .solver-result-title { color: #6FE3A0; }
+.solvers-page--console .solver-result.is-progress .solver-result-title { color: var(--blue-bright); }
+.solvers-page--console .solver-result.is-warning  .solver-result-title { color: var(--orange); }
+
+/* Bigger, tighter verdict — the one line you actually act on. */
+.solvers-page--console .solver-verdict {
+  font-size: clamp(1.25rem, 4.2vw, 1.7rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 0.7rem;
+}
+
+/* Answer rows: the value carries the weight, the key stays quiet. */
+.solvers-page--console .solver-answer-list li,
+.solvers-page--console .solver-line { font-size: 0.92rem; }
+.solvers-page--console .solver-line-v { font-weight: 800; }
+
+/* --------------------------------------------------------------------------
+   6. CONTROLS — honest touch targets, quieter labels
+   -------------------------------------------------------------------------- */
+
+/* 40px is the smallest comfortable tap target; the chips sat under it. */
+.solvers-page--console .solver-chip { min-height: 40px; }
+.solvers-page--console .solver-opt--compact .solver-chip { min-height: 36px; }
+
+.solvers-page--console .solver-opt-label {
+  font-size: var(--t-micro);
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+}
+.solvers-page--console .solver-opt-hint {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-dim);
+}
+
+/* --------------------------------------------------------------------------
+   7. RHYTHM — spacing that groups what belongs together
+   -------------------------------------------------------------------------- */
+
+.solvers-page--console .solver-map-head {
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+.solvers-page--console .solver-map-meta-k {
+  font-weight: 800;
+  color: var(--ink);
+}
+.solvers-page--console .solver-band + .solver-band { margin-top: 2.2rem; }
+
+@media (max-width: 620px) {
+  .solvers-page--console .solver-band + .solver-band { margin-top: 1.6rem; }
+  .solvers-page--console .solver-result { padding: 0.9rem 0.95rem; }
+}
+
+/* --------------------------------------------------------------------------
+   8. MOTION — opt-in, transform and colour only
+   -------------------------------------------------------------------------- */
+
+/* The tile already has its transition and hover lift in the base sheet; only
+   the rail link is new here. */
+@media (prefers-reduced-motion: no-preference) {
+  .solvers-page--console .solver-rail .solver-index a {
+    transition: color var(--fast) var(--ease),
+                background-color var(--fast) var(--ease),
+                border-color var(--fast) var(--ease);
+  }
+}
+
+
+/* ================= merged from _stage_bo6.css ================= */
+/* ---------- BO6 console refinements ----------------------------------
+   solvers-bo6.html now runs the same workbench shell as BO7
+   (.solvers-page--console + .solver-workbench + .is-tabbed), so nothing
+   here re-declares that architecture. Everything below is scoped to
+   .solvers-page--bo6 and only does what BO6 needs on top of it:
+
+     1. a colour walk so each map reads as its own place
+     2. answer panels that advance off the card instead of receding
+     3. code and number treatment you can read at a glance mid-round
+     4. the two "Not Built Yet" swords styled as stubs, not empty cards
+
+   No negative insets, no viewport widths, no negative offsets on any
+   pseudo-element — that combination once made this exact page scroll
+   1096px to the right.
+   ------------------------------------------------------------------- */
+
+/* --- 1. one accent per map ------------------------------------------
+   The same walk the six chat rules use: blue, cyan, purple, pink,
+   orange, red. Hairlines and numerals only — never a fill, never on a
+   control, and never on anything a reader could mistake for a warning. */
+.solvers-page--bo6 .solver-map            { --mc: var(--blue-bright); }
+.solvers-page--bo6 #bo6-terminus          { --mc: #6DB4FF; }
+.solvers-page--bo6 #bo6-liberty           { --mc: #4DE0EE; }
+.solvers-page--bo6 #bo6-citadelle         { --mc: #B98BFF; }
+.solvers-page--bo6 #bo6-tomb              { --mc: #FF8FB1; }
+.solvers-page--bo6 #bo6-veil              { --mc: #FFA65C; }
+.solvers-page--bo6 #bo6-reckoning         { --mc: #FF8093; }
+
+/* --- 2. map header: a marquee, not a label --------------------------
+   Compounded with --console because the console block sets the same two
+   properties at identical specificity; this must win whichever order the
+   two stage files land in. */
+.solvers-page--bo6.solvers-page--console .solver-column .solver-map-head {
+  position: relative;
+  min-width: 0;
+  padding-left: 0.95rem;
+  padding-bottom: 0.8rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--line-strong);
+}
+.solvers-page--bo6.solvers-page--console .solver-column .solver-map-head::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.22rem;
+  bottom: 0.8rem;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--mc, var(--blue));
+}
+.solvers-page--bo6 .solver-column .section-title { letter-spacing: -0.02em; }
+.solvers-page--bo6 .solver-column .solver-map-intro { color: var(--ink-mid); }
+.solvers-page--bo6 .solver-map-meta { gap: 0.3rem 1.35rem; }
+.solvers-page--bo6 .solver-map-meta-k { color: var(--mc, var(--ink)); }
+
+/* The tool row belongs to the map it sits in, so it picks up the hue. */
+.solvers-page--bo6 .solver-toolnav a.is-current {
+  color: var(--ink);
+  border-color: var(--mc, var(--blue));
+}
+
+/* --- 3. hero: a rule under the title, nothing else ------------------ */
+.solvers-page--bo6 .solver-hero .page-title::after {
+  content: '';
+  display: block;
+  width: 58px;
+  height: 2px;
+  margin-top: 0.65rem;
+  border-radius: 2px;
+  background: var(--blue);
+}
+.solvers-page--bo6 .page-lede { max-width: 70ch; }
+
+/* --- 4. the answer panel -------------------------------------------
+   Inside a card the result used to sit on --bg, which is darker than
+   the card, so the thing you actually came for receded. Lift it. */
+.solvers-page--bo6 .solver-result {
+  padding: 1.05rem 1.15rem;
+  background: var(--surface-2);
+  border-color: var(--line-strong);
+  border-left-width: 4px;
+}
+.solvers-page--bo6 .solver-result-title {
+  font-size: 0.8rem;
+  letter-spacing: 0.13em;
+  margin-bottom: 0.7rem;
+}
+.solvers-page--bo6 .solver-verdict {
+  font-size: clamp(1.15rem, 4vw, 1.7rem);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.7rem;
+}
+.solvers-page--bo6 .solver-big,
+.solvers-page--bo6 .solver-line-v,
+.solvers-page--bo6 .solver-result code.solver-code { font-variant-numeric: tabular-nums; }
+.solvers-page--bo6 .solver-result code.solver-code {
+  font-size: 0.95em;
+  letter-spacing: 0.05em;
+  background: var(--bg);
+}
+.solvers-page--bo6 .solver-answer-list li,
+.solvers-page--bo6 .solver-answer-steps li { font-size: 0.92rem; }
+
+/* On a full-width card there is room to stand the controls and the
+   answer side by side, so the answer never falls below the fold. */
+@media (min-width: 1280px) {
+  .solvers-page--bo6 .solver--wide .solver-io {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 1.4rem;
+    align-items: start;
+  }
+}
+
+/* --- 5. static tables: scannable, not decorative -------------------- */
+.solvers-page--bo6 .solver-tablewrap { border-color: var(--line-strong); }
+.solvers-page--bo6 .solver-table tbody tr:nth-child(even) th,
+.solvers-page--bo6 .solver-table tbody tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.022);
+}
+.solvers-page--bo6 .solver-table code.solver-code {
+  font-size: 0.95em;
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
+  background: var(--bg);
+}
+/* Grids of four-digit codes centre-read far faster than they left-read. */
+.solvers-page--bo6 .solver-table--codes tbody td,
+.solvers-page--bo6 .solver-table--codes thead th + th { text-align: center; }
+.solvers-page--bo6 .solver-table--codes tbody th { color: var(--ink); }
+
+/* The projector mapping is fixed every game, so it is presented as the
+   answer it is rather than as supporting data. */
+.solvers-page--bo6 .solver-table--answer { font-size: 0.9rem; }
+.solvers-page--bo6 .solver-table--answer tbody th,
+.solvers-page--bo6 .solver-table--answer tbody td strong {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+}
+.solvers-page--bo6 .solver-table--answer tbody td { color: var(--ink); }
+.solvers-page--bo6 .solver-subhead { color: var(--mc, var(--blue-bright)); }
+
+/* --- 6. step lists -------------------------------------------------- */
+.solvers-page--bo6 .solver-steps li::marker {
+  color: var(--mc, var(--blue));
+  font-weight: 800;
+}
+.solvers-page--bo6 .solver-bullets li,
+.solvers-page--bo6 .solver-steps li { line-height: 1.7; }
+
+/* --- 7. the two swords that are not built yet -----------------------
+   A stub should look like a placeholder rather than a card someone
+   forgot to fill in, so it loses the card fill and takes a dashed edge. */
+.solvers-page--bo6 .solver--soon.solver--tile {
+  justify-content: center;
+  min-height: 118px;
+  background: transparent;
+  border-style: dashed;
+  border-left-style: solid;
+}
+.solvers-page--bo6 .solver--soon.solver--tile .solver-name { color: var(--ink-mid); }
+.solvers-page--bo6 .solver--soon.solver--tile .solver-blurb { color: var(--ink-dim); }
+
+/* --- 8. figures ------------------------------------------------------
+   Every frame stays a thumbnail, but the fossil chart is the one image
+   you have to recognise something inside, so it earns a little more. */
+.solvers-page--bo6 #bo6-raven > .solver-figure { --thumb-h: 320px; }
+.solvers-page--bo6 .solver-figcaption { color: var(--ink-dim); }
+
+/* --- 9. bands and disclosure polish --------------------------------- */
+.solvers-page--bo6 .solver-band + .solver-band { margin-top: 2.1rem; }
+.solvers-page--bo6 .solver-details { border-color: var(--line-strong); }
+.solvers-page--bo6 .solver-details > summary { color: var(--ink); }
+.solvers-page--bo6 .solver-more > summary { color: var(--ink-dim); }
+
+/* --- 10. overflow guard ---------------------------------------------
+   Nothing on this page may be allowed to widen the document. */
+.solvers-page--bo6 .solver-workbench,
+.solvers-page--bo6 .solver-column,
+.solvers-page--bo6 .solver-bands,
+.solvers-page--bo6 .solver-band,
+.solvers-page--bo6 .solver-bench,
+.solvers-page--bo6 .solver-refs,
+.solvers-page--bo6 .solver,
+.solvers-page--bo6 .solver-map-head,
+.solvers-page--bo6 .solver-map-headline { min-width: 0; }
+.solvers-page--bo6 .solver-name,
+.solvers-page--bo6 .solver-blurb,
+.solvers-page--bo6 .solver-text { overflow-wrap: break-word; }
+
+/* --- 11. hover and press --------------------------------------------
+   Pointer devices only, so a tap on a phone never leaves a state stuck. */
+@media (hover: hover) and (pointer: fine) {
+  .solvers-page--bo6 .solver-toolnav a:hover {
+    color: var(--ink);
+    border-color: var(--mc, var(--blue));
+  }
+  .solvers-page--bo6 .solver-details > summary:hover { color: var(--blue-bright); }
+  .solvers-page--bo6 .solver-more > summary:hover { color: var(--ink); }
+}
+
+/* --- 12. small screens ---------------------------------------------- */
+@media (max-width: 559px) {
+  .solvers-page--bo6.solvers-page--console .solver-column .solver-map-head {
+    padding-left: 0.75rem;
+    padding-bottom: 0.65rem;
+  }
+  .solvers-page--bo6.solvers-page--console .solver-column .solver-map-head::before { bottom: 0.65rem; }
+  .solvers-page--bo6 .solver-result { padding: 0.9rem 0.95rem; }
+  .solvers-page--bo6 .solver-table--codes th,
+  .solvers-page--bo6 .solver-table--codes td { padding: 0.45rem 0.5rem; }
+  .solvers-page--bo6 .solver-hero .page-title::after { margin-top: 0.5rem; }
+}
+

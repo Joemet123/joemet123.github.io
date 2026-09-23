@@ -7,7 +7,7 @@
   <link rel="shortcut icon" href="favicon.ico">
   <title>BO6 Zombies Solver — Terminus, Citadelle, Tomb, Veil &amp; Reckoning — JOEMET123</title>
   <meta name="description" content="Black Ops 6 Zombies solvers: Beamsmasher equations, Straus counter, raven sword fossils, MKII chalkboard codes, the Gorgofex periodic code and the Reckoning teleporter room code.">
-  <link rel="stylesheet" href="assets/css/style.css?v=muc6lw0x">
+  <link rel="stylesheet" href="assets/css/style.css?v=muej2wsw">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
@@ -78,9 +78,9 @@
   </div>
 
   <!-- ===== MAIN ===== -->
-  <main id="main" class="main-content solvers-page">
+  <main id="main" class="main-content solvers-page solvers-page--console solvers-page--bo6">
 
-    <section class="section solver-hero">
+    <section class="solver-hero">
       <div class="solver-hero-main">
         <span class="eyebrow">Black Ops 6</span>
         <h1 class="page-title">BO6 Zombies Solver</h1>
@@ -90,83 +90,140 @@
       <ul class="solver-stats">
         <li><span class="solver-stat-k">6</span><span class="solver-stat-v">Maps</span></li>
         <li><span class="solver-stat-k">11</span><span class="solver-stat-v">Tools</span></li>
-        <li><span class="solver-stat-k">9</span><span class="solver-stat-v">Live</span></li>
+        <li><span class="solver-stat-k">7</span><span class="solver-stat-v">Live Solvers</span></li>
       </ul>
     </section>
 
-    <nav class="page-jump solver-index" id="solver-maps" aria-label="Jump to map">
-      <span class="page-jump-label">Maps</span>
-      <a href="#bo6-terminus">Terminus</a>
-      <a href="#bo6-liberty">Liberty Falls</a>
-      <a href="#bo6-citadelle">Citadelle Des Morts</a>
-      <a href="#bo6-tomb">The Tomb</a>
-      <a href="#bo6-veil">Shattered Veil</a>
-      <a href="#bo6-reckoning">The Reckoning</a>
-    </nav>
+    <!-- Two-pane workbench: the whole catalogue stays pinned on the left,
+         the map you picked fills the right. -->
+    <div class="solver-workbench">
 
+      <aside class="solver-rail">
+        <nav class="solver-index" id="solver-maps" aria-label="Jump to map">
+          <span class="solver-rail-label">Maps</span>
+          <a href="#bo6-terminus"><span class="solver-index-name">Terminus</span><span class="solver-index-n">1</span></a>
+          <a href="#bo6-liberty"><span class="solver-index-name">Liberty Falls</span><span class="solver-index-n">1</span></a>
+          <a href="#bo6-citadelle"><span class="solver-index-name">Citadelle Des Morts</span><span class="solver-index-n">4</span></a>
+          <a href="#bo6-tomb"><span class="solver-index-name">The Tomb</span><span class="solver-index-n">2</span></a>
+          <a href="#bo6-veil"><span class="solver-index-name">Shattered Veil</span><span class="solver-index-n">1</span></a>
+          <a href="#bo6-reckoning"><span class="solver-index-name">The Reckoning</span><span class="solver-index-n">2</span></a>
+        </nav>
+        <div class="solver-railkey">
+          <span class="solver-rail-label">Tool Types</span>
+          <p class="solver-railkey-row solver-railkey-row--solver"><strong>Solver</strong> Put In What Your Game Rolled, Read The Answer.</p>
+          <p class="solver-railkey-row solver-railkey-row--reference"><strong>Reference</strong> Fixed Every Game. Nothing To Enter.</p>
+          <p class="solver-railkey-row solver-railkey-row--sheet"><strong>Cheat Sheet</strong> Tap Any Image To Blow It Up Full Size.</p>
+        </div>
+      </aside>
+
+      <div class="solver-column">
+
+    <!-- ===== TERMINUS ===== -->
     <section class="solver-map" id="bo6-terminus">
       <div class="solver-map-head">
-        <h2 class="section-title">Terminus</h2>
-        <p class="solver-map-intro">The Beamsmasher Equation.</p>
-      </div>
-      <div class="solver-stack">
-        <article class="solver solver--solver solver--span12" id="bo6-beamsmasher">
-          <header class="solver-head">
-            <h3 class="solver-name">Beamsmasher</h3>
-            <span class="solver-kind solver-kind--solver">Solver</span>
-          </header>
-          <p class="solver-blurb">Enter The Three Numbers Shown In Your Game And It Works Out The Three Numbers You Need To Enter Back.</p>
-          <div class="solver-widget" data-solver="beamsmasher"></div>
-          <details class="solver-details">
-            <summary>The Three Equations</summary>
-          <p class="solver-note">These Never Change. Your Game Gives You <strong>X</strong>, <strong>Y</strong> And <strong>Z</strong>; The Machine Wants These Three Results. Whole Numbers Only, From &minus;99 To 99 &mdash; A Decimal Is Rejected Rather Than Rounded, Because Rounding Would Hand You A Confidently Wrong Answer.</p>
-        <div class="solver-tablewrap">
-          <table class="solver-table">
-            <thead><tr><th scope="col">Slot</th><th scope="col">Equation</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">First Number</th><td><code class="solver-code">(2 &times; X) + 11</code></td></tr>
-              <tr><th scope="row">Second Number</th><td><code class="solver-code">(2 &times; Z + Y) &minus; 5</code></td></tr>
-              <tr><th scope="row">Third Number</th><td><code class="solver-code">| (Y + Z) &minus; X |</code></td></tr>
-            </tbody>
-          </table>
+        <div class="solver-map-headline">
+          <h2 class="section-title">Terminus</h2>
+          <p class="solver-map-intro">The Beamsmasher Equation.</p>
         </div>
-          </details>
-        </article>
+        <ul class="solver-map-meta">
+          <li><span class="solver-map-meta-k">1</span> Solver</li>
+        </ul>
+      </div>
+      <nav class="page-jump solver-toolnav" aria-label="Jump to a tool on this map">
+        <span class="page-jump-label">Tools</span>
+        <a href="#bo6-beamsmasher">Beamsmasher</a>
+        <a class="solver-toolnav-up" href="#solver-maps">Change Map</a>
+      </nav>
+
+      <div class="solver-bands">
+        <div class="solver-band solver-band--bench">
+          <p class="solver-bandlabel"><span class="solver-bandlabel-k">Solvers &amp; Walkthroughs</span><span class="solver-bandlabel-note">Put In What Your Game Rolled, Read The Answer.</span></p>
+          <div class="solver-bench">
+            <article class="solver solver--solver solver--wide" id="bo6-beamsmasher">
+              <header class="solver-head">
+                <h3 class="solver-name">Beamsmasher</h3>
+                <span class="solver-kind solver-kind--solver">Solver</span>
+              </header>
+              <p class="solver-blurb">Enter The Three Numbers Shown In Your Game And It Works Out The Three Numbers You Need To Enter Back.</p>
+              <div class="solver-widget" data-solver="beamsmasher"></div>
+              <details class="solver-details">
+                <summary>The Three Equations</summary>
+                <p class="solver-note">These Never Change. Your Game Gives You <strong>X</strong>, <strong>Y</strong> And <strong>Z</strong>; The Machine Wants These Three Results. Whole Numbers Only, From &minus;99 To 99 &mdash; A Decimal Is Rejected Rather Than Rounded, Because Rounding Would Hand You A Confidently Wrong Answer.</p>
+                <div class="solver-tablewrap">
+                  <table class="solver-table">
+                    <thead><tr><th scope="col">Slot</th><th scope="col">Equation</th></tr></thead>
+                    <tbody>
+                      <tr><th scope="row">First Number</th><td><code class="solver-code">(2 &times; X) + 11</code></td></tr>
+                      <tr><th scope="row">Second Number</th><td><code class="solver-code">(2 &times; Z + Y) &minus; 5</code></td></tr>
+                      <tr><th scope="row">Third Number</th><td><code class="solver-code">| (Y + Z) &minus; X |</code></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- ===== LIBERTY FALLS ===== -->
     <section class="solver-map" id="bo6-liberty">
       <div class="solver-map-head">
-        <h2 class="section-title">Liberty Falls</h2>
-        <p class="solver-map-intro">The Projector And The Straus Counter.</p>
-      </div>
-      <div class="solver-stack">
-        <article class="solver solver--solver solver--span12" id="bo6-projector">
-          <header class="solver-head">
-            <h3 class="solver-name">Projector &amp; Straus Counter</h3>
-            <span class="solver-kind solver-kind--solver">Solver</span>
-          </header>
-          <p class="solver-blurb">Turn The Projector To Match The Colour Combination Based On Your Straus Counter Device.</p>
-          <p class="solver-text">Two Of The Three Are Swapped And One Matches Itself, Which Is Exactly Why It Is Easy To Get Wrong Under Pressure.</p>
-          <div class="solver-widget" data-solver="projector"></div>
-        <div class="solver-tablewrap">
-          <table class="solver-table">
-            <thead><tr><th scope="col">Your Straus Counter</th><th scope="col">Turn Projector To</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">RED</th><td><strong>GREEN</strong></td></tr>
-              <tr><th scope="row">YELLOW</th><td><strong>YELLOW</strong></td></tr>
-              <tr><th scope="row">GREEN</th><td><strong>RED</strong></td></tr>
-            </tbody>
-          </table>
+        <div class="solver-map-headline">
+          <h2 class="section-title">Liberty Falls</h2>
+          <p class="solver-map-intro">The Projector And The Straus Counter.</p>
         </div>
-        </article>
+        <ul class="solver-map-meta">
+          <li><span class="solver-map-meta-k">1</span> Solver</li>
+        </ul>
+      </div>
+      <nav class="page-jump solver-toolnav" aria-label="Jump to a tool on this map">
+        <span class="page-jump-label">Tools</span>
+        <a href="#bo6-projector">Projector &amp; Straus Counter</a>
+        <a class="solver-toolnav-up" href="#solver-maps">Change Map</a>
+      </nav>
+
+      <div class="solver-bands">
+        <div class="solver-band solver-band--bench">
+          <p class="solver-bandlabel"><span class="solver-bandlabel-k">Solvers &amp; Walkthroughs</span><span class="solver-bandlabel-note">Put In What Your Game Rolled, Read The Answer.</span></p>
+          <div class="solver-bench">
+            <article class="solver solver--solver solver--wide" id="bo6-projector">
+              <header class="solver-head">
+                <h3 class="solver-name">Projector &amp; Straus Counter</h3>
+                <span class="solver-kind solver-kind--solver">Solver</span>
+              </header>
+              <p class="solver-blurb">Turn The Projector To Match The Colour Combination Based On Your Straus Counter Device.</p>
+              <p class="solver-text">Two Of The Three Are Swapped And One Matches Itself, Which Is Exactly Why It Is Easy To Get Wrong Under Pressure.</p>
+              <div class="solver-widget" data-solver="projector"></div>
+              <p class="solver-subhead">Fixed Every Game</p>
+              <div class="solver-tablewrap">
+                <table class="solver-table solver-table--answer">
+                  <thead><tr><th scope="col">Your Straus Counter</th><th scope="col">Turn Projector To</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">RED</th><td><strong>GREEN</strong></td></tr>
+                    <tr><th scope="row">YELLOW</th><td><strong>YELLOW</strong></td></tr>
+                    <tr><th scope="row">GREEN</th><td><strong>RED</strong></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- ===== CITADELLE DES MORTS ===== -->
     <section class="solver-map" id="bo6-citadelle">
       <div class="solver-map-head">
-        <h2 class="section-title">Citadelle Des Morts</h2>
-        <p class="solver-map-intro">Four Swords. Two Are Built, Two Are Not.</p>
+        <div class="solver-map-headline">
+          <h2 class="section-title">Citadelle Des Morts</h2>
+          <p class="solver-map-intro">Four Swords. Two Are Built, Two Are Not.</p>
+        </div>
+        <ul class="solver-map-meta">
+          <li><span class="solver-map-meta-k">1</span> Solver</li>
+          <li><span class="solver-map-meta-k">1</span> Reference</li>
+          <li><span class="solver-map-meta-k">2</span> Pending</li>
+        </ul>
       </div>
       <nav class="page-jump solver-toolnav" aria-label="Jump to a tool on this map">
         <span class="page-jump-label">Tools</span>
@@ -177,57 +234,85 @@
         <a class="solver-toolnav-up" href="#solver-maps">Change Map</a>
       </nav>
 
-      <div class="solver-stack">
-        <article class="solver solver--solver solver--span12" id="bo6-raven">
-          <header class="solver-head">
-            <h3 class="solver-name">Balmung &mdash; Raven &mdash; Purple</h3>
-            <span class="solver-kind solver-kind--solver">Solver</span>
-          </header>
-          <p class="solver-blurb">Pick The Fossil You Found And It Gives You The Matching Code To Enter In The Basement.</p>
-          <p class="solver-text">Each Of The Five Fossils Has Its Own Code. The Chart Shows What Each Fossil Looks Like Both Sitting In The Room For Pickup And Placed Down On The Horoscope Wheel &mdash; Some Look Very Similar, So Check Both Views.</p>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo6/raven_fossils.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Raven Sword Fossils Reference">
-            <img src="assets/images/solvers/bo6/raven_fossils.jpg" alt="Raven Sword Fossils Reference" width="1400" height="832" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">All Five Fossils &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/raven_fossils.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-          <div class="solver-widget" data-solver="raven"></div>
-        </article>
-        <article class="solver solver--reference solver--span6" id="bo6-light-sword">
-          <header class="solver-head">
-            <h3 class="solver-name">Solais &mdash; Light &mdash; Yellow</h3>
-            <span class="solver-kind solver-kind--reference">Reference</span>
-          </header>
-          <p class="solver-blurb">The Symbol Sequence For The Light Sword. It Is The Same Every Single Game.</p>
-          <p class="solver-text">After Meleeing Your Parasites And Then The Door For The Light Sword, Put The Sword In The Pedestal, Look Above It, And Shoot The Symbols In This Order With A Bullet Weapon. Some Look The Same, So Be Careful.</p>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo6/light_code.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Light Sword Symbol Sequence">
-            <img src="assets/images/solvers/bo6/light_code.jpg" alt="Light Sword Symbol Sequence" width="1400" height="936" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Light Sword Symbols &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/light_code.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-        </article>
-        <article class="solver solver--soon solver--span3" id="bo6-durendal">
-          <header class="solver-head">
-            <h3 class="solver-name">Durendal &mdash; Stag &mdash; Blue</h3>
-            <span class="solver-kind solver-kind--soon">Not Built Yet</span>
-          </header>
-          <p class="solver-blurb">This Sword's Guide Has Not Been Added Yet. It Is On The List.</p>
-        </article>
-        <article class="solver solver--soon solver--span3" id="bo6-caliburn">
-          <header class="solver-head">
-            <h3 class="solver-name">Caliburn &mdash; Dragon &mdash; Orange</h3>
-            <span class="solver-kind solver-kind--soon">Not Built Yet</span>
-          </header>
-          <p class="solver-blurb">This Sword's Guide Has Not Been Added Yet. It Is On The List.</p>
-        </article>
+      <div class="solver-bands">
+        <div class="solver-band solver-band--refs">
+          <p class="solver-bandlabel"><span class="solver-bandlabel-k">Quick Reference</span><span class="solver-bandlabel-note">Nothing To Enter &mdash; Tap Any Image To Blow It Up Full Size.</span></p>
+          <div class="solver-refs" data-n="3">
+            <article class="solver solver--reference solver--tile" id="bo6-light-sword">
+              <header class="solver-head">
+                <h3 class="solver-name">Solais &mdash; Light &mdash; Yellow</h3>
+                <span class="solver-kind solver-kind--reference">Reference</span>
+              </header>
+              <p class="solver-blurb">The Symbol Sequence For The Light Sword. It Is The Same Every Single Game.</p>
+              <figure class="solver-figure" data-src="assets/images/solvers/bo6/light_code.jpg">
+                <button type="button" class="solver-img-btn" aria-label="Open Full Size: Light Sword Symbol Sequence">
+                  <img src="assets/images/solvers/bo6/light_code.jpg" alt="Light Sword Symbol Sequence" width="1400" height="936" loading="lazy" decoding="async">
+                </button>
+                <figcaption class="solver-figcaption">Light Sword Symbols &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/light_code.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+              </figure>
+              <details class="solver-more">
+                <summary>How It Works</summary>
+                <div class="solver-more-body">
+                  <p class="solver-text">After Meleeing Your Parasites And Then The Door For The Light Sword, Put The Sword In The Pedestal, Look Above It, And Shoot The Symbols In This Order With A Bullet Weapon. Some Look The Same, So Be Careful.</p>
+                </div>
+              </details>
+            </article>
+            <article class="solver solver--soon solver--tile" id="bo6-durendal">
+              <header class="solver-head">
+                <h3 class="solver-name">Durendal &mdash; Stag &mdash; Blue</h3>
+                <span class="solver-kind solver-kind--soon">Not Built Yet</span>
+              </header>
+              <p class="solver-blurb">This Sword's Guide Has Not Been Added Yet. It Is On The List.</p>
+            </article>
+            <article class="solver solver--soon solver--tile" id="bo6-caliburn">
+              <header class="solver-head">
+                <h3 class="solver-name">Caliburn &mdash; Dragon &mdash; Orange</h3>
+                <span class="solver-kind solver-kind--soon">Not Built Yet</span>
+              </header>
+              <p class="solver-blurb">This Sword's Guide Has Not Been Added Yet. It Is On The List.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="solver-band solver-band--bench">
+          <p class="solver-bandlabel"><span class="solver-bandlabel-k">Solvers &amp; Walkthroughs</span><span class="solver-bandlabel-note">Put In What Your Game Rolled, Read The Answer.</span></p>
+          <div class="solver-bench">
+            <article class="solver solver--solver solver--wide" id="bo6-raven">
+              <header class="solver-head">
+                <h3 class="solver-name">Balmung &mdash; Raven &mdash; Purple</h3>
+                <span class="solver-kind solver-kind--solver">Solver</span>
+              </header>
+              <p class="solver-blurb">Pick The Fossil You Found And It Gives You The Matching Code To Enter In The Basement.</p>
+              <figure class="solver-figure" data-src="assets/images/solvers/bo6/raven_fossils.jpg">
+                <button type="button" class="solver-img-btn" aria-label="Open Full Size: Raven Sword Fossils Reference">
+                  <img src="assets/images/solvers/bo6/raven_fossils.jpg" alt="Raven Sword Fossils Reference" width="1400" height="832" loading="lazy" decoding="async">
+                </button>
+                <figcaption class="solver-figcaption">All Five Fossils &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/raven_fossils.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+              </figure>
+              <div class="solver-widget" data-solver="raven"></div>
+              <details class="solver-more">
+                <summary>How To Read The Fossil Chart</summary>
+                <div class="solver-more-body">
+                  <p class="solver-text">Each Of The Five Fossils Has Its Own Code. The Chart Shows What Each Fossil Looks Like Both Sitting In The Room For Pickup And Placed Down On The Horoscope Wheel &mdash; Some Look Very Similar, So Check Both Views.</p>
+                </div>
+              </details>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- ===== THE TOMB ===== -->
     <section class="solver-map" id="bo6-tomb">
       <div class="solver-map-head">
-        <h2 class="section-title">The Tomb</h2>
-        <p class="solver-map-intro">Numerals And Runes.</p>
+        <div class="solver-map-headline">
+          <h2 class="section-title">The Tomb</h2>
+          <p class="solver-map-intro">Numerals And Runes.</p>
+        </div>
+        <ul class="solver-map-meta">
+          <li><span class="solver-map-meta-k">1</span> Solver</li>
+          <li><span class="solver-map-meta-k">1</span> Cheat Sheet</li>
+        </ul>
       </div>
       <nav class="page-jump solver-toolnav" aria-label="Jump to a tool on this map">
         <span class="page-jump-label">Tools</span>
@@ -236,90 +321,129 @@
         <a class="solver-toolnav-up" href="#solver-maps">Change Map</a>
       </nav>
 
-      <div class="solver-stack">
-        <article class="solver solver--sheet solver--span6" id="bo6-tomb-numerals">
-          <header class="solver-head">
-            <h3 class="solver-name">Roman Numerals</h3>
-            <span class="solver-kind solver-kind--sheet">Cheat Sheet</span>
-          </header>
-          <p class="solver-blurb">The Roman Numeral Reference Sheet For The Tomb.</p>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo6/tomb_numerals.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: The Tomb Roman Numerals Guide">
-            <img src="assets/images/solvers/bo6/tomb_numerals.jpg" alt="The Tomb Roman Numerals Guide" width="1400" height="1822" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Roman Numerals Guide &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/tomb_numerals.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-        </article>
-        <article class="solver solver--solver solver--span6" id="bo6-runes">
-          <header class="solver-head">
-            <h3 class="solver-name">Rune Symbols</h3>
-            <span class="solver-kind solver-kind--solver">Solver</span>
-          </header>
-          <p class="solver-blurb">A Memory Aid. Tick Off The Runes You Saw So You Do Not Have To Hold Them In Your Head.</p>
-          <p class="solver-text">This One Does Not Calculate Anything &mdash; The Discord Bot Does Not Either. It Exists So You Can Record The Runes Your Game Showed You And Read Them Back Later.</p>
-          <div class="solver-widget" data-solver="runes"></div>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo6/tomb_runes.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: The Tomb Rune Symbols Reference">
-            <img src="assets/images/solvers/bo6/tomb_runes.jpg" alt="The Tomb Rune Symbols Reference" width="1400" height="1878" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Rune Reference &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/tomb_runes.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-        </article>
+      <div class="solver-bands">
+        <div class="solver-band solver-band--refs">
+          <p class="solver-bandlabel"><span class="solver-bandlabel-k">Quick Reference</span><span class="solver-bandlabel-note">Nothing To Enter &mdash; Tap Any Image To Blow It Up Full Size.</span></p>
+          <div class="solver-refs" data-n="1">
+            <article class="solver solver--sheet solver--tile" id="bo6-tomb-numerals">
+              <header class="solver-head">
+                <h3 class="solver-name">Roman Numerals</h3>
+                <span class="solver-kind solver-kind--sheet">Cheat Sheet</span>
+              </header>
+              <p class="solver-blurb">The Roman Numeral Reference Sheet For The Tomb.</p>
+              <figure class="solver-figure" data-src="assets/images/solvers/bo6/tomb_numerals.jpg">
+                <button type="button" class="solver-img-btn" aria-label="Open Full Size: The Tomb Roman Numerals Guide">
+                  <img src="assets/images/solvers/bo6/tomb_numerals.jpg" alt="The Tomb Roman Numerals Guide" width="1400" height="1822" loading="lazy" decoding="async">
+                </button>
+                <figcaption class="solver-figcaption">Roman Numerals Guide &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/tomb_numerals.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+              </figure>
+            </article>
+          </div>
+        </div>
+
+        <div class="solver-band solver-band--bench">
+          <p class="solver-bandlabel"><span class="solver-bandlabel-k">Solvers &amp; Walkthroughs</span><span class="solver-bandlabel-note">Put In What Your Game Rolled, Read The Answer.</span></p>
+          <div class="solver-bench">
+            <article class="solver solver--solver solver--wide" id="bo6-runes">
+              <header class="solver-head">
+                <h3 class="solver-name">Rune Symbols</h3>
+                <span class="solver-kind solver-kind--solver">Solver</span>
+              </header>
+              <p class="solver-blurb">A Memory Aid. Tick Off The Runes You Saw So You Do Not Have To Hold Them In Your Head.</p>
+              <div class="solver-widget" data-solver="runes"></div>
+              <figure class="solver-figure" data-src="assets/images/solvers/bo6/tomb_runes.jpg">
+                <button type="button" class="solver-img-btn" aria-label="Open Full Size: The Tomb Rune Symbols Reference">
+                  <img src="assets/images/solvers/bo6/tomb_runes.jpg" alt="The Tomb Rune Symbols Reference" width="1400" height="1878" loading="lazy" decoding="async">
+                </button>
+                <figcaption class="solver-figcaption">Rune Reference &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/tomb_runes.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+              </figure>
+              <details class="solver-more">
+                <summary>How It Works</summary>
+                <div class="solver-more-body">
+                  <p class="solver-text">This One Does Not Calculate Anything &mdash; The Discord Bot Does Not Either. It Exists So You Can Record The Runes Your Game Showed You And Read Them Back Later.</p>
+                </div>
+              </details>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- ===== SHATTERED VEIL ===== -->
     <section class="solver-map" id="bo6-veil">
       <div class="solver-map-head">
-        <h2 class="section-title">Shattered Veil</h2>
-        <p class="solver-map-intro">The MKII Chalkboard Codes.</p>
-      </div>
-      <div class="solver-stack">
-        <article class="solver solver--solver solver--span12" id="bo6-chalkboard">
-          <header class="solver-head">
-            <h3 class="solver-name">MKII Chalkboard</h3>
-            <span class="solver-kind solver-kind--solver">Solver</span>
-          </header>
-          <p class="solver-blurb">Pick Your Chalkboard Letters And It Lists All Four Possible Codes, One Per Printed Word.</p>
-          <div class="solver-widget" data-solver="chalkboard"></div>
-          <details class="solver-details">
-            <summary>How To Run The Step</summary>
-          <ol class="solver-steps">
-            <li>Inspect Your Chalkboard In-Game And Note The Letters On Its <strong>Bottom Left</strong>.</li>
-            <li>On Round 10+, Kill The <strong>Lab Technician</strong> Zombie Downstairs And Take The Floppy Disk.</li>
-            <li>Insert The Disk Into The <strong>East Foyer</strong> Computer Near The Library.</li>
-            <li>After About 30 Seconds It Prints A Page Naming One Of Four Words: Moth, Worm, Yeti Or Crab.</li>
-            <li>Look That Word Up Against Your Chalkboard Letters. That Number Is Your Code.</li>
-            <li>Punch It In Downstairs In The <strong>Service Tunnel</strong>, Outside The SAM Room. It Frees The Doppleghast.</li>
-          </ol>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo6/veil_board.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Blood Serum Ritual Chalkboard">
-            <img src="assets/images/solvers/bo6/veil_board.jpg" alt="Blood Serum Ritual Chalkboard" width="1266" height="904" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Blood Serum Ritual Chalkboard &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/veil_board.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-          </details>
-          <details class="solver-details">
-            <summary>Every Chalkboard Code</summary>
-        <div class="solver-tablewrap">
-          <table class="solver-table">
-            <thead><tr><th scope="col">Chalkboard</th><th scope="col">MOTH</th><th scope="col">WORM</th><th scope="col">YETI</th><th scope="col">CRAB</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Ni</th><td><code class="solver-code">1888</code></td><td><code class="solver-code">5861</code></td><td><code class="solver-code">5482</code></td><td><code class="solver-code">4664</code></td></tr>
-              <tr><th scope="row">OUY</th><td><code class="solver-code">7394</code></td><td><code class="solver-code">9377</code></td><td><code class="solver-code">3192</code></td><td><code class="solver-code">9729</code></td></tr>
-              <tr><th scope="row">M</th><td><code class="solver-code">1676</code></td><td><code class="solver-code">7671</code></td><td><code class="solver-code">3576</code></td><td><code class="solver-code">5775</code></td></tr>
-              <tr><th scope="row">S</th><td><code class="solver-code">8587</code></td><td><code class="solver-code">8588</code></td><td><code class="solver-code">5785</code></td><td><code class="solver-code">7857</code></td></tr>
-            </tbody>
-          </table>
+        <div class="solver-map-headline">
+          <h2 class="section-title">Shattered Veil</h2>
+          <p class="solver-map-intro">The MKII Chalkboard Codes.</p>
         </div>
-          </details>
-        </article>
+        <ul class="solver-map-meta">
+          <li><span class="solver-map-meta-k">1</span> Solver</li>
+        </ul>
+      </div>
+      <nav class="page-jump solver-toolnav" aria-label="Jump to a tool on this map">
+        <span class="page-jump-label">Tools</span>
+        <a href="#bo6-chalkboard">MKII Chalkboard</a>
+        <a class="solver-toolnav-up" href="#solver-maps">Change Map</a>
+      </nav>
+
+      <div class="solver-bands">
+        <div class="solver-band solver-band--bench">
+          <p class="solver-bandlabel"><span class="solver-bandlabel-k">Solvers &amp; Walkthroughs</span><span class="solver-bandlabel-note">Put In What Your Game Rolled, Read The Answer.</span></p>
+          <div class="solver-bench">
+            <article class="solver solver--solver solver--wide" id="bo6-chalkboard">
+              <header class="solver-head">
+                <h3 class="solver-name">MKII Chalkboard</h3>
+                <span class="solver-kind solver-kind--solver">Solver</span>
+              </header>
+              <p class="solver-blurb">Pick Your Chalkboard Letters And It Lists All Four Possible Codes, One Per Printed Word.</p>
+              <div class="solver-widget" data-solver="chalkboard"></div>
+              <details class="solver-details">
+                <summary>How To Run The Step</summary>
+                <ol class="solver-steps">
+                  <li>Inspect Your Chalkboard In-Game And Note The Letters On Its <strong>Bottom Left</strong>.</li>
+                  <li>On Round 10+, Kill The <strong>Lab Technician</strong> Zombie Downstairs And Take The Floppy Disk.</li>
+                  <li>Insert The Disk Into The <strong>East Foyer</strong> Computer Near The Library.</li>
+                  <li>After About 30 Seconds It Prints A Page Naming One Of Four Words: Moth, Worm, Yeti Or Crab.</li>
+                  <li>Look That Word Up Against Your Chalkboard Letters. That Number Is Your Code.</li>
+                  <li>Punch It In Downstairs In The <strong>Service Tunnel</strong>, Outside The SAM Room. It Frees The Doppleghast.</li>
+                </ol>
+                <figure class="solver-figure" data-src="assets/images/solvers/bo6/veil_board.jpg">
+                  <button type="button" class="solver-img-btn" aria-label="Open Full Size: Blood Serum Ritual Chalkboard">
+                    <img src="assets/images/solvers/bo6/veil_board.jpg" alt="Blood Serum Ritual Chalkboard" width="1266" height="904" loading="lazy" decoding="async">
+                  </button>
+                  <figcaption class="solver-figcaption">Blood Serum Ritual Chalkboard &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/veil_board.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+                </figure>
+              </details>
+              <details class="solver-details">
+                <summary>Every Chalkboard Code</summary>
+                <div class="solver-tablewrap">
+                  <table class="solver-table solver-table--codes">
+                    <thead><tr><th scope="col">Chalkboard</th><th scope="col">MOTH</th><th scope="col">WORM</th><th scope="col">YETI</th><th scope="col">CRAB</th></tr></thead>
+                    <tbody>
+                      <tr><th scope="row">Ni</th><td><code class="solver-code">1888</code></td><td><code class="solver-code">5861</code></td><td><code class="solver-code">5482</code></td><td><code class="solver-code">4664</code></td></tr>
+                      <tr><th scope="row">OUY</th><td><code class="solver-code">7394</code></td><td><code class="solver-code">9377</code></td><td><code class="solver-code">3192</code></td><td><code class="solver-code">9729</code></td></tr>
+                      <tr><th scope="row">M</th><td><code class="solver-code">1676</code></td><td><code class="solver-code">7671</code></td><td><code class="solver-code">3576</code></td><td><code class="solver-code">5775</code></td></tr>
+                      <tr><th scope="row">S</th><td><code class="solver-code">8587</code></td><td><code class="solver-code">8588</code></td><td><code class="solver-code">5785</code></td><td><code class="solver-code">7857</code></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- ===== THE RECKONING ===== -->
     <section class="solver-map" id="bo6-reckoning">
       <div class="solver-map-head">
-        <h2 class="section-title">The Reckoning</h2>
-        <p class="solver-map-intro">The Gorgofex Code And The Teleporter Room.</p>
+        <div class="solver-map-headline">
+          <h2 class="section-title">The Reckoning</h2>
+          <p class="solver-map-intro">The Gorgofex Code And The Teleporter Room.</p>
+        </div>
+        <ul class="solver-map-meta">
+          <li><span class="solver-map-meta-k">2</span> Solvers</li>
+        </ul>
       </div>
       <nav class="page-jump solver-toolnav" aria-label="Jump to a tool on this map">
         <span class="page-jump-label">Tools</span>
@@ -328,68 +452,82 @@
         <a class="solver-toolnav-up" href="#solver-maps">Change Map</a>
       </nav>
 
-      <div class="solver-stack">
-        <article class="solver solver--solver solver--span12" id="bo6-gorgofex">
-          <header class="solver-head">
-            <h3 class="solver-name">Gorgofex Solver</h3>
-            <span class="solver-kind solver-kind--solver">Solver</span>
-          </header>
-          <p class="solver-blurb">Two Letters Off Two Monitors Become An Element. Its Atomic Number Is Your Door Code.</p>
-          <ul class="solver-bullets">
-            <li><strong>Deadshot Monitor</strong> &mdash; The First Letter Of Its Word Is Letter 1 Of Your Element.</li>
-            <li><strong>Periodic Room Monitor</strong> &mdash; The First Letter Of Its Word Is Letter 2.</li>
-            <li>Sometimes Only One Monitor Shows A Word. That Is Normal.</li>
-          </ul>
-          <p class="solver-text">Example: Deadshot Says <strong>Randy</strong>, Periodic Room Says <strong>Universe</strong>, So Your Element Is <strong>Ru</strong>. Ruthenium Is Number 44, So Your Unlock Code Is <code class="solver-code">044</code> &mdash; Always Padded To Three Digits.</p>
-          <div class="solver-widget" data-solver="gorgofex"></div>
-          <details class="solver-details">
-            <summary>Periodic Table Guide</summary>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo6/gorgofex_periodic.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Gorgofex Periodic Table Guide">
-            <img src="assets/images/solvers/bo6/gorgofex_periodic.jpg" alt="Gorgofex Periodic Table Guide" width="1400" height="730" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Periodic Table Guide &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/gorgofex_periodic.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-          </details>
-        </article>
-        <article class="solver solver--solver solver--span12" id="bo6-teleporter">
-          <header class="solver-head">
-            <h3 class="solver-name">Teleporter Secret Room Code</h3>
-            <span class="solver-kind solver-kind--solver">Solver</span>
-          </header>
-          <p class="solver-blurb">Select The Four Folder Items You Found And It Orders Them Into Your Four-Digit Code.</p>
-          <ul class="solver-bullets">
-            <li>Three Folders Are In The Connected <strong>T1 Executive Suites</strong> And <strong>T1 Directors Office</strong>.</li>
-            <li>The Fourth Is In The Secret <strong>T2 Teleportation Lab</strong> You Unlocked With The Fowler Mangler.</li>
-            <li>Each Folder Has An Item Pictured On The Top. Interact With It To See Which.</li>
-          </ul>
-          <div class="solver-widget" data-solver="teleporter"></div>
-          <details class="solver-details">
-            <summary>Item Order Reference</summary>
-          <p class="solver-note">The Order You Find Them In Does Not Matter. Each Item Has A Fixed Digit And A Fixed Place In The Code. Only Four Of The Six Appear In Any Given Game.</p>
-        <div class="solver-tablewrap">
-          <table class="solver-table">
-            <thead><tr><th scope="col">Folder Item</th><th scope="col">Digit</th><th scope="col">Position In Code</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">BND Badge</th><td><code class="solver-code">6</code></td><td>1st</td></tr>
-              <tr><th scope="row">Notso's Collar</th><td><code class="solver-code">1</code></td><td>2nd</td></tr>
-              <tr><th scope="row">Scarf</th><td><code class="solver-code">3</code></td><td>3rd</td></tr>
-              <tr><th scope="row">Wristwatch</th><td><code class="solver-code">4</code></td><td>4th</td></tr>
-              <tr><th scope="row">Combat Goggles</th><td><code class="solver-code">5</code></td><td>5th</td></tr>
-              <tr><th scope="row">Katana</th><td><code class="solver-code">2</code></td><td>6th</td></tr>
-            </tbody>
-          </table>
+      <div class="solver-bands">
+        <div class="solver-band solver-band--bench">
+          <p class="solver-bandlabel"><span class="solver-bandlabel-k">Solvers &amp; Walkthroughs</span><span class="solver-bandlabel-note">Put In What Your Game Rolled, Read The Answer.</span></p>
+          <div class="solver-bench">
+            <article class="solver solver--solver solver--half" id="bo6-gorgofex">
+              <header class="solver-head">
+                <h3 class="solver-name">Gorgofex Solver</h3>
+                <span class="solver-kind solver-kind--solver">Solver</span>
+              </header>
+              <p class="solver-blurb">Two Letters Off Two Monitors Become An Element. Its Atomic Number Is Your Door Code.</p>
+              <ul class="solver-bullets">
+                <li><strong>Deadshot Monitor</strong> &mdash; The First Letter Of Its Word Is Letter 1 Of Your Element.</li>
+                <li><strong>Periodic Room Monitor</strong> &mdash; The First Letter Of Its Word Is Letter 2.</li>
+                <li>Sometimes Only One Monitor Shows A Word. That Is Normal.</li>
+              </ul>
+              <div class="solver-widget" data-solver="gorgofex"></div>
+              <details class="solver-more">
+                <summary>How It Works</summary>
+                <div class="solver-more-body">
+                  <p class="solver-text">Example: Deadshot Says <strong>Randy</strong>, Periodic Room Says <strong>Universe</strong>, So Your Element Is <strong>Ru</strong>. Ruthenium Is Number 44, So Your Unlock Code Is <code class="solver-code">044</code> &mdash; Always Padded To Three Digits.</p>
+                </div>
+              </details>
+              <details class="solver-details">
+                <summary>Periodic Table Guide</summary>
+                <figure class="solver-figure" data-src="assets/images/solvers/bo6/gorgofex_periodic.jpg">
+                  <button type="button" class="solver-img-btn" aria-label="Open Full Size: Gorgofex Periodic Table Guide">
+                    <img src="assets/images/solvers/bo6/gorgofex_periodic.jpg" alt="Gorgofex Periodic Table Guide" width="1400" height="730" loading="lazy" decoding="async">
+                  </button>
+                  <figcaption class="solver-figcaption">Periodic Table Guide &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/gorgofex_periodic.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+                </figure>
+              </details>
+            </article>
+
+            <article class="solver solver--solver solver--half" id="bo6-teleporter">
+              <header class="solver-head">
+                <h3 class="solver-name">Teleporter Secret Room Code</h3>
+                <span class="solver-kind solver-kind--solver">Solver</span>
+              </header>
+              <p class="solver-blurb">Select The Four Folder Items You Found And It Orders Them Into Your Four-Digit Code.</p>
+              <ul class="solver-bullets">
+                <li>Three Folders Are In The Connected <strong>T1 Executive Suites</strong> And <strong>T1 Directors Office</strong>.</li>
+                <li>The Fourth Is In The Secret <strong>T2 Teleportation Lab</strong> You Unlocked With The Fowler Mangler.</li>
+                <li>Each Folder Has An Item Pictured On The Top. Interact With It To See Which.</li>
+              </ul>
+              <div class="solver-widget" data-solver="teleporter"></div>
+              <details class="solver-details">
+                <summary>Item Order Reference</summary>
+                <p class="solver-note">The Order You Find Them In Does Not Matter. Each Item Has A Fixed Digit And A Fixed Place In The Code. Only Four Of The Six Appear In Any Given Game.</p>
+                <div class="solver-tablewrap">
+                  <table class="solver-table solver-table--codes">
+                    <thead><tr><th scope="col">Folder Item</th><th scope="col">Digit</th><th scope="col">Position In Code</th></tr></thead>
+                    <tbody>
+                      <tr><th scope="row">BND Badge</th><td><code class="solver-code">6</code></td><td>1st</td></tr>
+                      <tr><th scope="row">Notso's Collar</th><td><code class="solver-code">1</code></td><td>2nd</td></tr>
+                      <tr><th scope="row">Scarf</th><td><code class="solver-code">3</code></td><td>3rd</td></tr>
+                      <tr><th scope="row">Wristwatch</th><td><code class="solver-code">4</code></td><td>4th</td></tr>
+                      <tr><th scope="row">Combat Goggles</th><td><code class="solver-code">5</code></td><td>5th</td></tr>
+                      <tr><th scope="row">Katana</th><td><code class="solver-code">2</code></td><td>6th</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <figure class="solver-figure" data-src="assets/images/solvers/bo6/reckoning_files_code.jpg">
+                  <button type="button" class="solver-img-btn" aria-label="Open Full Size: Reckoning Files Code Reference">
+                    <img src="assets/images/solvers/bo6/reckoning_files_code.jpg" alt="Reckoning Files Code Reference" width="1400" height="714" loading="lazy" decoding="async">
+                  </button>
+                  <figcaption class="solver-figcaption">Files Code Reference &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/reckoning_files_code.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
+                </figure>
+              </details>
+            </article>
+          </div>
         </div>
-        <figure class="solver-figure" data-src="assets/images/solvers/bo6/reckoning_files_code.jpg">
-          <button type="button" class="solver-img-btn" aria-label="Open Full Size: Reckoning Files Code Reference">
-            <img src="assets/images/solvers/bo6/reckoning_files_code.jpg" alt="Reckoning Files Code Reference" width="1400" height="714" loading="lazy" decoding="async">
-          </button>
-          <figcaption class="solver-figcaption">Files Code Reference &middot; <a class="solver-fullsize" href="assets/images/solvers/bo6/reckoning_files_code.jpg" target="_blank" rel="noopener">Open Full Size</a></figcaption>
-        </figure>
-          </details>
-        </article>
       </div>
     </section>
+
+      </div><!-- /.solver-column -->
+    </div><!-- /.solver-workbench -->
 
   </main>
 
@@ -407,8 +545,54 @@
     &copy; 2026 Joemet123 — All Rights Reserved.
   </footer>
 
-  <script src="assets/js/main.js?v=muc6lw0x"></script>
-  <script src="assets/js/solvers.js?v=muc6lw0x"></script>
+  <script src="assets/js/main.js?v=muej2wsw"></script>
+  <script src="assets/js/solvers.js?v=muej2wsw"></script>
+  <script>
+  /* One map at a time. Progressive enhancement: without this script every
+     map stays rendered exactly as before, so no content is ever JS-gated. */
+  (function () {
+    var wb = document.querySelector('.solver-workbench');
+    if (!wb || !document.querySelector) return;
+    var maps = [].slice.call(wb.querySelectorAll('.solver-map'));
+    var links = [].slice.call(wb.querySelectorAll('.solver-index a[href^="#"]'));
+    if (maps.length < 2 || !links.length || !maps[0].closest) return;
+    wb.classList.add('is-tabbed');
+
+    function mapFor(id) {
+      if (!id) return null;
+      var el = document.getElementById(id);
+      return el ? el.closest('.solver-map') : null;
+    }
+    function show(map) {
+      if (!map) return;
+      for (var i = 0; i < maps.length; i++) {
+        var off = maps[i] !== map;
+        maps[i].classList.toggle('is-off', off);
+        maps[i].setAttribute('aria-hidden', off ? 'true' : 'false');
+      }
+      for (var j = 0; j < links.length; j++) {
+        var on = links[j].getAttribute('href') === '#' + map.id;
+        links[j].classList.toggle('is-current', on);
+        if (on) links[j].setAttribute('aria-current', 'true');
+        else links[j].removeAttribute('aria-current');
+      }
+    }
+    function sync() {
+      var hash = (location.hash || '').replace('#', '');
+      show(mapFor(hash) || maps[0]);
+    }
+
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a || a.classList.contains('solver-toolnav-up')) return;
+      var target = mapFor(a.getAttribute('href').slice(1));
+      if (target) show(target);
+    }, true);
+
+    window.addEventListener('hashchange', sync);
+    sync();
+  })();
+  </script>
   <div class="cookie-note" id="cookie-note" role="region" aria-label="Cookie notice" hidden>
     <p class="cookie-note-text">This Site Uses Cookies For Ads And Basic Analytics. See The <a href="/site-privacy.html">Privacy Policy</a> For Detail.</p>
     <div class="cookie-note-actions">
