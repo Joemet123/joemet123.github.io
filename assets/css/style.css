@@ -5136,3 +5136,2337 @@ code.solver-code {
   .solvers-page--bo6 .solver-hero .page-title::after { margin-top: 0.5rem; }
 }
 
+
+/* ================= merged from _stage_home.css ================= */
+/* ============================================================
+   STAGE — Home / Live / About visual pass (2026-09-23)
+   Every selector is scoped to .home-page / .live-page / .about-page
+   and sits at higher specificity than the stock rule it adjusts, so
+   merge order cannot change the outcome and no other page moves.
+   No negative insets, no 100vw, no pseudo-element offsets below 0.
+   ============================================================ */
+
+/* ============================== HOME ============================== */
+
+/* ---------- Intro: dramatic type, channel card, stat blocks ---------- */
+.home-page .home-intro .page-title {
+  font-size: clamp(2.3rem, 6.2vw, 3.85rem);
+  letter-spacing: -0.032em;
+  line-height: 1.02;
+  max-width: 17ch;
+  margin-bottom: 1rem;
+}
+.home-page .home-intro .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--blue-bright);
+}
+.home-page .home-intro .eyebrow::before {
+  content: '';
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--blue);
+}
+.home-page .home-intro-side { min-width: 0; }
+
+.home-page .home-channel {
+  position: relative;
+  margin-bottom: 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.home-page .home-channel-art {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 17 / 5;
+  object-fit: cover;
+  object-position: 50% 45%;
+  background: var(--surface-2);
+}
+.home-page .home-channel-id {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  min-width: 0;
+  padding: 0 1rem 0.9rem;
+}
+.home-page .home-channel-logo {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  margin-top: -24px;
+  border: 3px solid var(--surface);
+  border-radius: 50%;
+  background: var(--surface);
+}
+.home-page .home-channel-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  padding-top: 0.55rem;
+}
+.home-page .home-channel-name {
+  font-family: 'Orbitron', var(--font-stack);
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.home-page .home-channel-sub {
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--blue-bright);
+}
+
+/* Stat blocks — four tiles, each carrying its own hue on the top edge. */
+.home-page .home-intro .home-statline {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin: 1.6rem 0 1.6rem;
+  padding: 0;
+  border-top: 0;
+  max-width: 44rem;
+}
+.home-page .home-intro .home-statline > li {
+  gap: 0.35rem;
+  min-width: 0;
+  padding: 0.85rem 0.95rem 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--sk, var(--blue));
+  border-radius: var(--radius-sm);
+}
+.home-page .home-intro .home-statline .statline-k {
+  font-size: clamp(1.45rem, 3.4vw, 1.9rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+.home-page .home-intro .home-statline .statline-v { letter-spacing: 0.12em; line-height: 1.35; }
+@media (min-width: 640px) {
+  .home-page .home-intro .home-statline { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* ---------- Stream + donate ---------- */
+.home-page .stream-panel .twitch-embed-wrapper {
+  border-color: var(--line-strong);
+  box-shadow: 0 22px 44px -28px rgba(0, 0, 0, 0.9);
+}
+.home-page .hero .donate-panel {
+  border-top: 3px solid var(--orange);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* ---------- Solvers band: the one framed slab on the page ---------- */
+.home-page > .section.home-solvers {
+  padding: clamp(1.15rem, 3vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+}
+.home-page .home-solvers .game-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+/* Big game numeral as a watermark mark — decorative, hidden from AT. */
+.home-page .home-solvers .game-card::after {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.85rem;
+  z-index: -1;
+  font-family: 'Orbitron', var(--font-stack);
+  font-size: 5.4rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--gc, var(--blue));
+  opacity: 0.12;
+  pointer-events: none;
+}
+.home-page .home-solvers .game-card--bo7::after { content: '7'; content: '7' / ''; }
+.home-page .home-solvers .game-card--bo6::after { content: '6'; content: '6' / ''; }
+.home-page .home-solvers .game-card--bo3::after { content: '3'; content: '3' / ''; }
+
+/* Progress meter: tools live out of tools planned. */
+.home-page .game-card-meter {
+  display: block;
+  height: 4px;
+  margin: 0.15rem 0 0.2rem;
+  border-radius: 4px;
+  background: var(--line);
+  overflow: hidden;
+}
+.home-page .game-card-meter > span {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--gc, var(--blue));
+  transform: scaleX(var(--p, 1));
+  transform-origin: left center;
+}
+.home-page .reveal:not(.is-visible) .game-card-meter > span { transform: scaleX(0); }
+
+.home-page .home-solvers .solver-kindcard { background: var(--surface-2); }
+
+/* ---------- Section accent walk — one hue per band ---------- */
+.home-page > .section[aria-label="Merchandise"] .section-title::after { background: var(--orange); }
+.home-page > .section[aria-label="Where To Find Me"] .section-title::after { background: var(--purple); }
+.home-page > .section[aria-label="Recent YouTube Videos"] .section-title::after { background: var(--red); }
+.home-page > .section[aria-label="More From The Channel"] .section-title::after { background: #19C2D6; }
+
+/* ---------- Discord pane head ---------- */
+.home-page .discord-pane-head {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ---------- "More From The Channel": tiles, not a second rail ---------- */
+.home-page .home-more > li { display: flex; min-width: 0; }
+.home-page .home-more .home-rail-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: 1.1rem 1.15rem 2.6rem;
+  border-left-width: 1px;
+  border-left-color: var(--line);
+  border-top: 3px solid var(--rc, var(--blue));
+  border-radius: var(--radius);
+}
+.home-page .home-more .home-rail-card::after {
+  top: auto;
+  right: auto;
+  bottom: 0.95rem;
+  left: 1.15rem;
+  transform: none;
+}
+.home-page .home-more .home-rail-name { font-size: 1.02rem; }
+.home-page .home-more .home-rail-note { margin-top: 0.4rem; }
+
+/* ============================== LIVE ============================== */
+
+.live-page .live-hero .page-title {
+  font-size: clamp(2.3rem, 6.2vw, 3.6rem);
+  letter-spacing: -0.032em;
+  line-height: 1.02;
+}
+.live-page .live-hero .eyebrow { color: #B98BFF; }
+
+/* Player + chat framed as one console. */
+.live-page .live-hero .live-layout {
+  padding: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--purple);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: 0 24px 48px -30px rgba(0, 0, 0, 0.9);
+}
+.live-page .live-hero .live-chat { background: var(--surface-2); }
+@media (min-width: 700px) {
+  .live-page .live-hero .live-layout { padding: 0.65rem; gap: 0.65rem; }
+}
+
+/* Cards: an icon mark and title share the first row. */
+.live-page .live-card {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 0.85rem;
+  row-gap: 0.7rem;
+  align-content: start;
+  padding: 1.2rem 1.25rem 1.3rem;
+}
+.live-page .live-card > :not(.live-card-mark):not(.live-card-title) { grid-column: 1 / -1; }
+.live-page .live-card-mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--lc, var(--blue));
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+}
+.live-page .live-card-icon { display: block; width: 20px; height: 20px; }
+.live-page .live-card-title { font-size: 1.05rem; }
+.live-page .live-card--play .live-card-mark { color: #B98BFF; }
+
+/* Section accent walk. */
+.live-page > .section[aria-label="What The Streams Are"] .section-title::after { background: #19C2D6; }
+.live-page > .section.live-notify .section-title::after { background: var(--purple); }
+.live-page > .section[aria-label="While You Watch"] .section-title::after { background: var(--orange); }
+
+/* Notify steps — numbered cards; the first (the only instant one) leads. */
+.live-page .live-notify .live-steps {
+  gap: 0.7rem;
+  max-width: none;
+}
+.live-page .live-notify .live-steps > li {
+  min-width: 0;
+  padding: 1rem 1.1rem 1.05rem 3.4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--ls, var(--blue));
+  border-radius: var(--radius-sm);
+}
+.live-page .live-notify .live-steps > li::before {
+  top: 1.02rem;
+  left: 1rem;
+  font-size: 1rem;
+}
+.live-page .live-notify .live-steps > li:first-child { background: var(--surface-2); }
+@media (min-width: 900px) {
+  .live-page .live-notify .live-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .live-page .live-notify .live-steps > li:first-child {
+    grid-column: 1 / -1;
+    padding: 1.15rem 1.3rem 1.2rem 4rem;
+    font-size: 1rem;
+  }
+  .live-page .live-notify .live-steps > li:first-child::before {
+    top: 1.12rem;
+    left: 1.25rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* ============================== ABOUT ============================== */
+
+.about-page .about-intro h1 {
+  font-size: clamp(2.2rem, 5.6vw, 3.2rem);
+  letter-spacing: -0.032em;
+  line-height: 1.04;
+}
+.about-page .about-mark {
+  display: block;
+  width: 68px;
+  height: 68px;
+  margin-bottom: 1rem;
+  border: 3px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--surface-2);
+}
+@media (min-width: 720px) {
+  .about-page .about-section.about-intro { padding-right: clamp(9rem, 16vw, 12rem); }
+  .about-page .about-mark {
+    position: absolute;
+    top: clamp(1.35rem, 3vw, 2rem);
+    right: clamp(1.35rem, 3vw, 2rem);
+    width: clamp(92px, 11vw, 132px);
+    height: auto;
+    margin: 0;
+  }
+}
+
+/* Stat strips become stat blocks. */
+.about-page .about-section .about-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin: 1.4rem 0 1.5rem;
+  padding: 0;
+  border-top: 0;
+}
+.about-page .about-section .about-stats > li {
+  min-width: 0;
+  padding: 0.85rem 0.95rem 0.8rem;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--ab, var(--blue));
+  border-radius: var(--radius-sm);
+}
+.about-page .about-section .about-stats > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.about-page .about-section .about-stat-k { font-size: clamp(1.3rem, 3.2vw, 1.7rem); }
+.about-page .about-section .about-stat-v { line-height: 1.4; }
+@media (min-width: 720px) {
+  .about-page .about-section .about-stats {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+  }
+  .about-page .about-section .about-stats > li:last-child:nth-child(odd) { grid-column: auto; }
+}
+
+/* Community + Output lists: ruled rows with a square hue marker. */
+.about-page .about-section:nth-of-type(3) ul:not(.about-stats),
+.about-page .about-section:nth-of-type(5) ul:not(.about-stats) {
+  padding-left: 0;
+  list-style: none;
+}
+.about-page .about-section:nth-of-type(3) ul:not(.about-stats) li,
+.about-page .about-section:nth-of-type(5) ul:not(.about-stats) li {
+  position: relative;
+  margin: 0;
+  padding: 0.7rem 0 0.7rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+.about-page .about-section:nth-of-type(3) ul:not(.about-stats) li::before,
+.about-page .about-section:nth-of-type(5) ul:not(.about-stats) li::before {
+  content: '';
+  position: absolute;
+  top: 1.28rem;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--ab, var(--blue));
+}
+@media (min-width: 900px) {
+  .about-page .about-section:nth-of-type(5) ul:not(.about-stats) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.8rem;
+    max-width: none;
+  }
+}
+
+/* Contact: three routes as cards. */
+.about-page .about-section.about-contact ul:not(.about-stats) {
+  display: grid;
+  gap: 0.6rem;
+  padding-left: 0;
+  max-width: none;
+  list-style: none;
+}
+.about-page .about-section.about-contact ul:not(.about-stats) li {
+  min-width: 0;
+  margin: 0;
+  padding: 0.95rem 1.05rem;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--ab, var(--blue));
+  border-radius: var(--radius-sm);
+  overflow-wrap: anywhere;
+}
+@media (min-width: 900px) {
+  .about-page .about-section.about-contact ul:not(.about-stats) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ============================== MOTION ============================== */
+@media (prefers-reduced-motion: no-preference) {
+  .home-page .game-card-meter > span { transition: transform 700ms var(--ease) 220ms; }
+  .home-page .home-channel-logo { transition: transform var(--mid) var(--spring); }
+  .live-page .live-card-mark { transition: transform var(--mid) var(--ease); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-page .reveal:not(.is-visible) .game-card-meter > span { transform: scaleX(var(--p, 1)); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .home-page .home-more .home-rail-card:hover {
+    border-color: var(--line-strong);
+    border-top-color: var(--rc, var(--blue));
+    transform: translateY(-2px);
+  }
+  .home-page .home-channel:hover .home-channel-logo { transform: rotate(-6deg); }
+  .live-page .live-card:hover .live-card-mark { transform: translateY(-2px); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  .home-page .home-more .home-rail-card:hover,
+  .home-page .home-channel:hover .home-channel-logo,
+  .live-page .live-card:hover .live-card-mark { transform: none; }
+}
+
+/* ============================== 390px ============================== */
+@media (max-width: 640px) {
+  .home-page .home-channel-logo { width: 56px; height: 56px; margin-top: -20px; }
+  .home-page .home-solvers .game-card::after { font-size: 4.4rem; }
+  .live-page .live-notify .live-steps > li { padding-left: 3.1rem; }
+  .live-page .live-notify .live-steps > li::before { left: 0.9rem; }
+  .live-page .live-card { padding: 1.1rem 1.05rem 1.15rem; }
+}
+
+
+/* ================= merged from _stage_pages.css ================= */
+/* ==========================================================================
+   STAGE — SOLVERS HUB, BO3, MERCH, AFFILIATE, PAID MEATBAWL
+   Every rule is scoped to a page class on <main>:
+   .pg-hub (solvers.html) · .pg-bo3 (solvers-bo3.html) · .pg-store (merch.html)
+   .pg-aff (affiliate-discounts.html) · .pg-members (paid-meatbawl.html)
+   Pseudo-elements use zero or positive insets only. Hover lives behind the
+   pointer guard; transform/opacity motion lives behind the reduced-motion guard.
+   ========================================================================== */
+
+/* ---------- shared: hero stat tiles (hub + BO3) ---------- */
+:is(.pg-hub, .pg-bo3) .solver-stats { gap: 0.6rem; }
+:is(.pg-hub, .pg-bo3) .solver-stats li {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.7rem 0.95rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--st, var(--blue));
+  border-radius: var(--radius-sm);
+}
+:is(.pg-hub, .pg-bo3) .solver-stats li:nth-child(2) { --st: var(--purple); }
+:is(.pg-hub, .pg-bo3) .solver-stats li:nth-child(3) { --st: var(--orange); }
+:is(.pg-hub, .pg-bo3) .solver-stat-k { font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.05; }
+@media (min-width: 900px) {
+  :is(.pg-hub, .pg-bo3) .solver-stats li { flex: 0 0 auto; min-width: 7.2rem; }
+}
+
+/* ==========================================================================
+   SOLVERS HUB
+   ========================================================================== */
+
+/* Asymmetric picker: BO7 is the tall flagship, BO6 and BO3 stack beside it. */
+@media (min-width: 1000px) {
+  .pg-hub .solver-games {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 1.1rem;
+  }
+  .pg-hub .game-card--bo7 { grid-row: span 2; }
+}
+
+.pg-hub .game-card {
+  position: relative;
+  overflow: hidden;
+  gap: 0.5rem;
+  padding: 1.35rem 1.3rem 1.3rem;
+  background: var(--surface);
+  color: var(--ink);
+}
+.pg-hub .game-card > :not(.game-card-code) { position: relative; z-index: 1; }
+.pg-hub .game-card:focus-visible { outline: 2px solid var(--blue-bright); outline-offset: 3px; }
+
+/* Flat tint on the flagship only — one card clearly leads. */
+.pg-hub .game-card--bo7 {
+  background: color-mix(in srgb, var(--blue) 7%, var(--surface));
+  border-color: rgba(47, 134, 255, 0.34);
+  border-top-width: 4px;
+}
+/* BO3 reads as a build site: dashed frame, quieter type. */
+.pg-hub .game-card--bo3 { border-style: dashed; border-top-style: dashed; }
+.pg-hub .game-card--bo3 .game-card-title { color: var(--ink-mid); }
+
+/* Oversized game code, sitting behind the content as the card's artwork. */
+.pg-hub .game-card-code {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.9rem;
+  z-index: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(3.4rem, 12vw, 4.6rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--gc, var(--blue));
+  opacity: 0.1;
+  pointer-events: none;
+  user-select: none;
+}
+.pg-hub .game-card--bo3 .game-card-code { opacity: 0.07; }
+
+.pg-hub .game-card-title { font-size: clamp(1.1rem, 3.4vw, 1.25rem); padding-right: 4.5rem; }
+.pg-hub .game-card-maps { color: var(--ink-mid); }
+
+/* Status chips: filled for the flagship, outlined for BO6, dashed for BO3. */
+.pg-hub .game-card-status { padding: 0.28rem 0.65rem; }
+.pg-hub .game-card-status::before {
+  content: '';
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.pg-hub .game-card--bo7 .game-card-status {
+  color: #fff;
+  background: var(--blue-cta);
+  border-color: var(--blue-cta);
+}
+.pg-hub .game-card--bo6 .game-card-status { color: #B98BFF; }
+.pg-hub .game-card-status--soon {
+  color: var(--orange);
+  border-style: dashed;
+}
+.pg-hub .game-card-status--soon::before { border-radius: 1px; }
+
+.pg-hub .game-card-meta { margin-top: 0.35rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* Progress meter — same numbers as the status board below. */
+.pg-hub .game-card-meter {
+  display: block;
+  height: 6px;
+  margin: 0.1rem 0 0.35rem;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.pg-hub .game-card-meter > span {
+  display: block;
+  width: var(--pct, 0%);
+  height: 100%;
+  background: var(--gc, var(--blue));
+  border-radius: 3px;
+  transform-origin: left center;
+}
+
+.pg-hub .game-card-go {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+.pg-hub .game-card--bo6 .game-card-go { color: #B98BFF; }
+.pg-hub .game-card-go::after { display: inline-block; content: '\2192'; font-size: 1.05rem; }
+
+@media (min-width: 1000px) {
+  .pg-hub .game-card--bo7 { padding: 1.8rem 1.8rem 1.6rem; gap: 0.65rem; }
+  .pg-hub .game-card--bo7 .game-card-code { font-size: 11rem; top: auto; bottom: 0.4rem; right: 1.3rem; opacity: 0.12; }
+  .pg-hub .game-card--bo7 .game-card-title { font-size: 1.85rem; letter-spacing: -0.02em; padding-right: 0; max-width: 14ch; }
+  .pg-hub .game-card--bo7 .game-card-maps { font-size: 0.95rem; max-width: 40ch; }
+  .pg-hub .game-card--bo7 .game-card-meter { height: 8px; max-width: 26rem; }
+  .pg-hub .game-card--bo7 .game-card-go {
+    align-self: flex-start;
+    padding: 0.7rem 1.1rem;
+    color: #fff;
+    background: var(--blue-cta);
+    border: 0;
+    border-radius: var(--radius-sm);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pg-hub .game-card:hover .game-card-title { color: var(--ink); }
+  .pg-hub .game-card--bo7:hover { border-color: var(--blue); }
+}
+
+/* Solver kinds explainer */
+.pg-hub .solver-kindcard { padding: 1.15rem 1.2rem 1.2rem; background: var(--surface); }
+.pg-hub .solver-kindcard p { color: var(--ink-mid); }
+
+/* Status board */
+.pg-hub .status-card { padding: 1.3rem 1.3rem 1.25rem; }
+.pg-hub .status-card--bo3 { border-style: dashed; }
+.pg-hub .status-ratio { font-size: 1.55rem; font-variant-numeric: tabular-nums; }
+.pg-hub .status-rail { height: 6px; border-radius: 3px; }
+.pg-hub .status-rail > span { border-radius: 3px; transform-origin: left center; }
+.pg-hub .status-maps li { padding: 0.5rem 0; }
+.pg-hub .status-n { font-variant-numeric: tabular-nums; }
+.pg-hub .status-n--soon {
+  padding: 0.05rem 0.45rem;
+  font-size: 0.78rem;
+  border: 1px dashed var(--line-strong);
+  border-radius: 999px;
+}
+.pg-hub .status-foot { margin: 1rem 0 0; padding-top: 0.8rem; border-top: 1px solid var(--line); }
+.pg-hub .status-foot a { font-weight: 800; color: var(--blue-bright); }
+.pg-hub .status-foot a::after { content: ' \2192'; }
+
+/* Discord origin — one composed panel instead of loose prose. */
+.pg-hub .hub-discord {
+  padding: clamp(1.3rem, 3.2vw, 2.1rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid #5865F2;
+  border-radius: var(--radius);
+}
+.pg-hub .hub-discord .section-title::after { background: #5865F2; }
+
+/* FAQ as a two-column set of tabs, one hue each. */
+@media (min-width: 800px) {
+  .pg-hub .faq { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+}
+.pg-hub .faq-item {
+  padding: 1rem 1.15rem 1.05rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--fq, var(--blue));
+  border-radius: var(--radius-sm);
+}
+.pg-hub .faq-item:nth-child(2) { --fq: var(--purple); }
+.pg-hub .faq-item:nth-child(3) { --fq: #19C2D6; }
+.pg-hub .faq-item:nth-child(4) { --fq: var(--orange); }
+.pg-hub .faq-item:nth-child(5) { --fq: #FF4D9E; }
+
+/* ==========================================================================
+   BO3 — UNDER CONSTRUCTION (deliberate, not broken)
+   ========================================================================== */
+.pg-bo3 .wip-banner--hard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem;
+  margin-bottom: 1.8rem;
+  padding: 1.2rem 1.25rem 1.25rem;
+  background: color-mix(in srgb, var(--orange) 6%, var(--surface));
+  border: 1px dashed rgba(255, 122, 24, 0.45);
+  border-left: 4px solid var(--orange);
+  border-radius: var(--radius);
+}
+.pg-bo3 .wip-tag { justify-self: start; padding: 0.38rem 0.8rem; }
+.pg-bo3 .wip-text { font-size: 0.97rem; color: var(--ink); max-width: 70ch; }
+.pg-bo3 .wip-text a { color: var(--blue-bright); font-weight: 700; }
+@media (min-width: 760px) {
+  .pg-bo3 .wip-banner--hard {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.9rem 1.3rem;
+    padding: 1.35rem 1.5rem;
+  }
+  .pg-bo3 .bo3-build { grid-column: 1 / -1; }
+}
+
+.pg-bo3 .bo3-build {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+.pg-bo3 .bo3-build-k {
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+}
+.pg-bo3 .bo3-build-rail {
+  display: block;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.pg-bo3 .bo3-build-rail > span {
+  display: block;
+  width: var(--pct, 0%);
+  height: 100%;
+  background: var(--orange);
+  border-radius: 3px;
+}
+
+.pg-bo3 .notice {
+  padding: 0.9rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--blue);
+  border-radius: var(--radius-sm);
+  line-height: 1.6;
+}
+.pg-bo3 .notice strong { color: var(--ink); }
+
+/* Each map is a numbered stop on the site plan. */
+.pg-bo3 .solver-map {
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+.pg-bo3 .solver-map-intro { color: var(--ink-mid); }
+
+/* The one built tool keeps its colour; the planned ones are drawn as outlines. */
+.pg-bo3 .solver--soon {
+  background: var(--bg);
+  border: 1px dashed var(--line-strong);
+  border-left: 3px dashed var(--line-strong);
+}
+.pg-bo3 .solver--soon .solver-name { color: var(--ink-mid); }
+.pg-bo3 .solver--soon .solver-head { border-bottom-style: dashed; }
+.pg-bo3 .solver--soon .solver-blurb { margin-bottom: 0; color: var(--ink-mid); }
+.pg-bo3 .solver-kind--soon { border-style: dashed; color: var(--ink-mid); background: transparent; }
+
+.pg-bo3 .solver-offline {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.9rem 0 1rem;
+  padding: 0.75rem 1rem;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--orange) 7%, var(--surface-2));
+  border: 1px dashed rgba(255, 122, 24, 0.5);
+  border-left: 3px solid var(--orange);
+}
+.pg-bo3 .solver-offline::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+  background: var(--orange);
+}
+
+/* ==========================================================================
+   MERCH — STOREFRONT
+   ========================================================================== */
+.pg-store .notice {
+  padding: 0.75rem 1rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--blue);
+  border-radius: var(--radius-sm);
+}
+.pg-store .store-note-row { gap: 0.5rem; }
+
+.pg-store .statline { gap: 0.6rem; }
+.pg-store .statline > li {
+  min-width: 6.5rem;
+  padding: 0.7rem 0.95rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--blue);
+  border-radius: var(--radius-sm);
+}
+.pg-store .statline > li:nth-child(2) { border-top-color: var(--purple); }
+.pg-store .statline-k { font-size: 1.7rem; font-weight: 900; }
+
+.pg-store .merch-grid { margin-top: 1.9rem; }
+.pg-store .merch-card { position: relative; border-color: var(--line-strong); }
+.pg-store .merch-card:focus-visible { outline: 2px solid var(--blue-bright); outline-offset: 3px; }
+.pg-store .merch-image-wrap {
+  position: relative;
+  border-bottom: 1px solid var(--line);
+}
+.pg-store .merch-type {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 1;
+  max-width: calc(100% - 1.2rem);
+  padding: 0.22rem 0.55rem;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ink);
+  background: rgba(7, 11, 20, 0.82);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+}
+.pg-store .merch-info { gap: 0.5rem; padding: 0.95rem 1rem 1rem; }
+.pg-store .merch-name { color: var(--ink); font-weight: 700; }
+/* Price plate: white, heavy, centred, tabular. Never red. */
+.pg-store .merch-price {
+  padding: 0.6rem 0.5rem 0.1rem;
+  font-size: clamp(1.15rem, 3.6vw, 1.35rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+@media (hover: hover) and (pointer: fine) {
+  .pg-store .merch-card:hover .merch-type { border-color: var(--blue); }
+}
+
+/* Ordering steps as a connected three-stop track (also used on Affiliate). */
+:is(.pg-store, .pg-aff) .step-row { position: relative; }
+:is(.pg-store, .pg-aff) .step {
+  position: relative;
+  z-index: 1;
+  padding: 1.15rem 1.2rem 1.2rem 4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--sc, var(--blue));
+  border-radius: var(--radius);
+  text-align: left;
+}
+:is(.pg-store, .pg-aff) .step-n {
+  left: 1.1rem;
+  top: 1.1rem;
+  font-size: 1.6rem;
+}
+:is(.pg-store, .pg-aff) .step-b { color: var(--ink-mid); }
+@media (min-width: 780px) {
+  :is(.pg-store, .pg-aff) .step-row::before {
+    content: '';
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    top: 2.1rem;
+    height: 1px;
+    background: var(--line-strong);
+  }
+  :is(.pg-store, .pg-aff) .step { padding: 3.6rem 1.25rem 1.3rem; }
+  :is(.pg-store, .pg-aff) .step-n { top: 1.05rem; left: 1.25rem; }
+}
+
+.pg-store .info-card { padding: 1.25rem 1.25rem 1.3rem 1.5rem; }
+
+/* ==========================================================================
+   AFFILIATE DISCOUNTS
+   ========================================================================== */
+/* Coupon-style code chip. */
+.pg-aff .code-chip {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 0.9rem;
+  margin-top: 0.3rem;
+  padding: 0.8rem 1.3rem;
+  background: var(--surface-2);
+  border: 1px dashed rgba(109, 180, 255, 0.55);
+  border-radius: var(--radius);
+}
+.pg-aff .code-chip-label { color: var(--ink-mid); }
+.pg-aff .code-chip-code { font-size: clamp(1.3rem, 4.6vw, 1.7rem); letter-spacing: 0.14em; }
+
+.pg-aff .affiliate-grid { margin-top: 0.6rem; }
+.pg-aff .affiliate-card {
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  border-color: var(--line-strong);
+  background: var(--surface);
+}
+.pg-aff .affiliate-card:focus-visible { outline: 2px solid var(--blue-bright); outline-offset: 3px; }
+/* Full-width accent along the top edge, inside the card. */
+.pg-aff .affiliate-card::before {
+  top: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  height: 3px;
+  transform: none;
+  border-radius: 0;
+}
+.pg-aff .affiliate-logo {
+  box-sizing: content-box;
+  max-width: 70%;
+  margin: 2.3rem auto 1.9rem;
+}
+.pg-aff .affiliate-card small {
+  display: block;
+  align-self: stretch;
+  padding: 0.85rem 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--surface-2);
+  border-top: 1px solid var(--line);
+}
+.pg-aff .aff-note { color: var(--ink-mid); }
+
+.pg-aff .aff-cards { gap: 1rem; }
+.pg-aff .aff-cards .info-card { padding: 1.4rem 1.35rem 1.4rem 1.6rem; }
+.pg-aff .aff-cards .info-card-title { font-size: 1.3rem; }
+
+.pg-aff .disclosure {
+  padding: 1.25rem 1.35rem;
+  border-left: 3px solid var(--blue);
+}
+.pg-aff .disclosure-title { color: var(--ink-mid); }
+
+/* ==========================================================================
+   PAID MEATBAWL
+   ========================================================================== */
+.pg-members .card-block { padding: 1.5rem 1.4rem; border-color: var(--line-strong); }
+/* Accent tick sits inside the top edge rather than above it. */
+.pg-members .card-block::before { top: 0; }
+.pg-members .block-title { font-size: 1.2rem; }
+
+/* Numbered perks. */
+.pg-members .perk-card { counter-increment: perk; padding: 0.9rem 3rem 0.9rem 0.95rem; }
+.pg-members .perk-card::after {
+  content: counter(perk, decimal-leading-zero);
+  position: absolute;
+  top: 0.85rem;
+  right: 0.9rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--pc, var(--blue));
+}
+.pg-members .perk-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.pg-members .perk-card-text { color: var(--ink); font-weight: 700; }
+.pg-members .perk-card-sub { font-size: 0.82rem; color: var(--ink-mid); }
+
+/* Join routes read as options with a clear first step. */
+.pg-members .join-card { position: relative; padding: 0.95rem 2.6rem 0.95rem 1rem; }
+.pg-members .join-card:focus-visible { outline: 2px solid var(--blue-bright); outline-offset: 3px; }
+.pg-members .join-card::after {
+  content: '\2192';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--ink-dim);
+}
+.pg-members .join-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.pg-members .join-card-sub { color: var(--ink-mid); }
+.pg-members .join-card-flag {
+  align-self: flex-start;
+  margin-bottom: 0.3rem;
+  padding: 0.14rem 0.5rem;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--blue-cta);
+  border-radius: 999px;
+}
+.pg-members .join-card-flag--free { color: var(--bg); background: var(--orange); }
+.pg-members .join-card--discord { background: color-mix(in srgb, #5865F2 8%, var(--surface-2)); }
+
+@media (hover: hover) and (pointer: fine) {
+  .pg-members .join-card:hover::after { color: var(--ink); }
+}
+
+.pg-members .member-foot .info-card { padding: 1.3rem 1.3rem 1.35rem 1.55rem; }
+
+/* ==========================================================================
+   MOTION — transform/opacity only, and only when motion is welcome
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .pg-hub .game-card-meter > span,
+  .pg-hub .status-rail > span,
+  .pg-bo3 .bo3-build-rail > span {
+    transform-origin: left center;
+    transition: transform 700ms var(--ease) 180ms;
+  }
+  .pg-hub .reveal:not(.is-visible) .game-card-meter > span,
+  .pg-hub .reveal:not(.is-visible) .status-rail > span { transform: scaleX(0); }
+
+  .pg-hub .game-card-go::after,
+  .pg-members .join-card::after { transition: transform var(--mid) var(--ease), color var(--fast) var(--ease); }
+  .pg-hub .game-card-code { transition: transform var(--slow) var(--ease), opacity var(--slow) var(--ease); }
+
+  .pg-hub .game-card:active,
+  .pg-store .merch-card:active,
+  .pg-aff .affiliate-card:active,
+  .pg-members .join-card:active { transform: scale(0.98); }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .pg-hub .game-card:hover .game-card-go::after,
+  .pg-members .join-card:hover::after { transform: translateX(4px); }
+  .pg-hub .game-card:hover .game-card-code { transform: translateX(-6px); opacity: 0.16; }
+  .pg-store .merch-card:hover { transform: translateY(-4px); }
+}
+
+
+/* ================= merged from _stage_solvers.css ================= */
+/* ==========================================================================
+   SOLVER CONSOLE — FINAL PASS (BO6 + BO7 as one product)
+   Every rule is scoped to main.solvers-page--console, which both
+   solvers-bo6.html and solvers-bo7.html carry. The leading element
+   selector lifts these one notch above the earlier BO6/BO7 layers so the
+   result is the same whichever order the blocks sit in.
+
+   Fixes carried here:
+     - .solver-code--lg (the big code on Gorgofex, Teleporter, Beamsmasher,
+       MK2 and friends) had no rule at all and rendered as small inline code.
+     - The map colour walk, table polish, step markers and stub treatment
+       only existed for BO6. BO7 now gets the same system.
+     - :active scale on chips, cells, image buttons and rail links ran even
+       with reduced motion requested.
+     - Number inputs were 0.92rem, so iOS zoomed the page on focus.
+
+   No negative insets, no viewport widths, no negative offsets on any
+   pseudo-element.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. Map identity — one hue per map, used on hairlines, numerals and the
+      active rail item only. Never a fill behind text you have to read.
+   -------------------------------------------------------------------------- */
+main.solvers-page--console { --mc: var(--blue-bright); }
+
+main.solvers-page--console #bo7-rex,
+main.solvers-page--console .solver-index a[href="#bo7-rex"]             { --mc: #FFA65C; }
+main.solvers-page--console #bo7-kowakujo,
+main.solvers-page--console .solver-index a[href="#bo7-kowakujo"]        { --mc: #FF8FB1; }
+main.solvers-page--console #bo7-totenreich,
+main.solvers-page--console .solver-index a[href="#bo7-totenreich"]      { --mc: #4DE0EE; }
+main.solvers-page--console #bo7-paradox,
+main.solvers-page--console .solver-index a[href="#bo7-paradox"]         { --mc: var(--ink-dim); }
+main.solvers-page--console #bo7-astra,
+main.solvers-page--console .solver-index a[href="#bo7-astra"]           { --mc: #B98BFF; }
+main.solvers-page--console #bo7-ashes,
+main.solvers-page--console .solver-index a[href="#bo7-ashes"]           { --mc: #6DB4FF; }
+
+main.solvers-page--console #bo6-terminus,
+main.solvers-page--console .solver-index a[href="#bo6-terminus"]        { --mc: #6DB4FF; }
+main.solvers-page--console #bo6-liberty,
+main.solvers-page--console .solver-index a[href="#bo6-liberty"]         { --mc: #4DE0EE; }
+main.solvers-page--console #bo6-citadelle,
+main.solvers-page--console .solver-index a[href="#bo6-citadelle"]       { --mc: #B98BFF; }
+main.solvers-page--console #bo6-tomb,
+main.solvers-page--console .solver-index a[href="#bo6-tomb"]            { --mc: #FF8FB1; }
+main.solvers-page--console #bo6-veil,
+main.solvers-page--console .solver-index a[href="#bo6-veil"]            { --mc: #FFA65C; }
+main.solvers-page--console #bo6-reckoning,
+main.solvers-page--console .solver-index a[href="#bo6-reckoning"]       { --mc: #FF8093; }
+
+/* --------------------------------------------------------------------------
+   1. Hero — same header strip on both games
+   -------------------------------------------------------------------------- */
+main.solvers-page--console .solver-hero .page-title { letter-spacing: -0.02em; }
+main.solvers-page--console .solver-hero .page-title::after {
+  content: '';
+  display: block;
+  width: 58px;
+  height: 2px;
+  margin-top: 0.65rem;
+  border-radius: 2px;
+  background: var(--blue);
+}
+main.solvers-page--console .page-lede { max-width: 68ch; }
+
+main.solvers-page--console .solver-stats { gap: 0.9rem 1.5rem; flex-wrap: wrap; }
+main.solvers-page--console .solver-stats li {
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--st, var(--blue));
+}
+main.solvers-page--console .solver-stats li:nth-child(1) { --st: var(--blue); }
+main.solvers-page--console .solver-stats li:nth-child(2) { --st: #4DE0EE; }
+main.solvers-page--console .solver-stats li:nth-child(3) { --st: #B98BFF; }
+main.solvers-page--console .solver-stat-k { font-size: 1.6rem; line-height: 1.1; }
+
+/* --------------------------------------------------------------------------
+   2. Rail — the map switcher
+   -------------------------------------------------------------------------- */
+main.solvers-page--console .solver-index { counter-reset: solvmap; }
+main.solvers-page--console .solver-rail .solver-index a { counter-increment: solvmap; }
+
+/* Phones and tablets: pills, each led by its map's colour dot. */
+main.solvers-page--console .solver-rail .solver-index a::before {
+  content: '';
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--mc);
+}
+main.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"],
+main.solvers-page--console .solver-rail .solver-index a.is-current {
+  color: var(--ink);
+  background: var(--surface-2);
+  border-color: var(--mc);
+}
+
+/* The count badge inverts onto the map colour when that map is open. */
+main.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"] .solver-index-n,
+main.solvers-page--console .solver-rail .solver-index a.is-current .solver-index-n,
+main.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"] .solver-index-n--none,
+main.solvers-page--console .solver-rail .solver-index a.is-current .solver-index-n--none {
+  color: #06101F;
+  background: var(--mc);
+  border-color: var(--mc);
+}
+
+/* Desktop: a framed sidebar, numbered 01 to 06. */
+@media (min-width: 1080px) {
+  main.solvers-page--console .solver-rail {
+    padding: 0.95rem 0.8rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  main.solvers-page--console .solver-rail .solver-index { margin-bottom: 1.1rem; }
+  main.solvers-page--console .solver-rail .solver-index a {
+    grid-template-columns: 1.55rem minmax(0, 1fr) auto;
+    gap: 0.5rem;
+    margin-bottom: 0.2rem;
+    padding: 0.6rem 0.6rem 0.6rem 0.65rem;
+    border-left: 2px solid transparent;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  main.solvers-page--console .solver-rail .solver-index a::before {
+    content: counter(solvmap, decimal-leading-zero);
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    background: none;
+    font-family: var(--font-mono);
+    font-size: var(--t-micro);
+    font-weight: 700;
+    color: var(--ink-dim);
+    font-variant-numeric: tabular-nums;
+  }
+  main.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"],
+  main.solvers-page--console .solver-rail .solver-index a.is-current {
+    background: var(--surface-2);
+    border-left-color: var(--mc);
+    box-shadow: none;
+  }
+  main.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"]::before,
+  main.solvers-page--console .solver-rail .solver-index a.is-current::before { color: var(--mc); }
+  main.solvers-page--console .solver-railkey { padding-top: 0.95rem; }
+}
+@media (hover: hover) and (pointer: fine) {
+  main.solvers-page--console .solver-rail .solver-index a:hover {
+    color: var(--ink);
+    border-color: var(--mc);
+  }
+}
+@media (min-width: 1080px) and (hover: hover) and (pointer: fine) {
+  main.solvers-page--console .solver-rail .solver-index a:hover {
+    background: var(--surface-2);
+    border-color: transparent;
+    border-left-color: var(--mc);
+  }
+  main.solvers-page--console .solver-rail .solver-index a:hover::before { color: var(--mc); }
+}
+
+/* Below the sidebar breakpoint the tool-type key is a compact strip, so
+   the map you picked starts higher on a phone. */
+@media (max-width: 1079px) {
+  main.solvers-page--console .solver-railkey {
+    gap: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    padding-top: 0.9rem;
+  }
+  main.solvers-page--console .solver-railkey-row { font-size: 0.76rem; }
+}
+
+/* --------------------------------------------------------------------------
+   3. Map header — the map's colour carries the title rule and the counts
+   -------------------------------------------------------------------------- */
+main.solvers-page--console .solver-workbench .solver-column .solver-map-head {
+  padding-left: 0;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--line-strong);
+}
+/* BO6 used to add a left spine here as well; the title rule does that job. */
+main.solvers-page--console .solver-workbench .solver-column .solver-map-head::before { content: none; }
+main.solvers-page--console .solver-workbench .solver-column .solver-map-head .section-title {
+  margin-bottom: 0;
+  letter-spacing: -0.02em;
+}
+main.solvers-page--console .solver-workbench .solver-column .solver-map-head .section-title::after {
+  width: 46px;
+  height: 3px;
+  margin-top: 0.55rem;
+  background: var(--mc);
+}
+main.solvers-page--console .solver-column .solver-map-intro { color: var(--ink-mid); }
+main.solvers-page--console .solver-map-meta { gap: 0.4rem; }
+main.solvers-page--console .solver-map-meta li {
+  padding: 0.3rem 0.6rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+main.solvers-page--console .solver-map-meta-k { color: var(--mc); font-size: 0.92rem; }
+
+/* Tool row picks up the map hue: dot, and edge when current. */
+main.solvers-page--console .solver-toolnav a { --jc: var(--mc); }
+main.solvers-page--console .solver-toolnav a.is-current {
+  color: var(--ink);
+  border-color: var(--mc);
+}
+main.solvers-page--console .solver-toolnav a.solver-toolnav-up { --jc: var(--ink-dim); }
+@media (hover: hover) and (pointer: fine) {
+  main.solvers-page--console .solver-toolnav a:hover {
+    color: var(--ink);
+    border-color: var(--mc);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Bands — "look it up" sits in a tray, "work it out" stands on the page
+   -------------------------------------------------------------------------- */
+main.solvers-page--console .solver-band--refs {
+  padding: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+main.solvers-page--console .solver-band--refs > .solver-bandlabel { margin-bottom: 0.75rem; }
+main.solvers-page--console .solver-band + .solver-band { margin-top: 2rem; }
+main.solvers-page--console .solver-bandlabel-k { font-size: 0.74rem; }
+
+/* --------------------------------------------------------------------------
+   5. Tiles — the contact sheet
+   -------------------------------------------------------------------------- */
+main.solvers-page--console .solver-refs { --tile-h: 116px; }
+@media (min-width: 560px)  { main.solvers-page--console .solver-refs { --tile-h: 150px; } }
+@media (min-width: 620px)  { main.solvers-page--console .solver-refs { --tile-h: 168px; } }
+@media (min-width: 1000px) { main.solvers-page--console .solver-refs { --tile-h: 182px; } }
+main.solvers-page--console .solver--tile .solver-img-btn img { height: var(--tile-h); }
+
+main.solvers-page--console .solver--tile {
+  background: var(--surface);
+  border-color: var(--line-strong);
+  border-left-color: var(--sc);
+}
+main.solvers-page--console .solver--tile .solver-img-btn { background: var(--bg); }
+
+/* Every preview says it opens. Pinned inside the frame, never outside it. */
+main.solvers-page--console .solver-column .solver-img-btn { position: relative; }
+main.solvers-page--console .solver-column .solver-img-btn::after {
+  content: 'Enlarge';
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  padding: 0.18rem 0.5rem;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: rgba(7, 11, 20, 0.86);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  pointer-events: none;
+}
+main.solvers-page--console .solver-column .solver-imggrid .solver-img-btn::after,
+main.solvers-page--console .solver-column .solver-symbolgrid .solver-img-btn::after { content: none; }
+
+/* --------------------------------------------------------------------------
+   6. Coming Soon — one stub treatment on both games
+   -------------------------------------------------------------------------- */
+main.solvers-page--console .solver--soon {
+  background: transparent;
+  border: 1px dashed var(--line-strong);
+  border-left: 2px solid var(--line-strong);
+}
+main.solvers-page--console .solver--soon .solver-name { color: var(--ink-mid); }
+main.solvers-page--console .solver--soon .solver-blurb { color: var(--ink-mid); }
+main.solvers-page--console .solver--soon .solver-kind {
+  color: var(--ink-mid);
+  background: transparent;
+  border-style: dashed;
+}
+main.solvers-page--console .solver--soon.solver--tile { justify-content: flex-start; min-height: 118px; }
+/* Beside real previews, a stub keeps an empty frame of the same height so
+   the tile heads line up across the row instead of stepping. */
+main.solvers-page--console .solver-refs:has(.solver-figure) > .solver--soon.solver--tile::before {
+  content: '';
+  display: block;
+  flex: none;
+  order: -1;
+  height: calc(var(--tile-h) + 1.45rem - var(--pad));
+  margin-bottom: 0.7rem;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+}
+/* A whole map with nothing built yet (Paradox Junction). */
+main.solvers-page--console .solver-bands > .solver--soon {
+  min-height: 190px;
+  padding: clamp(1.2rem, 3vw, 1.9rem);
+}
+main.solvers-page--console .solver-bands > .solver--soon .solver-note { max-width: 58ch; }
+
+/* --------------------------------------------------------------------------
+   7. Bench cards — the tools you operate
+   -------------------------------------------------------------------------- */
+main.solvers-page--console .solver-bench > .solver:not(.solver--soon) {
+  background: var(--surface);
+  border-color: var(--line-strong);
+  border-left-color: var(--sc);
+}
+main.solvers-page--console .solver-bench > .solver .solver-name { font-size: 1rem; }
+
+/* --------------------------------------------------------------------------
+   8. Controls — chips, symbol picks, fields
+   -------------------------------------------------------------------------- */
+main.solvers-page--console .solver-chip {
+  min-height: 42px;
+  font-size: 0.86rem;
+  background: var(--surface-2);
+}
+main.solvers-page--console .solver-opt--compact .solver-chip { min-height: 38px; }
+main.solvers-page--console .solver-chip.is-on,
+main.solvers-page--console .solver-imgchip.is-on {
+  color: #fff;
+  background: var(--blue-lo);
+  border-color: var(--blue);
+  box-shadow: inset 0 0 0 1px var(--blue);
+}
+main.solvers-page--console .solver-chip--red.is-on    { border-color: var(--red); box-shadow: inset 0 0 0 1px var(--red); }
+main.solvers-page--console .solver-chip--yellow.is-on { border-color: #E8B93A;    box-shadow: inset 0 0 0 1px #E8B93A; }
+main.solvers-page--console .solver-chip--green.is-on  { border-color: #2FBF6B;    box-shadow: inset 0 0 0 1px #2FBF6B; }
+main.solvers-page--console .solver-imgchip img { background: var(--bg); }
+
+/* 16px keeps iOS from zooming the page when a field takes focus. */
+main.solvers-page--console .solver-field input,
+main.solvers-page--console .solver-field select,
+main.solvers-page--console .solver-field textarea {
+  min-height: 46px;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  background: var(--bg);
+}
+main.solvers-page--console .solver-field input:focus,
+main.solvers-page--console .solver-field select:focus,
+main.solvers-page--console .solver-field textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-lo);
+}
+
+main.solvers-page--console .solver-cell.is-out { box-shadow: inset 0 0 0 1px #2FBF6B; }
+
+/* --------------------------------------------------------------------------
+   9. Answer panel — findable before it is readable
+   -------------------------------------------------------------------------- */
+main.solvers-page--console .solver-widget .solver-result {
+  padding: 1.05rem 1.15rem 1.1rem;
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  border-left: 4px solid var(--rc, var(--line-strong));
+  border-radius: var(--radius-sm);
+}
+main.solvers-page--console .solver-result.is-answered { --rt: #6FE3A0; }
+main.solvers-page--console .solver-result.is-progress { --rt: var(--blue-bright); }
+main.solvers-page--console .solver-result.is-warning  { --rt: var(--orange); }
+
+/* Waiting for input: an outline, not a panel. */
+main.solvers-page--console .solver-widget .solver-result.solver-result--idle {
+  background: transparent;
+  border-style: dashed;
+  border-left-style: solid;
+}
+main.solvers-page--console .solver-result .solver-idle { color: var(--ink-mid); }
+
+/* State label with a status dot. */
+main.solvers-page--console .solver-widget .solver-result .solver-result-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.13em;
+  color: var(--rt, var(--ink-mid));
+}
+main.solvers-page--console .solver-widget .solver-result .solver-result-title::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rc, var(--ink-dim));
+}
+
+main.solvers-page--console .solver-result .solver-verdict {
+  font-size: clamp(1.3rem, 5vw, 1.85rem);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.75rem;
+}
+
+/* The big code: this is the number you type into the game. */
+main.solvers-page--console .solver-result .solver-big { margin: 0.2rem 0 0.95rem; }
+main.solvers-page--console .solver-result code.solver-code.solver-code--lg {
+  display: inline-block;
+  max-width: 100%;
+  padding: 0.45rem 0.85rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.45rem, 6.4vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--rc, var(--blue));
+  border-radius: var(--radius-sm);
+  overflow-wrap: anywhere;
+}
+main.solvers-page--console .solver-result code.solver-code {
+  font-variant-numeric: tabular-nums;
+  background: var(--bg);
+}
+
+main.solvers-page--console .solver-result .solver-answer-list li,
+main.solvers-page--console .solver-result .solver-answer-steps li,
+main.solvers-page--console .solver-result .solver-line { font-size: 0.93rem; }
+main.solvers-page--console .solver-result .solver-line-v { font-variant-numeric: tabular-nums; }
+main.solvers-page--console .solver-result .solver-answer-steps li::marker { color: var(--rc, var(--blue)); }
+
+/* Crank turn counts read like a scoreboard. */
+main.solvers-page--console .solver-turn { background: var(--bg); }
+main.solvers-page--console .solver-turn-n { font-size: 1.55rem; font-variant-numeric: tabular-nums; }
+main.solvers-page--console .solver-result.is-answered .solver-turn:not(.is-zero) { border-color: rgba(47, 191, 107, 0.55); }
+
+main.solvers-page--console .solver-pick { background: var(--bg); }
+
+/* --------------------------------------------------------------------------
+   10. Reference content — tables, steps, fold-outs
+   -------------------------------------------------------------------------- */
+main.solvers-page--console .solver-tablewrap { border-color: var(--line-strong); }
+main.solvers-page--console .solver-table tbody tr:nth-child(even) th,
+main.solvers-page--console .solver-table tbody tr:nth-child(even) td { background: rgba(255, 255, 255, 0.022); }
+main.solvers-page--console .solver-table code.solver-code {
+  font-size: 0.95em;
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
+  background: var(--bg);
+}
+main.solvers-page--console .solver-table--codes tbody td,
+main.solvers-page--console .solver-table--codes thead th + th { text-align: center; }
+
+main.solvers-page--console .solver-column .solver-subhead { color: var(--mc); }
+main.solvers-page--console .solver-steps li::marker { color: var(--mc); font-weight: 800; }
+main.solvers-page--console .solver-sequence { border-left-color: var(--mc); letter-spacing: 0.02em; }
+
+main.solvers-page--console .solver-details {
+  background: var(--surface-2);
+  border-color: var(--line-strong);
+}
+main.solvers-page--console .solver-details > summary {
+  min-height: 44px;
+  color: var(--ink);
+}
+main.solvers-page--console .solver-details > summary::before { color: var(--mc); }
+main.solvers-page--console .solver-more > summary { min-height: 32px; color: var(--ink-mid); }
+@media (hover: hover) and (pointer: fine) {
+  main.solvers-page--console .solver-details > summary:hover { color: var(--blue-bright); }
+  main.solvers-page--console .solver-more > summary:hover { color: var(--ink); }
+}
+
+/* --------------------------------------------------------------------------
+   11. Motion — opt-in only
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes solv-answer-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: none; }
+  }
+  main.solvers-page--console .solver-result.is-answered .solver-verdict,
+  main.solvers-page--console .solver-result.is-answered .solver-big {
+    animation: solv-answer-in 220ms var(--ease) both;
+  }
+  main.solvers-page--console .solver-chip,
+  main.solvers-page--console .solver-imgchip {
+    transition: color var(--fast) var(--ease), border-color var(--fast) var(--ease),
+                background-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease),
+                transform var(--fast) var(--ease);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  main.solvers-page--console .solver-chip:active,
+  main.solvers-page--console .solver-imgchip:active,
+  main.solvers-page--console .solver-cell:active,
+  main.solvers-page--console .solver-img-btn:active,
+  main.solvers-page--console .solver--tile:active,
+  main.solvers-page--console .solver-rail .solver-index a:active,
+  main.solvers-page--console .solver-toolnav a:active { transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   12. Small screens and overflow guard
+   -------------------------------------------------------------------------- */
+@media (max-width: 559px) {
+  main.solvers-page--console .solver-band--refs { padding: 0.65rem; }
+  main.solvers-page--console .solver-widget .solver-result { padding: 0.9rem 0.95rem; }
+  main.solvers-page--console .solver-column .solver-img-btn::after { right: 0.35rem; bottom: 0.35rem; }
+  main.solvers-page--console .solver-stat-k { font-size: 1.35rem; }
+}
+main.solvers-page--console .solver-workbench,
+main.solvers-page--console .solver-column,
+main.solvers-page--console .solver-bands,
+main.solvers-page--console .solver-band,
+main.solvers-page--console .solver-bench,
+main.solvers-page--console .solver-refs,
+main.solvers-page--console .solver,
+main.solvers-page--console .solver-result { min-width: 0; }
+main.solvers-page--console .solver-name,
+main.solvers-page--console .solver-blurb,
+main.solvers-page--console .solver-text,
+main.solvers-page--console .solver-verdict { overflow-wrap: break-word; }
+
+
+/* ================= merged from _stage_chrome.css ================= */
+/* ============================================================
+   STAGE — SHARED CHROME + UTILITY PAGES
+   Merge AFTER everything else in style.css so these win the
+   cascade at equal specificity. url() paths are written relative
+   to assets/css/style.css.
+   Chrome rules below target existing markup only (no new
+   classes): band, header, nav, Solvers dropdown, footer, buttons,
+   cookie note, skip link, page title/intro.
+   Page rules are scoped to .pg-rules / .pg-contact / .pg-legal /
+   .pg-status, set on <main> of the six utility pages.
+   ============================================================ */
+
+/* ---------- C1. Band ---------- */
+.site-band {
+  border-bottom-color: rgba(47, 134, 255, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.is-scrolled .site-band {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 14px 28px -16px rgba(0, 0, 0, 0.9);
+}
+/* Focus ring sits on artwork — use the brighter blue. */
+.site-band :focus-visible { outline-color: var(--blue-bright); }
+
+/* ---------- C2. Brand ---------- */
+.logo-placeholder {
+  box-shadow: 0 0 0 3px rgba(6, 10, 18, 0.55), 0 0 0 4px rgba(47, 134, 255, 0.45);
+}
+.header-brand:focus-visible { border-radius: 999px; outline-offset: 5px; }
+
+/* ---------- C3. Header socials ---------- */
+.header-socials { gap: 0.2rem; }
+.header-socials a {
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.8);
+}
+.header-socials svg { width: 18px; height: 18px; }
+.header-socials a:focus-visible { border-radius: 50%; }
+@media (max-width: 370px) {
+  .header-socials a { width: 26px; height: 26px; }
+  .header-socials svg { width: 16px; height: 16px; }
+}
+@media (min-width: 900px) {
+  .header-socials { gap: 0.45rem; }
+  .header-socials a {
+    width: 36px;
+    height: 36px;
+    background: rgba(6, 10, 18, 0.4);
+    border-color: rgba(255, 255, 255, 0.13);
+    filter: none;
+  }
+}
+
+/* ---------- C4. Hamburger ---------- */
+.hamburger {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  margin-left: 0.15rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-sm);
+  background: rgba(6, 10, 18, 0.45);
+}
+.hamburger span { width: 20px; box-shadow: none; }
+.hamburger.active { border-color: var(--blue); background: var(--blue-lo); }
+.hamburger:focus-visible { border-radius: var(--radius-sm); }
+
+/* ---------- C5. Mobile nav overlay ----------
+   Opacity/transform/visibility instead of animating max-height.
+   Height is capped to the viewport so a long list scrolls inside
+   the panel; left/right 0 keeps it inside the band's width. */
+@media (max-width: 899px) {
+  .site-header { gap: 0.75rem; }
+  .main-nav {
+    max-height: calc(100vh - var(--band-h));
+    max-height: calc(100dvh - var(--band-h));
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: rgba(8, 12, 21, 0.985);
+    border-bottom: 1px solid var(--line-strong);
+    box-shadow: 0 28px 48px rgba(0, 0, 0, 0.55);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: none;
+  }
+  .main-nav.open {
+    max-height: calc(100vh - var(--band-h));
+    max-height: calc(100dvh - var(--band-h));
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+  .main-nav > ul { padding: 0.35rem 0 0.8rem; }
+  .main-nav > ul > li + li { border-top: 1px solid var(--line); }
+  .main-nav > ul > li > a {
+    padding: 0.9rem var(--gutter);
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .main-nav > ul > li > a.active,
+  .main-nav .nav-has-sub:has(.nav-sub a.active) > a {
+    color: var(--blue-bright);
+    background: var(--blue-lo);
+    box-shadow: inset 3px 0 0 var(--blue);
+  }
+  .main-nav .nav-sub {
+    margin: -0.2rem 0 0.7rem calc(var(--gutter) + 0.2rem);
+    padding: 0.1rem 0;
+    border-left: 1px solid var(--line-strong);
+  }
+  .main-nav .nav-sub a {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.92rem;
+    border-radius: 0;
+  }
+  .main-nav .nav-sub a.active { box-shadow: none; }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 899px) {
+  .main-nav {
+    transition: opacity 180ms ease-in, transform 200ms ease-in, visibility 0s linear 200ms;
+  }
+  .main-nav.open {
+    transition: opacity 220ms var(--ease), transform 280ms var(--ease), visibility 0s;
+  }
+}
+
+/* ---------- C6. Desktop nav row ---------- */
+@media (min-width: 900px) {
+  .main-nav {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    box-shadow: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .main-nav > ul > li > a { padding: 0.78rem 0; color: rgba(255, 255, 255, 0.78); }
+  /* Thicker indicator, square bottom so it reads as a tab. */
+  .main-nav > ul > li > a::before {
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+  }
+  .main-nav > ul > li > a.active,
+  .main-nav .nav-has-sub:has(.nav-sub a.active) > a { color: #fff; }
+  .main-nav .nav-has-sub:has(.nav-sub a.active) > a::before { transform: scaleX(1); }
+  .nav-caret { display: block; }
+}
+
+/* ---------- C7. Solvers dropdown — always a vertical panel ---------- */
+.main-nav .nav-sub { flex-direction: column; }
+.main-nav .nav-sub a {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-shadow: none;
+}
+/* Game key: BO7 blue, BO6 purple, BO3 dim (not live yet). */
+.main-nav .nav-sub a::before {
+  content: '';
+  display: block;
+  position: static;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--sub-c, var(--blue));
+  transform: none;
+}
+.main-nav .nav-sub a[href*="bo7"] { --sub-c: var(--blue); }
+.main-nav .nav-sub a[href*="bo6"] { --sub-c: var(--purple); }
+.main-nav .nav-sub a[href*="bo3"] { --sub-c: var(--ink-dim); }
+.main-nav .nav-sub a.active { color: var(--ink); background: var(--surface-2); }
+
+@media (min-width: 900px) {
+  .main-nav .nav-sub {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 0;
+    min-width: 232px;
+    margin: 0;
+    padding: 0.4rem;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-top: 2px solid var(--blue);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 24px 44px -14px rgba(0, 0, 0, 0.75), 0 2px 0 rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+  }
+  /* Hover bridge across the gap and the 2px top edge. */
+  .main-nav .nav-sub::before { height: 0.75rem; }
+  .main-nav .nav-has-sub:focus-within > .nav-sub {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .main-nav .nav-sub a {
+    padding: 0.62rem 0.75rem;
+    font-size: 0.85rem;
+    color: var(--ink-mid);
+    border-radius: 6px;
+  }
+  .main-nav .nav-sub a[href*="bo3"] { color: var(--ink-dim); }
+  .main-nav .nav-sub a.active {
+    color: var(--ink);
+    background: var(--surface-2);
+    box-shadow: inset 2px 0 0 var(--sub-c, var(--blue));
+  }
+  .main-nav .nav-sub a:focus-visible { outline-offset: -2px; border-radius: 6px; }
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 900px) {
+  .main-nav .nav-has-sub:hover > .nav-sub {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .main-nav .nav-sub a:hover { color: var(--ink); background: var(--surface-2); }
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 900px) {
+  .main-nav .nav-sub {
+    transition: opacity 150ms ease-in, transform 180ms ease-in, visibility 0s linear 180ms;
+  }
+  .main-nav .nav-has-sub:focus-within > .nav-sub {
+    transition: opacity 200ms var(--ease), transform 240ms var(--ease), visibility 0s;
+  }
+  .main-nav .nav-sub a { transition: color var(--fast) var(--ease), background-color var(--fast) var(--ease); }
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 900px) and (hover: hover) and (pointer: fine) {
+  .main-nav .nav-has-sub:hover > .nav-sub {
+    transition: opacity 200ms var(--ease), transform 240ms var(--ease), visibility 0s;
+  }
+}
+
+/* ---------- C8. Header hover (pointer devices only) ---------- */
+@media (hover: hover) and (pointer: fine) {
+  .header-brand:hover .logo-placeholder {
+    box-shadow: 0 0 0 3px rgba(6, 10, 18, 0.55), 0 0 0 4px var(--blue-bright);
+  }
+  .header-socials a:hover { color: #fff; }
+  .header-socials a[aria-label="Twitch"]:hover  { background: var(--purple);   border-color: var(--purple); }
+  .header-socials a[aria-label="YouTube"]:hover { background: var(--red);      border-color: var(--red); }
+  .header-socials a[aria-label="Discord"]:hover { background: var(--blue-cta); border-color: var(--blue); }
+  .hamburger:hover { border-color: var(--line-strong); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .logo-placeholder { transition: box-shadow var(--mid) var(--ease), transform var(--mid) var(--spring); }
+  .header-socials a {
+    transition: color var(--fast) var(--ease), background-color var(--fast) var(--ease),
+                border-color var(--fast) var(--ease), transform var(--fast) var(--spring);
+  }
+  .hamburger { transition: border-color var(--fast) var(--ease), background-color var(--fast) var(--ease); }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .header-brand:hover .logo-placeholder { transform: rotate(-8deg) scale(1.04); }
+}
+
+/* ---------- C9. Buttons ---------- */
+.btn {
+  min-height: 44px;
+  line-height: 1.2;
+  text-decoration: none;
+}
+.btn-accent {
+  background: var(--blue-cta);
+  border-color: rgba(109, 180, 255, 0.55);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.18),
+    0 1px 0 rgba(0, 0, 0, 0.45),
+    0 8px 18px -8px rgba(31, 111, 224, 0.75);
+}
+.btn-outline {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: var(--line-strong);
+  color: var(--ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--blue-bright);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+.btn:disabled,
+.btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+@media (hover: hover) and (pointer: fine) {
+  /* Fill stays --blue-cta on hover: a lighter blue drops white text below 4.5:1. */
+  .btn-accent:hover {
+    background: var(--blue-cta);
+    border-color: var(--blue-bright);
+    color: #fff;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.28),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.18),
+      0 1px 0 rgba(0, 0, 0, 0.45),
+      0 12px 24px -8px rgba(47, 134, 255, 0.8);
+  }
+  .btn-outline:hover { background: var(--blue-lo); border-color: var(--blue); color: #fff; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn {
+    transition: background-color var(--fast) var(--ease), border-color var(--fast) var(--ease),
+                color var(--fast) var(--ease), box-shadow var(--mid) var(--ease),
+                transform var(--fast) var(--spring);
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .btn-accent:hover,
+  .btn-outline:hover { transform: translateY(-1px); }
+}
+.btn:is(.btn-accent, .btn-outline):active { box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.35); }
+.btn:active { transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .btn:active,
+  .btn:is(.btn-accent, .btn-outline):active { transform: scale(0.97); }
+}
+
+/* ---------- C10. Page title + intro ---------- */
+.page-title { letter-spacing: -0.03em; text-wrap: balance; }
+.page-intro {
+  max-width: 60ch;
+  margin-bottom: 1.75rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--ink-mid);
+  text-wrap: pretty;
+}
+
+/* ---------- C11. Footer — bookend to the band ----------
+   Same blurred channel art behind a flat scrim, same blue edge.
+   The wordmark is generated so no page markup changes. */
+.site-footer {
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  padding: 2.5rem var(--gutter) calc(2.25rem + env(safe-area-inset-bottom, 0px));
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(6, 10, 18, 0.92), rgba(6, 10, 18, 0.92)),
+    url('../images/channel-banner-blur.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-top: 1px solid rgba(47, 134, 255, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  font-size: 0.8rem;
+  color: var(--ink-dim);
+}
+.site-footer::before {
+  content: 'JOEMET123';
+  content: 'JOEMET123' / '';
+  font-family: 'Orbitron', var(--font-stack);
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--ink);
+}
+.site-footer .footer-links {
+  max-width: 34rem;
+  margin: 0;
+  gap: 0.2rem 1.35rem;
+}
+.site-footer .footer-links a {
+  padding: 0.35rem 0;
+  font-size: var(--t-small);
+  color: var(--ink-mid);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .site-footer .footer-links a:hover { color: var(--ink); text-decoration-color: var(--blue); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .site-footer .footer-links a { transition: color var(--fast) var(--ease), text-decoration-color var(--fast) var(--ease); }
+}
+@media (min-width: 900px) {
+  .site-footer {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 2rem;
+    text-align: left;
+    padding-inline: max(var(--gutter), calc((100% - var(--content-w)) / 2 + var(--gutter)));
+  }
+  .site-footer .footer-links { max-width: none; justify-content: center; }
+}
+
+/* ---------- C12. Cookie note + skip link ---------- */
+.cookie-note {
+  border-top: 2px solid var(--blue);
+  padding-bottom: calc(0.85rem + env(safe-area-inset-bottom, 0px));
+}
+.cookie-note-text a { text-decoration: underline; text-underline-offset: 3px; }
+.skip-link {
+  left: var(--gutter);
+  top: 0.5rem;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  transform: translateY(calc(-100% - 1rem));
+}
+
+/* ============================================================
+   P1. CHAT RULES & COMMANDS
+   ============================================================ */
+.pg-rules .rule-heading { padding: 1.05rem 1.2rem; font-size: 0.95rem; }
+.pg-rules .rule-num { min-width: 1.9rem; font-size: 1.05rem; }
+.pg-rules .rules-foot {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.pg-rules .rules-foot::before {
+  content: '!';
+  content: '!' / '';
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 50%;
+  background: var(--red);
+  color: var(--bg);
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* Commands read as a table: the chip you type, then what it does. */
+.pg-rules .cmd-list li {
+  display: grid;
+  grid-template-columns: minmax(6.6rem, max-content) minmax(0, 1fr);
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--line);
+}
+.pg-rules .cmd-list li:first-child { border-top: 0; padding-top: 0.1rem; }
+@supports (grid-template-columns: subgrid) {
+  .pg-rules .cmd-list { display: grid; grid-template-columns: max-content minmax(0, 1fr); column-gap: 0.9rem; }
+  .pg-rules .cmd-list li { grid-column: 1 / -1; grid-template-columns: subgrid; }
+}
+.pg-rules .cmd-name {
+  justify-self: start;
+  box-shadow: inset 2px 0 0 var(--cc, var(--blue));
+  white-space: nowrap;
+}
+.pg-rules .cmd-desc { min-width: 0; line-height: 1.45; }
+
+/* ============================================================
+   P2. CONTACT
+   ============================================================ */
+.pg-contact .contact-grid { display: grid; gap: var(--gap); align-items: start; }
+@media (min-width: 900px) {
+  .pg-contact .contact-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+}
+.pg-contact .contact-grid > .about-section { min-width: 0; max-width: none; margin: 0; }
+.pg-contact .contact-grid > .about-section:nth-of-type(2) { --ab: var(--purple); }
+@media (hover: hover) and (pointer: fine) {
+  .pg-contact .contact-grid > .about-section:hover { transform: none; }
+}
+.pg-contact .about-section h3 {
+  margin: 1.6rem 0 0.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.contact-form { display: grid; gap: 1.15rem; margin-top: 1.5rem; }
+.form-field { display: grid; gap: 0.45rem; min-width: 0; }
+.form-field > span {
+  font-size: var(--t-small);
+  font-weight: 700;
+  color: var(--ink);
+}
+.form-field :is(input, textarea) {
+  width: 100%;
+  min-width: 0;
+  padding: 0.8rem 0.95rem;
+  font: inherit;
+  font-size: 1rem;           /* 16px: iOS does not zoom on focus */
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+  caret-color: var(--blue-bright);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.form-field textarea { min-height: 9rem; resize: vertical; }
+.form-field :is(input, textarea):focus { border-color: var(--blue); }
+.form-field :is(input, textarea):focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+/* Errors only after the visitor has interacted (:user-invalid). */
+.form-field :is(input, textarea):user-invalid { border-color: var(--red); }
+.form-field:has(:user-invalid) > span::after {
+  content: 'Required';
+  margin-left: 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--red);
+}
+.form-field:has(input[type="email"]:user-invalid) > span::after { content: 'Enter A Valid Email'; }
+.contact-form .btn { justify-self: start; min-width: 12rem; margin-top: 0.25rem; }
+@media (max-width: 559px) {
+  .contact-form .btn { justify-self: stretch; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .form-field :is(input, textarea):hover:not(:focus) { border-color: rgba(255, 255, 255, 0.28); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .form-field :is(input, textarea) { transition: border-color var(--fast) var(--ease); }
+}
+
+.pg-contact .contact-list {
+  display: grid;
+  gap: 0.7rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.pg-contact .contact-list li {
+  padding: 0.85rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--cl, var(--blue));
+  border-radius: var(--radius-sm);
+  font-size: var(--t-small);
+  line-height: 1.6;
+  color: var(--ink-mid);
+}
+.pg-contact .contact-list li:nth-child(2) { --cl: var(--blue-bright); }
+.pg-contact .contact-list li:nth-child(3) { --cl: var(--purple); }
+.pg-contact .contact-list strong { color: var(--ink); }
+.pg-contact .contact-list a { font-weight: 700; overflow-wrap: anywhere; }
+
+/* ============================================================
+   P3. PRIVACY + TERMS — long-form reading
+   ============================================================ */
+.pg-legal .legal-layout { display: grid; gap: var(--gap); }
+@media (min-width: 980px) {
+  .pg-legal .legal-layout {
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+}
+.legal-toc {
+  min-width: 0;
+  padding: 1rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+@media (min-width: 980px) {
+  .legal-toc { position: sticky; top: calc(var(--band-total, 110px) + 1.25rem); }
+}
+.legal-toc-label {
+  display: block;
+  margin-bottom: 0.55rem;
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.legal-toc ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.1rem 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: toc;
+}
+@media (min-width: 980px) {
+  .legal-toc ol { grid-template-columns: 1fr; }
+}
+.legal-toc a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  padding: 0.42rem 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink-mid);
+  border-radius: 6px;
+}
+.legal-toc a::before {
+  counter-increment: toc;
+  content: counter(toc, decimal-leading-zero);
+  flex: none;
+  font-family: 'Orbitron', var(--font-stack);
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--ink-dim);
+}
+.legal-toc a:focus-visible { border-radius: 6px; }
+@media (hover: hover) and (pointer: fine) {
+  .legal-toc a:hover { color: var(--ink); background: var(--surface-2); }
+  .legal-toc a:hover::before { color: var(--blue-bright); }
+}
+
+.legal-body { min-width: 0; max-width: 46rem; counter-reset: legal; }
+.legal-sec {
+  counter-increment: legal;
+  padding: 1.9rem 0;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: calc(var(--band-total, 110px) + 1rem);
+}
+.legal-sec:first-child { padding-top: 0; border-top: 0; }
+.legal-sec:last-child { padding-bottom: 0; }
+.legal-sec h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  margin-bottom: 0.9rem;
+  font-size: clamp(1.25rem, 2.6vw, 1.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.legal-sec h2::before {
+  content: counter(legal, decimal-leading-zero);
+  flex: none;
+  font-family: 'Orbitron', var(--font-stack);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--blue-bright);
+}
+.legal-sec p,
+.legal-sec li {
+  max-width: 68ch;
+  line-height: 1.75;
+  color: var(--ink-mid);
+  text-wrap: pretty;
+}
+.legal-sec p { margin-bottom: 1em; }
+.legal-sec strong { color: var(--ink); }
+.legal-sec a {
+  color: var(--blue-bright);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(109, 180, 255, 0.45);
+  text-underline-offset: 0.2em;
+  overflow-wrap: anywhere;
+}
+@media (hover: hover) and (pointer: fine) {
+  .legal-sec a:hover { color: var(--ink); text-decoration-color: currentColor; }
+}
+.legal-sec ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.legal-sec ul:last-child { margin-bottom: 0; }
+.legal-sec li { position: relative; padding-left: 1.25rem; }
+.legal-sec li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  background: var(--blue);
+}
+.legal-sec .about-pull {
+  max-width: 46ch;
+  margin: 0 0 1.25rem;
+  line-height: 1.45;
+}
+
+/* ============================================================
+   P4. 404 + THANKS — status pages with real channel art
+   ============================================================ */
+.pg-status .st-hero { display: grid; gap: clamp(1.75rem, 4vw, 3rem); align-items: center; }
+@media (min-width: 900px) {
+  .pg-status .st-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); }
+}
+.pg-status .notfound { min-width: 0; max-width: 40rem; padding-block: 0; }
+.pg-status .notfound-code {
+  margin-bottom: 0.75rem;
+  font-size: clamp(4.25rem, 17vw, 7.5rem);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: var(--blue);
+  text-shadow: 0.06em 0.05em 0 rgba(255, 46, 76, 0.45);
+}
+.pg-status .notfound-code--ok {
+  font-size: clamp(3rem, 12vw, 5.25rem);
+  color: var(--blue-bright);
+  text-shadow: 0.06em 0.05em 0 rgba(139, 61, 255, 0.5);
+}
+.pg-status .page-title { margin-bottom: 0.75rem; }
+.pg-status .notfound-links { margin-top: 1.6rem; }
+@media (max-width: 559px) {
+  .pg-status .notfound-links .btn { flex: 1 1 calc(50% - 0.35rem); }
+  .pg-status .notfound-links .btn-accent { flex-basis: 100%; }
+}
+.st-art {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.8);
+}
+@media (min-width: 900px) { .st-art { aspect-ratio: 5 / 4; } }
+.st-art img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--art-x, 50%) 50%;
+}
+/* Plush sits ~73% across the banner, gumball machine ~25%. */
+.pg-status--404 .st-art { --art-x: 83%; }
+.pg-status--ok  .st-art { --art-x: 14%; }
+@media (min-width: 900px) {
+  .pg-status--404 .st-art { --art-x: 81%; }
+  .pg-status--ok  .st-art { --art-x: 17%; }
+}
+.st-art::after {
+  position: absolute;
+  left: 0.8rem;
+  bottom: 0.8rem;
+  padding: 0.35rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: rgba(6, 10, 18, 0.8);
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+}
+.pg-status--404 .st-art::after { content: 'Error 404'; content: 'Error 404' / ''; }
+.pg-status--ok  .st-art::after { content: 'Message Sent'; content: 'Message Sent' / ''; }
+@media (prefers-reduced-motion: no-preference) {
+  .st-art img { transition: transform 600ms var(--ease); }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .st-art:hover img { transform: scale(1.03); }
+}
+
