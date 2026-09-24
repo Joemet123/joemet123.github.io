@@ -20,25 +20,28 @@
 /* ---------- 2. Tokens ---------- */
 :root {
   /* Surface */
-  --bg:        #070B14;
-  --surface:   #0C1220;
-  --surface-2: #111A2E;
-  --line:        rgba(255, 255, 255, 0.085);
-  --line-strong: rgba(255, 255, 255, 0.17);
+  --bg:        #0C0A22;
+  --surface:   #15123A;
+  --surface-2: #1D1948;
+  --surface-3: #262158;
+  --line:        rgba(186, 196, 255, 0.12);
+  --line-strong: rgba(186, 196, 255, 0.24);
 
   /* Ink */
-  --ink:     #EEF3FB;
-  --ink-mid: #9EACC3;
-  --ink-dim: #7D8BA3;
+  --ink:     #F6F5FF;
+  --ink-mid: #C0C2E8;
+  --ink-dim: #9699C8;
 
   /* Accent: one dominant, two supporting, one punctuation */
-  --blue:        #2F86FF;
-  --blue-cta:    #1F6FE0;   /* darker fill so white CTA text passes 4.5:1 */
-  --blue-bright: #6DB4FF;
-  --blue-lo:     rgba(47, 134, 255, 0.13);
-  --red:         #FF2E4C;
-  --purple:      #8B3DFF;
-  --orange:      #FF7A18;
+  --blue:        #2E9BFF;
+  --blue-cta:    #0B67D0;   /* darker fill so white text passes 4.5:1 */
+  --blue-bright: #62D2FF;   /* the cyan burst in the middle of the banner */
+  --blue-lo:     rgba(46, 155, 255, 0.16);
+  --red:         #FF2D55;   /* the drip lettering */
+  --purple:      #A35BFF;
+  --orange:      #FF8A1F;
+  --orange-lip:  #B8520A;   /* the darker underside of a candy button */
+  --orange-ink:  #1C0D00;
 
   /* Type — deliberate jumps, not 16/24/32 */
   --t-display: clamp(2.05rem, 5.6vw, 3.1rem);
@@ -63,10 +66,11 @@
   --mid:  240ms;
   --slow: 380ms;
 
-  --radius:    12px;
-  --radius-sm: 8px;
+  --radius:    16px;
+  --radius-sm: 10px;
 
-  --font-stack: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-stack:   'Rubik', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Lilita One', 'Rubik', 'Segoe UI', sans-serif;
   --font-mono:  'Consolas', 'Courier New', monospace;
 
   /* Legacy aliases — contact.html and privacy-policy.html
@@ -76,7 +80,7 @@
   --color-gray-100:    var(--ink);
   --color-gray-300:    var(--ink-mid);
   --color-gray-500:    var(--ink-dim);
-  --color-gray-700:    #202A3C;
+  --color-gray-700:    #2A2658;
   --color-gray-900:    var(--surface-2);
   --color-card-bg:     var(--surface);
   --color-card-border: var(--line);
@@ -107,7 +111,8 @@ body {
      band. Overflow is prevented by min-width:0 on every flex/grid
      child instead. */
 }
-/* One soft light source at the top. No purple-to-blue fill. */
+/* One soft light source at the top — the cyan burst from the middle of
+   the banner, bleeding down under the band. No purple-to-blue fill. */
 body::before {
   content: '';
   position: fixed;
@@ -115,26 +120,26 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(90% 45% at 50% -12%, rgba(47, 134, 255, 0.13), transparent 68%),
+    radial-gradient(70% 40% at 50% -8%, rgba(98, 210, 255, 0.16), transparent 70%),
     var(--bg);
 }
-/* Fine scanline grain. Texture, not decoration — at this opacity it
-   reads as surface, and it never lands on top of a photo because the
-   layer sits behind everything (z-index -1, same plane as the wash). */
+/* Sprinkles. The banner is full of tiny candy-coloured sparks; four
+   offset dot tiles at different sizes recreate that without an image
+   and never line up into a visible grid. Behind everything, so it
+   never lands on a photo. */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.5;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0.016) 0px,
-    rgba(255, 255, 255, 0.016) 1px,
-    transparent 1px,
-    transparent 3px
-  );
+  opacity: 0.55;
+  background-image:
+    radial-gradient(circle at 18% 28%, rgba(98, 210, 255, 0.55) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 72% 64%, rgba(255, 79, 150, 0.5) 0 1.1px, transparent 1.8px),
+    radial-gradient(circle at 44% 82%, rgba(163, 91, 255, 0.6) 0 1.2px, transparent 1.9px),
+    radial-gradient(circle at 88% 12%, rgba(255, 255, 255, 0.45) 0 0.8px, transparent 1.4px);
+  background-size: 173px 173px, 241px 241px, 307px 307px, 127px 127px;
 }
 
 a {
@@ -144,21 +149,31 @@ a {
 }
 img { max-width: 100%; height: auto; display: block; }
 
+/* Lilita One ships one weight. Never let the browser fake a bold. */
+html { font-synthesis: none; }
+
 h1, h2, h3, h4 {
   line-height: 1.2;
   letter-spacing: -0.02em;
   font-weight: 800;
 }
+/* The big type is the chunky, rounded face from the channel art;
+   everything read at length stays in Rubik. */
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+}
 p { margin-bottom: 1em; }
 p:last-child { margin-bottom: 0; }
 ul, ol { padding-left: 1.4em; }
 
-::selection { background: rgba(47, 134, 255, 0.35); color: #fff; }
+::selection { background: rgba(46, 155, 255, 0.35); color: #fff; }
 
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: #1C2637; border-radius: 5px; }
-::-webkit-scrollbar-thumb:hover { background: #2A374E; }
+::-webkit-scrollbar-thumb { background: #2A2660; border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #3A3585; }
 
 :focus-visible {
   outline: 2px solid var(--blue);
@@ -180,7 +195,7 @@ ul, ol { padding-left: 1.4em; }
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  border-bottom: 1px solid rgba(47, 134, 255, 0.30);
+  border-bottom: 1px solid rgba(46, 155, 255, 0.30);
 }
 /* Scrim. Kept as its own layer so scroll state can fade it. */
 .site-band::before {
@@ -190,9 +205,9 @@ ul, ol { padding-left: 1.4em; }
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(6, 10, 18, 0.70) 0%,
-    rgba(6, 10, 18, 0.78) 55%,
-    rgba(6, 10, 18, 0.90) 100%
+    rgba(12, 10, 34, 0.42) 0%,
+    rgba(12, 10, 34, 0.58) 50%,
+    rgba(12, 10, 34, 0.84) 100%
   );
 }
 .site-band::after {
@@ -200,7 +215,7 @@ ul, ol { padding-left: 1.4em; }
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: rgba(6, 10, 18, 0.42);
+  background: rgba(12, 10, 34, 0.42);
   opacity: 0;
   transition: opacity var(--mid) var(--ease);
 }
@@ -252,14 +267,15 @@ ul, ol { padding-left: 1.4em; }
   transition: border-color var(--mid) var(--ease);
 }
 .site-title {
-  font-family: 'Orbitron', var(--font-stack);
-  font-size: 1.02rem;
-  font-weight: 900;
-  letter-spacing: 1.6px;
+  font-family: var(--font-display);
+  font-size: 1.32rem;
+  font-weight: 400;
+  letter-spacing: 1px;
   color: #fff;
   white-space: nowrap;
-  /* The wordmark sits on artwork — it needs its own contrast. */
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 2px 14px rgba(0, 0, 0, 0.75);
+  /* The wordmark sits on artwork — it needs its own contrast. The hard
+     red offset is the drip lettering from the banner, as a sticker. */
+  text-shadow: 2px 2px 0 var(--red), 0 2px 14px rgba(0, 0, 0, 0.75);
 }
 
 .header-socials {
@@ -309,7 +325,7 @@ ul, ol { padding-left: 1.4em; }
   right: 0;
   z-index: 2;
   /* Mobile is a dropdown overlay: solid surface, never artwork. */
-  background: rgba(8, 12, 21, 0.985);
+  background: rgba(14, 12, 38, 0.985);
   border-bottom: 1px solid var(--line);
   max-height: 0;
   overflow: hidden;
@@ -419,28 +435,30 @@ ul, ol { padding-left: 1.4em; }
    titles that draws itself in as the section arrives.        */
 .page-title {
   font-size: var(--t-display);
-  font-weight: 800;
-  letter-spacing: -0.025em;
+  font-weight: 400;
+  letter-spacing: 0.005em;
   line-height: 1.05;
   color: var(--ink);
   margin-bottom: 0.6rem;
 }
 .section-title {
+  font-family: var(--font-display);
   font-size: var(--t-h2);
-  font-weight: 800;
-  letter-spacing: -0.022em;
+  font-weight: 400;
+  letter-spacing: 0.005em;
   line-height: 1.1;
   color: var(--ink);
   margin-bottom: 1.35rem;
 }
+/* A fat rounded candy stroke, not a hairline. */
 .section-title::after {
   content: '';
   display: block;
-  width: 46px;
-  height: 3px;
-  margin-top: 0.6rem;
-  border-radius: 2px;
-  background: var(--blue);
+  width: 54px;
+  height: 6px;
+  margin-top: 0.55rem;
+  border-radius: 999px;
+  background: var(--blue-bright);
   transform: scaleX(1);
   transform-origin: left center;
   transition: transform 420ms var(--ease) 130ms;
@@ -486,19 +504,27 @@ ul, ol { padding-left: 1.4em; }
   font-size: var(--t-small);
   color: var(--ink-dim);
   max-width: 64ch;
-  margin: -0.85rem 0 1.4rem;
+  margin: 0.5rem 0 1.4rem;
 }
 .page-head { margin-bottom: 2.25rem; }
 
 /* ---------- 5b. Small components ---------- */
+/* A little slapped-on sticker tag rather than the grey caps-with-a-dash
+   label every template ships with. The outline follows the text colour,
+   so pages that tint their eyebrow still work. */
 .eyebrow {
   display: inline-block;
+  padding: 0.22rem 0.6rem 0.2rem;
   font-size: var(--t-micro);
-  font-weight: 700;
-  letter-spacing: 1.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ink-dim);
-  margin-bottom: 0.55rem;
+  color: var(--blue-bright);
+  border: 2px solid currentColor;
+  border-radius: 7px;
+  transform: rotate(-2deg);
+  transform-origin: left center;
+  margin-bottom: 0.8rem;
 }
 
 .notice {
@@ -539,9 +565,9 @@ ul, ol { padding-left: 1.4em; }
 }
 .btn:active { transform: scale(0.97); }
 .btn-accent {
-  background: var(--blue-cta);
-  border-color: var(--blue);
-  color: #fff;
+  background: var(--orange);
+  border-color: var(--orange);
+  color: var(--orange-ink);
 }
 .btn-outline {
   background: none;
@@ -551,9 +577,7 @@ ul, ol { padding-left: 1.4em; }
 
 
 @media (hover: hover) and (pointer: fine) {
-  .btn-accent:hover { background: #4A97FF; border-color: #4A97FF; color: #fff; }
   .btn-outline:hover { background: var(--blue-lo); border-color: var(--blue); color: #fff; }
-
 }
 
 /* ============================================================
@@ -722,7 +746,7 @@ ul, ol { padding-left: 1.4em; }
   transition: transform var(--fast) var(--ease);
 }
 @media (hover: hover) and (pointer: fine) {
-  .donate-popup-btn:hover { background: #4A97FF; border-color: #4A97FF; }
+  .donate-popup-btn:hover { background: #3FAEFF; border-color: #3FAEFF; }
   .paypal-group:hover { border-color: var(--line-strong); }
   #donate-button img:hover,
   #donate-button input[type="image"]:hover { transform: translateY(-2px); }
@@ -787,8 +811,8 @@ ul, ol { padding-left: 1.4em; }
   letter-spacing: 1.1px;
   text-transform: uppercase;
   color: #fff;
-  background: rgba(8, 12, 21, 0.86);
-  border: 1px solid rgba(255, 46, 76, 0.75);
+  background: rgba(14, 12, 38, 0.86);
+  border: 1px solid rgba(255, 45, 85, 0.75);
   border-radius: 5px;
 }
 .spotlight-card.is-short .spot-badge { display: inline-flex; }
@@ -819,7 +843,7 @@ ul, ol { padding-left: 1.4em; }
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  background: rgba(8, 12, 21, 0.72);
+  background: rgba(14, 12, 38, 0.72);
   border: 2px solid rgba(255, 255, 255, 0.85);
   transform: scale(0.86);
   transition: transform var(--mid) var(--spring);
@@ -884,7 +908,7 @@ ul, ol { padding-left: 1.4em; }
   line-height: 1;
   padding: 0 0 3px;
   color: var(--ink);
-  background: rgba(12, 18, 32, 0.9);
+  background: rgba(21, 18, 58, 0.9);
   border: 1px solid var(--line-strong);
   border-radius: 50%;
   cursor: pointer;
@@ -904,7 +928,7 @@ ul, ol { padding-left: 1.4em; }
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: #26324A;
+  background: #302B66;
   cursor: pointer;
   transition: background var(--fast) var(--ease), transform var(--fast) var(--spring);
 }
@@ -934,7 +958,7 @@ ul, ol { padding-left: 1.4em; }
 .yt-lightbox-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(4, 7, 13, 0.88);
+  background: rgba(8, 7, 24, 0.88);
   animation: lb-fade 200ms var(--ease) both;
 }
 .yt-lightbox-panel {
@@ -1213,7 +1237,7 @@ body.lightbox-open { overflow: hidden; }
 @media (hover: hover) and (pointer: fine) {
   .merch-card:hover { border-color: var(--blue); transform: translateY(-3px); }
   .merch-card:hover .merch-image-wrap img { transform: scale(1.045); }
-  .merch-card:hover .merch-price { color: #fff; border-top-color: rgba(47, 134, 255, 0.5); }
+  .merch-card:hover .merch-price { color: #fff; border-top-color: rgba(46, 155, 255, 0.5); }
 }
 
 /* ============================================================
@@ -1236,7 +1260,7 @@ body.lightbox-open { overflow: hidden; }
   color: var(--ink-dim);
 }
 .code-chip-code {
-  font-family: 'Orbitron', var(--font-stack);
+  font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 900;
   letter-spacing: 2px;
@@ -1353,10 +1377,10 @@ body.lightbox-open { overflow: hidden; }
     width: 2rem;
     pointer-events: none;
     background-image:
-      linear-gradient(180deg, rgba(47, 134, 255, 0.55), rgba(255, 122, 24, 0.55)),
-      linear-gradient(90deg, rgba(47, 134, 255, 0.62), rgba(255, 122, 24, 0.62)),
-      linear-gradient(90deg, rgba(47, 134, 255, 0.62), rgba(255, 122, 24, 0.62)),
-      linear-gradient(90deg, rgba(47, 134, 255, 0.62), rgba(255, 122, 24, 0.62));
+      linear-gradient(180deg, rgba(46, 155, 255, 0.55), rgba(255, 138, 31, 0.55)),
+      linear-gradient(90deg, rgba(46, 155, 255, 0.62), rgba(255, 138, 31, 0.62)),
+      linear-gradient(90deg, rgba(46, 155, 255, 0.62), rgba(255, 138, 31, 0.62)),
+      linear-gradient(90deg, rgba(46, 155, 255, 0.62), rgba(255, 138, 31, 0.62));
     background-size: 1px 100%, 100% 1px, 100% 1px, 100% 1px;
     background-position: left top, left top, left center, left bottom;
     background-repeat: no-repeat;
@@ -1416,11 +1440,11 @@ body.lightbox-open { overflow: hidden; }
   transition: opacity var(--mid) var(--ease);
 }
 .perk-card > * { position: relative; }
-.perk-card:nth-child(1) { --pc: #2F86FF; }
-.perk-card:nth-child(2) { --pc: #8B3DFF; }
+.perk-card:nth-child(1) { --pc: var(--blue); }
+.perk-card:nth-child(2) { --pc: var(--purple); }
 .perk-card:nth-child(3) { --pc: #FF4D9E; }
 .perk-card:nth-child(4) { --pc: #19C2D6; }
-.perk-card:nth-child(5) { --pc: #FF7A18; }
+.perk-card:nth-child(5) { --pc: var(--orange); }
 .perk-card-icon {
   font-size: 1.15rem;
   line-height: 1.3;
@@ -1562,7 +1586,7 @@ body.lightbox-open { overflow: hidden; }
 .about-stats li { min-width: 0; }
 .about-stat-k {
   display: block;
-  font-family: 'Orbitron', var(--font-stack);
+  font-family: var(--font-display);
   font-size: 1.45rem;
   font-weight: 900;
   letter-spacing: -0.01em;
@@ -1704,7 +1728,7 @@ body.lightbox-open { overflow: hidden; }
 .rule-heading > * { position: relative; }
 .rule-num {
   flex-shrink: 0;
-  font-family: 'Orbitron', var(--font-stack);
+  font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 900;
   line-height: 1.5;
@@ -1713,12 +1737,12 @@ body.lightbox-open { overflow: hidden; }
 }
 .rule-text { min-width: 0; }
 /* A walk along the brand palette rather than six unrelated hues. */
-.rules-list .rule-heading:nth-child(1) { --rc: #2F86FF; }
+.rules-list .rule-heading:nth-child(1) { --rc: #2E9BFF; }
 .rules-list .rule-heading:nth-child(2) { --rc: #19C2D6; }
-.rules-list .rule-heading:nth-child(3) { --rc: #8B3DFF; }
+.rules-list .rule-heading:nth-child(3) { --rc: #A35BFF; }
 .rules-list .rule-heading:nth-child(4) { --rc: #FF4D9E; }
-.rules-list .rule-heading:nth-child(5) { --rc: #FF7A18; }
-.rules-list .rule-heading:nth-child(6) { --rc: #FF2E4C; }
+.rules-list .rule-heading:nth-child(5) { --rc: #FF8A1F; }
+.rules-list .rule-heading:nth-child(6) { --rc: #FF2D55; }
 .rule-heading:active { transform: scale(0.995); }
 @media (hover: hover) and (pointer: fine) {
   .rule-heading:hover {
@@ -1734,7 +1758,7 @@ body.lightbox-open { overflow: hidden; }
 .warning-text {
   padding: 1rem 1.15rem;
   background: rgba(120, 15, 24, 0.42);
-  border: 1px solid rgba(255, 46, 76, 0.5);
+  border: 1px solid rgba(255, 45, 85, 0.5);
   border-radius: var(--radius-sm);
   color: #FFB4BC;
   font-size: var(--t-small);
@@ -1772,10 +1796,10 @@ body.lightbox-open { overflow: hidden; }
   border-radius: 0 0 2px 2px;
   background: var(--cc, var(--blue));
 }
-.cmd-grid .cmd-category:nth-child(1) { --cc: #2F86FF; }
-.cmd-grid .cmd-category:nth-child(2) { --cc: #8B3DFF; }
+.cmd-grid .cmd-category:nth-child(1) { --cc: var(--blue); }
+.cmd-grid .cmd-category:nth-child(2) { --cc: var(--purple); }
 .cmd-grid .cmd-category:nth-child(3) { --cc: #19C2D6; }
-.cmd-grid .cmd-category:nth-child(4) { --cc: #FF7A18; }
+.cmd-grid .cmd-category:nth-child(4) { --cc: var(--orange); }
 .cmd-category-title {
   display: flex;
   align-items: center;
@@ -1813,7 +1837,7 @@ body.lightbox-open { overflow: hidden; }
   font-weight: 700;
   color: var(--blue-bright);
   background: var(--blue-lo);
-  border: 1px solid rgba(47, 134, 255, 0.22);
+  border: 1px solid rgba(46, 155, 255, 0.22);
   border-radius: 4px;
   padding: 0.1rem 0.45rem;
   transition: border-color var(--fast) var(--ease), color var(--fast) var(--ease);
@@ -2093,7 +2117,7 @@ body.lightbox-open { overflow: hidden; }
 }
 .solver-stats li { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
 .solver-stat-k {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.7rem;
   font-weight: 900;
   letter-spacing: -0.02em;
@@ -2140,7 +2164,7 @@ body.lightbox-open { overflow: hidden; }
   color: var(--gc, var(--blue));
 }
 .game-card-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 900;
   letter-spacing: -0.01em;
@@ -2285,7 +2309,7 @@ body.lightbox-open { overflow: hidden; }
   border-bottom: 1px solid var(--line);
 }
 .solver-name {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.02rem;
   font-weight: 900;
   letter-spacing: -0.01em;
@@ -2390,7 +2414,7 @@ body.lightbox-open { overflow: hidden; }
   font-weight: 800;
   line-height: 18px;
   text-align: center;
-  color: #06101F;
+  color: #0C0A22;
   background: var(--blue-bright);
   border-radius: 999px;
 }
@@ -2423,7 +2447,7 @@ body.lightbox-open { overflow: hidden; }
   height: 52px;
   object-fit: contain;
   border-radius: 4px;
-  background: #05070E;
+  background: #07061A;
 }
 .solver-imgchip-label {
   font-size: 0.72rem;
@@ -2447,7 +2471,7 @@ body.lightbox-open { overflow: hidden; }
   font-weight: 800;
   line-height: 18px;
   text-align: center;
-  color: #06101F;
+  color: #0C0A22;
   background: var(--blue-bright);
   border-radius: 999px;
 }
@@ -2520,7 +2544,7 @@ body.lightbox-open { overflow: hidden; }
   color: var(--ink-dim);
 }
 .solver-result-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: 0.88rem;
   font-weight: 900;
   text-transform: uppercase;
@@ -2532,7 +2556,7 @@ body.lightbox-open { overflow: hidden; }
 .solver-result .solver-figure:last-child { margin-bottom: 0; }
 
 .solver-verdict {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.05rem, 3.4vw, 1.5rem);
   font-weight: 900;
   letter-spacing: -0.01em;
@@ -2607,7 +2631,7 @@ body.lightbox-open { overflow: hidden; }
 }
 .solver-turn.is-zero { opacity: 0.5; }
 .solver-turn-n {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.3rem;
   font-weight: 900;
   color: var(--ink);
@@ -2654,7 +2678,7 @@ body.lightbox-open { overflow: hidden; }
 }
 .solver-cell.is-out { border-color: #2FBF6B; background: rgba(47, 191, 107, 0.1); }
 .solver-cell.is-out .solver-cell-state { color: #6FE3A0; }
-.solver-cell.is-in  { border-color: rgba(255, 46, 76, 0.55); }
+.solver-cell.is-in  { border-color: rgba(255, 45, 85, 0.55); }
 .solver-cell.is-in .solver-cell-state { color: #FF8FA0; }
 .solver-cell:active { transform: scale(0.96); }
 @media (hover: hover) and (pointer: fine) {
@@ -2692,7 +2716,7 @@ body.lightbox-open { overflow: hidden; }
   height: 74px;
   object-fit: contain;
   border-radius: 4px;
-  background: #05070E;
+  background: #07061A;
 }
 .solver-pick figcaption {
   margin-top: 0.35rem;
@@ -2751,7 +2775,7 @@ body.lightbox-open { overflow: hidden; }
 .solver-note--warn { border-left-color: var(--orange); color: #FFC9B0; }
 
 .solver-sequence {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(0.85rem, 2.6vw, 1.15rem);
   font-weight: 900;
   line-height: 1.5;
@@ -2976,7 +3000,7 @@ code.solver-code {
   padding: clamp(0.5rem, 2.5vw, 2rem);
 }
 .solver-lightbox[hidden] { display: none; }
-.solver-lightbox-backdrop { position: absolute; inset: 0; background: rgba(3, 6, 12, 0.93); }
+.solver-lightbox-backdrop { position: absolute; inset: 0; background: rgba(8, 7, 24, 0.93); }
 .solver-lightbox-panel {
   position: relative;
   display: flex;
@@ -3043,7 +3067,7 @@ code.solver-code {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   touch-action: pinch-zoom pan-x pan-y;
-  background: #05070E;
+  background: #07061A;
   padding: 0.5rem;
 }
 .solver-lightbox-stage img {
@@ -3287,7 +3311,7 @@ code.solver-code {
 .wip-tag {
   flex: none;
   padding: 0.3rem 0.7rem;
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: var(--t-micro);
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -3409,7 +3433,7 @@ code.solver-code {
 }
 .statline > li { display: flex; flex-direction: column; gap: 0.1rem; }
 .statline-k {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.35rem;
   font-weight: 800;
   line-height: 1;
@@ -3458,7 +3482,7 @@ code.solver-code {
 .notfound { max-width: 62ch; padding-block: clamp(1.5rem, 5vw, 3.5rem); }
 .notfound-code {
   margin: 0 0 0.4rem;
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(3rem, 12vw, 5.5rem);
   font-weight: 900;
   line-height: 0.9;
@@ -3762,7 +3786,7 @@ code.solver-code {
   position: absolute;
   top: 0.08rem;
   left: 0;
-  font-family: 'Orbitron', var(--font-stack);
+  font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 900;
   color: var(--ls, var(--blue));
@@ -3970,7 +3994,7 @@ code.solver-code {
 .step-n {
   position: absolute;
   left: 0; top: -0.1rem;
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 900;
   line-height: 1;
@@ -4053,14 +4077,14 @@ code.solver-code {
 .status-card--bo3 { --sb: var(--orange); }
 .status-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; }
 .status-name {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 900;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   color: var(--ink);
 }
-.status-ratio { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 900; line-height: 1; color: var(--sb, var(--blue)); white-space: nowrap; }
+.status-ratio { font-family: var(--font-display); font-size: 1.2rem; font-weight: 900; line-height: 1; color: var(--sb, var(--blue)); white-space: nowrap; }
 .status-sub { margin: 0.35rem 0 0; font-size: var(--t-micro); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-dim); }
 .status-rail { height: 4px; margin: 0.85rem 0 1rem; background: rgba(255, 255, 255, 0.07); border-radius: 2px; overflow: hidden; }
 .status-rail > span { display: block; height: 100%; width: var(--pct, 0%); background: var(--sb, var(--blue)); border-radius: 2px; }
@@ -4229,24 +4253,24 @@ code.solver-code {
 
 /* ---------- Intro: dramatic type, channel card, stat blocks ---------- */
 .home-page .home-intro .page-title {
-  font-size: clamp(2.3rem, 6.2vw, 3.85rem);
-  letter-spacing: -0.032em;
-  line-height: 1.02;
-  max-width: 17ch;
-  margin-bottom: 1rem;
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  letter-spacing: 0.005em;
+  line-height: 1;
+  max-width: 15ch;
+  margin-bottom: 1.1rem;
 }
-.home-page .home-intro .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  color: var(--blue-bright);
-}
-.home-page .home-intro .eyebrow::before {
-  content: '';
-  width: 18px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--blue);
+/* The banner's own lettering: red, fat white sticker outline, hard dark
+   drop. Built from text-shadows so it holds in every browser. */
+.home-page .home-intro .page-title .title-drip {
+  display: inline-block;
+  margin-top: 0.12em;
+  color: var(--red);
+  text-shadow:
+    3px 0 0 #fff, -3px 0 0 #fff, 0 3px 0 #fff, 0 -3px 0 #fff,
+    2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff,
+    6px 7px 0 rgba(8, 7, 24, 0.85);
+  transform: rotate(-2deg);
+  transform-origin: left bottom;
 }
 .home-page .home-intro-side { min-width: 0; }
 
@@ -4291,7 +4315,7 @@ code.solver-code {
   padding-top: 0.55rem;
 }
 .home-page .home-channel-name {
-  font-family: 'Orbitron', var(--font-stack);
+  font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 900;
   letter-spacing: 0.03em;
@@ -4306,29 +4330,27 @@ code.solver-code {
   color: var(--blue-bright);
 }
 
-/* Stat blocks — four tiles, each carrying its own hue on the top edge. */
+/* Stat strip — big candy numerals on the page itself, split by short
+   dividers. Not four identical dashboard tiles. */
 .home-page .home-intro .home-statline {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.6rem;
-  margin: 1.6rem 0 1.6rem;
+  gap: 1rem 0;
+  margin: 1.7rem 0 1.9rem;
   padding: 0;
   border-top: 0;
   max-width: 44rem;
 }
 .home-page .home-intro .home-statline > li {
-  gap: 0.35rem;
+  gap: 0.3rem;
   min-width: 0;
-  padding: 0.85rem 0.95rem 0.8rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--sk, var(--blue));
-  border-radius: var(--radius-sm);
+  padding: 0.1rem 1rem 0.1rem 1.1rem;
+  border-left: 3px solid var(--sk, var(--blue));
 }
 .home-page .home-intro .home-statline .statline-k {
-  font-size: clamp(1.45rem, 3.4vw, 1.9rem);
-  font-weight: 900;
-  letter-spacing: -0.01em;
+  font-size: clamp(2.1rem, 5vw, 2.75rem);
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 .home-page .home-intro .home-statline .statline-v { letter-spacing: 0.12em; line-height: 1.35; }
 @media (min-width: 640px) {
@@ -4365,7 +4387,7 @@ code.solver-code {
   top: 0.35rem;
   right: 0.85rem;
   z-index: -1;
-  font-family: 'Orbitron', var(--font-stack);
+  font-family: var(--font-display);
   font-size: 5.4rem;
   font-weight: 900;
   line-height: 1;
@@ -4719,7 +4741,7 @@ code.solver-code {
 /* Flat tint on the flagship only — one card clearly leads. */
 .pg-hub .game-card--bo7 {
   background: color-mix(in srgb, var(--blue) 7%, var(--surface));
-  border-color: rgba(47, 134, 255, 0.34);
+  border-color: rgba(46, 155, 255, 0.34);
   border-top-width: 4px;
 }
 /* BO3 reads as a build site: dashed frame, quieter type. */
@@ -4732,7 +4754,7 @@ code.solver-code {
   top: 0.35rem;
   right: 0.9rem;
   z-index: 0;
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(3.4rem, 12vw, 4.6rem);
   font-weight: 900;
   line-height: 1;
@@ -4880,7 +4902,7 @@ code.solver-code {
   margin-bottom: 1.8rem;
   padding: 1.2rem 1.25rem 1.25rem;
   background: color-mix(in srgb, var(--orange) 6%, var(--surface));
-  border: 1px dashed rgba(255, 122, 24, 0.45);
+  border: 1px dashed rgba(255, 138, 31, 0.45);
   border-left: 4px solid var(--orange);
   border-radius: var(--radius);
 }
@@ -4962,7 +4984,7 @@ code.solver-code {
   padding: 0.75rem 1rem;
   color: var(--ink);
   background: color-mix(in srgb, var(--orange) 7%, var(--surface-2));
-  border: 1px dashed rgba(255, 122, 24, 0.5);
+  border: 1px dashed rgba(255, 138, 31, 0.5);
   border-left: 3px solid var(--orange);
 }
 .pg-bo3 .solver-offline::before {
@@ -5021,7 +5043,7 @@ code.solver-code {
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--ink);
-  background: rgba(7, 11, 20, 0.82);
+  background: rgba(12, 10, 34, 0.82);
   border: 1px solid var(--line-strong);
   border-radius: 999px;
 }
@@ -5085,7 +5107,7 @@ code.solver-code {
   margin-top: 0.3rem;
   padding: 0.8rem 1.3rem;
   background: var(--surface-2);
-  border: 1px dashed rgba(109, 180, 255, 0.55);
+  border: 1px dashed rgba(98, 210, 255, 0.55);
   border-radius: var(--radius);
 }
 .pg-aff .code-chip-label { color: var(--ink-mid); }
@@ -5151,7 +5173,7 @@ code.solver-code {
   position: absolute;
   top: 0.85rem;
   right: 0.9rem;
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: 0.8rem;
   font-weight: 900;
   line-height: 1;
@@ -5279,10 +5301,10 @@ main.solvers-page--console .solver-index a[href="#bo7-paradox"]         { --mc: 
 main.solvers-page--console #bo7-astra,
 main.solvers-page--console .solver-index a[href="#bo7-astra"]           { --mc: #B98BFF; }
 main.solvers-page--console #bo7-ashes,
-main.solvers-page--console .solver-index a[href="#bo7-ashes"]           { --mc: #6DB4FF; }
+main.solvers-page--console .solver-index a[href="#bo7-ashes"]           { --mc: var(--blue-bright); }
 
 main.solvers-page--console #bo6-terminus,
-main.solvers-page--console .solver-index a[href="#bo6-terminus"]        { --mc: #6DB4FF; }
+main.solvers-page--console .solver-index a[href="#bo6-terminus"]        { --mc: var(--blue-bright); }
 main.solvers-page--console #bo6-liberty,
 main.solvers-page--console .solver-index a[href="#bo6-liberty"]         { --mc: #4DE0EE; }
 main.solvers-page--console #bo6-citadelle,
@@ -5299,14 +5321,14 @@ main.solvers-page--console .solver-index a[href="#bo6-reckoning"]       { --mc: 
    -------------------------------------------------------------------------- */
 main.solvers-page--console .solver-hero {
   display: block;
-  margin: 0 0 1.25rem;
+  margin: 0 0 1.1rem;
   padding: 0;
 }
-main.solvers-page--console .solver-hero .eyebrow { margin-bottom: 0.3rem; }
+main.solvers-page--console .solver-hero .eyebrow { margin-bottom: 0.55rem; }
 main.solvers-page--console .solver-hero .page-title {
   margin: 0;
-  font-size: clamp(1.85rem, 4.4vw, 2.55rem);
-  letter-spacing: -0.03em;
+  font-size: clamp(2rem, 4.8vw, 2.9rem);
+  letter-spacing: 0.005em;
 }
 main.solvers-page--console .solver-discord-credit {
   max-width: none;
@@ -5335,22 +5357,27 @@ main.solvers-page--console .solver-workbench {
 }
 main.solvers-page--console .solver-column,
 main.solvers-page--console .solver-rail { min-width: 0; }
-main.solvers-page--console .solver-rail { margin: 0 0 1.6rem; }
+main.solvers-page--console .solver-rail { margin: 0 0 1.4rem; }
 main.solvers-page--console .solver-rail-label { display: none; }
 
 main.solvers-page--console .solver-rail .solver-index {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
   margin: 0;
-  padding: 4px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  padding: 0 0 4px;
   scroll-margin-top: calc(var(--band-total, var(--band-h)) + 1.25rem);
 }
+/* Phones: three across, two rows — six maps without a wall of tabs. */
+@media (max-width: 559px) {
+  main.solvers-page--console .solver-rail .solver-index a {
+    min-height: 44px;
+    padding: 0.35rem 0.3rem;
+    font-size: 0.76rem;
+  }
+}
 @media (min-width: 560px) {
-  main.solvers-page--console .solver-rail .solver-index { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  main.solvers-page--console .solver-rail .solver-index { gap: 8px; }
 }
 @media (min-width: 1000px) {
   main.solvers-page--console .solver-rail .solver-index { grid-template-columns: repeat(6, minmax(0, 1fr)); }
@@ -5360,27 +5387,32 @@ main.solvers-page--console .solver-rail .solver-index a {
   align-items: center;
   justify-content: center;
   min-width: 0;
-  min-height: 44px;
+  min-height: 46px;
   padding: 0.45rem 0.6rem;
-  font-size: 0.86rem;
-  font-weight: 700;
-  line-height: 1.25;
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.2;
   text-align: center;
   color: var(--ink-mid);
-  background: transparent;
-  border: 0;
-  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-top: 4px solid var(--mc);
+  border-radius: 12px;
 }
+/* The live map is filled with its own hue and sits on a dark lip, like
+   a pressed-in gumball button. Every map hue is light, so dark text. */
 main.solvers-page--console .solver-rail .solver-index a.is-current,
 main.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"] {
-  color: var(--ink);
-  background: var(--surface-2);
-  box-shadow: inset 0 -2px 0 var(--mc);
+  color: var(--bg);
+  background: var(--mc);
+  border-color: var(--mc);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.55);
 }
 @media (hover: hover) and (pointer: fine) {
-  main.solvers-page--console .solver-rail .solver-index a:hover {
+  main.solvers-page--console .solver-rail .solver-index a:not([aria-current="true"]):not(.is-current):hover {
     color: var(--ink);
     background: var(--surface-2);
+    border-color: var(--mc);
   }
 }
 
@@ -5395,24 +5427,28 @@ main.solvers-page--console .solver-workbench.is-tabbed .solver-map.is-off { disp
    -------------------------------------------------------------------------- */
 main.solvers-page--console .solver-map-head {
   display: block;
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.2rem;
   padding: 0;
   border: 0;
 }
+/* One line: the map name in its own hue, the one-sentence intro beside
+   it. The tab above already carries the colour, so no rule underneath. */
+main.solvers-page--console .solver-map-headline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 1rem;
+}
 main.solvers-page--console .solver-map-head .section-title {
   margin: 0;
-  font-size: clamp(1.45rem, 3vw, 1.9rem);
-  letter-spacing: -0.022em;
+  font-size: clamp(1.6rem, 3.2vw, 2.1rem);
+  letter-spacing: 0.005em;
+  color: var(--mc);
 }
-main.solvers-page--console .solver-map-head .section-title::after {
-  width: 32px;
-  height: 3px;
-  margin-top: 0.45rem;
-  background: var(--mc);
-}
+main.solvers-page--console .solver-map-head .section-title::after { content: none; }
 main.solvers-page--console .solver-map-intro {
   max-width: 62ch;
-  margin: 0.5rem 0 0;
+  margin: 0;
   font-size: 0.9rem;
   line-height: 1.5;
   color: var(--ink-mid);
@@ -5428,8 +5464,8 @@ main.solvers-page--console .solver-toolnav {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.2rem 0.3rem;
-  margin: 0 0 1.25rem;
-  padding: 0.5rem 0;
+  margin: 0 0 1rem;
+  padding: 0.45rem 0;
   background: var(--bg);
   border-bottom: 1px solid var(--line);
 }
@@ -5446,7 +5482,7 @@ main.solvers-page--console .solver-toolnav a {
   border-radius: 6px;
 }
 main.solvers-page--console .solver-toolnav a::before { content: none; }
-main.solvers-page--console .solver-toolnav a.is-current { color: var(--ink); background: var(--surface-2); }
+main.solvers-page--console .solver-toolnav a.is-current { color: var(--ink); background: var(--surface-2); box-shadow: inset 0 -2px 0 var(--mc); }
 main.solvers-page--console .solver-toolnav a.solver-toolnav-up { margin-left: auto; color: var(--ink-dim); }
 @media (hover: hover) and (pointer: fine) {
   main.solvers-page--console .solver-toolnav a:hover { color: var(--ink); background: var(--surface); }
@@ -5469,8 +5505,8 @@ main.solvers-page--console .solver-toolnav a.solver-toolnav-up { margin-left: au
    -------------------------------------------------------------------------- */
 main.solvers-page--console .solver-bands,
 main.solvers-page--console .solver-band { min-width: 0; }
-main.solvers-page--console .solver-band + .solver-band { margin-top: 1.75rem; }
-main.solvers-page--console .solver-bandlabel { margin: 0 0 0.6rem; }
+main.solvers-page--console .solver-band + .solver-band { margin-top: 1.35rem; }
+main.solvers-page--console .solver-bandlabel { margin: 0 0 0.5rem; }
 main.solvers-page--console .solver-bandlabel-k {
   font-size: 0.7rem;
   font-weight: 800;
@@ -5484,43 +5520,47 @@ main.solvers-page--console .solver-bandlabel-k {
    -------------------------------------------------------------------------- */
 main.solvers-page--console .solver {
   min-width: 0;
-  padding: clamp(1rem, 2vw, 1.35rem);
+  padding: clamp(0.9rem, 1.8vw, 1.2rem);
   background: var(--surface);
-  border: 1px solid var(--line);
+  border: 2px solid var(--line);
   border-radius: var(--radius);
 }
 main.solvers-page--console .solver-head {
   align-items: baseline;
   gap: 0.3rem 0.75rem;
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.3rem;
   padding: 0;
   border: 0;
 }
 main.solvers-page--console .solver-name {
-  font-family: inherit;
-  font-size: 1.08rem;
-  font-weight: 800;
-  line-height: 1.3;
-  letter-spacing: -0.012em;
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
   text-transform: none;
   color: var(--ink);
 }
-/* The tool type stays as a quiet word, not a pill. */
+/* The tool type stays a quiet word, tinted by kind so a glance tells a
+   solver you operate from a sheet you read. */
 main.solvers-page--console .solver-kind {
   padding: 0;
   font-size: 0.66rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.12em;
   color: var(--ink-dim);
   background: none;
   border: 0;
   border-radius: 0;
 }
+main.solvers-page--console .solver-kind--solver    { color: var(--blue-bright); }
+main.solvers-page--console .solver-kind--reference { color: #C9A2FF; }
+main.solvers-page--console .solver-kind--sheet     { color: #4DE0EE; }
 main.solvers-page--console .solver-blurb {
   max-width: 68ch;
-  margin: 0 0 0.9rem;
-  font-size: 0.92rem;
-  line-height: 1.6;
+  margin: 0 0 0.7rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
   color: var(--ink-mid);
 }
 main.solvers-page--console .solver-text { font-size: 0.92rem; line-height: 1.65; }
@@ -5551,9 +5591,8 @@ main.solvers-page--console .solver-bench > .solver--half .solver-table th,
 main.solvers-page--console .solver-bench > .solver--half .solver-table td { padding: 0.45rem 0.55rem; }
 main.solvers-page--console .solver-bench > .solver--half .solver-table thead th { white-space: normal; }
 
-/* A whole map with nothing built yet (Paradox Junction). */
-main.solvers-page--console .solver-bands > .solver--soon { padding: clamp(1.2rem, 3vw, 1.8rem); }
-main.solvers-page--console .solver-bands > .solver--soon .solver-note { max-width: 58ch; }
+/* A whole map with nothing built yet (Paradox Junction) uses the slim
+   Coming Soon strip in section 7. */
 
 /* --------------------------------------------------------------------------
    7. Quick reference tiles — image on top, name under it
@@ -5635,7 +5674,7 @@ main.solvers-page--console .solver--tile .solver-figcaption {
   color: var(--ink-dim);
 }
 main.solvers-page--console .solver--tile .solver-figcaption .solver-fullsize { font-size: 0.72rem; }
-main.solvers-page--console .solver--tile .solver-name { font-size: 0.95rem; }
+main.solvers-page--console .solver--tile .solver-name { font-size: 1.1rem; }
 main.solvers-page--console .solver--tile .solver-blurb { margin-bottom: 0; font-size: 0.84rem; line-height: 1.5; }
 main.solvers-page--console .solver--tile .solver-note { font-size: 0.8rem; line-height: 1.5; }
 main.solvers-page--console .solver--tile .solver-sequence { margin: 0.6rem 0 0; font-size: 0.86rem; }
@@ -5678,35 +5717,156 @@ main.solvers-page--console .solver--soon {
 }
 main.solvers-page--console .solver--soon .solver-name,
 main.solvers-page--console .solver--soon .solver-blurb { color: var(--ink-mid); }
-main.solvers-page--console .solver--soon.solver--tile { justify-content: center; min-height: 118px; }
+/* Coming Soon is a slim full-width strip, never a big empty box: name
+   and tag on one line, the two sentences running on underneath. */
+main.solvers-page--console .solver-refs > .solver--soon { align-self: start; }
+main.solvers-page--console .solver--soon.solver--tile,
+main.solvers-page--console .solver-bands > .solver--soon {
+  display: block;
+  min-height: 0;
+  padding: 0.7rem 1rem 0.75rem;
+}
+main.solvers-page--console .solver--soon .solver-head { margin: 0 0 0.15rem; }
+main.solvers-page--console .solver--soon .solver-name { font-size: 1.05rem; }
+main.solvers-page--console .solver--soon .solver-blurb,
+main.solvers-page--console .solver--soon .solver-note {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+main.solvers-page--console .solver--soon .solver-blurb::after { content: ' '; }
 
 /* --------------------------------------------------------------------------
    8. Controls — chips, symbol picks, fields
+
+   Each widget is its own size container, so a tool lays itself out by
+   the room its card actually has (a full-width card and a half card on
+   the same screen get different layouts):
+     - from 480px, every choice group is a row: label on the left, the
+       buttons on the right. Half the height of label-above stacking.
+     - from 720px, the answer panel pins beside the controls and follows
+       you down, so the answer never scrolls away from the inputs.
    -------------------------------------------------------------------------- */
-main.solvers-page--console .solver-opt-label {
-  font-size: var(--t-micro);
-  font-weight: 800;
-  letter-spacing: 1.1px;
-  color: var(--ink-mid);
+main.solvers-page--console .solver-widget { container: sw / inline-size; }
+main.solvers-page--console .solver-widget .solver-io {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.9rem;
+  margin: 0.4rem 0 0.8rem;
 }
-main.solvers-page--console .solver-opt-hint { font-size: 0.8rem; color: var(--ink-dim); }
+main.solvers-page--console .solver-widget .solver-io-out { position: static; }
+
+main.solvers-page--console .solver-opt { margin: 0 0 0.75rem; }
+main.solvers-page--console .solver-opt-label {
+  margin-bottom: 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+}
+main.solvers-page--console .solver-opt-hint {
+  margin-bottom: 0.4rem;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--ink-dim);
+}
+main.solvers-page--console .solver-opt-btns { gap: 0.35rem; }
 main.solvers-page--console .solver-chip {
-  min-height: 42px;
-  font-size: 0.86rem;
+  min-height: 40px;
+  padding: 0.4rem 0.62rem;
+  font-size: 0.85rem;
+  color: var(--ink-mid);
+  background: var(--surface-2);
+  border: 2px solid var(--line-strong);
+  border-radius: 10px;
+}
+main.solvers-page--console .solver-opt--compact .solver-chip {
+  min-width: 2.6rem;
+  min-height: 36px;
+  padding: 0.3rem 0.55rem;
+}
+/* Picked: filled candy cyan with dark text — readable across the room. */
+main.solvers-page--console .solver-chip.is-on {
+  color: var(--bg);
+  background: var(--blue-bright);
+  border-color: var(--blue-bright);
+  box-shadow: none;
+}
+main.solvers-page--console .solver-imgchip {
+  border-width: 2px;
   background: var(--surface-2);
 }
-main.solvers-page--console .solver-opt--compact .solver-chip { min-height: 38px; }
-main.solvers-page--console .solver-chip.is-on,
 main.solvers-page--console .solver-imgchip.is-on {
-  color: #fff;
   background: var(--blue-lo);
-  border-color: var(--blue);
-  box-shadow: inset 0 0 0 1px var(--blue);
+  border-color: var(--blue-bright);
+  box-shadow: none;
 }
-main.solvers-page--console .solver-chip--red.is-on    { border-color: var(--red); box-shadow: inset 0 0 0 1px var(--red); }
-main.solvers-page--console .solver-chip--yellow.is-on { border-color: #E8B93A;    box-shadow: inset 0 0 0 1px #E8B93A; }
-main.solvers-page--console .solver-chip--green.is-on  { border-color: #2FBF6B;    box-shadow: inset 0 0 0 1px #2FBF6B; }
+main.solvers-page--console .solver-imgchip.is-on .solver-imgchip-label { color: var(--blue-bright); }
+main.solvers-page--console .solver-chip--red.is-on    { color: #fff;        background: var(--red); border-color: var(--red); }
+main.solvers-page--console .solver-chip--yellow.is-on { color: var(--bg);   background: #E8B93A;    border-color: #E8B93A; }
+main.solvers-page--console .solver-chip--green.is-on  { color: var(--bg);   background: #2FBF6B;    border-color: #2FBF6B; }
+main.solvers-page--console .solver-chip.has-order::after,
+main.solvers-page--console .solver-imgchip.has-order::after {
+  color: var(--bg);
+  background: var(--orange);
+}
 main.solvers-page--console .solver-imgchip img { background: var(--bg); }
+main.solvers-page--console .solver-actions { margin-top: 0.6rem; }
+main.solvers-page--console .solver-actions .btn { min-height: 40px; padding: 0.45rem 1.1rem; }
+
+/* Narrow widgets (phones): choices sit on an even grid, three across,
+   so a six-option group is two rows instead of three ragged ones. */
+@container sw (max-width: 479px) {
+  main.solvers-page--console .solver-opt-btns:not(.solver-opt-btns--img) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(6.1rem, 1fr));
+  }
+  main.solvers-page--console .solver-opt--compact .solver-opt-btns:not(.solver-opt-btns--img) {
+    grid-template-columns: repeat(auto-fill, minmax(3.9rem, 1fr));
+  }
+  main.solvers-page--console .solver-opt-btns .solver-chip {
+    min-width: 0;
+    padding-inline: 0.35rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+}
+@container sw (min-width: 480px) {
+  main.solvers-page--console .solver-opt {
+    display: grid;
+    grid-template-columns: 10.5rem minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 0.9rem;
+    align-items: start;
+    margin: 0;
+    padding: 0.5rem 0;
+    border-top: 1px dashed var(--line);
+  }
+  main.solvers-page--console .solver-opt:first-child { border-top: 0; padding-top: 0; }
+  main.solvers-page--console .solver-opt-label {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+    padding-top: 0.55rem;
+    line-height: 1.3;
+  }
+  main.solvers-page--console .solver-opt-hint { grid-column: 1; grid-row: 2; margin: 0.15rem 0 0; }
+  main.solvers-page--console .solver-opt-btns { grid-column: 2; grid-row: 1 / span 2; }
+  main.solvers-page--console .solver-opt + .solver-actions { padding-top: 0.6rem; border-top: 1px dashed var(--line); }
+}
+@container sw (min-width: 720px) {
+  main.solvers-page--console .solver-widget .solver-io {
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 31%);
+    gap: 1.25rem;
+    align-items: start;
+  }
+  main.solvers-page--console .solver-widget .solver-io-out {
+    position: sticky;
+    top: calc(var(--band-total, var(--band-h)) + 3.75rem);
+  }
+}
 
 /* 16px keeps iOS from zooming the page when a field takes focus. */
 main.solvers-page--console .solver-field input,
@@ -5728,18 +5888,23 @@ main.solvers-page--console .solver-cell.is-out { box-shadow: inset 0 0 0 1px #2F
 /* --------------------------------------------------------------------------
    9. Answer panel — the one thing read mid-round
    -------------------------------------------------------------------------- */
+/* The answer: a solid 2px frame in its state colour. Idle is a dashed
+   outline so an empty panel never looks like an answer. */
 main.solvers-page--console .solver-widget .solver-result {
-  padding: 1rem 1.1rem 1.05rem;
+  padding: 0.9rem 1rem 0.95rem;
   background: var(--surface-2);
-  border: 1px solid var(--line-strong);
-  border-left: 3px solid var(--rc, var(--line-strong));
-  border-radius: var(--radius-sm);
+  border: 2px solid var(--rc, var(--line-strong));
+  border-radius: 14px;
 }
 main.solvers-page--console .solver-widget .solver-result.solver-result--idle {
+  --rc: var(--line-strong);
   background: transparent;
   border-style: dashed;
-  border-left-style: solid;
 }
+main.solvers-page--console .solver-result .solver-idle { font-size: 0.84rem; line-height: 1.55; }
+main.solvers-page--console .solver-result.is-progress { --rc: var(--blue-bright); }
+main.solvers-page--console .solver-result.is-answered { --rc: #6FE3A0; }
+main.solvers-page--console .solver-result.is-warning  { --rc: var(--orange); }
 main.solvers-page--console .solver-result .solver-idle { color: var(--ink-mid); }
 main.solvers-page--console .solver-result.is-answered { --rt: #6FE3A0; }
 main.solvers-page--console .solver-result.is-progress { --rt: var(--blue-bright); }
@@ -5765,7 +5930,7 @@ main.solvers-page--console .solver-result code.solver-code.solver-code--lg {
   display: inline-block;
   max-width: 100%;
   padding: 0.45rem 0.85rem;
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.45rem, 6.4vw, 2.2rem);
   font-weight: 900;
   line-height: 1.25;
@@ -5811,7 +5976,7 @@ main.solvers-page--console .solver-table--codes tbody th { color: var(--ink); }
 main.solvers-page--console .solver-table--answer { font-size: 0.9rem; }
 main.solvers-page--console .solver-table--answer tbody th,
 main.solvers-page--console .solver-table--answer tbody td strong {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-weight: 900;
   letter-spacing: 0.05em;
 }
@@ -5865,7 +6030,7 @@ main.solvers-page--console .solver-dial {
 }
 main.solvers-page--console .solver-dial-name,
 main.solvers-page--console .solver-quote-turns dt {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-weight: 900;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -5935,7 +6100,7 @@ main.solvers-page--console .solver-quote-turns > div {
 main.solvers-page--console .solver-quote-turns dt { font-size: 0.6rem; color: var(--ink-dim); }
 main.solvers-page--console .solver-quote-turns dd {
   margin: 0;
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.35rem;
   font-weight: 900;
   line-height: 1.15;
@@ -6061,7 +6226,7 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
 
 /* ---------- C1. Band ---------- */
 .site-band {
-  border-bottom-color: rgba(47, 134, 255, 0.4);
+  border-bottom: 2px solid var(--blue-bright);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 .is-scrolled .site-band {
@@ -6072,7 +6237,7 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
 
 /* ---------- C2. Brand ---------- */
 .logo-placeholder {
-  box-shadow: 0 0 0 3px rgba(6, 10, 18, 0.55), 0 0 0 4px rgba(47, 134, 255, 0.45);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(12, 10, 34, 0.6);
 }
 .header-brand:focus-visible { border-radius: 999px; outline-offset: 5px; }
 
@@ -6098,7 +6263,7 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
   .header-socials a {
     width: 36px;
     height: 36px;
-    background: rgba(6, 10, 18, 0.4);
+    background: rgba(12, 10, 34, 0.4);
     border-color: rgba(255, 255, 255, 0.13);
     filter: none;
   }
@@ -6114,7 +6279,7 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
   justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius-sm);
-  background: rgba(6, 10, 18, 0.45);
+  background: rgba(12, 10, 34, 0.45);
 }
 .hamburger span { width: 20px; box-shadow: none; }
 .hamburger.active { border-color: var(--blue); background: var(--blue-lo); }
@@ -6132,7 +6297,7 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
-    background: rgba(8, 12, 21, 0.985);
+    background: rgba(14, 12, 38, 0.985);
     border-bottom: 1px solid var(--line-strong);
     box-shadow: 0 28px 48px rgba(0, 0, 0, 0.55);
     visibility: hidden;
@@ -6291,7 +6456,7 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
 /* ---------- C8. Header hover (pointer devices only) ---------- */
 @media (hover: hover) and (pointer: fine) {
   .header-brand:hover .logo-placeholder {
-    box-shadow: 0 0 0 3px rgba(6, 10, 18, 0.55), 0 0 0 4px var(--blue-bright);
+    box-shadow: 0 0 0 3px rgba(12, 10, 34, 0.55), 0 0 0 4px var(--blue-bright);
   }
   .header-socials a:hover { color: #fff; }
   .header-socials a[aria-label="Twitch"]:hover  { background: var(--purple);   border-color: var(--purple); }
@@ -6311,65 +6476,60 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
   .header-brand:hover .logo-placeholder { transform: rotate(-8deg) scale(1.04); }
 }
 
-/* ---------- C9. Buttons ---------- */
+/* ---------- C9. Buttons ----------
+   Gumball-machine buttons: a flat candy face sitting on a solid darker
+   lip, like the banner's stickers. Pressing pushes the face down onto
+   the lip. Orange is the CTA colour (never red — see the red-colour
+   rule); the outline button stays quiet beside it. */
 .btn {
   min-height: 44px;
   line-height: 1.2;
   text-decoration: none;
+  font-weight: 800;
+  border-width: 2px;
+  border-radius: 999px;
 }
 .btn-accent {
-  background: var(--blue-cta);
-  border-color: rgba(109, 180, 255, 0.55);
-  color: #fff;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.18),
-    0 1px 0 rgba(0, 0, 0, 0.45),
-    0 8px 18px -8px rgba(31, 111, 224, 0.75);
+  background: var(--orange);
+  border-color: var(--orange);
+  color: var(--orange-ink);
+  box-shadow: 0 4px 0 var(--orange-lip);
 }
 .btn-outline {
-  background: rgba(255, 255, 255, 0.035);
+  background: var(--surface);
   border-color: var(--line-strong);
   color: var(--ink);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 1px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.45);
 }
 .btn:focus-visible {
   outline: 2px solid var(--blue-bright);
-  outline-offset: 3px;
-  border-radius: var(--radius-sm);
+  outline-offset: 4px;
+  border-radius: 999px;
 }
 .btn:disabled,
 .btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
 @media (hover: hover) and (pointer: fine) {
-  /* Fill stays --blue-cta on hover: a lighter blue drops white text below 4.5:1. */
-  .btn-accent:hover {
-    background: var(--blue-cta);
-    border-color: var(--blue-bright);
-    color: #fff;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.28),
-      inset 0 -2px 0 rgba(0, 0, 0, 0.18),
-      0 1px 0 rgba(0, 0, 0, 0.45),
-      0 12px 24px -8px rgba(47, 134, 255, 0.8);
-  }
-  .btn-outline:hover { background: var(--blue-lo); border-color: var(--blue); color: #fff; }
+  .btn-accent:hover { background: #FF9A3C; border-color: #FF9A3C; color: var(--orange-ink); }
+  .btn-outline:hover { background: var(--surface-2); border-color: var(--blue-bright); color: #fff; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .btn {
     transition: background-color var(--fast) var(--ease), border-color var(--fast) var(--ease),
-                color var(--fast) var(--ease), box-shadow var(--mid) var(--ease),
-                transform var(--fast) var(--spring);
+                color var(--fast) var(--ease), transform var(--fast) var(--ease);
   }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
-  .btn-accent:hover,
-  .btn-outline:hover { transform: translateY(-1px); }
+  .btn-accent:not(:disabled):hover,
+  .btn-outline:not(:disabled):hover { transform: translateY(-2px); }
 }
-.btn:is(.btn-accent, .btn-outline):active { box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.35); }
-.btn:active { transform: none; }
-@media (prefers-reduced-motion: no-preference) {
-  .btn:active,
-  .btn:is(.btn-accent, .btn-outline):active { transform: scale(0.97); }
+/* The press: face drops onto the lip. */
+.btn:is(.btn-accent, .btn-outline):not(:disabled):active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--orange-lip);
+}
+.btn-outline:not(:disabled):active { box-shadow: 0 1px 0 rgba(0, 0, 0, 0.45); }
+@media (prefers-reduced-motion: reduce) {
+  .btn:is(.btn-accent, .btn-outline):not(:disabled):active { transform: none; }
 }
 
 /* ---------- C10. Page title + intro ---------- */
@@ -6393,24 +6553,24 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
   padding: 2.5rem var(--gutter) calc(2.25rem + env(safe-area-inset-bottom, 0px));
   background-color: var(--bg);
   background-image:
-    linear-gradient(rgba(6, 10, 18, 0.92), rgba(6, 10, 18, 0.92)),
+    linear-gradient(rgba(12, 10, 34, 0.92), rgba(12, 10, 34, 0.92)),
     url('../images/channel-banner-blur.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  border-top: 1px solid rgba(47, 134, 255, 0.4);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-top: 2px solid var(--blue-bright);
   font-size: 0.8rem;
   color: var(--ink-dim);
 }
 .site-footer::before {
   content: 'JOEMET123';
   content: 'JOEMET123' / '';
-  font-family: 'Orbitron', var(--font-stack);
-  font-size: 1.05rem;
-  font-weight: 900;
-  letter-spacing: 2px;
-  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 2px 2px 0 var(--red);
 }
 .site-footer .footer-links {
   max-width: 34rem;
@@ -6656,7 +6816,7 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
   counter-increment: toc;
   content: counter(toc, decimal-leading-zero);
   flex: none;
-  font-family: 'Orbitron', var(--font-stack);
+  font-family: var(--font-display);
   font-size: 0.66rem;
   font-weight: 700;
   color: var(--ink-dim);
@@ -6689,7 +6849,7 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
 .legal-sec h2::before {
   content: counter(legal, decimal-leading-zero);
   flex: none;
-  font-family: 'Orbitron', var(--font-stack);
+  font-family: var(--font-display);
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -6709,7 +6869,7 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
   font-weight: 600;
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  text-decoration-color: rgba(109, 180, 255, 0.45);
+  text-decoration-color: rgba(98, 210, 255, 0.45);
   text-underline-offset: 0.2em;
   overflow-wrap: anywhere;
 }
@@ -6755,12 +6915,12 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
   line-height: 0.9;
   letter-spacing: 0.01em;
   color: var(--blue);
-  text-shadow: 0.06em 0.05em 0 rgba(255, 46, 76, 0.45);
+  text-shadow: 0.06em 0.05em 0 rgba(255, 45, 85, 0.45);
 }
 .pg-status .notfound-code--ok {
   font-size: clamp(3rem, 12vw, 5.25rem);
   color: var(--blue-bright);
-  text-shadow: 0.06em 0.05em 0 rgba(139, 61, 255, 0.5);
+  text-shadow: 0.06em 0.05em 0 rgba(163, 91, 255, 0.5);
 }
 .pg-status .page-title { margin-bottom: 0.75rem; }
 .pg-status .notfound-links { margin-top: 1.6rem; }
@@ -6807,7 +6967,7 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink);
-  background: rgba(6, 10, 18, 0.8);
+  background: rgba(12, 10, 34, 0.8);
   border: 1px solid var(--line-strong);
   border-radius: 4px;
 }
