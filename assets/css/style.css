@@ -123,16 +123,24 @@ body::before {
     radial-gradient(70% 40% at 50% -8%, rgba(98, 210, 255, 0.16), transparent 70%),
     var(--bg);
 }
-/* Sprinkles. The banner is full of tiny candy-coloured sparks; four
-   offset dot tiles at different sizes recreate that without an image
-   and never line up into a visible grid. Behind everything, so it
-   never lands on a photo. */
-body::after {
+/* Sprinkles. The banner is full of tiny candy-coloured sparks; offset
+   dot tiles at different sizes recreate that without an image and never
+   line up into a visible grid. Two layers, both behind everything so
+   they never land on a photo:
+     body::after — the steady field (cyan, pink, purple, white)
+     html::after — brighter glinting stars with a soft halo
+   Each layer fades on its own clock (opacity only), so different stars
+   brighten at different moments and the sky glimmers instead of the
+   whole field pulsing together. Still under reduced motion. */
+body::after,
+html::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
+}
+body::after {
   opacity: 0.55;
   background-image:
     radial-gradient(circle at 18% 28%, rgba(98, 210, 255, 0.55) 0 1px, transparent 1.7px),
@@ -140,6 +148,27 @@ body::after {
     radial-gradient(circle at 44% 82%, rgba(163, 91, 255, 0.6) 0 1.2px, transparent 1.9px),
     radial-gradient(circle at 88% 12%, rgba(255, 255, 255, 0.45) 0 0.8px, transparent 1.4px);
   background-size: 173px 173px, 241px 241px, 307px 307px, 127px 127px;
+}
+html::after {
+  opacity: 0.7;
+  background-image:
+    radial-gradient(circle at 30% 40%, #fff 0 1.2px, rgba(98, 210, 255, 0.45) 2px, transparent 4.5px),
+    radial-gradient(circle at 76% 22%, #fff 0 1px, rgba(255, 79, 150, 0.4) 1.8px, transparent 4px),
+    radial-gradient(circle at 58% 78%, #fff 0 1.1px, rgba(163, 91, 255, 0.45) 1.9px, transparent 4.2px);
+  background-size: 389px 389px, 457px 457px, 523px 523px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes sky-twinkle {
+    0%, 100% { opacity: 0.2; }
+    50%      { opacity: 0.85; }
+  }
+  @keyframes sky-glint {
+    0%, 100% { opacity: 0.05; }
+    45%      { opacity: 1; }
+    55%      { opacity: 0.9; }
+  }
+  body::after { animation: sky-twinkle 5.5s ease-in-out infinite; }
+  html::after { animation: sky-glint 3.7s ease-in-out -1.6s infinite; }
 }
 
 a {
@@ -267,15 +296,26 @@ ul, ol { padding-left: 1.4em; }
   transition: border-color var(--mid) var(--ease);
 }
 .site-title {
-  font-family: var(--font-display);
-  font-size: 1.32rem;
+  font-size: clamp(1.3rem, 1rem + 1.4vw, 1.75rem);
+  line-height: 1.25;
+  padding: 2px 3px 4px;
+  font-family: 'Rubik Wet Paint', var(--font-display);
   font-weight: 400;
-  letter-spacing: 1px;
-  color: #fff;
+  letter-spacing: 0.5px;
   white-space: nowrap;
-  /* The wordmark sits on artwork — it needs its own contrast. The hard
-     red offset is the drip lettering from the banner, as a sticker. */
-  text-shadow: 2px 2px 0 var(--red), 0 2px 14px rgba(0, 0, 0, 0.75);
+  /* The logo lettering: red running into pink at the drips, a white
+     sticker outline and a hard dark drop. drop-shadow follows the
+     clipped letter shapes, so the outline works on gradient-filled text
+     in every browser (text-shadow would show through the fill). */
+  color: #FF2438;
+  background: linear-gradient(180deg, #FF2438 0%, #FF2438 48%, #FF8FB4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter:
+    drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff)
+    drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)
+    drop-shadow(2px 3px 0 rgba(8, 7, 24, 0.75));
 }
 
 .header-socials {
@@ -1069,13 +1109,17 @@ body.lightbox-open { overflow: hidden; }
     gap: 1.6rem;
     align-items: stretch;
   }
-  /* Two columns of rows instead of one tall stack. */
+  /* One stack of rows that stretches to the Discord widget's height:
+     every row shares the height evenly, so the column ends flush with
+     the widget instead of leaving a dead block underneath. */
   .community-grid .social-reach-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-content: start;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: minmax(0, 1fr);
+    align-content: stretch;
   }
-  /* Five rows divide the row height evenly, so the socials column
-     ends flush with the Discord widget instead of leaving a gap. */
+  .community-grid .social-card { padding: 0.6rem 1.25rem; gap: 1rem; }
+  .community-grid .social-card svg { width: 30px; height: 30px; }
+  .community-grid .social-card .platform-name { font-size: 1.05rem; }
   
 }
 
@@ -1124,6 +1168,8 @@ body.lightbox-open { overflow: hidden; }
 .social-card--discord { --sc: #5865F2; }
 .social-card--tiktok  { --sc: #4DE8E0; }
 .social-card--x       { --sc: #9AA6B8; }
+.social-card--instagram { --sc: #E1487F; }
+.social-card--facebook  { --sc: #4C7FF0; }
 .social-card .platform-name {
   font-size: 0.93rem;
   font-weight: 700;
@@ -3467,10 +3513,6 @@ code.solver-code {
 .section-note { margin-bottom: var(--gap-tight); max-width: 70ch; }
 .section-title { margin-bottom: 0.35rem; }
 
-/* Three social columns once there is genuinely room for them. */
-@media (min-width: 1500px) {
-  .community-grid .social-reach-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
 
 /* Carousels were leaving dead margin inside a wider shell. */
 .spotlight-stage { gap: 1.15rem; }
@@ -3589,17 +3631,6 @@ code.solver-code {
 .home-intro .page-title { margin-bottom: 0.75rem; }
 .home-intro .page-lede { margin-bottom: 0; max-width: 60ch; }
 
-.home-statline {
-  margin: 1.4rem 0 1.5rem;
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--line);
-  gap: 0.75rem 2.2rem;
-}
-.home-statline .statline-k { font-size: 1.5rem; color: var(--sk, var(--ink)); }
-.home-statline > li:nth-child(1) { --sk: var(--blue); }
-.home-statline > li:nth-child(2) { --sk: var(--purple); }
-.home-statline > li:nth-child(3) { --sk: var(--orange); }
-.home-statline > li:nth-child(4) { --sk: var(--blue-bright); }
 
 .home-cta-row {
   display: flex;
@@ -3909,8 +3940,6 @@ code.solver-code {
    Small screens — verified against a 390px viewport
    ============================================================ */
 @media (max-width: 640px) {
-  .home-statline { gap: 0.9rem 1.6rem; }
-  .home-statline .statline-k { font-size: 1.3rem; }
   .home-cta-row .btn { flex: 1 1 100%; }
   .home-rail-card { padding-right: 1.9rem; }
   .live-steps > li { padding-left: 2.4rem; }
@@ -4330,32 +4359,8 @@ code.solver-code {
   color: var(--blue-bright);
 }
 
-/* Stat strip — big candy numerals on the page itself, split by short
-   dividers. Not four identical dashboard tiles. */
-.home-page .home-intro .home-statline {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem 0;
-  margin: 1.7rem 0 1.9rem;
-  padding: 0;
-  border-top: 0;
-  max-width: 44rem;
-}
-.home-page .home-intro .home-statline > li {
-  gap: 0.3rem;
-  min-width: 0;
-  padding: 0.1rem 1rem 0.1rem 1.1rem;
-  border-left: 3px solid var(--sk, var(--blue));
-}
-.home-page .home-intro .home-statline .statline-k {
-  font-size: clamp(2.1rem, 5vw, 2.75rem);
-  font-weight: 400;
-  letter-spacing: 0.01em;
-}
-.home-page .home-intro .home-statline .statline-v { letter-spacing: 0.12em; line-height: 1.35; }
-@media (min-width: 640px) {
-  .home-page .home-intro .home-statline { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
+/* The lede runs straight into the buttons now the stat strip is gone. */
+.home-page .home-intro .home-cta-row { margin-top: 1.75rem; }
 
 /* ---------- Stream + donate ---------- */
 .home-page .stream-panel .twitch-embed-wrapper {
@@ -6472,8 +6477,14 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
   }
   .hamburger { transition: border-color var(--fast) var(--ease), background-color var(--fast) var(--ease); }
 }
+/* One full turn each time the pointer arrives. A keyframe rather than a
+   transition, so it spins forward once instead of unwinding on leave. */
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
-  .header-brand:hover .logo-placeholder { transform: rotate(-8deg) scale(1.04); }
+  @keyframes logo-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .header-brand:hover .logo-placeholder { animation: logo-spin 700ms var(--ease); }
 }
 
 /* ---------- C9. Buttons ----------
@@ -6565,12 +6576,26 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
 .site-footer::before {
   content: 'JOEMET123';
   content: 'JOEMET123' / '';
-  font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+  line-height: 1.25;
+  padding: 2px 3px 4px;
+  font-family: 'Rubik Wet Paint', var(--font-display);
   font-weight: 400;
-  letter-spacing: 1px;
-  color: #fff;
-  text-shadow: 2px 2px 0 var(--red);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  /* The logo lettering: red running into pink at the drips, a white
+     sticker outline and a hard dark drop. drop-shadow follows the
+     clipped letter shapes, so the outline works on gradient-filled text
+     in every browser (text-shadow would show through the fill). */
+  color: #FF2438;
+  background: linear-gradient(180deg, #FF2438 0%, #FF2438 48%, #FF8FB4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter:
+    drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff)
+    drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)
+    drop-shadow(2px 3px 0 rgba(8, 7, 24, 0.75));
 }
 .site-footer .footer-links {
   max-width: 34rem;
@@ -6662,6 +6687,36 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
   white-space: nowrap;
 }
 .pg-rules .cmd-desc { min-width: 0; line-height: 1.45; }
+
+/* Side by side with the rules, the commands pack tight: the four
+   categories two up, one slim line per command, so the whole list sits
+   beside the six rules instead of running twice as long. */
+@media (min-width: 1040px) {
+  /* Both halves start on the same line: the second section would
+     otherwise lose its top padding and ride above the first. */
+  .pg-rules .rc-grid > .section + .section { padding-top: var(--gap-loose); }
+  .pg-rules .rc-grid .cmd-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    align-items: start;
+  }
+  .pg-rules .rc-grid .cmd-category { padding: 0.85rem 0.9rem 0.8rem; }
+  .pg-rules .rc-grid .cmd-category-title {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.45rem;
+    font-size: 0.92rem;
+  }
+  .pg-rules .rc-grid .cmd-category-count { margin: -0.3rem 0 0.35rem; }
+  .pg-rules .rc-grid .cmd-list { column-gap: 0.6rem; }
+  .pg-rules .rc-grid .cmd-list li {
+    gap: 0.6rem;
+    padding: 0.2rem 0;
+    font-size: 0.8rem;
+    border-top: 0;
+  }
+  .pg-rules .rc-grid .cmd-desc { line-height: 1.3; }
+  .pg-rules .rc-grid .cmd-name { padding: 0.08rem 0.4rem; font-size: 0.76rem; }
+}
 
 /* ============================================================
    P2. CONTACT
