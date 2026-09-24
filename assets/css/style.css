@@ -2060,28 +2060,6 @@ body.lightbox-open { overflow: hidden; }
 /* The tool pages earn more width than the reading pages do. */
 .solvers-page { --content-w: 1360px; }
 
-/* --- workbench shell --- */
-.solver-workbench {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0;
-}
-.solver-column { min-width: 0; }
-@media (min-width: 1080px) {
-  .solver-workbench {
-    grid-template-columns: 234px minmax(0, 1fr);
-    gap: 2.4rem;
-    align-items: start;
-  }
-  .solver-rail {
-    position: sticky;
-    top: calc(var(--band-total, var(--band-h)) + 1.1rem);
-    z-index: 19;
-    max-height: calc(100vh - var(--band-total, var(--band-h)) - 2.4rem);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-  }
-}
 
 /* --- hero --- */
 .solver-hero {
@@ -2238,111 +2216,6 @@ body.lightbox-open { overflow: hidden; }
 .solver-index { gap: 0.45rem; }
 .solver-index a.is-current { color: var(--ink); border-color: var(--blue); }
 
-/* --- BO7 map directory -------------------------------------------
-   Horizontal pills on mobile, a pinned vertical directory on desktop.
-   Deliberately NOT .page-jump: main.js measures the first .page-jump
-   in the document to work out the anchor offset, and that has to stay
-   the horizontal tool row, not this. */
-.solver-rail .solver-index {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.45rem;
-  margin: 0 0 1.1rem;
-  scroll-margin-top: calc(var(--band-total, var(--band-h)) + 1.25rem);
-}
-.solver-rail-label {
-  font-size: var(--t-micro);
-  font-weight: 700;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-  margin-right: 0.35rem;
-}
-.solver-rail .solver-index a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 0;
-  padding: 0.45rem 0.85rem;
-  font-size: var(--t-small);
-  font-weight: 700;
-  color: var(--ink-mid);
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  transition: color var(--fast) var(--ease), border-color var(--fast) var(--ease),
-              background-color var(--fast) var(--ease), transform var(--fast) var(--ease);
-}
-.solver-index-name { min-width: 0; }
-.solver-index-n {
-  flex: none;
-  font-family: var(--font-mono);
-  font-size: var(--t-micro);
-  font-weight: 700;
-  color: var(--blue-bright);
-  font-variant-numeric: tabular-nums;
-}
-.solver-index-n--none { color: var(--ink-dim); }
-.solver-rail .solver-index a.is-current { color: var(--ink); background: var(--surface-2); border-color: var(--blue); }
-.solver-rail .solver-index a:active { transform: scale(0.97); }
-@media (hover: hover) and (pointer: fine) {
-  .solver-rail .solver-index a:hover { color: var(--ink); border-color: var(--blue); }
-}
-@media (min-width: 1080px) {
-  .solver-rail .solver-index { display: block; margin: 0 0 1.4rem; }
-  .solver-rail-label { display: block; margin: 0 0 0.55rem; }
-  .solver-rail .solver-index a {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 0.26rem;
-    padding: 0.5rem 0.7rem 0.5rem 0.75rem;
-    font-size: 0.82rem;
-    background: none;
-    border: 0;
-    border-left: 2px solid var(--line-strong);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  }
-  .solver-rail .solver-index a.is-current { background: var(--surface); border-left-color: var(--blue); }
-  .solver-rail .solver-index a:active { transform: none; }
-}
-@media (min-width: 1080px) and (hover: hover) and (pointer: fine) {
-  .solver-rail .solver-index a:hover { background: var(--surface); border-left-color: var(--blue); }
-}
-
-/* --- what the three kinds of tool mean, kept beside the directory --- */
-.solver-railkey { padding-top: 1.1rem; border-top: 1px solid var(--line); }
-.solver-railkey-row {
-  margin: 0 0 0.6rem;
-  padding-left: 0.65rem;
-  border-left: 2px solid var(--rk, var(--blue));
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: var(--ink-dim);
-}
-.solver-railkey-row:last-child { margin-bottom: 0; }
-.solver-railkey-row strong {
-  display: block;
-  font-size: var(--t-micro);
-  font-weight: 800;
-  letter-spacing: 1.1px;
-  text-transform: uppercase;
-  color: var(--rk, var(--blue));
-}
-.solver-railkey-row--solver    { --rk: var(--blue-bright); }
-.solver-railkey-row--reference { --rk: #B98BFF; }
-.solver-railkey-row--sheet     { --rk: #4DE0EE; }
-@media (max-width: 1079px) {
-  .solver-railkey {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(186px, 1fr));
-    gap: 0.6rem 1.2rem;
-    margin-bottom: 1.9rem;
-  }
-  .solver-railkey .solver-rail-label { grid-column: 1 / -1; margin: 0; }
-  .solver-railkey-row { margin-bottom: 0; }
-}
 
 /* --- map section --- */
 .solver-map {
@@ -2357,47 +2230,11 @@ body.lightbox-open { overflow: hidden; }
   color: var(--ink-dim);
   max-width: 62ch;
 }
-/* BO7 map header is a dashboard strip: name and lede left, counts right. */
-.solver-column .solver-map-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 0.8rem 1.6rem;
-  margin-bottom: 1.1rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 1px solid var(--line);
-}
 .solver-map-headline { flex: 1 1 20rem; min-width: 0; }
 .solver-column .solver-map-intro {
   margin-top: 0.4rem;
   font-size: 0.92rem;
   line-height: 1.55;
-}
-.solver-map-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem 1.2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.solver-map-meta li {
-  font-size: var(--t-micro);
-  font-weight: 700;
-  letter-spacing: 1.1px;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-  white-space: nowrap;
-}
-.solver-map-meta-k {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1rem;
-  font-weight: 900;
-  letter-spacing: 0;
-  color: var(--ink);
-  margin-right: 0.18rem;
-  font-variant-numeric: tabular-nums;
 }
 
 /* --- the tool grid: 12 columns on desktop, varied spans --- */
@@ -3318,23 +3155,6 @@ code.solver-code {
   padding: 0.55rem 0 0.5rem;
   background: linear-gradient(180deg, var(--bg) 78%, transparent 100%);
 }
-/* Keep the sticky row clear of the page edge on wide screens */
-
-/* BO7 only: the row sits inside the working column, so it must back
-   itself with a solid block and must NOT bleed left across the pinned
-   rail the way the full-bleed version does. */
-.solver-column .solver-toolnav {
-  margin: 0 -0.75rem 1.25rem;
-  padding: 0.5rem 0.75rem 0.45rem;
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
-}
-.solver-column 
-.solver-toolnav-up {
-  margin-left: auto;
-  border-style: dashed !important;
-  color: var(--ink-dim) !important;
-}
 .solver-toolnav-up::before {
   background: var(--orange) !important;
 }
@@ -3347,7 +3167,6 @@ code.solver-code {
 }
 @media (max-width: 720px) {
   .solver-toolnav { padding: 0.45rem 0 0.4rem; }
-  .solver-column .solver-toolnav { padding: 0.45rem 0.75rem 0.4rem; }
   .solver-toolnav-up { margin-left: 0; }
 }
 
@@ -4341,283 +4160,6 @@ code.solver-code {
 }
 
 
-/* ================= merged from _stage_bo7.css ================= */
-/* ---------- BO7 console layout ----------------------------------------
-   Appended after the existing Solvers block. Everything here is scoped to
-   .solvers-page--console (solvers-bo7.html only) or to .is-tabbed, which
-   only exists once the inline tab controller on that page has run — so a
-   no-JS load falls straight back to the previous behaviour.
-
-   Three structural moves:
-     1. One map on screen at a time. The rail is the switcher, so the page
-        stopped being six sections deep.
-     2. Inside a map, the short reference cards are no longer cards. They
-        are tiles in a contact sheet, three and four across.
-     3. Only the tools you actually operate keep card width, and the light
-        ones sit two up. Nothing is a full-bleed slab with air either side.
-   ------------------------------------------------------------------- */
-
-/* --- 1. one map at a time ------------------------------------------- */
-.solver-workbench.is-tabbed .solver-map.is-off { display: none; }
-.solver-workbench.is-tabbed .solver-map { margin-bottom: 0; }
-
-/* The rail stops being a table of contents and becomes the switcher, so
-   the map you are on has to be unmistakable rather than merely tinted. */
-.solver-workbench.is-tabbed .solver-index a[aria-current="true"] {
-  color: var(--ink);
-  background: var(--surface-2);
-  border-color: var(--blue);
-}
-.solver-workbench.is-tabbed .solver-index a[aria-current="true"] .solver-index-n { color: var(--blue-bright); }
-@media (min-width: 1080px) {
-  .solver-workbench.is-tabbed .solver-index a[aria-current="true"] {
-    background: var(--surface);
-    border-left-color: var(--blue);
-    box-shadow: inset 2px 0 0 var(--blue);
-  }
-}
-
-/* --- 2. hero: a header strip, not a landing page -------------------- */
-.solvers-page--console .solver-hero { margin-bottom: 2rem; gap: 1.2rem; }
-@media (min-width: 900px) {
-  .solvers-page--console .solver-hero { gap: 2.5rem; align-items: end; }
-}
-.solvers-page--console .page-lede { max-width: 68ch; margin-bottom: 0; }
-.solvers-page--console .solver-discord-credit { margin-top: 0.85rem; font-size: 0.9rem; }
-.solvers-page--console .solver-stats { gap: 1.4rem; }
-.solvers-page--console .solver-stat-k { font-size: 1.55rem; }
-
-/* --- 3. map header -------------------------------------------------- */
-.solvers-page--console .solver-column .solver-map-head {
-  margin-bottom: 0.9rem;
-  padding-bottom: 0.7rem;
-}
-.solvers-page--console .solver-column .solver-toolnav { margin-bottom: 1.4rem; }
-
-/* --- 4. bands ------------------------------------------------------- */
-.solver-bands { min-width: 0; }
-.solver-band + .solver-band { margin-top: 1.9rem; }
-.solver-band--refs  { --bl: #4DE0EE; }
-.solver-band--bench { --bl: var(--blue); }
-
-.solver-bandlabel {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.25rem 0.85rem;
-  margin: 0 0 0.85rem;
-}
-.solver-bandlabel-k {
-  position: relative;
-  padding-left: 0.7rem;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
-.solver-bandlabel-k::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.05em;
-  bottom: 0.05em;
-  width: 3px;
-  border-radius: 2px;
-  background: var(--bl, var(--blue));
-}
-.solver-bandlabel-note {
-  font-size: 0.78rem;
-  font-weight: 600;
-  line-height: 1.5;
-  color: var(--ink-dim);
-}
-
-/* --- 5. the bench: the tools you operate ---------------------------- */
-.solver-bench {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 1.15rem;
-  align-items: start;
-}
-/* Below 1080 the rail is horizontal and the column owns the full width,
-   so two up already fits. Between 1080 and 1260 the rail has taken its
-   cut and a half card would be too narrow for the tables inside one. */
-@media (min-width: 900px) and (max-width: 1079px) {
-  .solver-bench { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (min-width: 1260px) {
-  .solver-bench { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-.solver--wide { grid-column: 1 / -1; }
-
-/* A bench card is an instrument: the accent carries through the head
-   rule instead of being decoration only on the outer edge. */
-.solvers-page--console .solver-bench > .solver > .solver-head {
-  border-bottom-color: color-mix(in srgb, var(--sc, var(--blue)) 34%, transparent);
-}
-@supports not (color: color-mix(in srgb, red 50%, blue)) {
-  .solvers-page--console .solver-bench > .solver > .solver-head { border-bottom-color: var(--line-strong); }
-}
-
-/* A half card is ~490px of usable width. The quote table was built for a
-   full-width card: nowrap column heads plus a 24ch first column push it
-   past that and hand you an inner scrollbar on the flagship page. Let the
-   heads wrap and the quote column give ground instead. */
-.solvers-page--console .solver-bench > .solver--half .solver-table { font-size: 0.8rem; }
-.solvers-page--console .solver-bench > .solver--half .solver-table th,
-.solvers-page--console .solver-bench > .solver--half .solver-table td { padding: 0.45rem 0.55rem; }
-.solvers-page--console .solver-bench > .solver--half .solver-table thead th { white-space: normal; }
-.solvers-page--console .solver-bench > .solver--half .solver-table--quotes tbody th { min-width: 0; }
-.solvers-page--console .solver-bench > .solver--half .solver-table--quotes tbody td { text-align: center; }
-
-/* --- 6. the contact sheet: everything fixed and short --------------- */
-.solver-refs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
-  gap: 0.75rem;
-  align-items: stretch;
-}
-@media (min-width: 560px) {
-  .solver-refs { grid-template-columns: repeat(auto-fit, minmax(212px, 1fr)); gap: 0.9rem; }
-}
-
-.solvers-page--console .solver--tile {
-  --pad: 0.85rem;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  padding: var(--pad);
-  border-left-width: 2px;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-}
-/* Image first visually, still second in the reading order. */
-.solvers-page--console .solver--tile > .solver-figure {
-  order: -1;
-  max-width: none;
-  margin: calc(var(--pad) * -1) calc(var(--pad) * -1) 0.7rem;
-}
-.solvers-page--console .solver--tile .solver-img-btn {
-  aspect-ratio: auto;
-  max-height: none;
-  border: 0;
-  border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  background: var(--surface-2);
-}
-.solvers-page--console .solver--tile .solver-img-btn img {
-  height: 150px;
-  object-fit: cover;
-  object-position: top center;
-}
-.solvers-page--console .solver--tile .solver-figcaption {
-  margin: 0.4rem var(--pad) 0;
-  font-size: 0.72rem;
-  line-height: 1.4;
-  color: var(--ink-dim);
-}
-.solvers-page--console .solver--tile .solver-figcaption .solver-fullsize { font-size: 0.72rem; }
-.solvers-page--console .solver--tile > .solver-head {
-  margin-bottom: 0.4rem;
-  padding-bottom: 0;
-  border-bottom: 0;
-  gap: 0.3rem 0.5rem;
-}
-.solvers-page--console .solver--tile .solver-name { font-size: 0.86rem; line-height: 1.3; }
-.solvers-page--console .solver--tile .solver-kind {
-  padding: 0.16rem 0.45rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.09em;
-}
-.solvers-page--console .solver--tile .solver-blurb {
-  margin-bottom: 0;
-  font-size: 0.81rem;
-  line-height: 1.5;
-}
-.solvers-page--console .solver--tile .solver-note { font-size: 0.78rem; line-height: 1.5; }
-.solvers-page--console .solver--tile .solver-sequence { font-size: 0.82rem; margin: 0.55rem 0 0; }
-.solvers-page--console .solver--tile .solver-more { margin-top: 0.7rem; }
-
-/* A map whose only reference is its own full sheet gets a wide tile
-   instead of one lonely square stranded at the left. */
-@media (min-width: 760px) {
-  .solvers-page--console .solver-refs[data-n="1"] > .solver--tile {
-    display: grid;
-    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
-    grid-template-rows: auto 1fr;
-    grid-template-areas: "fig head" "fig blurb";
-    align-items: start;
-    column-gap: 1.3rem;
-  }
-  .solvers-page--console .solver-refs[data-n="1"] > .solver--tile > .solver-figure {
-    grid-area: fig;
-    margin: 0;
-  }
-  .solvers-page--console .solver-refs[data-n="1"] > .solver--tile .solver-img-btn {
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius-sm);
-  }
-  .solvers-page--console .solver-refs[data-n="1"] > .solver--tile .solver-img-btn img { height: 186px; }
-  .solvers-page--console .solver-refs[data-n="1"] > .solver--tile .solver-figcaption { margin: 0.4rem 0 0; }
-  .solvers-page--console .solver-refs[data-n="1"] > .solver--tile > .solver-head { grid-area: head; }
-  .solvers-page--console .solver-refs[data-n="1"] > .solver--tile > .solver-blurb { grid-area: blurb; }
-}
-
-/* --- 7. keep every frame a thumbnail -------------------------------- */
-/* The sheet cards used to earn 290px because they were the card. As
-   tiles they are previews, so nothing on this page passes 250px. */
-.solvers-page--console .solver-column .solver--sheet > .solver-figure { --thumb-h: 250px; }
-.solvers-page--console .solver-column .solver-img-btn { max-height: var(--thumb-h, 236px); }
-.solvers-page--console .solver-column .solver-symbolgrid .solver-img-btn,
-.solvers-page--console .solver-column .solver-imggrid .solver-img-btn,
-.solvers-page--console .solver--tile .solver-img-btn { max-height: none; }
-
-/* --- 8. motion ------------------------------------------------------ */
-@media (prefers-reduced-motion: no-preference) {
-  @keyframes bo7-card-in {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: none; }
-  }
-  .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-refs > .solver,
-  .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-bench > .solver,
-  .solver-workbench.is-tabbed .solver-map:not(.is-off) > .solver-bands > .solver {
-    animation: bo7-card-in 300ms var(--ease) both;
-  }
-  .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-refs > .solver:nth-child(2),
-  .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-bench > .solver:nth-child(2) { animation-delay: 45ms; }
-  .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-refs > .solver:nth-child(3),
-  .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-bench > .solver:nth-child(3) { animation-delay: 90ms; }
-  .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-refs > .solver:nth-child(n + 4),
-  .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-bench > .solver:nth-child(n + 4) { animation-delay: 135ms; }
-  .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-band--bench .solver-bandlabel,
-  .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-band--bench > .solver-bench > .solver { animation-delay: 110ms; }
-}
-.solvers-page--console .solver--tile:active { transform: scale(0.994); }
-@media (prefers-reduced-motion: reduce) {
-  .solvers-page--console .solver--tile:active { transform: none; }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .solvers-page--console .solver--tile { transition: border-color var(--fast) var(--ease), transform var(--fast) var(--ease); }
-  .solvers-page--console .solver--tile:hover { border-color: var(--line-strong); transform: translateY(-2px); }
-  .solvers-page--console .solver--tile:hover { border-left-color: var(--sc, var(--blue)); }
-}
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
-  .solvers-page--console .solver--tile:hover { transform: none; }
-}
-
-/* --- 9. small screens ----------------------------------------------- */
-@media (max-width: 559px) {
-  .solvers-page--console .solver--tile { --pad: 0.7rem; }
-  .solvers-page--console .solver--tile .solver-img-btn img { height: 116px; }
-  .solvers-page--console .solver--tile .solver-name { font-size: 0.8rem; }
-  .solvers-page--console .solver--tile .solver-blurb { font-size: 0.78rem; }
-  .solver-bandlabel { gap: 0.15rem 0.7rem; margin-bottom: 0.7rem; }
-  .solver-bandlabel-note { font-size: 0.74rem; }
-  .solver-band + .solver-band { margin-top: 1.5rem; }
-}
 
 
 /* ---------- Overflow guard ----------
@@ -4672,469 +4214,6 @@ code.solver-code {
   border-radius: var(--radius-sm);
 }
 
-/* ================= merged from _stage_bo7.css ================= */
-/* ==========================================================================
-   BO7 CONSOLE — POLISH PASS
-   Refines the existing .solvers-page--console workbench. No new class names:
-   every selector targets markup that already ships, so the BO6 rebuild
-   inherits this treatment the moment it adopts .solvers-page--console.
-
-   Deliberately additive. Anything the base sheet already does well — the
-   full-bleed tile figure, the Orbitron card heads, the .solver-kind pill,
-   the tile hover — is left alone rather than restated.
-   ========================================================================== */
-
-/* --------------------------------------------------------------------------
-   1. RAIL — the map switcher reads as the page's primary control
-   -------------------------------------------------------------------------- */
-
-/* The base sheet already makes the rail sticky at 1080px, where the layout
-   actually becomes two-pane. Nothing to add there — only the contents of the
-   rail are refined below. */
-
-/* Name left, count right — a two-column grid rather than inline text, so the
-   counts form a clean right edge the eye scans in one pass. 1080px is where
-   the rail stops being a horizontal strip and becomes the sidebar. */
-@media (min-width: 1080px) {
-  .solvers-page--console .solver-rail-label {
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--line);
-  }
-  .solvers-page--console .solver-rail .solver-index a {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.62rem 0.75rem 0.62rem 0.85rem;
-    line-height: 1.3;
-  }
-}
-
-.solvers-page--console .solver-index-name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Count badge: a real pill, so "5" and "Soon" sit in the same shaped box. */
-.solvers-page--console .solver-index-n {
-  min-width: 1.65rem;
-  padding: 0.14rem 0.42rem;
-  font-size: var(--t-micro);
-  font-weight: 800;
-  line-height: 1.5;
-  text-align: center;
-  color: var(--ink-mid);
-  background: var(--surface-2);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-}
-.solvers-page--console .solver-index-n--none {
-  color: var(--ink-dim);
-  background: transparent;
-  letter-spacing: 0.4px;
-}
-
-/* Active map gets three signals — spine, lifted surface, inverted badge —
-   because this is the only "where am I" cue once a map fills the column. */
-.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"],
-.solvers-page--console .solver-rail .solver-index a.is-current {
-  color: var(--ink);
-  font-weight: 700;
-  background: var(--surface-2);
-  border-left-color: var(--blue);
-}
-.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"] .solver-index-n,
-.solvers-page--console .solver-rail .solver-index a.is-current .solver-index-n {
-  color: #fff;
-  background: var(--blue-cta);
-  border-color: var(--blue-cta);
-}
-.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"] .solver-index-n--none,
-.solvers-page--console .solver-rail .solver-index a.is-current .solver-index-n--none {
-  color: var(--ink);
-  background: transparent;
-  border-color: var(--line-strong);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .solvers-page--console .solver-rail .solver-index a:hover {
-    background: var(--surface);
-    border-left-color: var(--line-strong);
-  }
-  .solvers-page--console .solver-rail .solver-index a.is-current:hover,
-  .solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"]:hover {
-    border-left-color: var(--blue);
-  }
-}
-
-/* Tool-type key: label on its own line so the definition reads as a pair. */
-.solvers-page--console .solver-railkey-row strong {
-  display: block;
-  margin-bottom: 0.1rem;
-  font-size: var(--t-micro);
-  letter-spacing: 0.9px;
-  text-transform: uppercase;
-  color: var(--rk, var(--blue-bright));
-}
-
-/* --------------------------------------------------------------------------
-   2. BAND LABELS — separate "look it up" from "work it out"
-   -------------------------------------------------------------------------- */
-
-.solvers-page--console .solver-bandlabel-k {
-  font-weight: 800;
-  letter-spacing: 1.2px;
-  color: var(--ink);
-}
-.solvers-page--console .solver-bandlabel-note {
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: var(--ink-dim);
-}
-
-/* --------------------------------------------------------------------------
-   3. TILES — the Quick Reference sheet
-   -------------------------------------------------------------------------- */
-
-/* The base tile is already a full-bleed figure in an overflow-hidden card.
-   All that is added here is a taller preview as the viewport earns it —
-   every frame still sits far under the 250px thumbnail ceiling. */
-@media (min-width: 620px) {
-  .solvers-page--console .solver--tile .solver-img-btn img { height: 168px; }
-}
-@media (min-width: 1000px) {
-  .solvers-page--console .solver--tile .solver-img-btn img { height: 182px; }
-}
-
-/* --------------------------------------------------------------------------
-   4. BENCH CARDS — close the ragged pair gap
-   -------------------------------------------------------------------------- */
-
-/* The bench sets align-items: start, so a short card beside a tall one left
-   a visible hole under it. Stretching the track and making each card a flex
-   column squares the pair off — no masonry, no markup change. */
-.solvers-page--console .solver-bench { align-items: stretch; }
-.solvers-page--console .solver-bench > .solver {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-/* A trailing fold-out sinks to the card foot, so the "How It Works" rows
-   across a pair line up instead of floating at two different heights. */
-.solvers-page--console .solver-bench > .solver > .solver-more:last-child { margin-top: auto; }
-
-/* --------------------------------------------------------------------------
-   5. ANSWER PANELS — the thing you read mid-game, at a glance
-   -------------------------------------------------------------------------- */
-
-/* With a controller in your hands the panel has to be findable before it is
-   readable: thicker state edge, and a lifted surface once it has answered. */
-.solvers-page--console .solver-result {
-  padding: 1.05rem 1.1rem;
-  border-left-width: 4px;
-}
-.solvers-page--console .solver-result.is-answered,
-.solvers-page--console .solver-result.is-warning {
-  background: var(--surface);
-  border-color: var(--line-strong);
-}
-.solvers-page--console .solver-result.is-answered { border-left-color: #2FBF6B; }
-.solvers-page--console .solver-result.is-warning  { border-left-color: var(--orange); }
-
-/* The title drops to a small state label; the verdict carries the size. */
-.solvers-page--console .solver-result-title {
-  font-size: var(--t-micro);
-  letter-spacing: 1.3px;
-  color: var(--ink-dim);
-  margin-bottom: 0.55rem;
-}
-.solvers-page--console .solver-result.is-answered .solver-result-title { color: #6FE3A0; }
-.solvers-page--console .solver-result.is-progress .solver-result-title { color: var(--blue-bright); }
-.solvers-page--console .solver-result.is-warning  .solver-result-title { color: var(--orange); }
-
-/* Bigger, tighter verdict — the one line you actually act on. */
-.solvers-page--console .solver-verdict {
-  font-size: clamp(1.25rem, 4.2vw, 1.7rem);
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin-bottom: 0.7rem;
-}
-
-/* Answer rows: the value carries the weight, the key stays quiet. */
-.solvers-page--console .solver-answer-list li,
-.solvers-page--console .solver-line { font-size: 0.92rem; }
-.solvers-page--console .solver-line-v { font-weight: 800; }
-
-/* --------------------------------------------------------------------------
-   6. CONTROLS — honest touch targets, quieter labels
-   -------------------------------------------------------------------------- */
-
-/* 40px is the smallest comfortable tap target; the chips sat under it. */
-.solvers-page--console .solver-chip { min-height: 40px; }
-.solvers-page--console .solver-opt--compact .solver-chip { min-height: 36px; }
-
-.solvers-page--console .solver-opt-label {
-  font-size: var(--t-micro);
-  font-weight: 800;
-  letter-spacing: 1.1px;
-  text-transform: uppercase;
-  color: var(--ink-mid);
-}
-.solvers-page--console .solver-opt-hint {
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: var(--ink-dim);
-}
-
-/* --------------------------------------------------------------------------
-   7. RHYTHM — spacing that groups what belongs together
-   -------------------------------------------------------------------------- */
-
-.solvers-page--console .solver-map-head {
-  padding-bottom: 0.9rem;
-  border-bottom: 1px solid var(--line);
-}
-.solvers-page--console .solver-map-meta-k {
-  font-weight: 800;
-  color: var(--ink);
-}
-.solvers-page--console .solver-band + .solver-band { margin-top: 2.2rem; }
-
-@media (max-width: 620px) {
-  .solvers-page--console .solver-band + .solver-band { margin-top: 1.6rem; }
-  .solvers-page--console .solver-result { padding: 0.9rem 0.95rem; }
-}
-
-/* --------------------------------------------------------------------------
-   8. MOTION — opt-in, transform and colour only
-   -------------------------------------------------------------------------- */
-
-/* The tile already has its transition and hover lift in the base sheet; only
-   the rail link is new here. */
-@media (prefers-reduced-motion: no-preference) {
-  .solvers-page--console .solver-rail .solver-index a {
-    transition: color var(--fast) var(--ease),
-                background-color var(--fast) var(--ease),
-                border-color var(--fast) var(--ease);
-  }
-}
-
-
-/* ================= merged from _stage_bo6.css ================= */
-/* ---------- BO6 console refinements ----------------------------------
-   solvers-bo6.html now runs the same workbench shell as BO7
-   (.solvers-page--console + .solver-workbench + .is-tabbed), so nothing
-   here re-declares that architecture. Everything below is scoped to
-   .solvers-page--bo6 and only does what BO6 needs on top of it:
-
-     1. a colour walk so each map reads as its own place
-     2. answer panels that advance off the card instead of receding
-     3. code and number treatment you can read at a glance mid-round
-     4. the two "Not Built Yet" swords styled as stubs, not empty cards
-
-   No negative insets, no viewport widths, no negative offsets on any
-   pseudo-element — that combination once made this exact page scroll
-   1096px to the right.
-   ------------------------------------------------------------------- */
-
-/* --- 1. one accent per map ------------------------------------------
-   The same walk the six chat rules use: blue, cyan, purple, pink,
-   orange, red. Hairlines and numerals only — never a fill, never on a
-   control, and never on anything a reader could mistake for a warning. */
-.solvers-page--bo6 .solver-map            { --mc: var(--blue-bright); }
-.solvers-page--bo6 #bo6-terminus          { --mc: #6DB4FF; }
-.solvers-page--bo6 #bo6-liberty           { --mc: #4DE0EE; }
-.solvers-page--bo6 #bo6-citadelle         { --mc: #B98BFF; }
-.solvers-page--bo6 #bo6-tomb              { --mc: #FF8FB1; }
-.solvers-page--bo6 #bo6-veil              { --mc: #FFA65C; }
-.solvers-page--bo6 #bo6-reckoning         { --mc: #FF8093; }
-
-/* --- 2. map header: a marquee, not a label --------------------------
-   Compounded with --console because the console block sets the same two
-   properties at identical specificity; this must win whichever order the
-   two stage files land in. */
-.solvers-page--bo6.solvers-page--console .solver-column .solver-map-head {
-  position: relative;
-  min-width: 0;
-  padding-left: 0.95rem;
-  padding-bottom: 0.8rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--line-strong);
-}
-.solvers-page--bo6.solvers-page--console .solver-column .solver-map-head::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.22rem;
-  bottom: 0.8rem;
-  width: 3px;
-  border-radius: 2px;
-  background: var(--mc, var(--blue));
-}
-.solvers-page--bo6 .solver-column .section-title { letter-spacing: -0.02em; }
-.solvers-page--bo6 .solver-column .solver-map-intro { color: var(--ink-mid); }
-.solvers-page--bo6 .solver-map-meta { gap: 0.3rem 1.35rem; }
-.solvers-page--bo6 .solver-map-meta-k { color: var(--mc, var(--ink)); }
-
-/* The tool row belongs to the map it sits in, so it picks up the hue. */
-.solvers-page--bo6 .solver-toolnav a.is-current {
-  color: var(--ink);
-  border-color: var(--mc, var(--blue));
-}
-
-/* --- 3. hero: a rule under the title, nothing else ------------------ */
-.solvers-page--bo6 .solver-hero .page-title::after {
-  content: '';
-  display: block;
-  width: 58px;
-  height: 2px;
-  margin-top: 0.65rem;
-  border-radius: 2px;
-  background: var(--blue);
-}
-.solvers-page--bo6 .page-lede { max-width: 70ch; }
-
-/* --- 4. the answer panel -------------------------------------------
-   Inside a card the result used to sit on --bg, which is darker than
-   the card, so the thing you actually came for receded. Lift it. */
-.solvers-page--bo6 .solver-result {
-  padding: 1.05rem 1.15rem;
-  background: var(--surface-2);
-  border-color: var(--line-strong);
-  border-left-width: 4px;
-}
-.solvers-page--bo6 .solver-result-title {
-  font-size: 0.8rem;
-  letter-spacing: 0.13em;
-  margin-bottom: 0.7rem;
-}
-.solvers-page--bo6 .solver-verdict {
-  font-size: clamp(1.15rem, 4vw, 1.7rem);
-  font-variant-numeric: tabular-nums;
-  margin-bottom: 0.7rem;
-}
-.solvers-page--bo6 .solver-big,
-.solvers-page--bo6 .solver-line-v,
-.solvers-page--bo6 .solver-result code.solver-code { font-variant-numeric: tabular-nums; }
-.solvers-page--bo6 .solver-result code.solver-code {
-  font-size: 0.95em;
-  letter-spacing: 0.05em;
-  background: var(--bg);
-}
-.solvers-page--bo6 .solver-answer-list li,
-.solvers-page--bo6 .solver-answer-steps li { font-size: 0.92rem; }
-
-/* On a full-width card there is room to stand the controls and the
-   answer side by side, so the answer never falls below the fold. */
-@media (min-width: 1280px) {
-  .solvers-page--bo6 .solver--wide .solver-io {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-    gap: 1.4rem;
-    align-items: start;
-  }
-}
-
-/* --- 5. static tables: scannable, not decorative -------------------- */
-.solvers-page--bo6 .solver-tablewrap { border-color: var(--line-strong); }
-.solvers-page--bo6 .solver-table tbody tr:nth-child(even) th,
-.solvers-page--bo6 .solver-table tbody tr:nth-child(even) td {
-  background: rgba(255, 255, 255, 0.022);
-}
-.solvers-page--bo6 .solver-table code.solver-code {
-  font-size: 0.95em;
-  letter-spacing: 0.05em;
-  font-variant-numeric: tabular-nums;
-  background: var(--bg);
-}
-/* Grids of four-digit codes centre-read far faster than they left-read. */
-.solvers-page--bo6 .solver-table--codes tbody td,
-.solvers-page--bo6 .solver-table--codes thead th + th { text-align: center; }
-.solvers-page--bo6 .solver-table--codes tbody th { color: var(--ink); }
-
-/* The projector mapping is fixed every game, so it is presented as the
-   answer it is rather than as supporting data. */
-.solvers-page--bo6 .solver-table--answer { font-size: 0.9rem; }
-.solvers-page--bo6 .solver-table--answer tbody th,
-.solvers-page--bo6 .solver-table--answer tbody td strong {
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 900;
-  letter-spacing: 0.05em;
-}
-.solvers-page--bo6 .solver-table--answer tbody td { color: var(--ink); }
-.solvers-page--bo6 .solver-subhead { color: var(--mc, var(--blue-bright)); }
-
-/* --- 6. step lists -------------------------------------------------- */
-.solvers-page--bo6 .solver-steps li::marker {
-  color: var(--mc, var(--blue));
-  font-weight: 800;
-}
-.solvers-page--bo6 .solver-bullets li,
-.solvers-page--bo6 .solver-steps li { line-height: 1.7; }
-
-/* --- 7. the two swords that are not built yet -----------------------
-   A stub should look like a placeholder rather than a card someone
-   forgot to fill in, so it loses the card fill and takes a dashed edge. */
-.solvers-page--bo6 .solver--soon.solver--tile {
-  justify-content: center;
-  min-height: 118px;
-  background: transparent;
-  border-style: dashed;
-  border-left-style: solid;
-}
-.solvers-page--bo6 .solver--soon.solver--tile .solver-name { color: var(--ink-mid); }
-.solvers-page--bo6 .solver--soon.solver--tile .solver-blurb { color: var(--ink-dim); }
-
-/* --- 8. figures ------------------------------------------------------
-   Every frame stays a thumbnail, but the fossil chart is the one image
-   you have to recognise something inside, so it earns a little more. */
-.solvers-page--bo6 #bo6-raven > .solver-figure { --thumb-h: 320px; }
-.solvers-page--bo6 .solver-figcaption { color: var(--ink-dim); }
-
-/* --- 9. bands and disclosure polish --------------------------------- */
-.solvers-page--bo6 .solver-band + .solver-band { margin-top: 2.1rem; }
-.solvers-page--bo6 .solver-details { border-color: var(--line-strong); }
-.solvers-page--bo6 .solver-details > summary { color: var(--ink); }
-.solvers-page--bo6 .solver-more > summary { color: var(--ink-dim); }
-
-/* --- 10. overflow guard ---------------------------------------------
-   Nothing on this page may be allowed to widen the document. */
-.solvers-page--bo6 .solver-workbench,
-.solvers-page--bo6 .solver-column,
-.solvers-page--bo6 .solver-bands,
-.solvers-page--bo6 .solver-band,
-.solvers-page--bo6 .solver-bench,
-.solvers-page--bo6 .solver-refs,
-.solvers-page--bo6 .solver,
-.solvers-page--bo6 .solver-map-head,
-.solvers-page--bo6 .solver-map-headline { min-width: 0; }
-.solvers-page--bo6 .solver-name,
-.solvers-page--bo6 .solver-blurb,
-.solvers-page--bo6 .solver-text { overflow-wrap: break-word; }
-
-/* --- 11. hover and press --------------------------------------------
-   Pointer devices only, so a tap on a phone never leaves a state stuck. */
-@media (hover: hover) and (pointer: fine) {
-  .solvers-page--bo6 .solver-toolnav a:hover {
-    color: var(--ink);
-    border-color: var(--mc, var(--blue));
-  }
-  .solvers-page--bo6 .solver-details > summary:hover { color: var(--blue-bright); }
-  .solvers-page--bo6 .solver-more > summary:hover { color: var(--ink); }
-}
-
-/* --- 12. small screens ---------------------------------------------- */
-@media (max-width: 559px) {
-  .solvers-page--bo6.solvers-page--console .solver-column .solver-map-head {
-    padding-left: 0.75rem;
-    padding-bottom: 0.65rem;
-  }
-  .solvers-page--bo6.solvers-page--console .solver-column .solver-map-head::before { bottom: 0.65rem; }
-  .solvers-page--bo6 .solver-result { padding: 0.9rem 0.95rem; }
-  .solvers-page--bo6 .solver-table--codes th,
-  .solvers-page--bo6 .solver-table--codes td { padding: 0.45rem 0.5rem; }
-  .solvers-page--bo6 .solver-hero .page-title::after { margin-top: 0.5rem; }
-}
 
 
 /* ================= merged from _stage_home.css ================= */
@@ -6170,30 +5249,22 @@ code.solver-code {
 }
 
 
-/* ================= merged from _stage_solvers.css ================= */
 /* ==========================================================================
-   SOLVER CONSOLE — FINAL PASS (BO6 + BO7 as one product)
-   Every rule is scoped to main.solvers-page--console, which both
-   solvers-bo6.html and solvers-bo7.html carry. The leading element
-   selector lifts these one notch above the earlier BO6/BO7 layers so the
-   result is the same whichever order the blocks sit in.
+   SOLVER CONSOLE — solvers-bo7.html + solvers-bo6.html
+   The single layer for both game pages. Every rule is scoped to
+   main.solvers-page--console, which only those two pages carry, so the
+   hub, BO3 and every other page are untouched.
 
-   Fixes carried here:
-     - .solver-code--lg (the big code on Gorgofex, Teleporter, Beamsmasher,
-       MK2 and friends) had no rule at all and rendered as small inline code.
-     - The map colour walk, table polish, step markers and stub treatment
-       only existed for BO6. BO7 now gets the same system.
-     - :active scale on chips, cells, image buttons and rail links ran even
-       with reduced motion requested.
-     - Number inputs were 0.92rem, so iOS zoomed the page on focus.
+   Page order: a slim header, the map switcher, then the tools. No counts,
+   no stat strips. One accent per map — the active tab and the rule under
+   the map title — and nothing else competes with the answer panels.
 
    No negative insets, no viewport widths, no negative offsets on any
    pseudo-element.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   0. Map identity — one hue per map, used on hairlines, numerals and the
-      active rail item only. Never a fill behind text you have to read.
+   0. Map hue — the one accent each map carries
    -------------------------------------------------------------------------- */
 main.solvers-page--console { --mc: var(--blue-bright); }
 
@@ -6224,270 +5295,401 @@ main.solvers-page--console #bo6-reckoning,
 main.solvers-page--console .solver-index a[href="#bo6-reckoning"]       { --mc: #FF8093; }
 
 /* --------------------------------------------------------------------------
-   1. Hero — same header strip on both games
+   1. Header — eyebrow, title, one quiet credit line
    -------------------------------------------------------------------------- */
-main.solvers-page--console .solver-hero .page-title { letter-spacing: -0.02em; }
-main.solvers-page--console .solver-hero .page-title::after {
-  content: '';
+main.solvers-page--console .solver-hero {
   display: block;
-  width: 58px;
-  height: 2px;
-  margin-top: 0.65rem;
-  border-radius: 2px;
-  background: var(--blue);
+  margin: 0 0 1.25rem;
+  padding: 0;
 }
-main.solvers-page--console .page-lede { max-width: 68ch; }
-
-main.solvers-page--console .solver-stats { gap: 0.9rem 1.5rem; flex-wrap: wrap; }
-main.solvers-page--console .solver-stats li {
-  padding-left: 0.75rem;
-  border-left: 2px solid var(--st, var(--blue));
+main.solvers-page--console .solver-hero .eyebrow { margin-bottom: 0.3rem; }
+main.solvers-page--console .solver-hero .page-title {
+  margin: 0;
+  font-size: clamp(1.85rem, 4.4vw, 2.55rem);
+  letter-spacing: -0.03em;
 }
-main.solvers-page--console .solver-stats li:nth-child(1) { --st: var(--blue); }
-main.solvers-page--console .solver-stats li:nth-child(2) { --st: #4DE0EE; }
-main.solvers-page--console .solver-stats li:nth-child(3) { --st: #B98BFF; }
-main.solvers-page--console .solver-stat-k { font-size: 1.6rem; line-height: 1.1; }
-
-/* --------------------------------------------------------------------------
-   2. Rail — the map switcher
-   -------------------------------------------------------------------------- */
-main.solvers-page--console .solver-index { counter-reset: solvmap; }
-main.solvers-page--console .solver-rail .solver-index a { counter-increment: solvmap; }
-
-/* Phones and tablets: pills, each led by its map's colour dot. */
-main.solvers-page--console .solver-rail .solver-index a::before {
-  content: '';
-  flex: none;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--mc);
+main.solvers-page--console .solver-discord-credit {
+  max-width: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  border: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--ink-dim);
 }
-main.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"],
-main.solvers-page--console .solver-rail .solver-index a.is-current {
-  color: var(--ink);
-  background: var(--surface-2);
-  border-color: var(--mc);
-}
-
-/* The count badge inverts onto the map colour when that map is open. */
-main.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"] .solver-index-n,
-main.solvers-page--console .solver-rail .solver-index a.is-current .solver-index-n,
-main.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"] .solver-index-n--none,
-main.solvers-page--console .solver-rail .solver-index a.is-current .solver-index-n--none {
-  color: #06101F;
-  background: var(--mc);
-  border-color: var(--mc);
-}
-
-/* Desktop: a framed sidebar, numbered 01 to 06. */
-@media (min-width: 1080px) {
-  main.solvers-page--console .solver-rail {
-    padding: 0.95rem 0.8rem 1rem;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-  }
-  main.solvers-page--console .solver-rail .solver-index { margin-bottom: 1.1rem; }
-  main.solvers-page--console .solver-rail .solver-index a {
-    grid-template-columns: 1.55rem minmax(0, 1fr) auto;
-    gap: 0.5rem;
-    margin-bottom: 0.2rem;
-    padding: 0.6rem 0.6rem 0.6rem 0.65rem;
-    border-left: 2px solid transparent;
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  }
-  main.solvers-page--console .solver-rail .solver-index a::before {
-    content: counter(solvmap, decimal-leading-zero);
-    width: auto;
-    height: auto;
-    border-radius: 0;
-    background: none;
-    font-family: var(--font-mono);
-    font-size: var(--t-micro);
-    font-weight: 700;
-    color: var(--ink-dim);
-    font-variant-numeric: tabular-nums;
-  }
-  main.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"],
-  main.solvers-page--console .solver-rail .solver-index a.is-current {
-    background: var(--surface-2);
-    border-left-color: var(--mc);
-    box-shadow: none;
-  }
-  main.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"]::before,
-  main.solvers-page--console .solver-rail .solver-index a.is-current::before { color: var(--mc); }
-  main.solvers-page--console .solver-railkey { padding-top: 0.95rem; }
-}
-@media (hover: hover) and (pointer: fine) {
-  main.solvers-page--console .solver-rail .solver-index a:hover {
-    color: var(--ink);
-    border-color: var(--mc);
-  }
-}
-@media (min-width: 1080px) and (hover: hover) and (pointer: fine) {
-  main.solvers-page--console .solver-rail .solver-index a:hover {
-    background: var(--surface-2);
-    border-color: transparent;
-    border-left-color: var(--mc);
-  }
-  main.solvers-page--console .solver-rail .solver-index a:hover::before { color: var(--mc); }
-}
-
-/* Below the sidebar breakpoint the tool-type key is a compact strip, so
-   the map you picked starts higher on a phone. */
-@media (max-width: 1079px) {
-  main.solvers-page--console .solver-railkey {
-    gap: 0.5rem 1rem;
-    margin-bottom: 1.5rem;
-    padding-top: 0.9rem;
-  }
-  main.solvers-page--console .solver-railkey-row { font-size: 0.76rem; }
+main.solvers-page--console .solver-discord-credit a {
+  font-weight: 600;
+  color: var(--ink-mid);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 2px;
 }
 
 /* --------------------------------------------------------------------------
-   3. Map header — the map's colour carries the title rule and the counts
+   2. Shell and map switcher — one segmented control above the tools
    -------------------------------------------------------------------------- */
-main.solvers-page--console .solver-workbench .solver-column .solver-map-head {
-  padding-left: 0;
-  padding-bottom: 0.85rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--line-strong);
+main.solvers-page--console .solver-workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
 }
-/* BO6 used to add a left spine here as well; the title rule does that job. */
-main.solvers-page--console .solver-workbench .solver-column .solver-map-head::before { content: none; }
-main.solvers-page--console .solver-workbench .solver-column .solver-map-head .section-title {
-  margin-bottom: 0;
-  letter-spacing: -0.02em;
-}
-main.solvers-page--console .solver-workbench .solver-column .solver-map-head .section-title::after {
-  width: 46px;
-  height: 3px;
-  margin-top: 0.55rem;
-  background: var(--mc);
-}
-main.solvers-page--console .solver-column .solver-map-intro { color: var(--ink-mid); }
-main.solvers-page--console .solver-map-meta { gap: 0.4rem; }
-main.solvers-page--console .solver-map-meta li {
-  padding: 0.3rem 0.6rem;
+main.solvers-page--console .solver-column,
+main.solvers-page--console .solver-rail { min-width: 0; }
+main.solvers-page--console .solver-rail { margin: 0 0 1.6rem; }
+main.solvers-page--console .solver-rail-label { display: none; }
+
+main.solvers-page--console .solver-rail .solver-index {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  margin: 0;
+  padding: 4px;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius);
+  scroll-margin-top: calc(var(--band-total, var(--band-h)) + 1.25rem);
 }
-main.solvers-page--console .solver-map-meta-k { color: var(--mc); font-size: 0.92rem; }
-
-/* Tool row picks up the map hue: dot, and edge when current. */
-main.solvers-page--console .solver-toolnav a { --jc: var(--mc); }
-main.solvers-page--console .solver-toolnav a.is-current {
+@media (min-width: 560px) {
+  main.solvers-page--console .solver-rail .solver-index { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1000px) {
+  main.solvers-page--console .solver-rail .solver-index { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+main.solvers-page--console .solver-rail .solver-index a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--ink-mid);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+}
+main.solvers-page--console .solver-rail .solver-index a.is-current,
+main.solvers-page--console .solver-workbench.is-tabbed .solver-index a[aria-current="true"] {
   color: var(--ink);
-  border-color: var(--mc);
+  background: var(--surface-2);
+  box-shadow: inset 0 -2px 0 var(--mc);
 }
-main.solvers-page--console .solver-toolnav a.solver-toolnav-up { --jc: var(--ink-dim); }
 @media (hover: hover) and (pointer: fine) {
-  main.solvers-page--console .solver-toolnav a:hover {
+  main.solvers-page--console .solver-rail .solver-index a:hover {
     color: var(--ink);
-    border-color: var(--mc);
+    background: var(--surface-2);
   }
 }
 
+/* One map at a time once the inline controller has run; without it every
+   map stays rendered and stacked. */
+main.solvers-page--console .solver-map { margin-bottom: 3rem; }
+main.solvers-page--console .solver-workbench.is-tabbed .solver-map { margin-bottom: 0; }
+main.solvers-page--console .solver-workbench.is-tabbed .solver-map.is-off { display: none; }
+
 /* --------------------------------------------------------------------------
-   4. Bands — "look it up" sits in a tray, "work it out" stands on the page
+   3. Map header and tool row
    -------------------------------------------------------------------------- */
-main.solvers-page--console .solver-band--refs {
-  padding: 0.85rem;
+main.solvers-page--console .solver-map-head {
+  display: block;
+  margin: 0 0 0.35rem;
+  padding: 0;
+  border: 0;
+}
+main.solvers-page--console .solver-map-head .section-title {
+  margin: 0;
+  font-size: clamp(1.45rem, 3vw, 1.9rem);
+  letter-spacing: -0.022em;
+}
+main.solvers-page--console .solver-map-head .section-title::after {
+  width: 32px;
+  height: 3px;
+  margin-top: 0.45rem;
+  background: var(--mc);
+}
+main.solvers-page--console .solver-map-intro {
+  max-width: 62ch;
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-mid);
+}
+
+/* The tool row is plain text links on the page colour: it signposts, it
+   does not compete with the cards. It sticks under the band. */
+main.solvers-page--console .solver-toolnav {
+  position: sticky;
+  top: var(--band-total, var(--band-h));
+  z-index: 18;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.3rem;
+  margin: 0 0 1.25rem;
+  padding: 0.5rem 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+main.solvers-page--console .solver-toolnav .page-jump-label { display: none; }
+main.solvers-page--console .solver-toolnav a {
+  flex: none;
+  min-height: 34px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-mid);
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+}
+main.solvers-page--console .solver-toolnav a::before { content: none; }
+main.solvers-page--console .solver-toolnav a.is-current { color: var(--ink); background: var(--surface-2); }
+main.solvers-page--console .solver-toolnav a.solver-toolnav-up { margin-left: auto; color: var(--ink-dim); }
+@media (hover: hover) and (pointer: fine) {
+  main.solvers-page--console .solver-toolnav a:hover { color: var(--ink); background: var(--surface); }
+}
+/* Phones: one swipeable line instead of three wrapped rows stuck to the
+   top of the screen. The scroll is inside the row, never the page. */
+@media (max-width: 719px) {
+  main.solvers-page--console .solver-toolnav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  main.solvers-page--console .solver-toolnav::-webkit-scrollbar { display: none; }
+  main.solvers-page--console .solver-toolnav a.solver-toolnav-up { margin-left: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   4. Bands — "look it up" above "work it out"
+   -------------------------------------------------------------------------- */
+main.solvers-page--console .solver-bands,
+main.solvers-page--console .solver-band { min-width: 0; }
+main.solvers-page--console .solver-band + .solver-band { margin-top: 1.75rem; }
+main.solvers-page--console .solver-bandlabel { margin: 0 0 0.6rem; }
+main.solvers-page--console .solver-bandlabel-k {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+/* --------------------------------------------------------------------------
+   5. Cards — one border, no coloured edges, no badges
+   -------------------------------------------------------------------------- */
+main.solvers-page--console .solver {
+  min-width: 0;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
-main.solvers-page--console .solver-band--refs > .solver-bandlabel { margin-bottom: 0.75rem; }
-main.solvers-page--console .solver-band + .solver-band { margin-top: 2rem; }
-main.solvers-page--console .solver-bandlabel-k { font-size: 0.74rem; }
-
-/* --------------------------------------------------------------------------
-   5. Tiles — the contact sheet
-   -------------------------------------------------------------------------- */
-main.solvers-page--console .solver-refs { --tile-h: 116px; }
-@media (min-width: 560px)  { main.solvers-page--console .solver-refs { --tile-h: 150px; } }
-@media (min-width: 620px)  { main.solvers-page--console .solver-refs { --tile-h: 168px; } }
-@media (min-width: 1000px) { main.solvers-page--console .solver-refs { --tile-h: 182px; } }
-main.solvers-page--console .solver--tile .solver-img-btn img { height: var(--tile-h); }
-
-main.solvers-page--console .solver--tile {
-  background: var(--surface);
-  border-color: var(--line-strong);
-  border-left-color: var(--sc);
+main.solvers-page--console .solver-head {
+  align-items: baseline;
+  gap: 0.3rem 0.75rem;
+  margin: 0 0 0.45rem;
+  padding: 0;
+  border: 0;
 }
-main.solvers-page--console .solver--tile .solver-img-btn { background: var(--bg); }
-
-/* Every preview says it opens. Pinned inside the frame, never outside it. */
-main.solvers-page--console .solver-column .solver-img-btn { position: relative; }
-main.solvers-page--console .solver-column .solver-img-btn::after {
-  content: 'Enlarge';
-  position: absolute;
-  right: 0.5rem;
-  bottom: 0.5rem;
-  padding: 0.18rem 0.5rem;
-  font-size: 0.64rem;
+main.solvers-page--console .solver-name {
+  font-family: inherit;
+  font-size: 1.08rem;
   font-weight: 800;
-  letter-spacing: 0.1em;
-  line-height: 1.5;
-  text-transform: uppercase;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  text-transform: none;
   color: var(--ink);
-  background: rgba(7, 11, 20, 0.86);
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  pointer-events: none;
 }
-main.solvers-page--console .solver-column .solver-imggrid .solver-img-btn::after,
-main.solvers-page--console .solver-column .solver-symbolgrid .solver-img-btn::after { content: none; }
+/* The tool type stays as a quiet word, not a pill. */
+main.solvers-page--console .solver-kind {
+  padding: 0;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--ink-dim);
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+main.solvers-page--console .solver-blurb {
+  max-width: 68ch;
+  margin: 0 0 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--ink-mid);
+}
+main.solvers-page--console .solver-text { font-size: 0.92rem; line-height: 1.65; }
 
 /* --------------------------------------------------------------------------
-   6. Coming Soon — one stub treatment on both games
+   6. The bench — the tools you operate, two up on desktop
    -------------------------------------------------------------------------- */
-main.solvers-page--console .solver--soon {
-  background: transparent;
-  border: 1px dashed var(--line-strong);
-  border-left: 2px solid var(--line-strong);
+main.solvers-page--console .solver-bench {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  align-items: stretch;
 }
-main.solvers-page--console .solver--soon .solver-name { color: var(--ink-mid); }
-main.solvers-page--console .solver--soon .solver-blurb { color: var(--ink-mid); }
-main.solvers-page--console .solver--soon .solver-kind {
-  color: var(--ink-mid);
-  background: transparent;
-  border-style: dashed;
+@media (min-width: 900px) {
+  main.solvers-page--console .solver-bench { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-main.solvers-page--console .solver--soon.solver--tile { justify-content: flex-start; min-height: 118px; }
-/* Beside real previews, a stub keeps an empty frame of the same height so
-   the tile heads line up across the row instead of stepping. */
-main.solvers-page--console .solver-refs:has(.solver-figure) > .solver--soon.solver--tile::before {
-  content: '';
-  display: block;
-  flex: none;
-  order: -1;
-  height: calc(var(--tile-h) + 1.45rem - var(--pad));
-  margin-bottom: 0.7rem;
-  border: 1px dashed var(--line);
-  border-radius: 6px;
+main.solvers-page--console .solver--wide { grid-column: 1 / -1; }
+main.solvers-page--console .solver-bench > .solver {
+  display: flex;
+  flex-direction: column;
 }
+/* A trailing fold-out sinks to the card foot so a pair lines up. */
+main.solvers-page--console .solver-bench > .solver > .solver-more:last-child { margin-top: auto; }
+
+/* A half card is ~540px wide: let table heads wrap rather than scroll. */
+main.solvers-page--console .solver-bench > .solver--half .solver-table { font-size: 0.8rem; }
+main.solvers-page--console .solver-bench > .solver--half .solver-table th,
+main.solvers-page--console .solver-bench > .solver--half .solver-table td { padding: 0.45rem 0.55rem; }
+main.solvers-page--console .solver-bench > .solver--half .solver-table thead th { white-space: normal; }
+
 /* A whole map with nothing built yet (Paradox Junction). */
-main.solvers-page--console .solver-bands > .solver--soon {
-  min-height: 190px;
-  padding: clamp(1.2rem, 3vw, 1.9rem);
-}
+main.solvers-page--console .solver-bands > .solver--soon { padding: clamp(1.2rem, 3vw, 1.8rem); }
 main.solvers-page--console .solver-bands > .solver--soon .solver-note { max-width: 58ch; }
 
 /* --------------------------------------------------------------------------
-   7. Bench cards — the tools you operate
+   7. Quick reference tiles — image on top, name under it
    -------------------------------------------------------------------------- */
-main.solvers-page--console .solver-bench > .solver:not(.solver--soon) {
-  background: var(--surface);
-  border-color: var(--line-strong);
-  border-left-color: var(--sc);
+main.solvers-page--console .solver-refs {
+  --tile-h: 120px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  align-items: stretch;
 }
-main.solvers-page--console .solver-bench > .solver .solver-name { font-size: 1rem; }
+@media (min-width: 560px) {
+  main.solvers-page--console .solver-refs {
+    --tile-h: 150px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+}
+@media (min-width: 1000px) {
+  main.solvers-page--console .solver-refs { --tile-h: 176px; }
+}
+/* Phones: one column of compact rows — thumbnail left, name and note
+   right — instead of half-width tiles too narrow to read. */
+@media (max-width: 559px) {
+  main.solvers-page--console .solver-refs { grid-template-columns: minmax(0, 1fr); gap: 0.6rem; }
+  main.solvers-page--console .solver-refs > .solver--tile { min-height: 0; }
+  main.solvers-page--console .solver-refs > .solver--tile:has(> .solver-figure) {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    grid-template-areas: "fig head" "fig blurb" "more more";
+    grid-template-rows: auto 1fr auto;
+    align-items: start;
+    column-gap: 0.8rem;
+  }
+  main.solvers-page--console .solver-refs > .solver--tile:has(> .solver-figure) > .solver-figure { grid-area: fig; margin: 0; }
+  main.solvers-page--console .solver-refs > .solver--tile:has(> .solver-figure) > .solver-head { grid-area: head; }
+  main.solvers-page--console .solver-refs > .solver--tile:has(> .solver-figure) > .solver-blurb { grid-area: blurb; }
+  main.solvers-page--console .solver-refs > .solver--tile:has(> .solver-figure) > .solver-more { grid-area: more; }
+  main.solvers-page--console .solver-refs > .solver--tile:has(> .solver-figure) .solver-img-btn {
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+  }
+  main.solvers-page--console .solver-refs > .solver--tile:has(> .solver-figure) .solver-img-btn img { height: 84px; }
+  main.solvers-page--console .solver-refs > .solver--tile:has(> .solver-figure) .solver-figcaption { display: block; margin: 0.3rem 0 0; }
+  main.solvers-page--console .solver-refs > .solver--tile:has(> .solver-figure) .solver-figcaption .solver-fullsize { display: block; }
+}
+
+main.solvers-page--console .solver--tile {
+  --pad: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  padding: var(--pad);
+  overflow: hidden;
+}
+/* Image first visually, still second in the reading order. The figure
+   sits flush with the card edges, clipped by the card's own overflow. */
+main.solvers-page--console .solver--tile > .solver-figure {
+  order: -1;
+  max-width: none;
+  margin: calc(var(--pad) * -1) calc(var(--pad) * -1) 0.7rem;
+}
+main.solvers-page--console .solver--tile .solver-img-btn {
+  aspect-ratio: auto;
+  max-height: none;
+  background: var(--bg);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+}
+main.solvers-page--console .solver--tile .solver-img-btn img {
+  height: var(--tile-h);
+  object-fit: cover;
+  object-position: top center;
+}
+main.solvers-page--console .solver--tile .solver-figcaption {
+  margin: 0.4rem var(--pad) 0;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--ink-dim);
+}
+main.solvers-page--console .solver--tile .solver-figcaption .solver-fullsize { font-size: 0.72rem; }
+main.solvers-page--console .solver--tile .solver-name { font-size: 0.95rem; }
+main.solvers-page--console .solver--tile .solver-blurb { margin-bottom: 0; font-size: 0.84rem; line-height: 1.5; }
+main.solvers-page--console .solver--tile .solver-note { font-size: 0.8rem; line-height: 1.5; }
+main.solvers-page--console .solver--tile .solver-sequence { margin: 0.6rem 0 0; font-size: 0.86rem; }
+main.solvers-page--console .solver--tile .solver-more { margin-top: 0.7rem; }
+
+/* A map whose only reference is its own full sheet gets one wide tile. */
+@media (min-width: 760px) {
+  main.solvers-page--console .solver-refs[data-n="1"] > .solver--tile {
+    display: grid;
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "fig head" "fig blurb";
+    align-items: start;
+    column-gap: 1.3rem;
+  }
+  main.solvers-page--console .solver-refs[data-n="1"] > .solver--tile > .solver-figure { grid-area: fig; margin: 0; }
+  main.solvers-page--console .solver-refs[data-n="1"] > .solver--tile .solver-img-btn {
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+  }
+  main.solvers-page--console .solver-refs[data-n="1"] > .solver--tile .solver-img-btn img { height: 186px; }
+  main.solvers-page--console .solver-refs[data-n="1"] > .solver--tile .solver-figcaption { margin: 0.4rem 0 0; }
+  main.solvers-page--console .solver-refs[data-n="1"] > .solver--tile > .solver-head { grid-area: head; }
+  main.solvers-page--console .solver-refs[data-n="1"] > .solver--tile > .solver-blurb { grid-area: blurb; }
+}
+
+/* Every other frame stays a thumbnail that opens full size. */
+main.solvers-page--console .solver-column .solver-img-btn { max-height: var(--thumb-h, 236px); }
+main.solvers-page--console .solver-column .solver--sheet > .solver-figure { --thumb-h: 250px; }
+main.solvers-page--console #bo6-raven > .solver-figure { --thumb-h: 320px; }
+main.solvers-page--console .solver-column .solver-imggrid .solver-img-btn,
+main.solvers-page--console .solver--tile .solver-img-btn { max-height: none; }
+main.solvers-page--console .solver-figcaption { color: var(--ink-dim); }
+
+/* Coming Soon: a dashed outline instead of a card. */
+main.solvers-page--console .solver--soon {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--line-strong);
+}
+main.solvers-page--console .solver--soon .solver-name,
+main.solvers-page--console .solver--soon .solver-blurb { color: var(--ink-mid); }
+main.solvers-page--console .solver--soon.solver--tile { justify-content: center; min-height: 118px; }
 
 /* --------------------------------------------------------------------------
    8. Controls — chips, symbol picks, fields
    -------------------------------------------------------------------------- */
+main.solvers-page--console .solver-opt-label {
+  font-size: var(--t-micro);
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  color: var(--ink-mid);
+}
+main.solvers-page--console .solver-opt-hint { font-size: 0.8rem; color: var(--ink-dim); }
 main.solvers-page--console .solver-chip {
   min-height: 42px;
   font-size: 0.86rem;
@@ -6521,60 +5723,44 @@ main.solvers-page--console .solver-field textarea:focus {
   border-color: var(--blue);
   box-shadow: 0 0 0 3px var(--blue-lo);
 }
-
 main.solvers-page--console .solver-cell.is-out { box-shadow: inset 0 0 0 1px #2FBF6B; }
 
 /* --------------------------------------------------------------------------
-   9. Answer panel — findable before it is readable
+   9. Answer panel — the one thing read mid-round
    -------------------------------------------------------------------------- */
 main.solvers-page--console .solver-widget .solver-result {
-  padding: 1.05rem 1.15rem 1.1rem;
+  padding: 1rem 1.1rem 1.05rem;
   background: var(--surface-2);
   border: 1px solid var(--line-strong);
-  border-left: 4px solid var(--rc, var(--line-strong));
+  border-left: 3px solid var(--rc, var(--line-strong));
   border-radius: var(--radius-sm);
 }
-main.solvers-page--console .solver-result.is-answered { --rt: #6FE3A0; }
-main.solvers-page--console .solver-result.is-progress { --rt: var(--blue-bright); }
-main.solvers-page--console .solver-result.is-warning  { --rt: var(--orange); }
-
-/* Waiting for input: an outline, not a panel. */
 main.solvers-page--console .solver-widget .solver-result.solver-result--idle {
   background: transparent;
   border-style: dashed;
   border-left-style: solid;
 }
 main.solvers-page--console .solver-result .solver-idle { color: var(--ink-mid); }
-
-/* State label with a status dot. */
+main.solvers-page--console .solver-result.is-answered { --rt: #6FE3A0; }
+main.solvers-page--console .solver-result.is-progress { --rt: var(--blue-bright); }
+main.solvers-page--console .solver-result.is-warning  { --rt: var(--orange); }
 main.solvers-page--console .solver-widget .solver-result .solver-result-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.6rem;
-  font-size: 0.74rem;
-  letter-spacing: 0.13em;
+  margin-bottom: 0.5rem;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
   color: var(--rt, var(--ink-mid));
 }
-main.solvers-page--console .solver-widget .solver-result .solver-result-title::before {
-  content: '';
-  flex: none;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--rc, var(--ink-dim));
-}
-
 main.solvers-page--console .solver-result .solver-verdict {
-  font-size: clamp(1.3rem, 5vw, 1.85rem);
-  letter-spacing: -0.015em;
+  margin-bottom: 0.7rem;
+  font-size: clamp(1.3rem, 5vw, 1.8rem);
   line-height: 1.2;
+  letter-spacing: -0.015em;
   font-variant-numeric: tabular-nums;
-  margin-bottom: 0.75rem;
 }
-
-/* The big code: this is the number you type into the game. */
-main.solvers-page--console .solver-result .solver-big { margin: 0.2rem 0 0.95rem; }
+/* The big code: the number you type into the game. */
+main.solvers-page--console .solver-result .solver-big { margin: 0.2rem 0 0.9rem; }
 main.solvers-page--console .solver-result code.solver-code.solver-code--lg {
   display: inline-block;
   max-width: 100%;
@@ -6588,7 +5774,6 @@ main.solvers-page--console .solver-result code.solver-code.solver-code--lg {
   color: var(--ink);
   background: var(--bg);
   border: 1px solid var(--line-strong);
-  border-left: 3px solid var(--rc, var(--blue));
   border-radius: var(--radius-sm);
   overflow-wrap: anywhere;
 }
@@ -6596,18 +5781,14 @@ main.solvers-page--console .solver-result code.solver-code {
   font-variant-numeric: tabular-nums;
   background: var(--bg);
 }
-
 main.solvers-page--console .solver-result .solver-answer-list li,
 main.solvers-page--console .solver-result .solver-answer-steps li,
 main.solvers-page--console .solver-result .solver-line { font-size: 0.93rem; }
-main.solvers-page--console .solver-result .solver-line-v { font-variant-numeric: tabular-nums; }
+main.solvers-page--console .solver-result .solver-line-v { font-weight: 800; font-variant-numeric: tabular-nums; }
 main.solvers-page--console .solver-result .solver-answer-steps li::marker { color: var(--rc, var(--blue)); }
-
-/* Crank turn counts read like a scoreboard. */
 main.solvers-page--console .solver-turn { background: var(--bg); }
 main.solvers-page--console .solver-turn-n { font-size: 1.55rem; font-variant-numeric: tabular-nums; }
 main.solvers-page--console .solver-result.is-answered .solver-turn:not(.is-zero) { border-color: rgba(47, 191, 107, 0.55); }
-
 main.solvers-page--console .solver-pick { background: var(--bg); }
 
 /* --------------------------------------------------------------------------
@@ -6622,21 +5803,35 @@ main.solvers-page--console .solver-table code.solver-code {
   font-variant-numeric: tabular-nums;
   background: var(--bg);
 }
+/* Grids of four-digit codes centre-read faster than they left-read. */
 main.solvers-page--console .solver-table--codes tbody td,
 main.solvers-page--console .solver-table--codes thead th + th { text-align: center; }
+main.solvers-page--console .solver-table--codes tbody th { color: var(--ink); }
+/* A fixed mapping is presented as the answer it is. */
+main.solvers-page--console .solver-table--answer { font-size: 0.9rem; }
+main.solvers-page--console .solver-table--answer tbody th,
+main.solvers-page--console .solver-table--answer tbody td strong {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+}
+main.solvers-page--console .solver-table--answer tbody td { color: var(--ink); }
 
-main.solvers-page--console .solver-column .solver-subhead { color: var(--mc); }
+main.solvers-page--console .solver-column .solver-subhead { color: var(--ink-mid); }
 main.solvers-page--console .solver-steps li::marker { color: var(--mc); font-weight: 800; }
-main.solvers-page--console .solver-sequence { border-left-color: var(--mc); letter-spacing: 0.02em; }
+main.solvers-page--console .solver-bullets li,
+main.solvers-page--console .solver-steps li { line-height: 1.65; }
+main.solvers-page--console .solver-sequence {
+  letter-spacing: 0.02em;
+  border-left-width: 1px;
+  border-left-color: var(--line-strong);
+}
 
 main.solvers-page--console .solver-details {
   background: var(--surface-2);
   border-color: var(--line-strong);
 }
-main.solvers-page--console .solver-details > summary {
-  min-height: 44px;
-  color: var(--ink);
-}
+main.solvers-page--console .solver-details > summary { min-height: 44px; color: var(--ink); }
 main.solvers-page--console .solver-details > summary::before { color: var(--mc); }
 main.solvers-page--console .solver-more > summary { min-height: 32px; color: var(--ink-mid); }
 @media (hover: hover) and (pointer: fine) {
@@ -6645,16 +5840,164 @@ main.solvers-page--console .solver-more > summary { min-height: 32px; color: var
 }
 
 /* --------------------------------------------------------------------------
-   11. Motion — opt-in only
+   11. Dravakar Riddle — counts by dial, read at a glance
+   -------------------------------------------------------------------------- */
+main.solvers-page--console #bo7-dravakar { container: dravakar / inline-size; }
+
+main.solvers-page--console .solver-dials {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.4rem;
+  margin: 0 0 0.8rem;
+  padding: 0;
+  list-style: none;
+}
+main.solvers-page--console .solver-dial {
+  display: grid;
+  grid-template-columns: 3.4rem auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  padding: 0.5rem 0.65rem;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+main.solvers-page--console .solver-dial-name,
+main.solvers-page--console .solver-quote-turns dt {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+main.solvers-page--console .solver-dial-name { font-size: 0.8rem; color: var(--ink); }
+main.solvers-page--console .solver-dial-syms { display: flex; gap: 4px; }
+main.solvers-page--console .solver-dial-syms img {
+  display: block;
+  width: 40px;
+  height: 30px;
+  padding: 3px;
+  object-fit: contain;
+  background: #000;
+  border-radius: 4px;
+}
+main.solvers-page--console .solver-dial-info {
+  min-width: 0;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--ink-dim);
+}
+main.solvers-page--console .solver-dial-info strong {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+main.solvers-page--console .solver-quotes {
+  margin: 0 0 0.9rem;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+main.solvers-page--console .solver-quote {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.55rem;
+  padding: 0.75rem 0.8rem;
+}
+main.solvers-page--console .solver-quote + .solver-quote { border-top: 1px solid var(--line); }
+main.solvers-page--console .solver-quote-text {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--ink-mid);
+}
+main.solvers-page--console .solver-quote-text strong { font-weight: 700; color: var(--ink); }
+main.solvers-page--console .solver-quote-turns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem;
+  margin: 0;
+}
+main.solvers-page--console .solver-quote-turns > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.45rem;
+  min-width: 0;
+  padding: 0.3rem 0.4rem;
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+}
+main.solvers-page--console .solver-quote-turns dt { font-size: 0.6rem; color: var(--ink-dim); }
+main.solvers-page--console .solver-quote-turns dd {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 900;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+main.solvers-page--console .solver-quote-turns > .is-zero { background: transparent; border-style: dashed; }
+main.solvers-page--console .solver-quote-turns > .is-zero dd { color: var(--ink-dim); }
+
+@container dravakar (min-width: 500px) {
+  main.solvers-page--console .solver-dials { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  main.solvers-page--console .solver-dial {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "name syms" "info info";
+    gap: 0.4rem 0.5rem;
+    align-items: center;
+  }
+  main.solvers-page--console .solver-dial-name { grid-area: name; }
+  main.solvers-page--console .solver-dial-syms { grid-area: syms; }
+  main.solvers-page--console .solver-dial-info { grid-area: info; }
+  main.solvers-page--console .solver-quote {
+    grid-template-columns: minmax(0, 1fr) 10.5rem;
+    align-items: center;
+    gap: 1rem;
+  }
+  main.solvers-page--console .solver-quote-turns > div {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.05rem;
+    padding: 0.3rem 0.2rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. Motion — opt-in only
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
+  @keyframes solv-card-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: none; }
+  }
   @keyframes solv-answer-in {
     from { opacity: 0; transform: translateY(4px); }
     to   { opacity: 1; transform: none; }
   }
+  main.solvers-page--console .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-refs > .solver,
+  main.solvers-page--console .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-bench > .solver,
+  main.solvers-page--console .solver-workbench.is-tabbed .solver-map:not(.is-off) > .solver-bands > .solver {
+    animation: solv-card-in 280ms var(--ease) both;
+  }
+  main.solvers-page--console .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-refs > .solver:nth-child(2),
+  main.solvers-page--console .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-bench > .solver:nth-child(2) { animation-delay: 45ms; }
+  main.solvers-page--console .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-refs > .solver:nth-child(n + 3),
+  main.solvers-page--console .solver-workbench.is-tabbed .solver-map:not(.is-off) .solver-bench > .solver:nth-child(n + 3) { animation-delay: 90ms; }
   main.solvers-page--console .solver-result.is-answered .solver-verdict,
   main.solvers-page--console .solver-result.is-answered .solver-big {
     animation: solv-answer-in 220ms var(--ease) both;
+  }
+  main.solvers-page--console .solver-rail .solver-index a,
+  main.solvers-page--console .solver-toolnav a {
+    transition: color var(--fast) var(--ease), background-color var(--fast) var(--ease),
+                transform var(--fast) var(--ease);
   }
   main.solvers-page--console .solver-chip,
   main.solvers-page--console .solver-imgchip {
@@ -6662,38 +6005,45 @@ main.solvers-page--console .solver-more > summary { min-height: 32px; color: var
                 background-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease),
                 transform var(--fast) var(--ease);
   }
+  main.solvers-page--console .solver--tile { transition: border-color var(--fast) var(--ease), transform var(--fast) var(--ease); }
+  main.solvers-page--console .solver-rail .solver-index a:active,
+  main.solvers-page--console .solver-toolnav a:active { transform: scale(0.97); }
 }
 @media (prefers-reduced-motion: reduce) {
   main.solvers-page--console .solver-chip:active,
   main.solvers-page--console .solver-imgchip:active,
   main.solvers-page--console .solver-cell:active,
   main.solvers-page--console .solver-img-btn:active,
-  main.solvers-page--console .solver--tile:active,
   main.solvers-page--console .solver-rail .solver-index a:active,
   main.solvers-page--console .solver-toolnav a:active { transform: none; }
 }
+@media (hover: hover) and (pointer: fine) {
+  main.solvers-page--console .solver--tile:hover { border-color: var(--line-strong); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  main.solvers-page--console .solver--tile:hover { transform: translateY(-2px); }
+}
 
 /* --------------------------------------------------------------------------
-   12. Small screens and overflow guard
+   13. Small screens and overflow guard
    -------------------------------------------------------------------------- */
 @media (max-width: 559px) {
-  main.solvers-page--console .solver-band--refs { padding: 0.65rem; }
+  main.solvers-page--console .solver--tile { --pad: 0.7rem; }
+  main.solvers-page--console .solver--tile .solver-name { font-size: 0.88rem; }
+  main.solvers-page--console .solver--tile .solver-blurb { font-size: 0.8rem; }
   main.solvers-page--console .solver-widget .solver-result { padding: 0.9rem 0.95rem; }
-  main.solvers-page--console .solver-column .solver-img-btn::after { right: 0.35rem; bottom: 0.35rem; }
-  main.solvers-page--console .solver-stat-k { font-size: 1.35rem; }
+  main.solvers-page--console .solver-band + .solver-band { margin-top: 1.5rem; }
 }
 main.solvers-page--console .solver-workbench,
-main.solvers-page--console .solver-column,
-main.solvers-page--console .solver-bands,
-main.solvers-page--console .solver-band,
 main.solvers-page--console .solver-bench,
 main.solvers-page--console .solver-refs,
-main.solvers-page--console .solver,
+main.solvers-page--console .solver-map-head,
 main.solvers-page--console .solver-result { min-width: 0; }
 main.solvers-page--console .solver-name,
 main.solvers-page--console .solver-blurb,
 main.solvers-page--console .solver-text,
-main.solvers-page--console .solver-verdict { overflow-wrap: break-word; }
+main.solvers-page--console .solver-verdict,
+main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
 
 
 /* ================= merged from _stage_chrome.css ================= */
