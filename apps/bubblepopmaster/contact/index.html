@@ -98,6 +98,7 @@
         <span class="legal-toc-label">On This Page</span>
         <ol>
           <li><a href="#overview">Overview</a></li>
+          <li><a href="#send-a-message">Send a message</a></li>
           <li><a href="#purchases-and-restoring">Purchases and restoring</a></li>
           <li><a href="#bugs-and-ideas">Bugs and ideas</a></li>
           <li><a href="#privacy">Privacy</a></li>
@@ -114,6 +115,37 @@
     <a class="big" href="mailto:Business@joemet123.com?subject=Bubble%20Pop%20Master">Business@joemet123.com</a>
     <p>Put "Bubble Pop Master" in the subject so it is not missed, and say which iPhone or iPad you are using and which version of iOS. There is no phone line, no live chat, and no social media account for the app; email is the one way in.</p>
   </div>
+</section>
+<section class="legal-sec" id="send-a-message">
+<h2>Send a message</h2>
+        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+
+          <input type="hidden" name="access_key" value="74abca8b-51a6-42d0-b932-e4611e8b5456">
+          <input type="hidden" name="redirect" value="https://joemet123.com/thanks.html">
+          <input type="hidden" name="subject" value="Bubble Pop Master support — Joemet123.com">
+          <input type="hidden" name="from_name" value="Joemet123.com — Bubble Pop Master">
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off">
+
+          <label class="form-field">
+            <span>Name</span>
+            <input type="text" name="Name" required autocomplete="name">
+          </label>
+
+          <label class="form-field">
+            <span>Best Contact Email</span>
+            <input type="email" name="Email" required autocomplete="email">
+          </label>
+
+          <label class="form-field">
+            <span>How Can We Help?</span>
+            <textarea name="What They Need" rows="6" required></textarea>
+          </label>
+
+          <button type="submit" class="btn btn-accent">Send Message</button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
+        </form>
+        <p class="form-fallback">Prefer Email? Write To <a href="mailto:Business@joemet123.com?subject=Bubble Pop Master">Business@joemet123.com</a> Directly.</p>
+        <script>!function(){var t=document.querySelector(".contact-form");if(t&&window.fetch&&window.FormData){var e=document.getElementById("form-status"),n=t.querySelector('button[type="submit"]'),o=n.textContent;t.addEventListener("submit",function(o){o.preventDefault(),e.hidden=!0,n.disabled=!0,n.textContent="Sending\u2026";var i=new FormData(t);i.delete("redirect"),fetch("https://api.web3forms.com/submit",{method:"POST",headers:{Accept:"application/json"},body:i}).then(function(t){return t.json().then(function(e){return{ok:t.ok,j:e}})}).then(function(e){e.ok&&!0===e.j.success?window.location.href=t.querySelector('input[name="redirect"]').value:r()}).catch(r)})}function r(){e.hidden=!1,e.className="form-status is-error",e.textContent="Sorry, That Didn't Send. Please Email Business@joemet123.com Directly.",n.disabled=!1,n.textContent=o}}();</script>
 </section>
 <section class="legal-sec" id="purchases-and-restoring">
 <h2>Purchases and restoring</h2>
