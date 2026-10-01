@@ -2032,6 +2032,7 @@ body.lightbox-open { overflow: hidden; }
 .game-card--bo6 { --gc: var(--purple); }
 .game-card--bo3 { --gc: var(--orange); }
 .game-card--iw  { --gc: #6FE3A0; }
+.game-card--bo4 { --gc: var(--purple); }
 .game-card-tag {
   font-size: var(--t-micro);
   font-weight: 700;
@@ -4007,7 +4008,7 @@ code.solver-code {
 }
 .home-page .home-solvers .game-card--bo7::after { content: '7'; content: '7' / ''; }
 .home-page .home-solvers .game-card--bo6::after { content: '6'; content: '6' / ''; }
-.home-page .home-solvers .game-card--bo3::after { content: '3'; content: '3' / ''; }
+.home-page .home-solvers .game-card--bo3::after { content: '+'; content: '+' / ''; }
 
 .home-page .game-card-meter {
   display: block;
@@ -4300,8 +4301,7 @@ code.solver-code {
     grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
     gap: 1.1rem;
   }
-  .pg-hub .game-card--bo7 { grid-row: span 2; }
-  .pg-hub .game-card--iw { grid-column: 1 / -1; }
+  .pg-hub .solver-games--soon { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 1.1rem; }
 }
 
 .pg-hub .game-card {
@@ -4322,8 +4322,10 @@ code.solver-code {
 }
 
 .pg-hub .game-card--bo3,
+.pg-hub .game-card--bo4,
 .pg-hub .game-card--iw { border-style: dashed; border-top-style: dashed; }
 .pg-hub .game-card--bo3 .game-card-title,
+.pg-hub .game-card--bo4 .game-card-title,
 .pg-hub .game-card--iw .game-card-title { color: var(--ink-mid); }
 
 .pg-hub .game-card-code {
@@ -6739,4 +6741,33 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
 @media (max-width: 520px) {
   .app-icon--lg { width: 72px; height: 72px; }
   .app-actions .btn { flex: 1 1 100%; }
+}
+
+.pg-soon .soon-card {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: clamp(1.4rem, 4vw, 2.4rem);
+  text-align: center;
+  background: var(--surface);
+  border: 2px dashed var(--line-strong);
+  border-radius: var(--radius);
+}
+.pg-soon .page-title { margin-bottom: 0.6rem; }
+.pg-soon .soon-badge {
+  display: inline-block;
+  margin: 0 0 1rem;
+  padding: 0.35rem 1.2rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--orange-ink);
+  background: var(--orange);
+  border-radius: 999px;
+  box-shadow: 0 4px 0 var(--orange-lip);
+}
+.pg-soon .page-lede { margin: 0 auto; max-width: 38rem; }
+.pg-soon .soon-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; justify-content: center; margin-top: 1.4rem; }
+.pg-soon .solver-discord-credit { max-width: none; margin: 1.3rem 0 0; font-size: 0.8rem; line-height: 1.5; color: var(--ink-dim); }
+.pg-soon .solver-discord-credit a { font-weight: 600; color: var(--ink-mid); text-decoration: underline; text-underline-offset: 2px; }
+@media (max-width: 460px) {
+  .pg-soon .soon-actions .btn { flex: 1 1 100%; }
 }
