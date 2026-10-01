@@ -6,7 +6,7 @@
   <title>SimpleSlotz Contact &amp; Support — Joemet123 LLC</title>
   <meta name="description" content="Something not working, a purchase that did not arrive, or a question about the game? Email us and a person will reply. Email: Business@joemet123.com Put Si">
   <link rel="canonical" href="https://joemet123.com/apps/simpleslotz/contact/">
-  <link rel="stylesheet" href="/assets/css/style.css?v=seo1001">
+  <link rel="stylesheet" href="/assets/css/style.css?v=seo1002">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lilita+One&amp;family=Rubik+Wet+Paint&amp;family=Rubik:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
@@ -99,6 +99,7 @@
         <span class="legal-toc-label">On This Page</span>
         <ol>
           <li><a href="#overview">Overview</a></li>
+          <li><a href="#send-a-message">Send a message</a></li>
           <li><a href="#what-to-include">What to include</a></li>
           <li><a href="#purchases-and-refunds">Purchases and refunds</a></li>
           <li><a href="#your-data">Your data</a></li>
@@ -114,6 +115,37 @@
     <p><strong>Email:</strong> <a href="mailto:Business@joemet123.com?subject=SimpleSlotz%20support">Business@joemet123.com</a><br>
     Put <strong>SimpleSlotz</strong> in the subject line. We answer within 3 business days, and within 30 days for privacy requests.</p>
   </div>
+</section>
+<section class="legal-sec" id="send-a-message">
+<h2>Send a message</h2>
+        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+
+          <input type="hidden" name="access_key" value="74abca8b-51a6-42d0-b932-e4611e8b5456">
+          <input type="hidden" name="redirect" value="https://joemet123.com/thanks.html">
+          <input type="hidden" name="subject" value="SimpleSlotz support — Joemet123.com">
+          <input type="hidden" name="from_name" value="Joemet123.com — SimpleSlotz">
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off">
+
+          <label class="form-field">
+            <span>Name</span>
+            <input type="text" name="Name" required autocomplete="name">
+          </label>
+
+          <label class="form-field">
+            <span>Best Contact Email</span>
+            <input type="email" name="Email" required autocomplete="email">
+          </label>
+
+          <label class="form-field">
+            <span>How Can We Help?</span>
+            <textarea name="What They Need" rows="6" required></textarea>
+          </label>
+
+          <button type="submit" class="btn btn-accent">Send Message</button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
+        </form>
+        <p class="form-fallback">Prefer Email? Write To <a href="mailto:Business@joemet123.com?subject=SimpleSlotz">Business@joemet123.com</a> Directly.</p>
+        <script>!function(){var t=document.querySelector(".contact-form");if(t&&window.fetch&&window.FormData){var e=document.getElementById("form-status"),n=t.querySelector('button[type="submit"]'),o=n.textContent;t.addEventListener("submit",function(o){o.preventDefault(),e.hidden=!0,n.disabled=!0,n.textContent="Sending\u2026";var i=new FormData(t);i.delete("redirect"),fetch("https://api.web3forms.com/submit",{method:"POST",headers:{Accept:"application/json"},body:i}).then(function(t){return t.json().then(function(e){return{ok:t.ok,j:e}})}).then(function(e){e.ok&&!0===e.j.success?window.location.href=t.querySelector('input[name="redirect"]').value:r()}).catch(r)})}function r(){e.hidden=!1,e.className="form-status is-error",e.textContent="Sorry, That Didn't Send. Please Email Business@joemet123.com Directly.",n.disabled=!1,n.textContent=o}}();</script>
 </section>
 <section class="legal-sec" id="what-to-include">
 <h2>What to include</h2>
@@ -156,7 +188,7 @@
     &copy; 2026 Joemet123 — All Rights Reserved.
   </footer>
 
-  <script src="/assets/js/main.js?v=seo1001"></script>
+  <script src="/assets/js/main.js?v=seo1002"></script>
   <div class="cookie-note" id="cookie-note" role="region" aria-label="Cookie notice" hidden>
     <p class="cookie-note-text">This Site Uses Cookies For Ads And Basic Analytics. See The <a href="/site-privacy.html">Privacy Policy</a> For Detail.</p>
     <div class="cookie-note-actions">
