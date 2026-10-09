@@ -18,7 +18,7 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-  <url><loc>https://joemet123.com/apps.html</loc><lastmod>2026-10-03</lastmod><priority>0.7</priority></url>
+  <url><loc>https://joemet123.com/apps.html</loc><lastmod>2026-10-09</lastmod><priority>0.7</priority></url>
   <url><loc>https://joemet123.com/apps/ezlightswitch/</loc><lastmod>2026-10-03</lastmod><priority>0.4</priority></url>
   <url><loc>https://joemet123.com/apps/waterplay/</loc><lastmod>2026-10-03</lastmod><priority>0.4</priority></url>
   <url><loc>https://joemet123.com/apps/bubblepopmaster/</loc><lastmod>2026-10-03</lastmod><priority>0.4</priority></url>
@@ -36,4 +36,8 @@
   <url><loc>https://joemet123.com/guides/kowakujo-main-easter-egg.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
   <url><loc>https://joemet123.com/guides/totenreich-main-easter-egg.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
   <url><loc>https://joemet123.com/guides/totenreich-viking-helmets.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
+  <url><loc>https://joemet123.com/apps/simpleslotz/about/</loc><lastmod>2026-10-09</lastmod><priority>0.6</priority></url>
+  <url><loc>https://joemet123.com/apps/simpleslotz/</loc><lastmod>2026-10-09</lastmod><priority>0.5</priority></url>
+  <url><loc>https://joemet123.com/apps/simpleslotz/contact/</loc><lastmod>2026-10-09</lastmod><priority>0.4</priority></url>
+  <url><loc>https://joemet123.com/apps/simpleslotz/terms/</loc><lastmod>2026-10-09</lastmod><priority>0.3</priority></url>
 </urlset>
