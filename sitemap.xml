@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url><loc>https://joemet123.com/</loc><lastmod>2026-10-03</lastmod><priority>1.0</priority></url>
   <url><loc>https://joemet123.com/solvers.html</loc><lastmod>2026-10-03</lastmod><priority>0.9</priority></url>
   <url><loc>https://joemet123.com/solvers-bo7.html</loc><lastmod>2026-10-03</lastmod><priority>0.9</priority></url>
@@ -39,7 +39,7 @@
   <url><loc>https://joemet123.com/guides/kowakujo-main-easter-egg.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
   <url><loc>https://joemet123.com/guides/totenreich-main-easter-egg.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
   <url><loc>https://joemet123.com/guides/totenreich-viking-helmets.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
-  <url><loc>https://joemet123.com/apps/simpleslotz/about/</loc><lastmod>2026-10-09</lastmod><priority>0.6</priority></url>
+  <url><loc>https://joemet123.com/apps/simpleslotz/about/</loc><lastmod>2026-10-09</lastmod><priority>0.6</priority><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-01.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-02.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-03.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-04.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-05.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-06.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-07.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-08.jpg</image:loc></image:image></url>
   <url><loc>https://joemet123.com/apps/simpleslotz/machines/</loc><lastmod>2026-10-09</lastmod><priority>0.6</priority></url>
   <url><loc>https://joemet123.com/apps/simpleslotz/</loc><lastmod>2026-10-09</lastmod><priority>0.5</priority></url>
   <url><loc>https://joemet123.com/apps/simpleslotz/contact/</loc><lastmod>2026-10-09</lastmod><priority>0.4</priority></url>
