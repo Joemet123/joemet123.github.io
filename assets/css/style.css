@@ -6540,6 +6540,20 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
   .pg-rules .rc-grid .rules-list { gap: 0.6rem; }
 }
 
+@media (min-width: 1040px) {
+  .pg-rules .rc-grid { align-items: stretch; }
+  .pg-rules .rc-grid > .section { display: flex; flex-direction: column; min-width: 0; }
+  .pg-rules .rc-grid .rules-list {
+    flex: 1 1 auto;
+    grid-template-rows: 1fr 1fr 1fr auto;
+    margin-bottom: 0;
+  }
+  .pg-rules .rc-grid .cmd-grid {
+    flex: 1 1 auto;
+    grid-template-rows: 1fr 1fr auto;
+  }
+}
+
 .pg-contact .contact-grid { display: grid; gap: var(--gap); align-items: start; }
 @media (min-width: 900px) {
   .pg-contact .contact-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
