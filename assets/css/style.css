@@ -1722,6 +1722,7 @@ body.lightbox-open { overflow: hidden; }
 .cmd-grid .cmd-category:nth-child(2) { --cc: var(--purple); }
 .cmd-grid .cmd-category:nth-child(3) { --cc: #19C2D6; }
 .cmd-grid .cmd-category:nth-child(4) { --cc: var(--orange); }
+.cmd-grid .cmd-category:nth-child(5) { --cc: #FF4D9E; }
 .cmd-category-title {
   display: flex;
   align-items: center;
@@ -6271,6 +6272,29 @@ main.solvers-page--console .solver-quote-text { overflow-wrap: break-word; }
   }
   .pg-rules .rc-grid .cmd-desc { line-height: 1.3; }
   .pg-rules .rc-grid .cmd-name { padding: 0.08rem 0.4rem; font-size: 0.76rem; }
+}
+
+@media (min-width: 760px) {
+  .pg-rules .cmd-grid .cmd-category:nth-child(5):last-child { grid-column: 1 / -1; }
+  .pg-rules .cmd-grid .cmd-category:nth-child(5):last-child .cmd-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.5rem;
+  }
+  .pg-rules .cmd-grid .cmd-category:nth-child(5):last-child .cmd-list li {
+    grid-column: auto;
+    grid-template-columns: minmax(6.6rem, max-content) minmax(0, 1fr);
+  }
+  .pg-rules .cmd-grid .cmd-category:nth-child(5):last-child .cmd-list li:nth-child(2) { border-top: 0; padding-top: 0.1rem; }
+  @supports (grid-template-columns: subgrid) {
+    .pg-rules .cmd-grid .cmd-category:nth-child(5):last-child .cmd-list {
+      grid-template-columns: max-content minmax(0, 1fr) max-content minmax(0, 1fr);
+    }
+    .pg-rules .cmd-grid .cmd-category:nth-child(5):last-child .cmd-list li {
+      grid-column: span 2;
+      grid-template-columns: subgrid;
+    }
+  }
 }
 
 .pg-contact .contact-grid { display: grid; gap: var(--gap); align-items: start; }
