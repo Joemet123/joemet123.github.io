@@ -737,9 +737,28 @@ ul, ol { padding-left: 1.4em; }
 }
 .tip-option:has(input:checked) .tip-alert { color: var(--ink); }
 
-.tip-sound { display: grid; place-items: center; color: var(--ink-dim); }
+.tip-sound {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  color: var(--ink-dim);
+}
 .tip-option:has(input:checked) .tip-sound { color: var(--orange); }
 .tip-option.is-picked .tip-sound { color: var(--orange); }
+.tip-option.is-playing .tip-sound {
+  color: var(--orange);
+  background: color-mix(in srgb, var(--orange) 22%, transparent);
+}
+@keyframes tip-wave {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tip-option.is-playing .tip-sound path:nth-child(2) { animation: tip-wave 0.9s ease-in-out infinite; }
+  .tip-option.is-playing .tip-sound path:nth-child(3) { animation: tip-wave 0.9s ease-in-out 0.3s infinite; }
+}
 .tip-option.is-picked .tip-alert { color: var(--ink); }
 .tip-option:has(input:focus-visible) {
   outline: 2px solid var(--blue-bright);
