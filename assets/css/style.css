@@ -688,7 +688,7 @@ ul, ol { padding-left: 1.4em; }
 .tip-option {
   position: relative;
   display: grid;
-  grid-template-columns: 4.7rem minmax(0, 1fr);
+  grid-template-columns: 4.7rem minmax(0, 1fr) auto;
   align-items: center;
   gap: 0.75rem;
   min-height: 44px;
@@ -736,6 +736,10 @@ ul, ol { padding-left: 1.4em; }
   background: color-mix(in srgb, var(--orange) 12%, var(--surface-2));
 }
 .tip-option:has(input:checked) .tip-alert { color: var(--ink); }
+
+.tip-sound { display: grid; place-items: center; color: var(--ink-dim); }
+.tip-option:has(input:checked) .tip-sound { color: var(--orange); }
+.tip-option.is-picked .tip-sound { color: var(--orange); }
 .tip-option.is-picked .tip-alert { color: var(--ink); }
 .tip-option:has(input:focus-visible) {
   outline: 2px solid var(--blue-bright);
@@ -1943,7 +1947,7 @@ body.lightbox-open { overflow: hidden; }
   .section { margin-bottom: 2.1rem; }
   .hero { margin-bottom: 3rem; gap: 1.75rem; }
   .donate-panel { padding: 1.1rem 1rem; }
-  .tip-option { grid-template-columns: 4.4rem minmax(0, 1fr); gap: 0.6rem; }
+  .tip-option { grid-template-columns: 4.4rem minmax(0, 1fr) auto; gap: 0.6rem; }
   .discord-widget-wrapper iframe { height: 340px; }
   .site-footer { padding: 2rem 1rem; }
   .site-footer .footer-links { gap: 1.1rem; }
