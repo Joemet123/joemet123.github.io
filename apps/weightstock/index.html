@@ -89,7 +89,7 @@
             <h1 class="page-title">WeightStock</h1>
           </div>
         </div>
-        <p class="app-meta">Effective 24 October 2026 · Published by Joemet123 LLC</p>
+        <p class="app-meta">Effective 1 November 2026 · Published by Joemet123 LLC</p>
         <div class="app-actions"><a class="btn btn-accent" href="mailto:Business@joemet123.com?subject=WeightStock">Email Support</a></div>
         <nav class="app-siblings" aria-label="WeightStock pages"><a class="app-sibling is-current" href="/apps/weightstock/">Privacy Policy</a><a class="app-sibling" href="/apps/weightstock/contact/">Contact & Support</a></nav>
 
@@ -103,7 +103,9 @@
           <li><a href="#overview">Overview</a></li>
           <li><a href="#contact-and-support">Contact and support</a></li>
           <li><a href="#what-the-app-stores">What the app stores</a></li>
+          <li><a href="#backups-and-activity-log">Automatic backups and the activity log</a></li>
           <li><a href="#widgets">Widgets</a></li>
+          <li><a href="#apple-watch">Apple Watch</a></li>
           <li><a href="#weekly-summary">Weekly summary notification</a></li>
           <li><a href="#apple-health">Apple Health</a></li>
           <li><a href="#importing-exporting-and-sharing">Importing, exporting and sharing</a></li>
@@ -122,7 +124,7 @@
       <div class="legal-body">
 <section class="legal-sec" id="overview">
 <h2>Overview</h2>
-<p class="lede">WeightStock is a weight tracker for iPhone and iPad. It has no accounts, no sign-in and no servers of its own: your readings, notes and goal are stored on your device and never come to us.</p>
+<p class="lede">WeightStock is a weight tracker for iPhone, iPad and Apple Watch. It has no accounts, no sign-in and no servers of its own: your readings, notes and goal are stored on your device and never come to us.</p>
   <div class="card">
     <p>Your weight and health data never leave your device. The only third party that receives any data from the app is <strong>Google AdMob</strong>, which serves the one banner ad that keeps WeightStock free, and it receives no health or weight data. The app never asks to track you, so ads are not personalised. If you buy the optional WeightStock Pro purchase, the app stops requesting ads.</p>
   </div>
@@ -130,15 +132,24 @@
 <section class="legal-sec" id="contact-and-support">
 <h2>Contact and support</h2>
 <p>Questions, problems, feature requests or anything about your data: <a href="mailto:Business@joemet123.com?subject=WeightStock">Business@joemet123.com</a>. Put "WeightStock" in the subject and you will have a reply within 30 days. Joemet123 LLC is the data controller for this app.</p>
+  <p>"Send feedback" in the app's Settings, under Help, opens an email to that address in your mail app with the app's version, your iOS version and your device model filled in, so a problem can be reproduced. It contains none of your readings, and nothing is sent unless you send the email yourself.</p>
 </section>
 <section class="legal-sec" id="what-the-app-stores">
 <h2>What the app stores</h2>
 <p>The weights and body-fat percentages you log, the notes and tags you attach to them (a tag is a short label such as &ldquo;Salty meal&rdquo; or &ldquo;Travel&rdquo;, or words of your own), your goal, and your settings (units, direction, chart choices) are saved on your device, inside the app. Deleting a reading removes it; "Erase all data" in Settings removes everything; deleting the app removes all of it from that device. The app does not ask for your name, email address, contacts, photos, camera, microphone or location.</p>
-  <p>If you turn on the Face ID lock (WeightStock Pro), iOS checks your face, fingerprint or device passcode itself; the app only learns whether the check succeeded and never sees or stores biometric data. Your choice of app icon is a setting like any other.</p>
+  <p>If you turn on the Face ID lock (WeightStock Pro), iOS checks your face, fingerprint or device passcode itself; the app only learns whether the check succeeded and never sees or stores biometric data. Your choice of app icon or theme is a setting like any other.</p>
+</section>
+<section class="legal-sec" id="backups-and-activity-log">
+<h2>Automatic backups and the activity log</h2>
+<p>So your history is never lost, the app saves your readings, tags, notes and settings to a file inside the app on your device after every change, and keeps a copy once a day (the last two weeks, then one a month for a year) and before anything drastic, such as erasing everything or restoring a backup. It also keeps a short activity log: one line for each change to your readings, such as a reading logged, edited, deleted, imported or saved to Apple Health. These files stay on your device. You can see them in the Files app under On My iPhone › WeightStock, restore a backup from Settings › Data › Automatic backups, and they are part of your device's own backup if you use iCloud Backup or a computer, which Apple handles. The app never uploads them and never stores them in iCloud itself. "Erase all data" empties the app; deleting the app removes the files from that device.</p>
 </section>
 <section class="legal-sec" id="widgets">
 <h2>Widgets</h2>
-<p>If you add a WeightStock widget to your Home Screen, the app keeps a small snapshot for it to draw: your latest weight, recent readings and your goal. The snapshot is held in the iOS keychain on your device, in an access group shared only by the app and its widget. It is not backed up, not synced to other devices and never sent anywhere, and widgets show no ads. "Erase all data" in Settings removes it, and it is cleared again when the app is installed. If you delete the app, iOS may keep that small item until the app is next installed; no other app can read it.</p>
+<p>If you add a WeightStock widget to your Home Screen, Lock Screen or StandBy, the app keeps a small snapshot for it to draw: your latest weight, recent readings and your goal. The snapshot is held in the iOS keychain on your device, in an access group shared only by the app and its widget. It is not backed up, not synced to other devices and never sent anywhere, and widgets show no ads. "Erase all data" in Settings removes it, and it is cleared again when the app is installed. If you delete the app, iOS may keep that small item until the app is next installed; no other app can read it.</p>
+</section>
+<section class="legal-sec" id="apple-watch">
+<h2>Apple Watch</h2>
+<p>The WeightStock watch app shows your latest weight, the week's change and the last 30 days. The iPhone app sends it that snapshot through Apple's Watch Connectivity, directly between your iPhone and your paired watch; a weight you log on the watch goes back to the iPhone app the same way. Nothing passes through us. The watch keeps only the last snapshot and any weigh-in still waiting for your iPhone.</p>
 </section>
 <section class="legal-sec" id="weekly-summary">
 <h2>Weekly summary notification</h2>
@@ -146,12 +157,13 @@
 </section>
 <section class="legal-sec" id="apple-health">
 <h2>Apple Health</h2>
-<p>Apple Health is optional. If you choose to sync, iOS asks for permission to read four things: <strong>weight</strong>, <strong>body fat percentage</strong>, <strong>resting heart rate</strong> and <strong>blood pressure</strong>. Resting heart rate and blood pressure are shown under Other measurements, beside how your weight has moved, with a note that this is only what was logged and not medical advice. WeightStock only reads; it never writes anything to Apple Health. If you turn on "Sync when the app opens" in Settings, new readings are read on your device when you open the app. You can turn that off in Settings, and remove the app's access at any time in the Health app.</p>
-  <p>Data read from Apple Health is used only to draw your charts and work out the numbers shown in the app. It is never used for advertising or marketing, never given to Google or anyone else, and never sold.</p>
+<p>Apple Health is optional. If you choose to sync, iOS asks for permission to read four things: <strong>weight</strong>, <strong>body fat percentage</strong>, <strong>resting heart rate</strong> and <strong>blood pressure</strong>. Resting heart rate and blood pressure are shown under Other measurements, beside how your weight has moved, with a note that this is only what was logged and not medical advice. If you turn on "Sync when the app opens" in Settings, new readings are read on your device when you open the app. You can turn that off in Settings, and remove the app's access at any time in the Health app.</p>
+  <p>Writing to Apple Health is optional too, and off until you turn on "Save weigh-ins to Apple Health" in Settings. iOS then asks for permission to write <strong>weight</strong> and <strong>body fat percentage</strong>, and the app saves the weights and body fat you log in WeightStock, on your iPhone or your watch, to Apple Health, marked as entered by you. It never writes sample data or anything it did not get from you. Before its first write it keeps a copy of your Apple Health weight and body-fat history in a file on your device (Files › WeightStock › Apple Health Backup). When you edit or delete a reading in WeightStock, the app asks before it changes or deletes it in Apple Health, and it can only delete readings it saved itself; readings another app put into Apple Health are left for you to manage in the Health app. Each change it makes in Apple Health is noted in the activity log on your device.</p>
+  <p>Data read from or written to Apple Health is used only to draw your charts and work out the numbers shown in the app. It never leaves your device through the app, is never stored in iCloud by the app, is never used for advertising or marketing, never given to Google or anyone else, and never sold.</p>
 </section>
 <section class="legal-sec" id="importing-exporting-and-sharing">
 <h2>Importing, exporting and sharing</h2>
-<p>"Import data" reads a file you pick (an Apple Health export, or a CSV from RENPHO, Withings, Fitbit or another app) on your device; nothing is uploaded. Backups, CSV exports and PDF reports are files made on your device that go wherever you choose through the iOS share sheet. "Share your progress" draws an image on your device, with the WeightStock mark on it, which likewise goes only where you send it, and it can hide your actual weight so it shows changes only. We never receive any of these files or images.</p>
+<p>"Import data" reads a file you pick (an Apple Health export, or an export from RENPHO, Withings, Fitbit, Happy Scale, Libra, MyFitnessPal or another app) on your device; nothing is uploaded. Backups, CSV exports and PDF reports are files made on your device that go wherever you choose through the iOS share sheet. "Share your progress" draws an image on your device, with the WeightStock mark on it, which likewise goes only where you send it, and it can hide your actual weight so it shows changes only. We never receive any of these files or images.</p>
 </section>
 <section class="legal-sec" id="sample-data">
 <h2>Sample data</h2>
@@ -172,7 +184,7 @@
 </section>
 <section class="legal-sec" id="purchases-apple">
 <h2>Purchases (Apple)</h2>
-<p>The app sells exactly one thing: WeightStock Pro, an optional, one-time purchase (not a subscription). It unlocks custom chart ranges (any calendar month or any two dates), notes on readings, CSV and PDF export, the Face ID lock, the alternate app icons and the medium and large home-screen widgets, and it removes the banner ad; the app then stops requesting ads on every device signed in to your Apple Account. It is sold through Apple's in-app purchase system. Apple processes the payment and holds your payment details; the app only receives Apple's confirmation that the purchase completed. Purchases are governed by <a href="https://www.apple.com/legal/privacy/">Apple's Privacy Policy</a> and the App Store terms, and "Restore purchase" in Settings re-checks with Apple on a new device.</p>
+<p>The app sells exactly one thing: WeightStock Pro, an optional, one-time purchase (not a subscription). It unlocks custom chart ranges (any calendar month or any two dates), notes on readings, CSV and PDF export, the Face ID lock, the themes other than Night, the alternate app icons and the medium and large home-screen widgets, and it removes the banner ad; the app then stops requesting ads on every device signed in to your Apple Account. It is sold through Apple's in-app purchase system. Apple processes the payment and holds your payment details; the app only receives Apple's confirmation that the purchase completed. Purchases are governed by <a href="https://www.apple.com/legal/privacy/">Apple's Privacy Policy</a> and the App Store terms, and "Restore purchase" in Settings re-checks with Apple on a new device. A free 14-day trial of WeightStock Pro is offered as a separate, free in-app item: it costs nothing, never renews, and switches Pro off by itself after 14 days.</p>
 </section>
 <section class="legal-sec" id="ratings">
 <h2>App Store ratings</h2>
@@ -188,11 +200,11 @@
 </section>
 <section class="legal-sec" id="your-choices-and-rights">
 <h2>Your choices and rights</h2>
-<p>You control your data directly: edit or delete any reading in Settings, under All readings, back up or export everything, erase all data in Settings, remove Apple Health access in the Health app, or delete the app. In the EEA, the UK and Switzerland the "Privacy choices" button reopens Google's consent form. For data processed by Google AdMob, you can exercise your rights with Google as described in its privacy policy. If you live in a region with data protection rights such as access, correction or deletion, write to us at the address above and we will help.</p>
+<p>You control your data directly: edit or delete any reading in Settings, under All readings, back up or export everything, restore an automatic backup, erase all data in Settings, turn off saving to Apple Health, remove Apple Health access in the Health app, or delete the app. In the EEA, the UK and Switzerland the "Privacy choices" button reopens Google's consent form. For data processed by Google AdMob, you can exercise your rights with Google as described in its privacy policy. If you live in a region with data protection rights such as access, correction or deletion, write to us at the address above and we will help.</p>
 </section>
 <section class="legal-sec" id="security-and-retention">
 <h2>Security and retention</h2>
-<p>We operate no servers and hold no database, so there is nothing for us to retain, breach or hand over. Your readings and tags stay on your device until you delete them, and Google retains advertising data under its own policies.</p>
+<p>We operate no servers and hold no database, so there is nothing for us to retain, breach or hand over. Your readings, tags, automatic backups and activity log stay on your device until you delete them, and Google retains advertising data under its own policies.</p>
 </section>
 <section class="legal-sec" id="changes">
 <h2>Changes</h2>
