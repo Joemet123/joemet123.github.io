@@ -3909,9 +3909,12 @@ code.solver-code {
   background: var(--blue-bright);
   border-radius: 0 0 var(--radius-sm) 0;
   transform: translateY(-120%);
-  transition: transform var(--fast) var(--ease);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--fast) var(--ease), opacity var(--fast) var(--ease);
 }
-.skip-link:focus { transform: translateY(0); outline: 2px solid var(--ink); outline-offset: 2px; }
+.skip-link:focus { transform: translateY(0); opacity: 1; pointer-events: auto; outline: 2px solid var(--ink); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .skip-link { transition: none; } }
 
 .wip-banner--hard { --edge: var(--red); }
