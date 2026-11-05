@@ -18,16 +18,6 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-  <url><loc>https://joemet123.com/apps.html</loc><lastmod>2026-10-17</lastmod><priority>0.7</priority></url>
-  <url><loc>https://joemet123.com/apps/ezlightswitch/about/</loc><lastmod>2026-10-17</lastmod><priority>0.7</priority></url>
-  <url><loc>https://joemet123.com/apps/ezlightswitch/</loc><lastmod>2026-10-17</lastmod><priority>0.4</priority></url>
-  <url><loc>https://joemet123.com/apps/waterplay/about/</loc><lastmod>2026-10-10</lastmod><priority>0.7</priority></url>
-  <url><loc>https://joemet123.com/apps/waterplay/</loc><lastmod>2026-10-10</lastmod><priority>0.4</priority></url>
-  <url><loc>https://joemet123.com/apps/bubblepopfrenzy/about/</loc><lastmod>2026-10-10</lastmod><priority>0.7</priority></url>
-  <url><loc>https://joemet123.com/apps/bubblepopfrenzy/</loc><lastmod>2026-10-10</lastmod><priority>0.4</priority></url>
-  <url><loc>https://joemet123.com/apps/ezlightswitch/contact/</loc><lastmod>2026-10-17</lastmod><priority>0.3</priority></url>
-  <url><loc>https://joemet123.com/apps/waterplay/contact/</loc><lastmod>2026-10-10</lastmod><priority>0.3</priority></url>
-  <url><loc>https://joemet123.com/apps/bubblepopfrenzy/contact/</loc><lastmod>2026-10-10</lastmod><priority>0.3</priority></url>
   <url><loc>https://joemet123.com/guides.html</loc><lastmod>2026-10-08</lastmod><priority>0.8</priority></url>
   <url><loc>https://joemet123.com/guides/ashes-necrofluid-gauntlet-wonder-weapon.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
   <url><loc>https://joemet123.com/guides/ashes-of-the-damned-early-game-strategy.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
@@ -39,9 +29,4 @@
   <url><loc>https://joemet123.com/guides/kowakujo-main-easter-egg.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
   <url><loc>https://joemet123.com/guides/totenreich-main-easter-egg.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
   <url><loc>https://joemet123.com/guides/totenreich-viking-helmets.html</loc><lastmod>2026-10-08</lastmod><priority>0.7</priority></url>
-  <url><loc>https://joemet123.com/apps/simpleslotz/about/</loc><lastmod>2026-10-09</lastmod><priority>0.6</priority><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-01.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-02.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-03.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-04.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-05.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-06.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-07.jpg</image:loc></image:image><image:image><image:loc>https://joemet123.com/apps/simpleslotz/img/shot-08.jpg</image:loc></image:image></url>
-  <url><loc>https://joemet123.com/apps/simpleslotz/machines/</loc><lastmod>2026-10-09</lastmod><priority>0.6</priority></url>
-  <url><loc>https://joemet123.com/apps/simpleslotz/</loc><lastmod>2026-10-09</lastmod><priority>0.5</priority></url>
-  <url><loc>https://joemet123.com/apps/simpleslotz/contact/</loc><lastmod>2026-10-09</lastmod><priority>0.4</priority></url>
-  <url><loc>https://joemet123.com/apps/simpleslotz/terms/</loc><lastmod>2026-10-09</lastmod><priority>0.3</priority></url>
 </urlset>
