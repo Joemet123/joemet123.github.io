@@ -1,0 +1,34 @@
+name: Latest videos and live status
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: latest-videos
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - run: node .github/scripts/latest-videos.mjs
+      - run: node .github/scripts/live-status.mjs
+      - name: Commit when anything changed
+        run: |
+          if git diff --quiet -- assets/data; then exit 0; fi
+          git config user.name 'Joemet123'
+          git config user.email '92001883+Joemet123@users.noreply.github.com'
+          git add assets/data/videos.json assets/data/live.json
+          git commit -m 'Update latest videos and live status'
+          git pull --rebase origin main
+          git push origin HEAD:main

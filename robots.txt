@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://joemet123.com/sitemap.xml
