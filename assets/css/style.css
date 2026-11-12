@@ -6121,43 +6121,6 @@ html.merch-modal-open { overflow: hidden; }
 
 .panel-lede { margin: 0 0 0.9rem; font-size: 0.95rem; font-weight: 600; line-height: 1.55; color: var(--ink); }
 
-.size-guide {
-  margin-bottom: 1.5rem;
-  padding: 1.2rem 1.3rem;
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
-  --edge: var(--blue);
-  position: relative;
-  border-radius: var(--radius);
-}
-.size-title { margin: 0 0 0.8rem; font-size: 1.05rem; font-weight: 800; color: var(--ink); }
-.size-list { display: grid; margin: 0; padding: 0; list-style: none; }
-.size-list li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0.15rem;
-  padding: 0.65rem 0;
-  border-top: 1px solid var(--line);
-}
-.size-list li:first-child { border-top: 0; padding-top: 0.2rem; }
-.size-item { font-size: 0.92rem; font-weight: 700; color: var(--ink-mid); }
-.size-val { font-size: 0.98rem; font-weight: 800; color: var(--blue-bright); }
-.size-note {
-  margin: 0.9rem 0 0;
-  padding: 0.8rem 0.95rem;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: var(--ink-mid);
-  background: var(--surface-2);
-  --edge: var(--orange);
-  position: relative;
-  border-radius: var(--radius-sm);
-}
-.size-note strong { color: var(--ink); }
-@media (min-width: 640px) {
-  .size-list li { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: baseline; gap: 1rem; }
-}
-
 /* Written guides */
 .pg-guide .guide { max-width: 76rem; margin: 0 auto; }
 
