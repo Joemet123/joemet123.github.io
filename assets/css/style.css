@@ -483,6 +483,18 @@ ul, ol { padding-left: 1.4em; }
   border-color: color-mix(in srgb, var(--red) 60%, var(--line));
 }
 
+.notice--heads {
+  max-width: 46rem;
+  margin: 0.9rem 0 0;
+  padding: 0.7rem 1rem;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--yellow) 9%, var(--surface));
+  border-color: color-mix(in srgb, var(--yellow) 50%, var(--line));
+}
+.notice--heads strong { color: var(--yellow); }
+.notice--heads a { text-decoration: underline; text-underline-offset: 2px; }
+main.solvers-page--console .solver-hero .notice--heads { margin-inline: auto; }
+
 /* Buttons */
 .btn {
   display: inline-flex;
