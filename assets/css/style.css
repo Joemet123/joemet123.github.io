@@ -6165,6 +6165,10 @@ html.merch-modal-open { overflow: hidden; }
   .guide-card:hover { border-color: var(--blue); transform: translateY(-3px); }
 }
 
+.home-guides-list { grid-template-columns: 1fr; }
+@media (min-width: 600px) { .home-guides-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 960px) { .home-guides-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
 :root { --yellow: #FFD23F; }
 
 /* Game pick cards */
